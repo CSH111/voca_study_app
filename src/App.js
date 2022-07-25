@@ -1,6 +1,8 @@
 import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
+import { WordsList } from "./components/WordsList";
+import { Create } from "./routes/Create";
 import { Home } from "./routes/Home";
 
 function App() {
@@ -9,8 +11,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route />
-        <Route />
+        <Route path="/create" element={<Create />} />
+        <Route path="/:topic" element={<WordsList />} />
       </Routes>
     </BrowserRouter>
   );
