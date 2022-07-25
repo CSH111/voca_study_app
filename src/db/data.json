@@ -1,0 +1,36 @@
+{
+  "topic": [
+    { "id": 1, "topic": "1일차" },
+    { "id": 2, "topic": "중간고사" }
+  ],
+  "words": [
+    {
+      "id": 1,
+      "topic": "1일차",
+      "eng": "book",
+      "kor": "책",
+      "isDone": "false"
+    },
+    {
+      "id": 2,
+      "topic": "1일차",
+      "eng": "love",
+      "kor": "사랑",
+      "isDone": "false"
+    },
+    {
+      "id": 3,
+      "topic": "중간고사",
+      "eng": "computer",
+      "kor": "컴퓨터",
+      "isDone": "false"
+    },
+    {
+      "id": 4,
+      "topic": "중간고사",
+      "eng": "note",
+      "kor": "필기하다",
+      "isDone": "false"
+    }
+  ]
+}
