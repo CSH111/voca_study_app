@@ -1,16 +1,25 @@
 {
   "topics": [
-    { "id": 1, "topic": "1일차" },
-    { "id": 2, "topic": "중간고사" },
-    { "id": 3, "topic": "중요단어" }
+    {
+      "id": 1,
+      "topic": "1일차"
+    },
+    {
+      "id": 2,
+      "topic": "중간고사"
+    },
+    {
+      "id": 3,
+      "topic": "중요단어"
+    }
   ],
   "words": [
     {
-      "id": 1,
-      "topic": "1일차",
-      "eng": "book",
-      "kor": "책",
-      "isDone": "false"
+      "day": "1",
+      "eng": "love",
+      "kor": "사랑",
+      "isDone": false,
+      "id": 1
     },
     {
       "id": 2,
@@ -27,11 +36,11 @@
       "isDone": "false"
     },
     {
-      "id": 4,
-      "topic": "중간고사",
-      "eng": "note",
-      "kor": "필기하다",
-      "isDone": "false"
+      "day": 1,
+      "eng": "love",
+      "kor": "랄랄",
+      "isDone": true,
+      "id": 4
     }
   ]
 }

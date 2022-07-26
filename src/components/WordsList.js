@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import dummy from "../db/data.json";
+import { Wordrow } from "./WordRow";
 
-export function WordsList() {
-  const { topic } = useParams();
-
+export function WordsList({ topic }) {
   const [words, setWords] = useState([]);
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic}`)
@@ -15,14 +13,9 @@ export function WordsList() {
   return (
     <table>
       <tbody>
-        {words.map((word) => {
-          return (
-            <tr key={word.id}>
-              <td>{word.eng}</td>
-              <td>{word.kor}</td>
-            </tr>
-          );
-        })}
+        {words.map((word) => (
+          <Wordrow word={word} />
+        ))}
       </tbody>
     </table>
   );
