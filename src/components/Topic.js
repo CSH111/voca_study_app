@@ -1,8 +1,11 @@
-export default function Topic() {
+import { Link } from "react-router-dom";
+
+export default function Topic({ topic }) {
   return (
-    <div className="topic">
-      <h3>토픽1</h3>
-      <div>5/10</div>
-    </div>
+    <Link to={`/${topic.topic}`}>
+      <div>
+        <h3>{topic.topic}</h3> <span>5/10</span>
+      </div>
+    </Link>
   );
 }
