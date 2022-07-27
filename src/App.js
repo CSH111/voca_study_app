@@ -1,7 +1,6 @@
 import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
-import { WordsList } from "./components/WordsList";
 import { Create } from "./routes/Create";
 import { Detail } from "./routes/Detail";
 import { Home } from "./routes/Home";
@@ -13,7 +12,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
-        {/* <Route path="/:topic" element={<WordsList />} /> */}
         <Route path="/:topic" element={<Detail />} />
       </Routes>
     </BrowserRouter>

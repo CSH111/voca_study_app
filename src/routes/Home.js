@@ -10,7 +10,6 @@ export function Home() {
       .then((response) => response.json())
       .then((data) => setTopics(data));
   }, []);
-  console.log(topics);
   return (
     <>
       <Link to={"/create"}>

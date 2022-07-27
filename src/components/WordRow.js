@@ -1,6 +1,6 @@
 export function Wordrow({ word }) {
   return (
-    <tr key={word.id}>
+    <tr>
       <td>
         <input type="checkbox" name="" id="" />
       </td>
