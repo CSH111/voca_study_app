@@ -15,60 +15,25 @@
   ],
   "words": [
     {
-      "topic": "1",
-      "eng": "love",
-      "kor": "사랑",
-      "isDone": false,
-      "id": 1
-    },
-    {
-      "id": 2,
       "topic": "1일차",
-      "eng": "love",
-      "kor": "사랑",
-      "isDone": "false"
-    },
-    {
-      "id": 3,
-      "topic": "중간고사",
-      "eng": "computer",
-      "kor": "컴퓨터",
-      "isDone": "false"
+      "eng": "good",
+      "kor": "좋은",
+      "isDone": false,
+      "id": 2
     },
     {
       "topic": "중간고사",
-      "eng": "big",
-      "kor": "큰",
+      "eng": "true",
+      "kor": "진실",
       "isDone": false,
-      "id": 7
+      "id": 3
     },
     {
       "topic": "중간고사",
-      "eng": "bad",
-      "kor": "나쁜",
+      "eng": "false",
+      "kor": "거짓",
       "isDone": false,
-      "id": 8
-    },
-    {
-      "topic": "중요단어",
-      "eng": "star",
-      "kor": "별",
-      "isDone": false,
-      "id": 9
-    },
-    {
-      "topic": "1일차",
-      "eng": "home",
-      "kor": "집",
-      "isDone": false,
-      "id": 10
-    },
-    {
-      "topic": "중간고사",
-      "eng": "season",
-      "kor": "계절",
-      "isDone": false,
-      "id": 11
+      "id": 4
     }
   ]
 }

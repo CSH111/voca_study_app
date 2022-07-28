@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function Wordrow({ word }) {
   const [isDeleted, setIsDeleted] = useState(false);
+  const [isDone, setIsDone] = useState(word.isDone);
   function handleDelBtn() {
     fetch(`http://localhost:3001/words/${word.id}`, {
       method: "DELETE",
@@ -9,12 +10,32 @@ export function Wordrow({ word }) {
       response.ok && setIsDeleted(true);
     });
   }
+  function handleIsDone() {
+    fetch(`http://localhost:3001/words/${word.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...word,
+        isDone: !word.isDone,
+      }),
+    }).then((response) => {
+      response.ok && setIsDone(!isDone);
+    });
+  }
   return (
     <>
       {isDeleted ? null : (
         <tr>
           <td>
-            <input type="checkbox" name="" id="" />
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              onChange={handleIsDone}
+              checked={isDone}
+            />
           </td>
           <td>{word.eng}</td>
           <td>{word.kor}</td>
