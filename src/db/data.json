@@ -36,20 +36,6 @@
       "isDone": "false"
     },
     {
-      "topic": "1일차",
-      "eng": "car",
-      "kor": "차",
-      "isDone": false,
-      "id": 5
-    },
-    {
-      "topic": "중간고사",
-      "eng": "middle",
-      "kor": "중간의",
-      "isDone": false,
-      "id": 6
-    },
-    {
       "topic": "중간고사",
       "eng": "big",
       "kor": "큰",
@@ -62,6 +48,27 @@
       "kor": "나쁜",
       "isDone": false,
       "id": 8
+    },
+    {
+      "topic": "중요단어",
+      "eng": "star",
+      "kor": "별",
+      "isDone": false,
+      "id": 9
+    },
+    {
+      "topic": "1일차",
+      "eng": "home",
+      "kor": "집",
+      "isDone": false,
+      "id": 10
+    },
+    {
+      "topic": "중간고사",
+      "eng": "season",
+      "kor": "계절",
+      "isDone": false,
+      "id": 11
     }
   ]
 }

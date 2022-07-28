@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { WordsList } from "../components/WordsList";
 
@@ -7,7 +7,7 @@ export function Detail() {
   const inputWord = useRef();
   const inputMeaning = useRef();
   const [update, setUpdate] = useState(false);
-  function onClick(e) {
+  function handleClick(e) {
     e.preventDefault();
     const newWord = {
       topic: topic,
@@ -15,16 +15,15 @@ export function Detail() {
       kor: inputMeaning.current.value,
       isDone: false,
     };
-    [inputWord, inputMeaning].forEach((dom) => (dom.current.value = ""));
+    [inputWord, inputMeaning].forEach((elem) => (elem.current.value = ""));
     fetch("http://localhost:3001/words", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newWord),
-    }).then(() => {
-      console.log("다됨");
-      setUpdate(!update);
+    }).then((response) => {
+      response.ok && setUpdate(!update);
     });
   }
   return (
@@ -35,7 +34,7 @@ export function Detail() {
         <input type="text" id="inputWord" ref={inputWord} />
         <label htmlFor="inputMeaning">뜻</label>
         <input type="text" id="inputMeaning" ref={inputMeaning} />
-        <button onClick={onClick}>단어추가</button>
+        <button onClick={handleClick}>단어추가</button>
       </form>
       <WordsList topic={topic} update={update} />
     </>

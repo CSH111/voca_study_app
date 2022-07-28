@@ -4,6 +4,7 @@ import { Wordrow } from "./WordRow";
 
 export function WordsList({ topic, update }) {
   const [words, setWords] = useState([]);
+
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic}`)
       .then((response) => response.json())
