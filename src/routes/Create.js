@@ -1,7 +1,11 @@
+import React, { useRef, useState } from "react";
+
 export function Create() {
-  const createEmptyPlace = function () {
+  const tbody = useRef();
+  const createEmptyPlace = () => {
     const result = [];
-    for (let i = 0; i < 5; i++) {
+    const emptySpaceNumber = 4;
+    for (let i = 0; i < emptySpaceNumber; i++) {
       result.push(
         <tr key={i}>
           <td>
@@ -14,6 +18,27 @@ export function Create() {
       );
     }
     return result;
+  };
+  const [morePlace, setMorePlace] = useState([]);
+  const createMorePlace = (e) => {
+    e.preventDefault();
+    setMorePlace([
+      ...morePlace,
+      <tr key={Date.now()}>
+        <td>
+          <input type="text" />
+        </td>
+        <td>
+          <input type="text" />
+        </td>
+      </tr>,
+    ]);
+  };
+  // console.log(tbody.current.childNodes);
+  const createWords = (e) => {
+    e.preventDefault();
+    console.log("crt");
+    fetch("http://localhost:3001/topics", {});
   };
   return (
     <div className="create">
@@ -28,10 +53,13 @@ export function Create() {
               <td>뜻</td>
             </tr>
           </thead>
-          <tbody>{createEmptyPlace()}</tbody>
+          <tbody ref={tbody}>
+            {createEmptyPlace()}
+            {morePlace}
+          </tbody>
         </table>
-        <button>+</button>
-        <div></div> <button>생성</button>
+        <button onClick={createMorePlace}>+</button>
+        <div></div> <button onClick={createWords}>생성</button>
       </form>
     </div>
   );
