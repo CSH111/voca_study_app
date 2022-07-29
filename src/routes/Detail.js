@@ -7,6 +7,7 @@ export function Detail() {
   const inputWord = useRef();
   const inputMeaning = useRef();
   const [update, setUpdate] = useState(false);
+
   function handleClick(e) {
     e.preventDefault();
     const newWord = {
