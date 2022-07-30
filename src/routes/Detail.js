@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { WordsList } from "../components/WordsList";
 
-export function Detail() {
+function Detail() {
   const { topic } = useParams();
   const inputWord = useRef();
   const inputMeaning = useRef();
@@ -41,3 +41,5 @@ export function Detail() {
     </>
   );
 }
+
+export default Detail;

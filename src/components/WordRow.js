@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 export function Wordrow({ word }) {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isDone, setIsDone] = useState(word.isDone);
+
   function handleDelBtn() {
     fetch(`http://localhost:3001/words/${word.id}`, {
       method: "DELETE",
