@@ -37,7 +37,8 @@ function Detail() {
         <input type="text" id="inputMeaning" ref={inputMeaning} />
         <button onClick={handleClick}>단어추가</button>
       </form>
-      <WordsList topic={topic} update={update} />
+      <hr />
+      <WordsList topic={topic} updateState={update} />
     </>
   );
 }

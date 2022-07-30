@@ -41,6 +41,7 @@ const Topic = ({ topic }) => {
         </div>
       </Link>
       <button onClick={onDeleteBtnCLick}>토픽삭제</button>
+      <button onClick={onDeleteBtnCLick}>토픽수정</button>
     </li>
   );
 };

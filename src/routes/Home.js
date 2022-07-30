@@ -17,5 +17,9 @@ function Home() {
 
 export default Home;
 
-//할거 컴포넌트간 state공유 방법 공부
-//creator 에서 topic list로 넘겨줘서 렌더링 시키도록
+// 할거
+// 1.topic이름,단어 수정기능
+// 2.단어 몇개 인지 표시기능
+// 3.fetch 최적화 가능?
+// 4.시험 기능 (카드넘기기)
+// 5.북마크
