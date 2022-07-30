@@ -7,7 +7,7 @@ const TopicList = function () {
     fetch("http://localhost:3001/topics")
       .then((response) => response.json())
       .then((data) => setTopics(data));
-  }, []);
+  });
   return (
     <>
       <ul>

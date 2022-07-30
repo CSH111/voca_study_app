@@ -1,46 +1,25 @@
 {
   "topics": [
     {
-      "id": 1,
-      "topic": "1일차"
-    },
-    {
-      "id": 2,
-      "topic": "중간고사"
-    },
-    {
-      "id": 3,
-      "topic": "중요단어"
-    }
-  ],
-  "words": [
-    {
-      "topic": "1일차",
-      "eng": "good",
-      "kor": "좋은",
-      "isDone": false,
-      "id": 1
-    },
-    {
-      "topic": "1일차",
-      "eng": "bad ",
-      "kor": "나쁜",
-      "isDone": false,
+      "topic": "2일차",
       "id": 2
     },
     {
-      "topic": "중간고사",
-      "eng": "love",
-      "kor": "사랑",
-      "isDone": false,
+      "topic": "3일차",
       "id": 3
     },
     {
       "topic": "중간고사",
-      "eng": "keep",
-      "kor": "유지하다",
-      "isDone": false,
       "id": 4
+    }
+  ],
+  "words": [
+    {
+      "topic": "3일차",
+      "eng": "love",
+      "kor": "사랑",
+      "isDone": true,
+      "id": 1
     }
   ]
 }
