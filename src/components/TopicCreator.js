@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const TopicCreator = function () {
+const TopicCreator = function ({ onUpdate }) {
   const [topicValue, setTopicValue] = useState("");
   const createWords = (e) => {
     e.preventDefault();
@@ -14,6 +14,7 @@ const TopicCreator = function () {
       }).then(() => {
         alert("등록완료");
         setTopicValue("");
+        onUpdate();
       });
   };
   return (

@@ -10,10 +10,10 @@ const Topic = ({ topic }) => {
   };
   const deleteWords = () => {
     fetch(`http://localhost:3001/words?topic=${topic.topic}`)
-      .then((res) => res.json())
-      .then((data) => data.map((word) => word.id))
-      .then((data) => {
-        data.forEach((id) => {
+      .then((response) => response.json())
+      .then((words) => words.map((word) => word.id))
+      .then((ids) => {
+        ids.forEach((id) => {
           fetch(`http://localhost:3001/words/${id}`, {
             method: "DELETE",
           });
@@ -22,18 +22,26 @@ const Topic = ({ topic }) => {
   };
 
   const onDeleteBtnCLick = () => {
-    deleteTopic().then(() => deleteWords());
+    deleteTopic()
+      .then(() => deleteWords())
+      .then(() => {
+        setIsDeleted(true);
+      })
+      .catch(() => alert("삭제실패"));
   };
 
+  if (isDeleted) {
+    return null;
+  }
   return (
-    <>
+    <li>
       <Link to={`/${topic.topic}`}>
         <div>
           <h3>{topic.topic}</h3> <span>5/10</span>
         </div>
       </Link>
       <button onClick={onDeleteBtnCLick}>토픽삭제</button>
-    </>
+    </li>
   );
 };
 export default Topic;

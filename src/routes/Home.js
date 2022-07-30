@@ -1,11 +1,16 @@
+import { useState } from "react";
 import TopicCreator from "../components/TopicCreator";
 import TopicList from "../components/TopicList";
 
 function Home() {
+  const [updateState, setUpdateState] = useState(false);
+  const changeState = () => {
+    setUpdateState(!updateState);
+  };
   return (
     <>
-      <TopicCreator />
-      <TopicList />
+      <TopicCreator onUpdate={changeState} />
+      <TopicList updateState={updateState} />
     </>
   );
 }

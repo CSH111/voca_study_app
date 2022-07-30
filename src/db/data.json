@@ -1,25 +1,36 @@
 {
   "topics": [
     {
-      "topic": "2일차",
+      "topic": "1일차",
+      "id": 1
+    },
+    {
+      "topic": "ㅇㅇ",
       "id": 2
     },
     {
-      "topic": "3일차",
+      "topic": "ㅎㅇ",
       "id": 3
     },
     {
-      "topic": "중간고사",
+      "topic": "ㅗㅗ",
       "id": 4
     }
   ],
   "words": [
     {
-      "topic": "3일차",
-      "eng": "love",
-      "kor": "사랑",
-      "isDone": true,
+      "topic": "1일차",
+      "eng": "joy",
+      "kor": "기쁨",
+      "isDone": false,
       "id": 1
+    },
+    {
+      "topic": "1일차",
+      "eng": "ㄷㄷ",
+      "kor": "ㄷ",
+      "isDone": false,
+      "id": 2
     }
   ]
 }
