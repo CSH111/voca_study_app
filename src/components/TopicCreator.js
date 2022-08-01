@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UpdateContext } from "../context/UpdateContext";
 
-const TopicCreator = function ({ onUpdate }) {
+const TopicCreator = function () {
   const [topicValue, setTopicValue] = useState("");
+  const { updateState, setUpdateState } = useContext(UpdateContext);
   const createWords = (e) => {
     e.preventDefault();
     topicValue.trim() &&
@@ -12,9 +14,8 @@ const TopicCreator = function ({ onUpdate }) {
         },
         body: JSON.stringify({ topic: topicValue }),
       }).then(() => {
-        alert("등록완료");
         setTopicValue("");
-        onUpdate();
+        setUpdateState(!updateState);
       });
   };
   return (

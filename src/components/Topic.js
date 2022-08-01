@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { UpdateContext } from "../context/UpdateContext";
 
-const Topic = ({ topic, onUpdate }) => {
+const Topic = ({ topic }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
+  const { updateState, setUpdateState } = useContext(UpdateContext);
 
   const deleteTopic = () => {
     return fetch(`http://localhost:3001/topics/${topic.id}`, {
@@ -70,7 +72,7 @@ const Topic = ({ topic, onUpdate }) => {
   const modifyData = () => {
     modifyWords()
       .then(() => modifyTopic())
-      .then(() => onUpdate())
+      .then(() => setUpdateState(!updateState))
       .then(() => setIsModifying(false));
   };
   if (isDeleted) {

@@ -1,23 +1,21 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { UpdateContext } from "../context/UpdateContext";
 import { Wordrow } from "./WordRow";
 
-export function WordsList({ topic, updateState }) {
+export function WordsList({ topic }) {
   const [words, setWords] = useState([]);
-  const [modifyingUpdate, setModifyingUpdate] = useState(false);
-  const changeModifyingState = () => {
-    setModifyingUpdate(!modifyingUpdate);
-  };
+  const { updateState } = useContext(UpdateContext);
+
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic}`)
       .then((response) => response.json())
       .then((data) => setWords(data));
-  }, [updateState, modifyingUpdate]);
+  }, [updateState]);
   return (
     <table>
       <tbody>
         {words.map((word) => (
-          <Wordrow word={word} key={word.id} onUpdate={changeModifyingState} />
+          <Wordrow word={word} key={word.id} />
         ))}
       </tbody>
     </table>

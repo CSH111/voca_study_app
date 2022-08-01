@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UpdateContext } from "../context/UpdateContext";
 import Topic from "./Topic";
 
-const TopicList = function ({ updateState, onUpdate }) {
+const TopicList = function () {
   const [topics, setTopics] = useState([]);
+  const { updateState } = useContext(UpdateContext);
+
   useEffect(() => {
     fetch("http://localhost:3001/topics")
       .then((response) => response.json())
@@ -12,7 +15,7 @@ const TopicList = function ({ updateState, onUpdate }) {
     <>
       <ul>
         {topics.map((topic) => (
-          <Topic topic={topic} key={topic.id} onUpdate={onUpdate} />
+          <Topic topic={topic} key={topic.id} />
         ))}
       </ul>
     </>

@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { WordsList } from "../components/WordsList";
+import { UpdateContext } from "../context/UpdateContext";
 
 function Detail() {
   const { topic } = useParams();
   const inputWord = useRef();
   const inputMeaning = useRef();
-  const [update, setUpdate] = useState(false);
+  const { updateState, setUpdateState } = useContext(UpdateContext);
 
-  function handleClick(e) {
+  function addWord(e) {
     e.preventDefault();
     const newWord = {
       topic: topic,
@@ -24,7 +25,7 @@ function Detail() {
       },
       body: JSON.stringify(newWord),
     }).then((response) => {
-      response.ok && setUpdate(!update);
+      response.ok && setUpdateState(!updateState);
     });
   }
   return (
@@ -35,10 +36,10 @@ function Detail() {
         <input type="text" id="inputWord" ref={inputWord} />
         <label htmlFor="inputMeaning">뜻</label>
         <input type="text" id="inputMeaning" ref={inputMeaning} />
-        <button onClick={handleClick}>단어추가</button>
+        <button onClick={addWord}>단어추가</button>
       </form>
       <hr />
-      <WordsList topic={topic} updateState={update} />
+      <WordsList topic={topic} />
     </>
   );
 }

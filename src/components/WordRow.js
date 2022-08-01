@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useContext, useState } from "react";
+import { UpdateContext } from "../context/UpdateContext";
 
-export function Wordrow({ word, onUpdate }) {
+export function Wordrow({ word }) {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
   const [isDone, setIsDone] = useState(word.isDone);
+  const { updateState, setUpdateState } = useContext(UpdateContext);
 
   function handleDelBtn() {
     fetch(`http://localhost:3001/words/${word.id}`, {
@@ -38,7 +40,7 @@ export function Wordrow({ word, onUpdate }) {
         kor: meaningValue,
       }),
     }).then(() => {
-      onUpdate();
+      setUpdateState(!updateState);
       setIsModifying(false);
     });
   };
