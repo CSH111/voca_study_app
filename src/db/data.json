@@ -1,16 +1,24 @@
 {
   "topics": [
     {
-      "topic": "1일차",
+      "topic": "월요일2",
       "id": 1
+    },
+    {
+      "topic": "화요일",
+      "id": 2
+    },
+    {
+      "topic": "ㅇㅇ",
+      "id": 3
     }
   ],
   "words": [
     {
-      "topic": "1일차",
-      "eng": "love",
-      "kor": "사랑2",
-      "isDone": true,
+      "topic": "월요일2",
+      "eng": "keep",
+      "kor": "유지하다",
+      "isDone": false,
       "id": 1
     }
   ]

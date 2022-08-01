@@ -10,7 +10,7 @@ function Home() {
   return (
     <>
       <TopicCreator onUpdate={changeState} />
-      <TopicList updateState={updateState} />
+      <TopicList updateState={updateState} onUpdate={changeState} />
     </>
   );
 }

@@ -39,15 +39,15 @@ export function Wordrow({ word, onUpdate }) {
       }),
     }).then(() => {
       onUpdate();
-      setIsModifying(!isModifying);
+      setIsModifying(false);
     });
   };
   const [wordValue, setWordValue] = useState(word.eng);
   const [meaningValue, setMeaningValue] = useState(word.kor);
-  const handleWordChange = (e) => {
+  const handleWordInput = (e) => {
     setWordValue(e.target.value);
   };
-  const handleMeaningChange = (e) => {
+  const handleMeaningInput = (e) => {
     setMeaningValue(e.target.value);
   };
   if (isDeleted) {
@@ -57,13 +57,13 @@ export function Wordrow({ word, onUpdate }) {
     return (
       <tr>
         <td>
-          <input type="text" value={wordValue} onChange={handleWordChange} />
+          <input type="text" value={wordValue} onChange={handleWordInput} />
         </td>
         <td>
           <input
             type="text"
             value={meaningValue}
-            onChange={handleMeaningChange}
+            onChange={handleMeaningInput}
           />
         </td>
         <td>
@@ -95,7 +95,7 @@ export function Wordrow({ word, onUpdate }) {
         <button onClick={handleDelBtn}>삭제</button>
       </td>
       <td>
-        <button onClick={() => setIsModifying(!isModifying)}>수정</button>
+        <button onClick={() => setIsModifying(true)}>수정</button>
       </td>
     </tr>
   );
