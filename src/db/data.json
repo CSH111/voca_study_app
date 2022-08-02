@@ -1,7 +1,7 @@
 {
   "topics": [
     {
-      "topic": "월요일2",
+      "topic": "월요일23",
       "id": 1
     },
     {
@@ -11,35 +11,35 @@
   ],
   "words": [
     {
-      "topic": "월요일2",
+      "topic": "월요일23",
       "eng": "keep3ㅋ",
       "kor": "유지하다13",
-      "isDone": false,
+      "isDone": true,
       "id": 1
     },
     {
-      "topic": "월요일2",
+      "topic": "월요일23",
       "eng": "ㅇ",
       "kor": "ㅇ",
-      "isDone": false,
+      "isDone": true,
       "id": 4
     },
     {
       "topic": "11",
       "eng": "ㅋㅋ",
       "kor": "ㅋ",
-      "isDone": false,
+      "isDone": true,
       "id": 5
     },
     {
-      "topic": "월요일2",
+      "topic": "월요일23",
       "eng": "ㅋ",
       "kor": "ㅋㅇㅇ",
-      "isDone": false,
+      "isDone": true,
       "id": 6
     },
     {
-      "topic": "월요일2",
+      "topic": "월요일23",
       "eng": "ㅋ",
       "kor": "",
       "isDone": false,

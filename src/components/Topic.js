@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UpdateContext } from "../context/UpdateContext";
 
@@ -6,6 +6,16 @@ const Topic = ({ topic }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
   const { updateState, setUpdateState } = useContext(UpdateContext);
+  const [wordsAmount, setWordsAmount] = useState("");
+  const [wordsDoneAmount, setWordsDoneAmount] = useState("");
+  useEffect(() => {
+    fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
+      .then((response) => response.json())
+      .then((data) => {
+        setWordsAmount(data.length);
+        setWordsDoneAmount(data.filter((word) => word.isDone).length);
+      });
+  }, []);
 
   const deleteTopic = () => {
     return fetch(`http://localhost:3001/topics/${topic.id}`, {
@@ -84,7 +94,9 @@ const Topic = ({ topic }) => {
         <input type="text" value={topicValue} onChange={handleTopicInput} />
         <button onClick={modifyData}>완료</button>
 
-        <div>5/10</div>
+        <div>
+          {wordsDoneAmount}/{wordsAmount}
+        </div>
       </li>
     );
   }
@@ -93,7 +105,9 @@ const Topic = ({ topic }) => {
       <Link to={`/${topic.topic}`}>
         <h3>{topic.topic}</h3>
       </Link>
-      <span>5/10</span>
+      <span>
+        {wordsDoneAmount}/{wordsAmount}
+      </span>
       <button onClick={onDeleteBtnCLick}>토픽삭제</button>
       <button onClick={() => setIsModifying(true)}>수정</button>
     </li>
