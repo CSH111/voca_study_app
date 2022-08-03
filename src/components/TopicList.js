@@ -1,16 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { UpdateContext } from "../context/UpdateContext";
+import useFetch from "../hook/useFetch";
+import Loading from "./Loading";
 import Topic from "./Topic";
 
 const TopicList = function () {
-  const [topics, setTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { updateState } = useContext(UpdateContext);
 
-  useEffect(() => {
-    fetch("http://localhost:3001/topics")
-      .then((response) => response.json())
-      .then((data) => setTopics(data));
-  }, [updateState]);
+  const topics = useFetch(
+    `http://localhost:3001/topics`,
+    updateState,
+    setLoading
+  );
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <ul>

@@ -1,49 +1,28 @@
 {
   "topics": [
     {
-      "topic": "월요일23",
+      "topic": "1일차",
       "id": 1
     },
     {
-      "topic": "11",
+      "topic": "ㅋㅋ",
       "id": 2
     }
   ],
   "words": [
     {
-      "topic": "월요일23",
-      "eng": "keep3ㅋ",
-      "kor": "유지하다13",
-      "isDone": true,
+      "topic": "1일차",
+      "eng": "love",
+      "kor": "사랑",
+      "isDone": false,
       "id": 1
     },
     {
-      "topic": "월요일23",
-      "eng": "ㅇ",
-      "kor": "ㅇ",
-      "isDone": true,
-      "id": 4
-    },
-    {
-      "topic": "11",
-      "eng": "ㅋㅋ",
-      "kor": "ㅋ",
-      "isDone": true,
-      "id": 5
-    },
-    {
-      "topic": "월요일23",
-      "eng": "ㅋ",
-      "kor": "ㅋㅇㅇ",
-      "isDone": true,
-      "id": 6
-    },
-    {
-      "topic": "월요일23",
-      "eng": "ㅋ",
-      "kor": "",
+      "topic": "1일차",
+      "eng": "keep",
+      "kor": "유지하다",
       "isDone": false,
-      "id": 7
+      "id": 2
     }
   ]
 }

@@ -1,16 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { UpdateContext } from "../context/UpdateContext";
+import useFetch from "../hook/useFetch";
+import Loading from "./Loading";
 import { Wordrow } from "./WordRow";
 
 export function WordsList({ topic }) {
-  const [words, setWords] = useState([]);
   const { updateState } = useContext(UpdateContext);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(`http://localhost:3001/words?topic=${topic}`)
-      .then((response) => response.json())
-      .then((data) => setWords(data));
-  }, [updateState]);
+  const words = useFetch(
+    `http://localhost:3001/words?topic=${topic}`,
+    updateState,
+    setLoading
+  );
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <table>
       <tbody>
