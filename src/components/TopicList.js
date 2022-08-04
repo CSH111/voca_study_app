@@ -4,7 +4,7 @@ import useFetch from "../hook/useFetch";
 import Loading from "./Loading";
 import Topic from "./Topic";
 
-const TopicList = function () {
+const TopicList = ({ itemLoading }) => {
   const [loading, setLoading] = useState(true);
   const { updateState } = useContext(UpdateContext);
 
@@ -13,7 +13,7 @@ const TopicList = function () {
     updateState,
     setLoading
   );
-
+  console.log(itemLoading);
   if (loading) {
     return <Loading />;
   }
@@ -24,6 +24,7 @@ const TopicList = function () {
         {topics.map((topic) => (
           <Topic topic={topic} key={topic.id} />
         ))}
+        {itemLoading ? <li>Loading...</li> : null}
       </ul>
     </>
   );

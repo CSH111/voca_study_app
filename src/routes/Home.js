@@ -1,11 +1,13 @@
+import { useState } from "react";
 import TopicCreator from "../components/TopicCreator";
 import TopicList from "../components/TopicList";
 
 function Home() {
+  const [itemLoading, setItemLoading] = useState(false);
   return (
     <>
-      <TopicCreator />
-      <TopicList />
+      <TopicCreator itemLoading={itemLoading} setItemLoading={setItemLoading} />
+      <TopicList itemLoading={itemLoading} />
     </>
   );
 }
@@ -13,8 +15,6 @@ function Home() {
 export default Home;
 
 // 할거
-// 2.단어 몇개 인지 표시기능
 // 3.fetch 최적화 가능?
 // 4.시험 기능 (카드넘기기)
 // 5.북마크
-// 6. 로딩 화면

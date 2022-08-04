@@ -5,8 +5,10 @@ const useFetch = (url, dependency, setState) => {
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setData(data))
-      .then(() => setState(false));
+      .then((data) => {
+        setData(data);
+        setState(false);
+      });
   }, [dependency]);
 
   return data;

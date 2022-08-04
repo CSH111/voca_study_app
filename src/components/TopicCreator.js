@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { UpdateContext } from "../context/UpdateContext";
 
-const TopicCreator = function () {
+const TopicCreator = function ({ itemLoading, setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
   const { updateState, setUpdateState } = useContext(UpdateContext);
   const createWords = (e) => {
     e.preventDefault();
+    setItemLoading(true);
     topicValue.trim() &&
       fetch("http://localhost:3001/topics", {
         method: "POST",
@@ -15,6 +16,8 @@ const TopicCreator = function () {
         body: JSON.stringify({ topic: topicValue }),
       }).then(() => {
         setTopicValue("");
+        setItemLoading(false);
+
         setUpdateState(!updateState);
       });
   };
