@@ -8,45 +8,59 @@
   "words": [
     {
       "topic": "1일차",
-      "eng": "love",
-      "kor": "사랑5555",
-      "isDone": true,
+      "eng": "home",
+      "kor": "집",
+      "isDone": false,
       "id": 1
     },
     {
       "topic": "1일차",
-      "eng": "keep",
-      "kor": "유지하다",
-      "isDone": true,
+      "eng": "fire",
+      "kor": "불",
+      "isDone": false,
       "id": 2
     },
     {
       "topic": "1일차",
-      "eng": "dd",
-      "kor": "ff",
-      "isDone": true,
-      "id": 3
-    },
-    {
-      "topic": "1일차",
-      "eng": "ㅇㄹ",
-      "kor": "ㅋㅋ",
-      "isDone": false,
-      "id": 5
-    },
-    {
-      "topic": "1일차",
-      "eng": "ㅊㅍ",
-      "kor": "ㅍ",
-      "isDone": false,
-      "id": 7
-    },
-    {
-      "topic": "1일차",
-      "eng": "zz",
-      "kor": "z",
+      "eng": "ㄷ",
+      "kor": "3",
       "isDone": false,
       "id": 8
+    },
+    {
+      "topic": "1일차",
+      "eng": "ㄷ",
+      "kor": "ㄱ",
+      "isDone": false,
+      "id": 9
+    },
+    {
+      "topic": "1일차",
+      "eng": "ㅇ",
+      "kor": "ㅇ",
+      "isDone": false,
+      "id": 10
+    },
+    {
+      "topic": "1일차",
+      "eng": "ㄱ",
+      "kor": "ㄱ",
+      "isDone": false,
+      "id": 11
+    },
+    {
+      "topic": "1일차",
+      "eng": "22",
+      "kor": "3",
+      "isDone": false,
+      "id": 12
+    },
+    {
+      "topic": "1일차",
+      "eng": "123",
+      "kor": "3",
+      "isDone": false,
+      "id": 13
     }
   ]
 }

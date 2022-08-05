@@ -1,30 +1,26 @@
 import { useContext, useEffect, useState } from "react";
+import { WordsDataContext } from "../context/WordsDataContext";
 import useFetch from "../hook/useFetch";
 import Loading from "./Loading";
 import { WordListItem } from "./WordListItem";
 
-export function WordList({ topic, wordItemLoading }) {
-  const [loading, setLoading] = useState(true);
-  const words = useFetch(
-    `http://localhost:3001/words?topic=${topic}`,
+export function WordList({ topic }) {
+  const { words, setWords } = useContext(WordsDataContext);
 
-    setLoading
-  );
+  useEffect(() => {
+    fetch(`http://localhost:3001/words?topic=${topic}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setWords(data);
+      });
+  }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
   return (
     <table>
       <tbody>
         {words.map((word) => (
           <WordListItem word={word} key={word.id} />
         ))}
-        {wordItemLoading ? (
-          <tr>
-            <td colSpan="6">loading...</td>
-          </tr>
-        ) : null}
       </tbody>
     </table>
   );

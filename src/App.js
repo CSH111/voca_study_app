@@ -6,15 +6,23 @@ import { useState } from "react";
 
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
-
+import { WordsDataContext } from "./context/WordsDataContext";
 function App() {
+  const [words, setWords] = useState([]);
+
   return (
     <BrowserRouter>
       <Header />
-
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/:topic" element={<Detail />} />
+        <Route
+          path="/:topic"
+          element={
+            <WordsDataContext.Provider value={{ words, setWords }}>
+              <Detail />
+            </WordsDataContext.Provider>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
