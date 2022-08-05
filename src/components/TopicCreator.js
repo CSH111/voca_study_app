@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { UpdateContext } from "../context/UpdateContext";
+import { useNavigate } from "react-router-dom";
 
 const TopicCreator = function ({ itemLoading, setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
-  const { updateState, setUpdateState } = useContext(UpdateContext);
   const createWords = (e) => {
     e.preventDefault();
     setItemLoading(true);
@@ -14,26 +13,33 @@ const TopicCreator = function ({ itemLoading, setItemLoading }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ topic: topicValue }),
-      }).then(() => {
-        setTopicValue("");
-        setItemLoading(false);
+      })
+        .then((res) => {
+          setTopicValue("");
+          setItemLoading(false);
 
-        setUpdateState(!updateState);
-      });
+          console.log(res);
+          return res.url;
+        })
+        .then(fetch)
+        .then((res) => res.json())
+        .then(console.log);
   };
   return (
-    <form>
-      <label>
-        주제
-        <input
-          type="text"
-          value={topicValue}
-          onChange={(e) => setTopicValue(e.target.value)}
-        />
-      </label>
+    <>
+      <form onSubmit={createWords}>
+        <label>
+          주제
+          <input
+            type="text"
+            value={topicValue}
+            onChange={(e) => setTopicValue(e.target.value)}
+          />
+        </label>
 
-      <button onClick={createWords}>생성</button>
-    </form>
+        <button>생성</button>
+      </form>
+    </>
   );
 };
 

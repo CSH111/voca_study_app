@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import { UpdateContext } from "../context/UpdateContext";
+
 import Loading from "./Loading";
 
-export function Wordrow({ word }) {
+export function WordListItem({ word }) {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
   const [isDone, setIsDone] = useState(word.isDone);
-  const { updateState, setUpdateState } = useContext(UpdateContext);
+
   function handleDelBtn() {
     fetch(`http://localhost:3001/words/${word.id}`, {
       method: "DELETE",
@@ -40,7 +40,6 @@ export function Wordrow({ word }) {
         kor: meaningValue,
       }),
     }).then(() => {
-      setUpdateState(!updateState);
       setIsModifying(false);
     });
   };

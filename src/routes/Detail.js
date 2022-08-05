@@ -1,13 +1,13 @@
 import { useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { WordsList } from "../components/WordsList";
-import { UpdateContext } from "../context/UpdateContext";
+import { WordList } from "../components/WordList";
 
 function Detail() {
   const { topic } = useParams();
   const inputWord = useRef();
   const inputMeaning = useRef();
-  const { updateState, setUpdateState } = useContext(UpdateContext);
+
+  // const { updateState, setUpdateState } = useContext(LoadingContext);
 
   function addWord(e) {
     e.preventDefault();
@@ -24,8 +24,6 @@ function Detail() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newWord),
-    }).then((response) => {
-      response.ok && setUpdateState(!updateState);
     });
   }
   return (
@@ -39,7 +37,7 @@ function Detail() {
         <button onClick={addWord}>단어추가</button>
       </form>
       <hr />
-      <WordsList topic={topic} />
+      <WordList topic={topic} />
     </>
   );
 }

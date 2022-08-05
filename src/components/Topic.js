@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UpdateContext } from "../context/UpdateContext";
 
 const Topic = ({ topic }) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
-  const { updateState, setUpdateState } = useContext(UpdateContext);
   const [wordsAmount, setWordsAmount] = useState("");
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
   useEffect(() => {
@@ -82,7 +80,6 @@ const Topic = ({ topic }) => {
   const modifyData = () => {
     modifyWords()
       .then(() => modifyTopic())
-      .then(() => setUpdateState(!updateState))
       .then(() => setIsModifying(false));
   };
   if (isDeleted) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopicCreator from "../components/TopicCreator";
 import TopicList from "../components/TopicList";
 
@@ -18,3 +18,6 @@ export default Home;
 // 3.fetch 최적화 가능?
 // 4.시험 기능 (카드넘기기)
 // 5.북마크
+// 6. 사용자 설정 테마
+
+//찾기 리액트 데이터 업로드 후 렌더링 어떤식으로 똑똑하게 하는지
