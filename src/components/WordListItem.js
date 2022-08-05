@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { WordsDataContext } from "../context/WordsDataContext";
 
 import Loading from "./Loading";
 
@@ -6,12 +7,12 @@ export function WordListItem({ word }) {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
   const [isDone, setIsDone] = useState(word.isDone);
-
+  const { words, setWords } = useContext(WordsDataContext);
   function handleDelBtn() {
     fetch(`http://localhost:3001/words/${word.id}`, {
       method: "DELETE",
-    }).then((response) => {
-      response.ok && setIsDeleted(true);
+    }).then(() => {
+      setWords([...words].filter((item) => item.id !== word.id));
     });
   }
   function handleIsDone() {
@@ -52,9 +53,9 @@ export function WordListItem({ word }) {
     setMeaningValue(e.target.value);
   };
 
-  if (isDeleted) {
-    return null;
-  }
+  // if (isDeleted) {
+  //   return null;
+  // }
   if (isModifying) {
     return (
       <tr>

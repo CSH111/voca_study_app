@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { WordsDataContext } from "../context/WordsDataContext";
-import useFetch from "../hook/useFetch";
-import Loading from "./Loading";
+
 import { WordListItem } from "./WordListItem";
 
 export function WordList({ topic }) {

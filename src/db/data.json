@@ -10,57 +10,8 @@
       "topic": "1일차",
       "eng": "home",
       "kor": "집",
-      "isDone": false,
+      "isDone": true,
       "id": 1
-    },
-    {
-      "topic": "1일차",
-      "eng": "fire",
-      "kor": "불",
-      "isDone": false,
-      "id": 2
-    },
-    {
-      "topic": "1일차",
-      "eng": "ㄷ",
-      "kor": "3",
-      "isDone": false,
-      "id": 8
-    },
-    {
-      "topic": "1일차",
-      "eng": "ㄷ",
-      "kor": "ㄱ",
-      "isDone": false,
-      "id": 9
-    },
-    {
-      "topic": "1일차",
-      "eng": "ㅇ",
-      "kor": "ㅇ",
-      "isDone": false,
-      "id": 10
-    },
-    {
-      "topic": "1일차",
-      "eng": "ㄱ",
-      "kor": "ㄱ",
-      "isDone": false,
-      "id": 11
-    },
-    {
-      "topic": "1일차",
-      "eng": "22",
-      "kor": "3",
-      "isDone": false,
-      "id": 12
-    },
-    {
-      "topic": "1일차",
-      "eng": "123",
-      "kor": "3",
-      "isDone": false,
-      "id": 13
     }
   ]
 }
