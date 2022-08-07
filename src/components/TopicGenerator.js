@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TopicDataContext } from "../context/TopicDataContext";
 
-const TopicCreator = function ({ itemLoading, setItemLoading }) {
+const TopicGenerator = function ({ itemLoading, setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
   const { topics, setTopics } = useContext(TopicDataContext);
   const createWords = (e) => {
@@ -57,4 +57,4 @@ const TopicCreator = function ({ itemLoading, setItemLoading }) {
   );
 };
 
-export default TopicCreator;
+export default TopicGenerator;

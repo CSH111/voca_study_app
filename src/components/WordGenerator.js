@@ -1,21 +1,20 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { WordsDataContext } from "../context/WordsDataContext";
 
 const WordGenerator = ({ topic }) => {
   const { setWords } = useContext(WordsDataContext);
-  // const [wordInputValue, setWordInputValue] = useState("");
-  // const [meaningInputValue, setMeaningInputValue] = useState(second);
-  const wordInput = useRef();
-  const meaningInput = useRef();
+  const [wordInputValue, setWordInputValue] = useState("");
+  const [meaningInputValue, setMeaningInputValue] = useState("");
+
   const addWord = (e) => {
     e.preventDefault();
     const newWord = {
       topic: topic,
-      eng: wordInput.current.value,
-      kor: meaningInput.current.value,
+      eng: wordInputValue,
+      kor: meaningInputValue,
       isDone: false,
     };
-    [wordInput, meaningInput].forEach((input) => (input.current.value = ""));
+    [setMeaningInputValue, setWordInputValue].forEach((fn) => fn(""));
     fetch("http://localhost:3001/words", {
       method: "POST",
       headers: {
@@ -24,21 +23,28 @@ const WordGenerator = ({ topic }) => {
       body: JSON.stringify(newWord),
     })
       .then((res) => res.url)
-      .then((data) => fetch(`${data}?topic=${topic}`))
+      .then((url) => fetch(`${url}?topic=${topic}`))
       .then((res) => res.json())
       .then(setWords);
   };
   return (
     <form action="">
-      <label>
-        단어
-        <input type="text" ref={wordInput} />
-      </label>
-      1
-      <label>
-        뜻
-        <input type="text" ref={meaningInput} />
-      </label>
+      <label htmlFor="wordInput">단어</label>
+      <input
+        type="text"
+        id="wordInput"
+        value={wordInputValue}
+        onChange={(e) => setWordInputValue(e.target.value)}
+      />
+
+      <label htmlFor="meaningInput">뜻</label>
+      <input
+        type="text"
+        id="meaningInput"
+        value={meaningInputValue}
+        onChange={(e) => setMeaningInputValue(e.target.value)}
+      />
+
       <button onClick={addWord}>단어추가</button>
     </form>
   );

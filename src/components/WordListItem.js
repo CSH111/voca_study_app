@@ -34,6 +34,7 @@ export function WordListItem({ word }) {
       kor: meaningValue,
     }).then((res) => {
       if (!res.ok) {
+        alert("업로드 실패");
         return;
       }
       const updatedWords = makeNewData(words, word, {

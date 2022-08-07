@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { TopicDataContext } from "../context/TopicDataContext";
 
-const Topic = ({ topic }) => {
-  const [isDeleted, setIsDeleted] = useState(false);
+const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
   const [wordsAmount, setWordsAmount] = useState("");
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
+  const { topics, setTopics } = useContext(TopicDataContext);
+
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
       .then((response) => response.json())
@@ -32,12 +34,12 @@ const Topic = ({ topic }) => {
         });
       });
   };
-
   const onDeleteBtnCLick = () => {
     deleteTopic()
-      .then(() => deleteWords())
       .then(() => {
-        setIsDeleted(true);
+        const newTopics = topics.filter((item) => item.id !== topic.id);
+        setTopics(newTopics);
+        deleteWords();
       })
       .catch(() => alert("삭제실패"));
   };
@@ -82,9 +84,7 @@ const Topic = ({ topic }) => {
       .then(() => modifyTopic())
       .then(() => setIsModifying(false));
   };
-  if (isDeleted) {
-    return null;
-  }
+
   if (isModifying) {
     return (
       <li>
@@ -110,4 +110,4 @@ const Topic = ({ topic }) => {
     </li>
   );
 };
-export default Topic;
+export default TopicListItem;

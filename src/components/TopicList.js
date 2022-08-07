@@ -2,16 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { TopicDataContext } from "../context/TopicDataContext";
 import useFetch from "../hook/useFetch";
 import Loading from "./Loading";
-import Topic from "./Topic";
+import TopicListItem from "./TopicListItem";
 
 const TopicList = ({ itemLoading }) => {
   // const [loading, setLoading] = useState(true);
   const { topics, setTopics } = useContext(TopicDataContext);
-
-  // const topics = useFetch(`http://localhost:3001/topics`, setLoading);
-  //  setTopics 로 map 재실행하도록!!!!
-  //   <---여기서
-  // console.log(itemLoading);
 
   useEffect(() => {
     fetch(`http://localhost:3001/topics`)
@@ -29,7 +24,7 @@ const TopicList = ({ itemLoading }) => {
     <>
       <ul>
         {topics.map((topic) => (
-          <Topic topic={topic} key={topic.id} />
+          <TopicListItem topic={topic} key={topic.id} />
         ))}
         {itemLoading ? <li>Loading...</li> : null}
       </ul>
