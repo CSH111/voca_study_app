@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { WordsDataContext } from "../context/WordsDataContext";
+import makeNewData from "../function/makeNewData";
+import putData from "../function/putData";
 
 import Loading from "./Loading";
 
@@ -14,40 +16,31 @@ export function WordListItem({ word }) {
     });
   }
   function handleIsDone() {
-    fetch(`http://localhost:3001/words/${word.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...word,
-        isDone: !word.isDone,
-      }),
+    putData(`http://localhost:3001/words/${word.id}`, {
+      ...word,
+      isDone: !word.isDone,
     }).then((res) => {
       if (!res.ok) {
         return;
       }
-      const updatedWords = words.map((item) => {
-        if (item.id === word.id) {
-          return { ...item, isDone: !word.isDone };
-        }
-        return item;
-      });
+      const updatedWords = makeNewData(words, word, { isDone: !word.isDone });
       setWords(updatedWords);
     });
   }
-  const modifyData = () => {
-    fetch(`http://localhost:3001/words/${word.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...word,
+  const modifyWord = () => {
+    putData(`http://localhost:3001/words/${word.id}`, {
+      ...word,
+      eng: wordValue,
+      kor: meaningValue,
+    }).then((res) => {
+      if (!res.ok) {
+        return;
+      }
+      const updatedWords = makeNewData(words, word, {
         eng: wordValue,
         kor: meaningValue,
-      }),
-    }).then(() => {
+      });
+      setWords(updatedWords);
       setIsModifying(false);
     });
   };
@@ -77,7 +70,7 @@ export function WordListItem({ word }) {
           />
         </td>
         <td>
-          <button onClick={modifyData}>완료</button>
+          <button onClick={modifyWord}>완료</button>
         </td>
       </tr>
     );
