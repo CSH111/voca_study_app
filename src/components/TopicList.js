@@ -1,18 +1,29 @@
 import { useContext, useEffect, useState } from "react";
+import { TopicDataContext } from "../context/TopicDataContext";
 import useFetch from "../hook/useFetch";
 import Loading from "./Loading";
 import Topic from "./Topic";
 
 const TopicList = ({ itemLoading }) => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+  const { topics, setTopics } = useContext(TopicDataContext);
 
-  const topics = useFetch(`http://localhost:3001/topics`, setLoading);
+  // const topics = useFetch(`http://localhost:3001/topics`, setLoading);
   //  setTopics 로 map 재실행하도록!!!!
   //   <---여기서
   // console.log(itemLoading);
-  if (loading) {
-    return <Loading />;
-  }
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/topics`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTopics(data);
+      });
+  }, []);
+
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   return (
     <>

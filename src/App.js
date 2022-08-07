@@ -7,14 +7,23 @@ import { useState } from "react";
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
 import { WordsDataContext } from "./context/WordsDataContext";
+import { TopicDataContext } from "./context/TopicDataContext";
 function App() {
   const [words, setWords] = useState([]);
+  const [topics, setTopics] = useState([]);
 
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <TopicDataContext.Provider value={{ topics, setTopics }}>
+              <Home />
+            </TopicDataContext.Provider>
+          }
+        />
         <Route
           path="/:topic"
           element={

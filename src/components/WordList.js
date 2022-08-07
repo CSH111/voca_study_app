@@ -4,7 +4,6 @@ import { WordListItem } from "./WordListItem";
 
 export function WordList({ topic }) {
   const { words, setWords } = useContext(WordsDataContext);
-
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic}`)
       .then((res) => res.json())
