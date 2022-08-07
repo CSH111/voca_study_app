@@ -4,15 +4,13 @@ import { WordsDataContext } from "../context/WordsDataContext";
 import Loading from "./Loading";
 
 export function WordListItem({ word }) {
-  const [isDeleted, setIsDeleted] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
-  const [isDone, setIsDone] = useState(word.isDone);
   const { words, setWords } = useContext(WordsDataContext);
   function handleDelBtn() {
     fetch(`http://localhost:3001/words/${word.id}`, {
       method: "DELETE",
     }).then(() => {
-      setWords([...words].filter((item) => item.id !== word.id));
+      setWords(words.filter((item) => item.id !== word.id));
     });
   }
   function handleIsDone() {
@@ -25,8 +23,17 @@ export function WordListItem({ word }) {
         ...word,
         isDone: !word.isDone,
       }),
-    }).then((response) => {
-      response.ok && setIsDone(!isDone);
+    }).then((res) => {
+      if (!res.ok) {
+        return;
+      }
+      const updatedWords = words.map((item) => {
+        if (item.id === word.id) {
+          return { ...item, isDone: !word.isDone };
+        }
+        return item;
+      });
+      setWords(updatedWords);
     });
   }
   const modifyData = () => {
@@ -83,7 +90,7 @@ export function WordListItem({ word }) {
           name=""
           id=""
           onChange={handleIsDone}
-          checked={isDone}
+          checked={word.isDone}
         />
       </td>
       <td>{word.eng}</td>

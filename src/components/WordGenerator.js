@@ -13,7 +13,7 @@ const WordGenerator = ({ topic }) => {
       kor: meaningInput.current.value,
       isDone: false,
     };
-    [wordInput, meaningInput].forEach((elem) => (elem.current.value = ""));
+    [wordInput, meaningInput].forEach((input) => (input.current.value = ""));
     fetch("http://localhost:3001/words", {
       method: "POST",
       headers: {
