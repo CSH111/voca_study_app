@@ -3,6 +3,8 @@ import { WordsDataContext } from "../context/WordsDataContext";
 
 const WordGenerator = ({ topic }) => {
   const { setWords } = useContext(WordsDataContext);
+  // const [wordInputValue, setWordInputValue] = useState("");
+  // const [meaningInputValue, setMeaningInputValue] = useState(second);
   const wordInput = useRef();
   const meaningInput = useRef();
   const addWord = (e) => {
@@ -22,7 +24,7 @@ const WordGenerator = ({ topic }) => {
       body: JSON.stringify(newWord),
     })
       .then((res) => res.url)
-      .then(fetch)
+      .then((data) => fetch(`${data}?topic=${topic}`))
       .then((res) => res.json())
       .then(setWords);
   };
@@ -32,6 +34,7 @@ const WordGenerator = ({ topic }) => {
         단어
         <input type="text" ref={wordInput} />
       </label>
+      1
       <label>
         뜻
         <input type="text" ref={meaningInput} />
