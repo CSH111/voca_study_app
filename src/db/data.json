@@ -1,10 +1,6 @@
 {
   "topics": [
     {
-      "topic": "ddfdf",
-      "id": 5
-    },
-    {
       "topic": "55",
       "id": 7
     },
@@ -31,13 +27,6 @@
       "kor": "a",
       "isDone": false,
       "id": 16
-    },
-    {
-      "topic": "ddfdf",
-      "eng": "ff",
-      "kor": "e3",
-      "isDone": true,
-      "id": 17
     }
   ]
 }
