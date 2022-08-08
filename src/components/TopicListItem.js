@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TopicDataContext } from "../context/TopicDataContext";
+import putData from "../function/putData";
+import makeNewContextData from "../function/makeNewContextData";
 
 const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
@@ -54,31 +56,24 @@ const TopicListItem = ({ topic }) => {
       .then((response) => response.json())
       .then((words) =>
         words.forEach((word) => {
-          fetch(`http://localhost:3001/words/${word.id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...word,
-              topic: topicValue,
-            }),
+          putData(`http://localhost:3001/words/${word.id}`, {
+            ...word,
+            topic: topicValue,
           });
         })
       );
   };
   const modifyTopic = () => {
-    fetch(`http://localhost:3001/topics/${topic.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...topic,
-        topic: topicValue,
-      }),
+    putData(`http://localhost:3001/topics/${topic.id}`, {
+      ...topic,
+      topic: topicValue,
     });
+    const updatedTopics = makeNewContextData(topics, topic, {
+      topic: topicValue,
+    });
+    setTopics(updatedTopics);
   };
+
   const modifyData = () => {
     modifyWords()
       .then(() => modifyTopic())

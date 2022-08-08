@@ -1,4 +1,4 @@
-const makeNewData = (dataArr, data, newData) => {
+const makeNewContextData = (dataArr, data, newData) => {
   const updatedWords = dataArr.map((item) => {
     if (item.id === data.id) {
       return { ...item, ...newData };
@@ -9,4 +9,4 @@ const makeNewData = (dataArr, data, newData) => {
   return updatedWords;
 };
 
-export default makeNewData;
+export default makeNewContextData;

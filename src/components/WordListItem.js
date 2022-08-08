@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { WordsDataContext } from "../context/WordsDataContext";
-import makeNewData from "../function/makeNewData";
+import makeNewContextData from "../function/makeNewContextData";
 import putData from "../function/putData";
 
 import Loading from "./Loading";
@@ -23,7 +23,9 @@ export function WordListItem({ word }) {
       if (!res.ok) {
         return;
       }
-      const updatedWords = makeNewData(words, word, { isDone: !word.isDone });
+      const updatedWords = makeNewContextData(words, word, {
+        isDone: !word.isDone,
+      });
       setWords(updatedWords);
     });
   }
@@ -37,7 +39,7 @@ export function WordListItem({ word }) {
         alert("업로드 실패");
         return;
       }
-      const updatedWords = makeNewData(words, word, {
+      const updatedWords = makeNewContextData(words, word, {
         eng: wordValue,
         kor: meaningValue,
       });

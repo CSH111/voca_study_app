@@ -1,32 +1,9 @@
 {
   "topics": [
     {
-      "topic": "55",
-      "id": 7
-    },
-    {
-      "topic": "ddf",
-      "id": 8
-    },
-    {
-      "topic": "d",
-      "id": 9
+      "topic": "22",
+      "id": 2
     }
   ],
-  "words": [
-    {
-      "topic": "1일차",
-      "eng": "dd",
-      "kor": "z",
-      "isDone": false,
-      "id": 15
-    },
-    {
-      "topic": "1일차",
-      "eng": "22",
-      "kor": "a",
-      "isDone": false,
-      "id": 16
-    }
-  ]
+  "words": []
 }
