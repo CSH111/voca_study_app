@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
-import { WordsDataContext } from "../context/WordsDataContext";
-import makeNewContextData from "../function/makeNewContextData";
-import putData from "../function/putData";
+import { WordsDataContext } from "../../context/WordsDataContext";
+import makeNewContextData from "../../function/makeNewContextData";
+import putData from "../../function/putData";
 
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 export function WordListItem({ word }) {
   const [isModifying, setIsModifying] = useState(false);
   const { words, setWords } = useContext(WordsDataContext);
+  const [loading, setLoading] = useState(false);
   function handleDelBtn() {
     fetch(`http://localhost:3001/words/${word.id}`, {
       method: "DELETE",
@@ -30,6 +31,8 @@ export function WordListItem({ word }) {
     });
   }
   const modifyWord = () => {
+    setIsModifying(false);
+    setLoading(true);
     putData(`http://localhost:3001/words/${word.id}`, {
       ...word,
       eng: wordValue,
@@ -43,8 +46,9 @@ export function WordListItem({ word }) {
         eng: wordValue,
         kor: meaningValue,
       });
+
       setWords(updatedWords);
-      setIsModifying(false);
+      setLoading(false);
     });
   };
   const [wordValue, setWordValue] = useState(word.eng);
@@ -56,25 +60,25 @@ export function WordListItem({ word }) {
     setMeaningValue(e.target.value);
   };
 
-  // if (isDeleted) {
-  //   return null;
-  // }
   if (isModifying) {
     return (
       <tr>
-        <td>
+        <td colSpan={6}>
           <input type="text" value={wordValue} onChange={handleWordInput} />
-        </td>
-        <td>
           <input
             type="text"
             value={meaningValue}
             onChange={handleMeaningInput}
           />
-        </td>
-        <td>
           <button onClick={modifyWord}>완료</button>
         </td>
+      </tr>
+    );
+  }
+  if (loading) {
+    return (
+      <tr>
+        <td colSpan={6}>loading...</td>
       </tr>
     );
   }

@@ -1,25 +1,27 @@
 import { useContext, useEffect, useState } from "react";
-import { TopicDataContext } from "../context/TopicDataContext";
-import useFetch from "../hook/useFetch";
-import Loading from "./Loading";
+import { TopicDataContext } from "../../context/TopicDataContext";
+import Loading from "../Loading";
 import TopicListItem from "./TopicListItem";
 
 const TopicList = ({ itemLoading }) => {
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { topics, setTopics } = useContext(TopicDataContext);
 
   useEffect(() => {
     fetch(`http://localhost:3001/topics`)
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         setTopics(data);
       });
   }, []);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
-
+  if (loading) {
+    return <div>loading..</div>;
+  }
+  if (!topics.length && !itemLoading) {
+    return <div>토픽을 추가하세요.</div>;
+  }
   return (
     <>
       <ul>

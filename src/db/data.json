@@ -1,9 +1,24 @@
 {
   "topics": [
     {
-      "topic": "22",
-      "id": 2
+      "topic": "ㅋ",
+      "id": 1
     }
   ],
-  "words": []
+  "words": [
+    {
+      "topic": "zz3",
+      "eng": "ㄴㄴㄹㄹ",
+      "kor": "ㄴㅋㄷ55",
+      "isDone": false,
+      "id": 1
+    },
+    {
+      "topic": "zz3",
+      "eng": "ㅇㅇ2222",
+      "kor": "ㅋ11",
+      "isDone": false,
+      "id": 2
+    }
+  ]
 }

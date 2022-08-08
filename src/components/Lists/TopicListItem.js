@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { TopicDataContext } from "../context/TopicDataContext";
-import putData from "../function/putData";
-import makeNewContextData from "../function/makeNewContextData";
+import { TopicDataContext } from "../../context/TopicDataContext";
+import putData from "../../function/putData";
+import makeNewContextData from "../../function/makeNewContextData";
 
 const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
   const [wordsAmount, setWordsAmount] = useState("");
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
   const { topics, setTopics } = useContext(TopicDataContext);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
@@ -74,23 +75,24 @@ const TopicListItem = ({ topic }) => {
     setTopics(updatedTopics);
   };
 
-  const modifyData = () => {
+  const onModifyBtnClick = () => {
+    setIsModifying(false);
+    setLoading(true);
     modifyWords()
       .then(() => modifyTopic())
-      .then(() => setIsModifying(false));
+      .then(() => setLoading(false));
   };
 
   if (isModifying) {
     return (
       <li>
         <input type="text" value={topicValue} onChange={handleTopicInput} />
-        <button onClick={modifyData}>완료</button>
-
-        <div>
-          {wordsDoneAmount}/{wordsAmount}
-        </div>
+        <button onClick={onModifyBtnClick}>완료</button>
       </li>
     );
+  }
+  if (loading) {
+    return <div>loading...</div>;
   }
   return (
     <li>

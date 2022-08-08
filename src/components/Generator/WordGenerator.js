@@ -1,13 +1,14 @@
 import { useContext, useRef, useState } from "react";
-import { WordsDataContext } from "../context/WordsDataContext";
+import { WordsDataContext } from "../../context/WordsDataContext";
 
-const WordGenerator = ({ topic }) => {
+const WordGenerator = ({ topic, setitemLoading }) => {
   const { setWords } = useContext(WordsDataContext);
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
-
+  const wordInput = useRef();
   const addWord = (e) => {
     e.preventDefault();
+    setitemLoading(true);
     const newWord = {
       topic: topic,
       eng: wordInputValue,
@@ -25,7 +26,11 @@ const WordGenerator = ({ topic }) => {
       .then((res) => res.url)
       .then((url) => fetch(`${url}?topic=${topic}`))
       .then((res) => res.json())
-      .then(setWords);
+      .then((data) => {
+        setitemLoading(false);
+        setWords(data);
+        wordInput.current.focus();
+      });
   };
   return (
     <form action="">
@@ -33,6 +38,7 @@ const WordGenerator = ({ topic }) => {
       <input
         type="text"
         id="wordInput"
+        ref={wordInput}
         value={wordInputValue}
         onChange={(e) => setWordInputValue(e.target.value)}
       />
