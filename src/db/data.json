@@ -1,14 +1,6 @@
 {
   "topics": [
     {
-      "topic": "ㅋ",
-      "id": 1
-    },
-    {
-      "topic": "zzz",
-      "id": 2
-    },
-    {
       "topic": "33",
       "id": 3
     },
@@ -23,25 +15,11 @@
   ],
   "words": [
     {
-      "topic": "ㅋ",
-      "eng": "ㅇ",
-      "kor": "ㅇㅋ",
+      "topic": "33",
+      "eng": "11223",
+      "kor": "113",
       "isDone": false,
-      "id": 2
-    },
-    {
-      "topic": "ㅋ",
-      "eng": "ㅋ",
-      "kor": "ㅋ",
-      "isDone": false,
-      "id": 3
-    },
-    {
-      "topic": "ㅋ",
-      "eng": "ㅇㅇ",
-      "kor": "ㅇ",
-      "isDone": false,
-      "id": 4
+      "id": 1
     }
   ]
 }

@@ -10,6 +10,9 @@ export function WordListItem({ word }) {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(false);
   function handleDelBtn() {
+    if (!window.confirm("삭제할꺼?")) {
+      return;
+    }
     fetch(`http://localhost:3001/words/${word.id}`, {
       method: "DELETE",
     }).then(() => {

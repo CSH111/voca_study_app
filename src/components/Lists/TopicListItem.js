@@ -38,6 +38,9 @@ const TopicListItem = ({ topic }) => {
       });
   };
   const onDeleteBtnCLick = () => {
+    if (!window.confirm("삭제할꺼?")) {
+      return;
+    }
     deleteTopic()
       .then(() => {
         const newTopics = topics.filter((item) => item.id !== topic.id);
