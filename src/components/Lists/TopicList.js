@@ -35,5 +35,3 @@ const TopicList = ({ itemLoading }) => {
 };
 
 export default TopicList;
-
-//억지로 셋 하지말고 받아온 데이터 topic을 set해서 자연스럽게 렌더링되도록

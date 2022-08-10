@@ -6,8 +6,18 @@ const WordGenerator = ({ topic, setitemLoading }) => {
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();
-  const addWord = (e) => {
+  const meaningInput = useRef();
+  const handleAddBtnClick = (e) => {
     e.preventDefault();
+
+    if (!wordInputValue) {
+      wordInput.current.focus();
+      return;
+    }
+    if (!meaningInputValue) {
+      meaningInput.current.focus();
+      return;
+    }
     setitemLoading(true);
     const newWord = {
       topic: topic,
@@ -47,11 +57,12 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       <input
         type="text"
         id="meaningInput"
+        ref={meaningInput}
         value={meaningInputValue}
         onChange={(e) => setMeaningInputValue(e.target.value)}
       />
 
-      <button onClick={addWord}>단어추가</button>
+      <button onClick={handleAddBtnClick}>단어추가</button>
     </form>
   );
 };

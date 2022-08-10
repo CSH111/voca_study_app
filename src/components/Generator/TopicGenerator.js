@@ -5,31 +5,33 @@ const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
   const { setTopics } = useContext(TopicDataContext);
   const topicInput = useRef();
-  const createWords = (e) => {
+  const createTopic = (e) => {
     e.preventDefault();
+    if (!topicValue.trim()) {
+      topicInput.current.focus();
+      return;
+    }
     setItemLoading(true);
-
-    topicValue.trim() &&
-      fetch("http://localhost:3001/topics", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ topic: topicValue }),
-      })
-        .then((res) => res.ok && res.url)
-        .then(fetch)
-        .then((res) => res.ok && res.json())
-        .then((data) => {
-          setItemLoading(false);
-          setTopics(data);
-          setTopicValue("");
-          topicInput.current.focus();
-        });
+    fetch("http://localhost:3001/topics", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ topic: topicValue }),
+    })
+      .then((res) => res.ok && res.url)
+      .then(fetch)
+      .then((res) => res.ok && res.json())
+      .then((data) => {
+        topicInput.current.focus();
+        setItemLoading(false);
+        setTopics(data);
+        setTopicValue("");
+      });
   };
   return (
     <>
-      <form onSubmit={createWords}>
+      <form>
         <label>
           주제
           <input
@@ -40,7 +42,7 @@ const TopicGenerator = function ({ setItemLoading }) {
           />
         </label>
 
-        <button>생성</button>
+        <button onClick={createTopic}>생성</button>
       </form>
     </>
   );

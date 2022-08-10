@@ -3,6 +3,10 @@
     {
       "topic": "ㅋ",
       "id": 1
+    },
+    {
+      "topic": "ㅇㅋ",
+      "id": 3
     }
   ],
   "words": [
@@ -19,6 +23,34 @@
       "kor": "ㅋ11",
       "isDone": false,
       "id": 2
+    },
+    {
+      "topic": "ㅋ",
+      "eng": "ㅇㅇㅇ",
+      "kor": "ㅇㅇㅇㅇ",
+      "isDone": false,
+      "id": 3
+    },
+    {
+      "topic": "ㅋ",
+      "eng": "ㅋㅋㅋ",
+      "kor": "ㅋㅋ",
+      "isDone": false,
+      "id": 4
+    },
+    {
+      "topic": "ㅋ",
+      "eng": "ㅇㅇ",
+      "kor": "",
+      "isDone": false,
+      "id": 5
+    },
+    {
+      "topic": "ㅋ",
+      "eng": "ㅋ",
+      "kor": "ㅇㅇ",
+      "isDone": false,
+      "id": 6
     }
   ]
 }
