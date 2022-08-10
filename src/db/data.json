@@ -5,52 +5,43 @@
       "id": 1
     },
     {
-      "topic": "ㅇㅋ",
+      "topic": "zzz",
+      "id": 2
+    },
+    {
+      "topic": "33",
       "id": 3
+    },
+    {
+      "topic": "zzz",
+      "id": 4
+    },
+    {
+      "topic": "zzz3",
+      "id": 5
     }
   ],
   "words": [
     {
-      "topic": "zz3",
-      "eng": "ㄴㄴㄹㄹ",
-      "kor": "ㄴㅋㄷ55",
-      "isDone": false,
-      "id": 1
-    },
-    {
-      "topic": "zz3",
-      "eng": "ㅇㅇ2222",
-      "kor": "ㅋ11",
+      "topic": "ㅋ",
+      "eng": "ㅇ",
+      "kor": "ㅇㅋ",
       "isDone": false,
       "id": 2
     },
     {
       "topic": "ㅋ",
-      "eng": "ㅇㅇㅇ",
-      "kor": "ㅇㅇㅇㅇ",
+      "eng": "ㅋ",
+      "kor": "ㅋ",
       "isDone": false,
       "id": 3
     },
     {
       "topic": "ㅋ",
-      "eng": "ㅋㅋㅋ",
-      "kor": "ㅋㅋ",
+      "eng": "ㅇㅇ",
+      "kor": "ㅇ",
       "isDone": false,
       "id": 4
-    },
-    {
-      "topic": "ㅋ",
-      "eng": "ㅇㅇ",
-      "kor": "",
-      "isDone": false,
-      "id": 5
-    },
-    {
-      "topic": "ㅋ",
-      "eng": "ㅋ",
-      "kor": "ㅇㅇ",
-      "isDone": false,
-      "id": 6
     }
   ]
 }

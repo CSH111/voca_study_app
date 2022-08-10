@@ -3,11 +3,22 @@ import { TopicDataContext } from "../../context/TopicDataContext";
 
 const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
-  const { setTopics } = useContext(TopicDataContext);
+  const { topics, setTopics } = useContext(TopicDataContext);
   const topicInput = useRef();
+
+  const isExist = (inputValue) => {
+    return topics.find((topic) => topic.topic === inputValue);
+  };
+
   const createTopic = (e) => {
     e.preventDefault();
     if (!topicValue.trim()) {
+      topicInput.current.focus();
+      return;
+    }
+
+    if (isExist(topicValue)) {
+      alert("이미 존재하는 이름입니다.");
       topicInput.current.focus();
       return;
     }

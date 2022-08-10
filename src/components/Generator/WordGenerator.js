@@ -7,6 +7,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();
   const meaningInput = useRef();
+
   const handleAddBtnClick = (e) => {
     e.preventDefault();
 
@@ -18,6 +19,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       meaningInput.current.focus();
       return;
     }
+
     setitemLoading(true);
     const newWord = {
       topic: topic,
