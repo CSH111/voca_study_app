@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { TopicDataContext } from "../../context/TopicDataContext";
 import Loading from "../Loading";
 import TopicListItem from "./TopicListItem";
@@ -25,6 +26,9 @@ const TopicList = ({ itemLoading }) => {
   return (
     <>
       <ul>
+        <li>
+          <Link to={"/bookmark"}>북마크</Link>
+        </li>
         {topics.map((topic) => (
           <TopicListItem topic={topic} key={topic.id} />
         ))}
