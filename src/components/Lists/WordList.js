@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+
 import { WordsDataContext } from "../../context/WordsDataContext";
 import Loading from "../Loading";
 import { WordListItem } from "./WordListItem";
@@ -6,6 +7,7 @@ import { WordListItem } from "./WordListItem";
 export function WordList({ topic, itemLoading }) {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic}`)
       .then((res) => res.json())

@@ -29,7 +29,7 @@ function App() {
           path="/:topic"
           element={
             <WordsDataContext.Provider value={{ words, setWords }}>
-              <Detail topics={topics} />
+              <Detail />
             </WordsDataContext.Provider>
           }
         />

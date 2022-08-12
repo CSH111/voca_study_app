@@ -1,16 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import WordGenerator from "../components/Generator/WordGenerator";
 import { WordList } from "../components/Lists/WordList";
-import { TopicDataContext } from "../context/TopicDataContext";
+import useFetch from "../hook/useFetch";
 
-function Detail({ topics }) {
+function Detail() {
   const { topic } = useParams();
   const [itemLoading, setitemLoading] = useState(false);
-
-  if (!topics.find((_topic) => _topic.topic === topic)) {
-    return <div>잘못된 페이지</div>;
-  }
+  const [isValidRoute, setIsValidRoute] = useState(true);
 
   return (
     <>
