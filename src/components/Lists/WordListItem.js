@@ -3,10 +3,11 @@ import { WordsDataContext } from "../../context/WordsDataContext";
 import makeNewContextData from "../../function/makeNewContextData";
 import putData from "../../function/putData";
 import styled from "styled-components";
-import Loading from "../Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-const StyledTableData = styled.div`
+import Button from "../Button";
+const StyledTr = styled.tr``;
+const StyledTd = styled.td`
   font-style: ${(props) => (props.isDone ? "italic" : "")};
   text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
 `;
@@ -15,6 +16,7 @@ export function WordListItem({ word }) {
   const [isModifying, setIsModifying] = useState(false);
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   function handleDelBtn() {
     if (!window.confirm("삭제할꺼?")) {
       return;
@@ -92,7 +94,7 @@ export function WordListItem({ word }) {
     );
   }
   return (
-    <tr>
+    <StyledTr>
       <td>
         <input
           type="checkbox"
@@ -102,17 +104,25 @@ export function WordListItem({ word }) {
           checked={word.isDone}
         />
       </td>
-      <StyledTableData isDone={word.isDone}>
-        <td>{word.eng}</td>
-        <td>{word.kor}</td>
-      </StyledTableData>
+
+      <StyledTd className="data" isDone={word.isDone}>
+        {word.eng}
+      </StyledTd>
+      <StyledTd className="data" isDone={word.isDone}>
+        {word.kor}
+      </StyledTd>
+
       <td>
         <button>뜻 숨기기</button>
       </td>
       <td>
-        <button>
+        <Button
+          onClick={() => setIsBookmarked(!isBookmarked)}
+          isBookmarked={isBookmarked}
+          className="bookmark"
+        >
           <FontAwesomeIcon icon={faStar} />
-        </button>
+        </Button>
       </td>
       <td>
         <button onClick={handleDelBtn}>삭제</button>
@@ -120,6 +130,6 @@ export function WordListItem({ word }) {
       <td>
         <button onClick={() => setIsModifying(true)}>수정</button>
       </td>
-    </tr>
+    </StyledTr>
   );
 }
