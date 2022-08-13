@@ -2,8 +2,14 @@ import { useContext, useState } from "react";
 import { WordsDataContext } from "../../context/WordsDataContext";
 import makeNewContextData from "../../function/makeNewContextData";
 import putData from "../../function/putData";
-
+import styled from "styled-components";
 import Loading from "../Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+const StyledTableData = styled.div`
+  font-style: ${(props) => (props.isDone ? "italic" : "")};
+  text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
+`;
 
 export function WordListItem({ word }) {
   const [isModifying, setIsModifying] = useState(false);
@@ -96,13 +102,17 @@ export function WordListItem({ word }) {
           checked={word.isDone}
         />
       </td>
-      <td>{word.eng}</td>
-      <td>{word.kor}</td>
+      <StyledTableData isDone={word.isDone}>
+        <td>{word.eng}</td>
+        <td>{word.kor}</td>
+      </StyledTableData>
       <td>
         <button>뜻 숨기기</button>
       </td>
       <td>
-        <button>북마크</button>
+        <button>
+          <FontAwesomeIcon icon={faStar} />
+        </button>
       </td>
       <td>
         <button onClick={handleDelBtn}>삭제</button>

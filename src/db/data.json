@@ -41,20 +41,6 @@
     },
     {
       "topic": "zzz",
-      "eng": "dfs",
-      "kor": "ff",
-      "isDone": false,
-      "id": 4
-    },
-    {
-      "topic": "zzz",
-      "eng": "d",
-      "kor": "d",
-      "isDone": false,
-      "id": 7
-    },
-    {
-      "topic": "zzz",
       "eng": "gd",
       "kor": "gd",
       "isDone": false,
@@ -66,13 +52,6 @@
       "kor": "z",
       "isDone": false,
       "id": 10
-    },
-    {
-      "topic": "zzz",
-      "eng": "zz",
-      "kor": "z",
-      "isDone": false,
-      "id": 13
     },
     {
       "topic": "zzz",
