@@ -43,6 +43,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       eng: wordInputValue,
       kor: meaningInputValue,
       isDone: false,
+      isBookmarked: false,
     };
     [setMeaningInputValue, setWordInputValue].forEach((fn) => fn(""));
 

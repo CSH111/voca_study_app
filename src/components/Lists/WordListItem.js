@@ -41,6 +41,20 @@ export function WordListItem({ word }) {
       setWords(updatedWords);
     });
   }
+  function handleIsBookmarked() {
+    putData(`http://localhost:3001/words/${word.id}`, {
+      ...word,
+      isBookmarked: !word.isBookmarked,
+    }).then((res) => {
+      if (!res.ok) {
+        return;
+      }
+      const updatedWords = makeNewContextData(words, word, {
+        isBookmarked: !word.isBookmarked,
+      });
+      setWords(updatedWords);
+    });
+  }
   const modifyWord = () => {
     setIsModifying(false);
     setLoading(true);
@@ -117,8 +131,8 @@ export function WordListItem({ word }) {
       </td>
       <td>
         <Button
-          onClick={() => setIsBookmarked(!isBookmarked)}
-          isBookmarked={isBookmarked}
+          onClick={() => handleIsBookmarked()}
+          isBookmarked={word.isBookmarked}
           className="bookmark"
         >
           <FontAwesomeIcon icon={faStar} />

@@ -1,85 +1,30 @@
 {
   "topics": [
     {
-      "topic": "33",
-      "id": 3
+      "topic": "sdf",
+      "id": 1
     },
     {
-      "topic": "zzz",
-      "id": 4
-    },
-    {
-      "topic": "zzz3",
-      "id": 5
-    },
-    {
-      "topic": "ㅁㄴㅇㄹ",
-      "id": 6
+      "topic": "asdf",
+      "id": 2
     }
   ],
   "words": [
     {
-      "topic": "33",
-      "eng": "11223",
-      "kor": "113",
-      "isDone": true,
+      "topic": "sdf",
+      "eng": "ff",
+      "kor": "f",
+      "isDone": false,
+      "isBookmarked": true,
       "id": 1
     },
     {
-      "topic": "456",
-      "eng": "dd",
-      "kor": "f",
+      "topic": "sdf",
+      "eng": "11",
+      "kor": "2",
       "isDone": false,
+      "isBookmarked": true,
       "id": 2
-    },
-    {
-      "topic": "zzz3",
-      "eng": "ddd",
-      "kor": "df",
-      "isDone": false,
-      "id": 3
-    },
-    {
-      "topic": "zzz",
-      "eng": "gd",
-      "kor": "gd",
-      "isDone": false,
-      "id": 8
-    },
-    {
-      "topic": "33",
-      "eng": "zz",
-      "kor": "z",
-      "isDone": false,
-      "id": 10
-    },
-    {
-      "topic": "zzz",
-      "eng": "ff",
-      "kor": "d",
-      "isDone": false,
-      "id": 14
-    },
-    {
-      "topic": "zzz",
-      "eng": "zz",
-      "kor": "z",
-      "isDone": false,
-      "id": 15
-    },
-    {
-      "topic": "zzz",
-      "eng": "dd",
-      "kor": "z",
-      "isDone": false,
-      "id": 16
-    },
-    {
-      "topic": "zzz",
-      "eng": "d",
-      "kor": "d",
-      "isDone": false,
-      "id": 17
     }
   ]
 }
