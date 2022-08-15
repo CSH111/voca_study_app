@@ -3,13 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { WordsDataContext } from "../../context/WordsDataContext";
 import Loading from "../Loading";
 import { WordListItem } from "./WordListItem";
-import useFetch from "../../hook/useFetch";
-export function WordList({ topic, itemLoading }) {
+
+const BookmarkList = ({ itemLoading }) => {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/words?topic=${topic}`)
+    fetch(`http://localhost:3001/words?isBookmarked=true`)
       .then((res) => res.json())
       .then((data) => {
         setWords(data);
@@ -21,7 +21,7 @@ export function WordList({ topic, itemLoading }) {
     return <Loading />;
   }
   if (!words.length && !itemLoading) {
-    return <div>단어를 추가하세요.</div>;
+    return <div>북마크한 단어가 없습니다.</div>;
   }
   return (
     <table>
@@ -35,4 +35,5 @@ export function WordList({ topic, itemLoading }) {
       </tbody>
     </table>
   );
-}
+};
+export default BookmarkList;

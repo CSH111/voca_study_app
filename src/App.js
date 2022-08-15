@@ -8,7 +8,7 @@ import Detail from "./routes/Detail";
 import Home from "./routes/Home";
 import { WordsDataContext } from "./context/WordsDataContext";
 import { TopicDataContext } from "./context/TopicDataContext";
-import Bookmark from "./routes/Bookmark";
+// import Bookmark from "./routes/Bookmark";
 function App() {
   const [words, setWords] = useState([]);
   const [topics, setTopics] = useState([]);
@@ -33,7 +33,6 @@ function App() {
             </WordsDataContext.Provider>
           }
         />
-        <Route path="/bookmark" element={<Bookmark />} />
       </Routes>
     </BrowserRouter>
   );

@@ -16,9 +16,13 @@ const TopicGenerator = function ({ setItemLoading }) {
       topicInput.current.focus();
       return;
     }
-
     if (isExist(topicValue)) {
       alert("이미 존재하는 이름입니다.");
+      topicInput.current.focus();
+      return;
+    }
+    if (topicValue === "bookmark") {
+      alert("사용할 수 없는 이름입니다.");
       topicInput.current.focus();
       return;
     }
