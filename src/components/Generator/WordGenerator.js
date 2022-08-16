@@ -3,6 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { WordsDataContext } from "../../context/WordsDataContext";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "../Button";
+
 const WordGenerator = ({ topic, setitemLoading }) => {
   const { setWords } = useContext(WordsDataContext);
   const [wordInputValue, setWordInputValue] = useState("");
@@ -14,7 +18,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
 
   useEffect(() => {
     fetch("http://localhost:3001/topics")
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((topics) => {
         if (!topics.find((_topic) => _topic.topic === topic)) {
           alert("잘못된 경로");
@@ -84,9 +88,9 @@ const WordGenerator = ({ topic, setitemLoading }) => {
         onChange={(e) => setMeaningInputValue(e.target.value)}
       />
 
-      <button onClick={handleAddBtnClick} disabled={isDisabled}>
-        단어추가
-      </button>
+      <Button onClick={handleAddBtnClick} disabled={isDisabled}>
+        <FontAwesomeIcon icon={faPlus} />{" "}
+      </Button>
     </form>
   );
 };

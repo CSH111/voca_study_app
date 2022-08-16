@@ -4,10 +4,12 @@ import makeNewContextData from "../../function/makeNewContextData";
 import putData from "../../function/putData";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
-const StyledTr = styled.tr``;
-const StyledTd = styled.td`
+const StyledLi = styled.li`
+  display: flex;
+`;
+const StyledDiv = styled.div`
   font-style: ${(props) => (props.isDone ? "italic" : "")};
   text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
 `;
@@ -87,63 +89,46 @@ export function WordListItem({ word }) {
 
   if (isModifying) {
     return (
-      <tr>
-        <td colSpan={6}>
-          <input type="text" value={wordValue} onChange={handleWordInput} />
-          <input
-            type="text"
-            value={meaningValue}
-            onChange={handleMeaningInput}
-          />
-          <button onClick={modifyWord}>완료</button>
-        </td>
-      </tr>
+      <li>
+        <input type="text" value={wordValue} onChange={handleWordInput} />
+        <input type="text" value={meaningValue} onChange={handleMeaningInput} />
+        <button onClick={modifyWord}>완료</button>
+      </li>
     );
   }
   if (loading) {
-    return (
-      <tr>
-        <td colSpan={6}>loading...</td>
-      </tr>
-    );
+    return <li colSpan={6}>loading...</li>;
   }
   return (
-    <StyledTr>
-      <td>
-        <input
-          type="checkbox"
-          name=""
-          id=""
-          onChange={handleIsDone}
-          checked={word.isDone}
-        />
-      </td>
+    <StyledLi>
+      <input
+        type="checkbox"
+        name=""
+        id=""
+        onChange={handleIsDone}
+        checked={word.isDone}
+      />
 
-      <StyledTd className="data" isDone={word.isDone}>
-        {word.eng}
-      </StyledTd>
-      <StyledTd className="data" isDone={word.isDone}>
-        {word.kor}
-      </StyledTd>
+      <StyledDiv className="data" isDone={word.isDone}>
+        <div> {word.eng}</div>
 
-      <td>
-        <button>뜻 숨기기</button>
-      </td>
-      <td>
-        <Button
-          onClick={() => handleIsBookmarked()}
-          isBookmarked={word.isBookmarked}
-          className="bookmark"
-        >
-          <FontAwesomeIcon icon={faStar} />
-        </Button>
-      </td>
-      <td>
-        <button onClick={handleDelBtn}>삭제</button>
-      </td>
-      <td>
-        <button onClick={() => setIsModifying(true)}>수정</button>
-      </td>
-    </StyledTr>
+        <div>{word.kor}</div>
+      </StyledDiv>
+
+      <Button onClick={handleDelBtn}>
+        <FontAwesomeIcon icon={faTrashAlt} />
+      </Button>
+      <Button onClick={() => setIsModifying(true)}>
+        <FontAwesomeIcon icon={faEdit} />
+      </Button>
+
+      <Button
+        onClick={() => handleIsBookmarked()}
+        isBookmarked={word.isBookmarked}
+        className="bookmark"
+      >
+        <FontAwesomeIcon icon={faStar} />
+      </Button>
+    </StyledLi>
   );
 }

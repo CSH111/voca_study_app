@@ -24,15 +24,12 @@ export function WordList({ topic, itemLoading }) {
     return <div>단어를 추가하세요.</div>;
   }
   return (
-    <table>
-      <tbody>
-        {words.map((word) => (
-          <WordListItem word={word} key={word.id} />
-        ))}
-        <tr>
-          <td colSpan={6}>{itemLoading ? "loading..." : null}</td>
-        </tr>
-      </tbody>
-    </table>
+    <ul>
+      {words.map((word) => (
+        <WordListItem word={word} key={word.id} />
+      ))}
+
+      <li>{itemLoading ? "loading..." : null}</li>
+    </ul>
   );
 }

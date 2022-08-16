@@ -1,5 +1,8 @@
 import { useContext, useRef, useState } from "react";
 import { TopicDataContext } from "../../context/TopicDataContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "../Button";
 
 const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
@@ -57,7 +60,9 @@ const TopicGenerator = function ({ setItemLoading }) {
           />
         </label>
 
-        <button onClick={createTopic}>생성</button>
+        <Button onClick={createTopic}>
+          <FontAwesomeIcon icon={faPlus} />{" "}
+        </Button>
       </form>
     </>
   );

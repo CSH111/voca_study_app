@@ -16,6 +16,7 @@ const Button = (props) => {
       onClick={props.onClick}
       isBookmarked={props.isBookmarked}
       className={props.className}
+      disabled={props.disabled}
     >
       {props.children}
     </StyledButton>

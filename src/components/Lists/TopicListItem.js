@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { TopicDataContext } from "../../context/TopicDataContext";
 import putData from "../../function/putData";
 import makeNewContextData from "../../function/makeNewContextData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
+import Button from "../Button";
 
 const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
@@ -105,8 +108,13 @@ const TopicListItem = ({ topic }) => {
       <span>
         {wordsDoneAmount}/{wordsAmount}
       </span>
-      <button onClick={onDeleteBtnCLick}>토픽삭제</button>
-      <button onClick={() => setIsModifying(true)}>수정</button>
+
+      <Button onClick={onDeleteBtnCLick}>
+        <FontAwesomeIcon icon={faTrashAlt} />
+      </Button>
+      <Button onClick={() => setIsModifying(true)}>
+        <FontAwesomeIcon icon={faEdit} />
+      </Button>
     </li>
   );
 };
