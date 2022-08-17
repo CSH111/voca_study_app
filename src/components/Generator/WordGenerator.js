@@ -40,6 +40,8 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       meaningInput.current.focus();
       return;
     }
+    //
+    wordInput.current.focus();
 
     setitemLoading(true);
     const newWord = {
@@ -64,7 +66,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       .then((data) => {
         setitemLoading(false);
         setWords(data);
-        wordInput.current.focus();
+        // wordInput.current.focus();
       });
   };
 

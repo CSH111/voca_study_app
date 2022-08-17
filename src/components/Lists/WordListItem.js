@@ -4,17 +4,37 @@ import makeNewContextData from "../../function/makeNewContextData";
 import putData from "../../function/putData";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faTrashAlt,
+  faEdit,
+  faEllipsis,
+} from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
+import Ellipsis from "../Ellipsis";
+
 const StyledLi = styled.li`
   display: flex;
+  margin-bottom: 1rem;
+
+  label {
+  }
+  label[data-checked="true"] {
+    color: red;
+  }
+  /* label[data-checked="false"] {
+    color: blue;
+  } */
 `;
 const StyledDiv = styled.div`
+  width: 200px;
+  background-color: rgba(149, 149, 149, 0.496);
   font-style: ${(props) => (props.isDone ? "italic" : "")};
   text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
 `;
 
 export function WordListItem({ word }) {
+  const [checked, setChecked] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(false);
@@ -30,20 +50,24 @@ export function WordListItem({ word }) {
     });
   }
   function handleIsDone() {
+    const updatedWords = makeNewContextData(words, word, {
+      isDone: !word.isDone,
+    });
+    setWords(updatedWords);
     putData(`http://localhost:3001/words/${word.id}`, {
       ...word,
       isDone: !word.isDone,
     }).then((res) => {
       if (!res.ok) {
+        const restoredWords = makeNewContextData(words, word, {
+          isDone: word.isDone,
+        });
+        setWords(restoredWords);
         return;
       }
-      const updatedWords = makeNewContextData(words, word, {
-        isDone: !word.isDone,
-      });
-      setWords(updatedWords);
     });
   }
-  function handleIsBookmarked() {
+  function handleBookmark() {
     putData(`http://localhost:3001/words/${word.id}`, {
       ...word,
       isBookmarked: !word.isBookmarked,
@@ -104,31 +128,43 @@ export function WordListItem({ word }) {
       <input
         type="checkbox"
         name=""
-        id=""
+        id="xx"
         onChange={handleIsDone}
         checked={word.isDone}
       />
-
+      <label htmlFor="xx">ㅋㅋ</label>
       <StyledDiv className="data" isDone={word.isDone}>
         <div> {word.eng}</div>
 
         <div>{word.kor}</div>
       </StyledDiv>
-
-      <Button onClick={handleDelBtn}>
-        <FontAwesomeIcon icon={faTrashAlt} />
-      </Button>
-      <Button onClick={() => setIsModifying(true)}>
-        <FontAwesomeIcon icon={faEdit} />
-      </Button>
-
-      <Button
-        onClick={() => handleIsBookmarked()}
-        isBookmarked={word.isBookmarked}
-        className="bookmark"
-      >
-        <FontAwesomeIcon icon={faStar} />
-      </Button>
+      <Ellipsis
+        items={
+          <>
+            <Button onClick={handleDelBtn}>
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </Button>
+            <Button onClick={() => setIsModifying(true)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </Button>
+            <Button
+              onClick={() => handleBookmark()}
+              isBookmarked={word.isBookmarked}
+              className="bookmark"
+            >
+              <FontAwesomeIcon icon={faStar} />
+            </Button>
+          </>
+        }
+      />
+      <label data-checked={checked}>
+        <input
+          checked={checked}
+          type="checkbox"
+          onChange={() => setChecked(!checked)}
+        />
+        zzz
+      </label>
     </StyledLi>
   );
 }

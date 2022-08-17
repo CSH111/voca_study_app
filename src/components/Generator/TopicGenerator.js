@@ -3,12 +3,13 @@ import { TopicDataContext } from "../../context/TopicDataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom";
 
 const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
   const { topics, setTopics } = useContext(TopicDataContext);
   const topicInput = useRef();
-
+  const navigate = useNavigate();
   const isExist = (inputValue) => {
     return topics.find((topic) => topic.topic === inputValue);
   };
@@ -41,12 +42,13 @@ const TopicGenerator = function ({ setItemLoading }) {
       .then(fetch)
       .then((res) => res.ok && res.json())
       .then((data) => {
-        topicInput.current.focus();
-        setItemLoading(false);
-        setTopics(data);
-        setTopicValue("");
+        // setItemLoading(false);
+        // setTopics(data);
+        // setTopicValue("");
+        navigate(`/${topicValue}`);
       });
   };
+
   return (
     <>
       <form>

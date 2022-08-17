@@ -6,6 +6,7 @@ import makeNewContextData from "../../function/makeNewContextData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
+import ProgressBar from "../ProgressBar";
 
 const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
@@ -102,11 +103,13 @@ const TopicListItem = ({ topic }) => {
   }
   return (
     <li>
-      <Link to={`/${topic.topic}`}>
-        <h3>{topic.topic}</h3>
-      </Link>
+      <h3>
+        <Link to={`/${topic.topic}`}>{topic.topic}</Link>
+      </h3>
       <span>
-        {wordsDoneAmount}/{wordsAmount}
+        {wordsDoneAmount / wordsAmount !== NaN
+          ? (wordsDoneAmount / wordsAmount) * 100 + "%"
+          : null}
       </span>
 
       <Button onClick={onDeleteBtnCLick}>
@@ -115,6 +118,14 @@ const TopicListItem = ({ topic }) => {
       <Button onClick={() => setIsModifying(true)}>
         <FontAwesomeIcon icon={faEdit} />
       </Button>
+      <ProgressBar
+        progress={
+          wordsDoneAmount / wordsAmount !== NaN
+            ? wordsDoneAmount / wordsAmount
+            : 0
+        }
+        // progress={0}
+      />
     </li>
   );
 };
