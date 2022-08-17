@@ -3,7 +3,9 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  background-color: transparent;
+  background-color: lightcyan;
+  width: 2.5rem;
+  height: 2rem;
   font-size: 1.2rem;
   cursor: pointer;
   &.bookmark {

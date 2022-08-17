@@ -15,19 +15,17 @@ import Ellipsis from "../Ellipsis";
 
 const StyledLi = styled.li`
   display: flex;
-  margin-bottom: 1rem;
+  flex-direction: row;
+  width: 350px;
+  overflow: hidden;
+  margin-bottom: 2rem;
 
-  label {
+  > div:last-child {
+    background-color: red;
   }
-  label[data-checked="true"] {
-    color: red;
-  }
-  /* label[data-checked="false"] {
-    color: blue;
-  } */
 `;
 const StyledDiv = styled.div`
-  width: 200px;
+  width: 100%;
   background-color: rgba(149, 149, 149, 0.496);
   font-style: ${(props) => (props.isDone ? "italic" : "")};
   text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
@@ -63,7 +61,6 @@ export function WordListItem({ word }) {
           isDone: word.isDone,
         });
         setWords(restoredWords);
-        return;
       }
     });
   }
@@ -125,15 +122,15 @@ export function WordListItem({ word }) {
   }
   return (
     <StyledLi>
-      <input
+      {/* <input
         type="checkbox"
         name=""
         id="xx"
         onChange={handleIsDone}
         checked={word.isDone}
       />
-      <label htmlFor="xx">ㅋㅋ</label>
-      <StyledDiv className="data" isDone={word.isDone}>
+      <label htmlFor="xx">ㅋㅋ</label> */}
+      <StyledDiv className="data" isDone={word.isDone} onClick={handleIsDone}>
         <div> {word.eng}</div>
 
         <div>{word.kor}</div>
@@ -157,14 +154,6 @@ export function WordListItem({ word }) {
           </>
         }
       />
-      <label data-checked={checked}>
-        <input
-          checked={checked}
-          type="checkbox"
-          onChange={() => setChecked(!checked)}
-        />
-        zzz
-      </label>
     </StyledLi>
   );
 }

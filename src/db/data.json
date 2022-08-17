@@ -1,7 +1,7 @@
 {
   "topics": [
     {
-      "topic": "222",
+      "topic": "222156",
       "id": 3
     },
     {
@@ -11,36 +11,44 @@
   ],
   "words": [
     {
-      "topic": "222",
-      "eng": "1",
-      "kor": "1",
-      "isDone": true,
-      "isBookmarked": false,
-      "id": 1
-    },
-    {
-      "topic": "222",
-      "eng": "2",
-      "kor": "2",
-      "isDone": true,
-      "isBookmarked": false,
-      "id": 2
-    },
-    {
-      "topic": "222",
-      "eng": "3",
-      "kor": "3",
-      "isDone": false,
-      "isBookmarked": false,
-      "id": 3
-    },
-    {
       "topic": "rtt",
       "eng": "zz",
       "kor": "z",
-      "isDone": false,
+      "isDone": true,
       "isBookmarked": false,
       "id": 4
+    },
+    {
+      "topic": "222156",
+      "eng": "run",
+      "kor": "운영하다",
+      "isDone": false,
+      "isBookmarked": false,
+      "id": 5
+    },
+    {
+      "topic": "222156",
+      "eng": "fire",
+      "kor": " 불사르다",
+      "isDone": true,
+      "isBookmarked": false,
+      "id": 6
+    },
+    {
+      "topic": "rtt",
+      "eng": "ew4rt",
+      "kor": "erat",
+      "isDone": true,
+      "isBookmarked": false,
+      "id": 7
+    },
+    {
+      "topic": "rtt",
+      "eng": "eart",
+      "kor": "eart",
+      "isDone": false,
+      "isBookmarked": false,
+      "id": 8
     }
   ]
 }

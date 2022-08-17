@@ -7,6 +7,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import ProgressBar from "../ProgressBar";
+import Ellipsis from "../Ellipsis";
+import styled from "styled-components";
+
+const StyledLi = styled.li`
+  background-color: lightgray;
+  width: 300px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  .topicHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+`;
 
 const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
@@ -102,22 +115,30 @@ const TopicListItem = ({ topic }) => {
     return <div>loading...</div>;
   }
   return (
-    <li>
-      <h3>
-        <Link to={`/${topic.topic}`}>{topic.topic}</Link>
-      </h3>
+    <StyledLi>
+      <div className="topicHeader">
+        <h3>
+          <Link to={`/${topic.topic}`}>{topic.topic}</Link>
+        </h3>
+        <Ellipsis
+          items={
+            <>
+              <Button onClick={onDeleteBtnCLick}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </Button>
+              <Button onClick={() => setIsModifying(true)}>
+                <FontAwesomeIcon icon={faEdit} />
+              </Button>
+            </>
+          }
+        />
+      </div>
       <span>
         {wordsDoneAmount / wordsAmount !== NaN
           ? (wordsDoneAmount / wordsAmount) * 100 + "%"
           : null}
       </span>
 
-      <Button onClick={onDeleteBtnCLick}>
-        <FontAwesomeIcon icon={faTrashAlt} />
-      </Button>
-      <Button onClick={() => setIsModifying(true)}>
-        <FontAwesomeIcon icon={faEdit} />
-      </Button>
       <ProgressBar
         progress={
           wordsDoneAmount / wordsAmount !== NaN
@@ -126,7 +147,7 @@ const TopicListItem = ({ topic }) => {
         }
         // progress={0}
       />
-    </li>
+    </StyledLi>
   );
 };
 export default TopicListItem;

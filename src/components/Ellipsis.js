@@ -2,16 +2,50 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import Button from "./Button";
-const StyledDiv = styled.div``;
+import { useState } from "react";
+const StyledDiv = styled.div`
+  position: relative;
+  .ellipsisBtn {
+    position: relative;
+    z-index: 2;
+    background-color: lightgreen;
+  }
+  div {
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    top: 0;
+    right: -3rem;
+    transition: all 0.2s;
 
-const Ellipsis = (props) => {
+    ${({ menuOn }) =>
+      menuOn //
+        ? `pointer-events:auto;
+        right:2.5rem;
+
+        opacity:1;
+        
+        `
+        : `pointer-events:none;
+        opacity:0;
+        `}
+
+    > * {
+      color: red;
+    }
+  }
+`;
+
+const Ellipsis = ({ items }) => {
+  const [menuOn, setMenuOn] = useState(false);
   return (
-    <StyledDiv>
-      <Button className="ellipsisBtn">
+    <StyledDiv menuOn={menuOn}>
+      <Button className="ellipsisBtn" onClick={() => setMenuOn(!menuOn)}>
         <FontAwesomeIcon icon={faEllipsis} />
       </Button>
 
-      <div className="items">{props.items}</div>
+      <div className="items">{items}</div>
     </StyledDiv>
   );
 };
