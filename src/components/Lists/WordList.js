@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { WordsDataContext } from "../../context/WordsDataContext";
 import Loading from "../Loading";
 import { WordListItem } from "./WordListItem";
-import useFetch from "../../hook/useFetch";
+
+import List from "./List";
 export function WordList({ topic, itemLoading }) {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(true);
@@ -16,7 +17,6 @@ export function WordList({ topic, itemLoading }) {
         setLoading(false);
       });
   }, []);
-
   if (loading) {
     return <Loading />;
   }
@@ -24,12 +24,12 @@ export function WordList({ topic, itemLoading }) {
     return <div>단어를 추가하세요.</div>;
   }
   return (
-    <ul>
+    <List>
       {words.map((word) => (
         <WordListItem word={word} key={word.id} />
       ))}
 
       <li>{itemLoading ? "loading..." : null}</li>
-    </ul>
+    </List>
   );
 }

@@ -12,9 +12,7 @@ import styled from "styled-components";
 
 const StyledLi = styled.li`
   background-color: lightgray;
-  width: 300px;
   overflow: hidden;
-  margin-bottom: 3rem;
   .topicHeader {
     display: flex;
     justify-content: space-between;

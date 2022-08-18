@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { TopicDataContext } from "../../context/TopicDataContext";
 import Loading from "../Loading";
+import List from "./List";
 import TopicListItem from "./TopicListItem";
 
 const TopicList = ({ itemLoading }) => {
@@ -25,7 +27,7 @@ const TopicList = ({ itemLoading }) => {
   }
   return (
     <>
-      <ul>
+      <List>
         <li>
           <Link to={"/bookmark"}>북마크</Link>
         </li>
@@ -33,7 +35,7 @@ const TopicList = ({ itemLoading }) => {
           <TopicListItem topic={topic} key={topic.id} />
         ))}
         {itemLoading ? <li>Loading...</li> : null}
-      </ul>
+      </List>
     </>
   );
 };

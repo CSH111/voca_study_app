@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { WordsDataContext } from "../../context/WordsDataContext";
 import Loading from "../Loading";
 import { WordListItem } from "./WordListItem";
+import List from "./List";
 
 const BookmarkList = ({ itemLoading }) => {
   const { words, setWords } = useContext(WordsDataContext);
@@ -24,16 +25,14 @@ const BookmarkList = ({ itemLoading }) => {
     return <div>북마크한 단어가 없습니다.</div>;
   }
   return (
-    <table>
-      <tbody>
-        {words.map((word) => (
-          <WordListItem word={word} key={word.id} />
-        ))}
-        <tr>
-          <td colSpan={6}>{itemLoading ? "loading..." : null}</td>
-        </tr>
-      </tbody>
-    </table>
+    <List>
+      {words.map((word) => (
+        <WordListItem word={word} key={word.id} />
+      ))}
+      <li>
+        <td colSpan={6}>{itemLoading ? "loading..." : null}</td>
+      </li>
+    </List>
   );
 };
 export default BookmarkList;
