@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import Ellipsis from "../Ellipsis";
+import Listitem from "./ListItem";
 
 const StyledLi = styled.li`
   display: flex;
@@ -19,14 +20,10 @@ const StyledLi = styled.li`
   width: 350px;
   overflow: hidden;
   margin-bottom: 2rem;
-
-  > div:last-child {
-    background-color: red;
-  }
 `;
 const StyledDiv = styled.div`
   width: 100%;
-  background-color: rgba(149, 149, 149, 0.496);
+
   font-style: ${(props) => (props.isDone ? "italic" : "")};
   text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
 `;
@@ -121,15 +118,7 @@ export function WordListItem({ word }) {
     return <li colSpan={6}>loading...</li>;
   }
   return (
-    <StyledLi>
-      {/* <input
-        type="checkbox"
-        name=""
-        id="xx"
-        onChange={handleIsDone}
-        checked={word.isDone}
-      />
-      <label htmlFor="xx">ㅋㅋ</label> */}
+    <Listitem>
       <StyledDiv className="data" isDone={word.isDone} onClick={handleIsDone}>
         <div> {word.eng}</div>
 
@@ -154,6 +143,6 @@ export function WordListItem({ word }) {
           </>
         }
       />
-    </StyledLi>
+    </Listitem>
   );
 }

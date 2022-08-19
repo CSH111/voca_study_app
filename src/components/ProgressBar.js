@@ -3,11 +3,15 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   width: 100px;
-  height: 30px;
+  height: 20px;
   border: solid 1px black;
+  /* display: ${({ innerText }) => (innerText ? `block` : `none`)}; */
 
-  div {
+  .gage {
     background-color: lightcoral;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
     height: inherit;
     /* width: calc(100% * ${(props) => props.progress}); */
     width: calc(100% * ${({ progress }) => (progress ? progress : 0)});
@@ -15,11 +19,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-const ProgressBar = ({ progress }) => {
+const ProgressBar = ({ progress, innerText }) => {
   console.log(progress);
   return (
-    <StyledDiv progress={progress}>
-      <div className="gage"></div>
+    <StyledDiv progress={progress} innerText={innerText}>
+      <div className="gage">{innerText}</div>
     </StyledDiv>
   );
 };

@@ -9,13 +9,14 @@ import Button from "../Button";
 import ProgressBar from "../ProgressBar";
 import Ellipsis from "../Ellipsis";
 import styled from "styled-components";
+import ListItem from "./ListItem";
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
-const StyledLi = styled.li`
-  background-color: lightgray;
-  overflow: hidden;
-  .topicHeader {
-    display: flex;
-    justify-content: space-between;
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  h3 {
+    margin-right: 0.5rem;
   }
 `;
 
@@ -113,39 +114,33 @@ const TopicListItem = ({ topic }) => {
     return <div>loading...</div>;
   }
   return (
-    <StyledLi>
-      <div className="topicHeader">
+    <ListItem className="topic">
+      <StyledDiv>
         <h3>
           <Link to={`/${topic.topic}`}>{topic.topic}</Link>
         </h3>
-        <Ellipsis
-          items={
-            <>
-              <Button onClick={onDeleteBtnCLick}>
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </Button>
-              <Button onClick={() => setIsModifying(true)}>
-                <FontAwesomeIcon icon={faEdit} />
-              </Button>
-            </>
+        <ProgressBar
+          progress={
+            wordsDoneAmount / wordsAmount !== NaN
+              ? wordsDoneAmount / wordsAmount
+              : 0
           }
+          innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
         />
-      </div>
-      <span>
-        {wordsDoneAmount / wordsAmount !== NaN
-          ? (wordsDoneAmount / wordsAmount) * 100 + "%"
-          : null}
-      </span>
-
-      <ProgressBar
-        progress={
-          wordsDoneAmount / wordsAmount !== NaN
-            ? wordsDoneAmount / wordsAmount
-            : 0
+      </StyledDiv>
+      <Ellipsis
+        items={
+          <>
+            <Button onClick={onDeleteBtnCLick}>
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </Button>
+            <Button onClick={() => setIsModifying(true)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </Button>
+          </>
         }
-        // progress={0}
       />
-    </StyledLi>
+    </ListItem>
   );
 };
 export default TopicListItem;

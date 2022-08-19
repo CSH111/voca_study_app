@@ -8,7 +8,6 @@ const StyledDiv = styled.div`
   .ellipsisBtn {
     position: relative;
     z-index: 2;
-    background-color: lightgreen;
   }
   div {
     z-index: 1;
@@ -30,10 +29,6 @@ const StyledDiv = styled.div`
         : `pointer-events:none;
         opacity:0;
         `}
-
-    > * {
-      color: red;
-    }
   }
 `;
 

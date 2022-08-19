@@ -10,26 +10,13 @@ import { TopicDataContext } from "./context/TopicDataContext";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  background-color: lightcoral;
+  background-color: #efefef;
   height: 100%;
-  /* min-height: 100vh; */
-  /* margin: 0 auto; */
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 500px; */
-  /* display: block;
-  width: 500px;
-  margin: 0 auto; */
-  width: 300px;
+  min-height: 100vh;
+  width: 30%;
+  min-width: 300px;
   margin: 0 auto;
   padding: 10px;
-  /* header {
-    align-self: flex-start;
-    a {
-      color: yellow;
-    }
-  } */
 `;
 function App() {
   const [words, setWords] = useState([]);
