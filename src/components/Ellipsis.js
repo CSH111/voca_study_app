@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+
 import Button from "./Button";
 import { useState } from "react";
 const StyledDiv = styled.div`
@@ -37,7 +37,7 @@ const Ellipsis = ({ items }) => {
   return (
     <StyledDiv menuOn={menuOn}>
       <Button className="ellipsisBtn" onClick={() => setMenuOn(!menuOn)}>
-        <FontAwesomeIcon icon={faEllipsis} />
+        <FontAwesomeIcon icon={["fas", "ellipsis"]} />
       </Button>
 
       <div className="items">{items}</div>

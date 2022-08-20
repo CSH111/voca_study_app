@@ -4,13 +4,11 @@ import { TopicDataContext } from "../../context/TopicDataContext";
 import putData from "../../function/putData";
 import makeNewContextData from "../../function/makeNewContextData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import ProgressBar from "../ProgressBar";
 import Ellipsis from "../Ellipsis";
 import styled from "styled-components";
 import ListItem from "./ListItem";
-import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -132,10 +130,10 @@ const TopicListItem = ({ topic }) => {
         items={
           <>
             <Button onClick={onDeleteBtnCLick}>
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <FontAwesomeIcon icon={["fas", "trash-alt"]} />
             </Button>
             <Button onClick={() => setIsModifying(true)}>
-              <FontAwesomeIcon icon={faEdit} />
+              <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
           </>
         }

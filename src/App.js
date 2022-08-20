@@ -8,7 +8,14 @@ import Home from "./routes/Home";
 import { WordsDataContext } from "./context/WordsDataContext";
 import { TopicDataContext } from "./context/TopicDataContext";
 import styled from "styled-components";
-
+//fontawesome
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+// // import {} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faArrowAltCircleLeft } from "@fortawesome/free-regular-svg-icons";
+library.add(fas, far, faArrowAltCircleLeft, faEllipsis);
 const Wrapper = styled.div`
   background-color: #efefef;
   height: 100%;
