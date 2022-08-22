@@ -4,28 +4,32 @@ import makeNewContextData from "../../function/makeNewContextData";
 import putData from "../../function/putData";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faTrashAlt,
-  faEdit,
-  faEllipsis,
-} from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import Ellipsis from "../Ellipsis";
 import Listitem from "./ListItem";
 
-const StyledLi = styled.li`
-  display: flex;
-  flex-direction: row;
-  width: 350px;
-  overflow: hidden;
-  margin-bottom: 2rem;
-`;
 const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
   width: 100%;
+  height: 100%;
+  transition: all 0.2s;
 
   font-style: ${(props) => (props.isDone ? "italic" : "")};
   text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
+  &:hover {
+    background-color: lightcoral;
+    cursor: pointer;
+  }
+  > div {
+    text-align: center;
+    padding-bottom: 0.1rem;
+    margin-left: 0.5rem;
+    min-width: 70px;
+    border-bottom: solid #3c3c3c 1px;
+  }
 `;
 
 export function WordListItem({ word }) {
@@ -128,17 +132,17 @@ export function WordListItem({ word }) {
         items={
           <>
             <Button onClick={handleDelBtn}>
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <FontAwesomeIcon icon={["fas", "trash-alt"]} />
             </Button>
             <Button onClick={() => setIsModifying(true)}>
-              <FontAwesomeIcon icon={faEdit} />
+              <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
             <Button
               onClick={() => handleBookmark()}
               isBookmarked={word.isBookmarked}
               className="bookmark"
             >
-              <FontAwesomeIcon icon={faStar} />
+              <FontAwesomeIcon icon={["fas", "star"]} />
             </Button>
           </>
         }

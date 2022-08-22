@@ -6,7 +6,7 @@ import { WordsDataContext } from "../../context/WordsDataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
-
+import InputBox from "../InputBox";
 const WordGenerator = ({ topic, setitemLoading }) => {
   const { setWords } = useContext(WordsDataContext);
   const [wordInputValue, setWordInputValue] = useState("");
@@ -73,7 +73,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
   return (
     <form action="">
       <label htmlFor="wordInput">단어</label>
-      <input
+      <InputBox
         type="text"
         id="wordInput"
         ref={wordInput}
@@ -82,7 +82,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       />
 
       <label htmlFor="meaningInput">뜻</label>
-      <input
+      <InputBox
         type="text"
         id="meaningInput"
         ref={meaningInput}

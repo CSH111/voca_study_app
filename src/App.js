@@ -13,17 +13,39 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 // // import {} from "@fortawesome/free-solid-svg-icons";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsis,
+  faStar,
+  faEdit,
+  faUndo,
+} from "@fortawesome/free-solid-svg-icons";
 import { faArrowAltCircleLeft } from "@fortawesome/free-regular-svg-icons";
-library.add(fas, far, faArrowAltCircleLeft, faEllipsis);
+library.add(fas, far, faArrowAltCircleLeft, faEllipsis, faStar, faEdit, faUndo);
 const Wrapper = styled.div`
-  background-color: #efefef;
-  height: 100%;
-  min-height: 100vh;
   width: 30%;
-  min-width: 300px;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
-  padding: 10px;
+  min-width: 300px;
+  position: relative;
+  background-color: #e1e2e1;
+  height: 100%;
+  min-height: 80vh;
+  /* padding: 0 1rem 1rem 1rem; */
+  header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 1.25rem;
+    font-size: 0.7rem;
+    background-color: #9f90b6;
+    top: 0;
+    right: 0;
+    color: white;
+    padding: 0.1rem;
+  }
+  .wrapper {
+  }
 `;
 function App() {
   const [words, setWords] = useState([]);

@@ -4,7 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import InputBox from "../InputBox";
 
+const StyledForm = styled.form`
+  background-color: #d0c0e8;
+  height: 3.5rem;
+`;
+const StyledTextInput = styled(InputBox)``;
 const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
   const { topics, setTopics } = useContext(TopicDataContext);
@@ -50,23 +57,21 @@ const TopicGenerator = function ({ setItemLoading }) {
   };
 
   return (
-    <>
-      <form>
-        <label>
-          주제
-          <input
-            type="text"
-            value={topicValue}
-            onChange={(e) => setTopicValue(e.target.value)}
-            ref={topicInput}
-          />
-        </label>
+    <StyledForm>
+      <label>
+        주제
+        <InputBox
+          type="text"
+          value={topicValue}
+          onChange={(e) => setTopicValue(e.target.value)}
+          ref={topicInput}
+        />
+      </label>
 
-        <Button onClick={createTopic}>
-          <FontAwesomeIcon icon={faPlus} />{" "}
-        </Button>
-      </form>
-    </>
+      <Button onClick={createTopic}>
+        <FontAwesomeIcon icon={faPlus} />{" "}
+      </Button>
+    </StyledForm>
   );
 };
 

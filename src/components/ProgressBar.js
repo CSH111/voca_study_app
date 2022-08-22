@@ -5,7 +5,7 @@ const StyledDiv = styled.div`
   width: 100px;
   height: 20px;
   border: solid 1px black;
-  /* display: ${({ innerText }) => (innerText ? `block` : `none`)}; */
+  display: ${({ innerText }) => (innerText ? `block` : `none`)};
 
   .gage {
     background-color: lightcoral;
@@ -20,7 +20,6 @@ const StyledDiv = styled.div`
 `;
 
 const ProgressBar = ({ progress, innerText }) => {
-  console.log(progress);
   return (
     <StyledDiv progress={progress} innerText={innerText}>
       <div className="gage">{innerText}</div>
