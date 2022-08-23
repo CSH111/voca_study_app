@@ -29,9 +29,7 @@ const BookmarkList = ({ itemLoading }) => {
       {words.map((word) => (
         <WordListItem word={word} key={word.id} />
       ))}
-      <li>
-        <td colSpan={6}>{itemLoading ? "loading..." : null}</td>
-      </li>
+      <li>{itemLoading ? "loading..." : null}</li>
     </List>
   );
 };

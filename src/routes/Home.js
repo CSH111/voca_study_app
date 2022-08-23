@@ -42,3 +42,4 @@ export default Home;
 // +(디테일 페이지에서도 볼수있게)
 // - 토글버튼 통일(체크박스로 vs 버튼으로 )
 // 스타일트 컴포넌트에 ref 주는 요령 기억하기 ref forwarding 테크닉. 나머지에도 적용하기
+// 안보이는것에 포커스 할때 width랑 opacity이용하기 display none이면 포커스가 안먹는다 settimeout 0 가 더 좋은듯

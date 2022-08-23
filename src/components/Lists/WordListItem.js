@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { WordsDataContext } from "../../context/WordsDataContext";
 import makeNewContextData from "../../function/makeNewContextData";
 import putData from "../../function/putData";
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
 import Ellipsis from "../Ellipsis";
 import Listitem from "./ListItem";
+import InputBox from "../InputBox";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -33,11 +34,12 @@ const StyledDiv = styled.div`
 `;
 
 export function WordListItem({ word }) {
-  const [checked, setChecked] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(word.isBookmarked);
   const { words, setWords } = useContext(WordsDataContext);
+
   const [loading, setLoading] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const wordInputBox = useRef();
   function handleDelBtn() {
     if (!window.confirm("삭제할꺼?")) {
       return;
@@ -66,20 +68,27 @@ export function WordListItem({ word }) {
     });
   }
   function handleBookmark() {
+    setIsBookmarked(!isBookmarked);
     putData(`http://localhost:3001/words/${word.id}`, {
       ...word,
       isBookmarked: !word.isBookmarked,
-    }).then((res) => {
-      if (!res.ok) {
-        return;
-      }
-      const updatedWords = makeNewContextData(words, word, {
-        isBookmarked: !word.isBookmarked,
+    })
+      .then((res) => {
+        const updatedWords = makeNewContextData(words, word, {
+          isBookmarked: !word.isBookmarked,
+        });
+        setWords(updatedWords);
+      })
+      .catch((err) => {
+        console.log(isBookmarked);
+        setIsBookmarked(isBookmarked);
+        console.log(isBookmarked);
+
+        console.log(err);
       });
-      setWords(updatedWords);
-    });
   }
-  const modifyWord = () => {
+  const modifyWord = (e) => {
+    e.preventDefault();
     setIsModifying(false);
     setLoading(true);
     putData(`http://localhost:3001/words/${word.id}`, {
@@ -108,38 +117,53 @@ export function WordListItem({ word }) {
   const handleMeaningInput = (e) => {
     setMeaningValue(e.target.value);
   };
-
-  if (isModifying) {
-    return (
-      <li>
-        <input type="text" value={wordValue} onChange={handleWordInput} />
-        <input type="text" value={meaningValue} onChange={handleMeaningInput} />
-        <button onClick={modifyWord}>완료</button>
-      </li>
-    );
-  }
+  const goModifying = () => {
+    setIsModifying(true);
+    setTimeout(() => {
+      wordInputBox.current.focus();
+    }, 0);
+  };
   if (loading) {
     return <li colSpan={6}>loading...</li>;
   }
   return (
     <Listitem>
-      <StyledDiv className="data" isDone={word.isDone} onClick={handleIsDone}>
-        <div> {word.eng}</div>
+      {isModifying ? (
+        <form action="">
+          <InputBox
+            className="input"
+            type="text"
+            value={wordValue}
+            onChange={handleWordInput}
+            ref={wordInputBox}
+          />
+          <InputBox
+            type="text"
+            value={meaningValue}
+            onChange={handleMeaningInput}
+          />
+          <button onClick={modifyWord}>완료</button>
+        </form>
+      ) : (
+        <StyledDiv className="data" isDone={word.isDone} onClick={handleIsDone}>
+          <div> {word.eng}</div>
 
-        <div>{word.kor}</div>
-      </StyledDiv>
+          <div>{word.kor}</div>
+        </StyledDiv>
+      )}
+
       <Ellipsis
         items={
           <>
             <Button onClick={handleDelBtn}>
               <FontAwesomeIcon icon={["fas", "trash-alt"]} />
             </Button>
-            <Button onClick={() => setIsModifying(true)}>
+            <Button onClick={goModifying}>
               <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
             <Button
               onClick={() => handleBookmark()}
-              isBookmarked={word.isBookmarked}
+              isBookmarked={isBookmarked}
               className="bookmark"
             >
               <FontAwesomeIcon icon={["fas", "star"]} />

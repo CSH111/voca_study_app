@@ -5,17 +5,10 @@ const StyledInput = styled.input`
   background-color: transparent;
   border: none;
   border-bottom: 1px solid black;
+  &:focus {
+    outline: none;
+  }
 `;
-// const InputBox = React.forwardRef((props,ref) => (
-
-//     <StyledInput
-// type={props.type}
-// value={props.value}
-// onChange={props.onChange}
-//       // value={props.value}
-//     />
-//   );
-// )
 
 const InputBox = React.forwardRef((props, ref) => {
   return (
@@ -25,7 +18,8 @@ const InputBox = React.forwardRef((props, ref) => {
       type={props.type}
       value={props.value}
       onChange={props.onChange}
-    />
+      className={props.className}
+    ></StyledInput>
   );
 });
 

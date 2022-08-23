@@ -6,6 +6,7 @@ import { WordList } from "../components/Lists/WordList";
 import BookmarkList from "../components/Lists/BookmarkList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/Button";
+import styled from "styled-components";
 
 function Detail() {
   const { topic } = useParams();
@@ -31,7 +32,7 @@ function Detail() {
       <hr />
       <Button onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={["fas", "undo"]} />
-      </Button>
+      </Button>{" "}
       <BookmarkList />
     </>
   );

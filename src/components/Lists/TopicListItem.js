@@ -9,6 +9,8 @@ import ProgressBar from "../ProgressBar";
 import Ellipsis from "../Ellipsis";
 import styled from "styled-components";
 import ListItem from "./ListItem";
+import InputBox from "../InputBox";
+import { useRef } from "react";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -17,6 +19,7 @@ const StyledDiv = styled.div`
     margin-right: 0.5rem;
   }
 `;
+const StyledForm = styled.form``;
 
 const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
@@ -24,6 +27,7 @@ const TopicListItem = ({ topic }) => {
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
   const { topics, setTopics } = useContext(TopicDataContext);
   const [loading, setLoading] = useState(false);
+  const modifyingValue = useRef();
 
   useEffect(() => {
     fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
@@ -68,7 +72,13 @@ const TopicListItem = ({ topic }) => {
   const handleTopicInput = (e) => {
     setTopicValue(e.target.value);
   };
-
+  const goModifying = () => {
+    setIsModifying(true);
+    console.dir(modifyingValue.current);
+    setTimeout(() => {
+      modifyingValue.current.focus();
+    }, 0);
+  };
   const modifyWords = () => {
     return fetch(`http://localhost:3001/words?topic=${topic.topic}`)
       .then((response) => response.json())
@@ -92,7 +102,8 @@ const TopicListItem = ({ topic }) => {
     setTopics(updatedTopics);
   };
 
-  const onModifyBtnClick = () => {
+  const onModifyBtnClick = (e) => {
+    e.preventDefault();
     setIsModifying(false);
     setLoading(true);
     modifyWords()
@@ -100,39 +111,52 @@ const TopicListItem = ({ topic }) => {
       .then(() => setLoading(false));
   };
 
-  if (isModifying) {
-    return (
-      <li>
-        <input type="text" value={topicValue} onChange={handleTopicInput} />
-        <button onClick={onModifyBtnClick}>완료</button>
-      </li>
-    );
-  }
+  // if (isModifying) {
+  //   return (
+  // <li>
+  //   <input type="text" value={topicValue} onChange={handleTopicInput} />
+  //   <button onClick={onModifyBtnClick}>완료</button>
+  // </li>;
+  //   );
+  // }
   if (loading) {
-    return <div>loading...</div>;
+    return <ListItem>loading...</ListItem>;
   }
   return (
     <ListItem className="topic">
-      <StyledDiv>
-        <h3>
-          <Link to={`/${topic.topic}`}>{topic.topic}</Link>
-        </h3>
-        <ProgressBar
-          progress={
-            wordsDoneAmount / wordsAmount !== NaN
-              ? wordsDoneAmount / wordsAmount
-              : 0
-          }
-          innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
-        />
-      </StyledDiv>
+      {isModifying ? (
+        <StyledForm isModifying={isModifying}>
+          <InputBox
+            type="text"
+            value={topicValue}
+            onChange={handleTopicInput}
+            ref={modifyingValue}
+          />
+          <Button onClick={onModifyBtnClick}>끝</Button>
+        </StyledForm>
+      ) : (
+        <StyledDiv isModifying={isModifying}>
+          <h3>
+            <Link to={`/${topic.topic}`}>{topic.topic}</Link>
+          </h3>
+          <ProgressBar
+            progress={
+              wordsDoneAmount / wordsAmount !== NaN
+                ? wordsDoneAmount / wordsAmount
+                : 0
+            }
+            innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
+          />
+        </StyledDiv>
+      )}
+
       <Ellipsis
         items={
           <>
             <Button onClick={onDeleteBtnCLick}>
               <FontAwesomeIcon icon={["fas", "trash-alt"]} />
             </Button>
-            <Button onClick={() => setIsModifying(true)}>
+            <Button onClick={() => goModifying()}>
               <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
           </>
@@ -140,5 +164,45 @@ const TopicListItem = ({ topic }) => {
       />
     </ListItem>
   );
+
+  //
+  // return (
+  //   <ListItem className="topic">
+  //     <StyledForm isModifying={isModifying}>
+  //       <InputBox
+  //         type="text"
+  //         value={topicValue}
+  //         onChange={handleTopicInput}
+  //         ref={modifyingValue}
+  //       />
+  //       <Button onClick={onModifyBtnClick}>끝</Button>
+  //     </StyledForm>
+  //     <StyledDiv isModifying={isModifying}>
+  //       <h3>
+  //         <Link to={`/${topic.topic}`}>{topic.topic}</Link>
+  //       </h3>
+  //       <ProgressBar
+  //         progress={
+  //           wordsDoneAmount / wordsAmount !== NaN
+  //             ? wordsDoneAmount / wordsAmount
+  //             : 0
+  //         }
+  //         innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
+  //       />
+  //     </StyledDiv>
+  //     <Ellipsis
+  //       items={
+  //         <>
+  //           <Button onClick={onDeleteBtnCLick}>
+  //             <FontAwesomeIcon icon={["fas", "trash-alt"]} />
+  //           </Button>
+  //           <Button onClick={() => goModifying()}>
+  //             <FontAwesomeIcon icon={["fas", "edit"]} />
+  //           </Button>
+  //         </>
+  //       }
+  //     />
+  //   </ListItem>
+  // );
 };
 export default TopicListItem;
