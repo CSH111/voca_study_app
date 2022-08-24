@@ -23,45 +23,38 @@ import { faArrowAltCircleLeft } from "@fortawesome/free-regular-svg-icons";
 library.add(fas, far, faArrowAltCircleLeft, faEllipsis, faStar, faEdit, faUndo);
 const Wrapper = styled.div`
   width: 30%;
+  min-height: 800px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   min-width: 300px;
   position: relative;
   background-color: #e1e2e1;
-  height: 100%;
+
   min-height: 80vh;
   /* padding: 0 1rem 1rem 1rem; */
-  header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 1.25rem;
-    font-size: 0.7rem;
-    background-color: #9f90b6;
-    top: 0;
-    right: 0;
-    color: white;
-    padding: 0.1rem;
-  }
+
   .wrapper {
   }
 `;
+
 function App() {
   const [words, setWords] = useState([]);
   const [topics, setTopics] = useState([]);
-
+  const [msg, setMsg] = useState("");
   return (
     <BrowserRouter>
       <Reset />
-      <Wrapper>
-        <Header />
+      <Wrapper className="wrapper">
+        <Header msg={msg} />{" "}
+        {/* 리프팅스테이트업으로 헤더에 들어갈 메세지(메인:~~님 환영, 디테일: 주제명) */}
         <Routes>
           <Route
             path="/"
             element={
               <TopicDataContext.Provider value={{ topics, setTopics }}>
-                <Home />
+                <Home setMsg={setMsg} />
               </TopicDataContext.Provider>
             }
           />
@@ -69,7 +62,7 @@ function App() {
             path="/:topic"
             element={
               <WordsDataContext.Provider value={{ words, setWords }}>
-                <Detail />
+                <Detail setMsg={setMsg} />
               </WordsDataContext.Provider>
             }
           />

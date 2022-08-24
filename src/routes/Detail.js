@@ -7,16 +7,19 @@ import BookmarkList from "../components/Lists/BookmarkList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/Button";
 import styled from "styled-components";
+import { useEffect } from "react";
 
-function Detail() {
+function Detail({ setMsg }) {
   const { topic } = useParams();
   const [itemLoading, setitemLoading] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    setMsg(topic);
+  }, []);
 
   if (topic !== "bookmark") {
     return (
       <>
-        <h2>{topic}</h2>
         <WordGenerator topic={topic} setitemLoading={setitemLoading} />
         <hr />
         <Button onClick={() => navigate("/")}>
@@ -28,7 +31,6 @@ function Detail() {
   }
   return (
     <>
-      <h2>{topic}</h2>
       <hr />
       <Button onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={["fas", "undo"]} />

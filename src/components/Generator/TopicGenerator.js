@@ -7,10 +7,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import InputBox from "../InputBox";
 
-const StyledForm = styled.form`
-  background-color: #d0c0e8;
-  height: 3.5rem;
-`;
+const StyledForm = styled.form``;
 const StyledTextInput = styled(InputBox)``;
 const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");

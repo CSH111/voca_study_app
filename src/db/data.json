@@ -1,16 +1,12 @@
 {
   "topics": [
     {
-      "topic": "ㄴㅋㅋㄴㅇ",
+      "topic": "1일차",
       "id": 1
     },
     {
-      "topic": "asdfdfasafsd",
+      "topic": "중간고사",
       "id": 2
-    },
-    {
-      "topic": "asdf",
-      "id": 3
     }
   ],
   "words": [
@@ -23,33 +19,33 @@
       "id": 8
     },
     {
-      "topic": "ㄴㅋㅋㄴㅇ",
-      "eng": "dsdsdssad",
-      "kor": "dssdzz",
+      "topic": "1일차",
+      "eng": "word",
+      "kor": "단어",
       "isDone": true,
       "isBookmarked": false,
       "id": 9
     },
     {
-      "topic": "asdfdfasafsd",
-      "eng": "qw",
-      "kor": "qwe",
-      "isDone": true,
+      "topic": "1일차",
+      "eng": "kick",
+      "kor": "차다",
+      "isDone": false,
       "isBookmarked": false,
       "id": 10
     },
     {
-      "topic": "asdfdfasafsd",
-      "eng": "qweqwe",
-      "kor": "qwe",
-      "isDone": false,
+      "topic": "중간고사",
+      "eng": "middle",
+      "kor": "중간",
+      "isDone": true,
       "isBookmarked": false,
       "id": 11
     },
     {
-      "topic": "asdfdfasafsd",
-      "eng": "qweqwe",
-      "kor": "qweqweqwe",
+      "topic": "중간고사",
+      "eng": "marry",
+      "kor": "결혼하다",
       "isDone": false,
       "isBookmarked": false,
       "id": 12
