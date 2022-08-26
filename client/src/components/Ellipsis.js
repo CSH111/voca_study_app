@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Button from "./Button";
 import { useState } from "react";
+
 const StyledDiv = styled.div`
   position: relative;
   margin: 0.35rem 0.2rem;
@@ -12,15 +13,9 @@ const StyledDiv = styled.div`
   .ellipsisBtn {
     position: relative;
     z-index: 2;
-    /* background-color: inherit; */
   }
   button {
-    /* width: auto; */
-    opacity: 1;
-    border: none;
-
-    /* padding: 0.1rem; */
-    background-color: transparent;
+    width: 2.5rem;
   }
   div {
     z-index: 1;

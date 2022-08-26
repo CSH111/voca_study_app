@@ -7,6 +7,14 @@
     {
       "topic": "중간고사",
       "id": 2
+    },
+    {
+      "topic": "sdf",
+      "id": 3
+    },
+    {
+      "topic": "asdf",
+      "id": 4
     }
   ],
   "words": [
@@ -30,7 +38,7 @@
       "topic": "1일차",
       "eng": "kick",
       "kor": "차다",
-      "isDone": true,
+      "isDone": false,
       "isBookmarked": true,
       "id": 10
     },

@@ -2,6 +2,7 @@ import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
+  width: 100%;
   h1 {
     display: flex;
     justify-content: flex-end;

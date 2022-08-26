@@ -2,11 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledInput = styled.input`
-  background-color: transparent;
+  background-color: #ffe2bc;
   border: none;
-  border-bottom: 1px solid black;
+  border-radius: 2rem;
+  height: 2rem;
+  padding: 1rem;
   &:focus {
     outline: none;
+    background-color: #ffc982;
   }
 `;
 

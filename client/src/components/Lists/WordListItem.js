@@ -20,10 +20,6 @@ const StyledDiv = styled.div`
 
   font-style: ${(props) => (props.isDone ? "italic" : "")};
   text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
-  &:hover {
-    background-color: lightcoral;
-    cursor: pointer;
-  }
   > div {
     text-align: center;
     padding-bottom: 0.1rem;
@@ -31,6 +27,9 @@ const StyledDiv = styled.div`
     min-width: 70px;
     border-bottom: solid #3c3c3c 1px;
   }
+`;
+const StyledButton = styled(Button)`
+  color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
 `;
 
 export function WordListItem({ word }) {
@@ -151,7 +150,6 @@ export function WordListItem({ word }) {
           <div>{word.kor}</div>
         </StyledDiv>
       )}
-
       <Ellipsis
         items={
           <>
@@ -161,13 +159,13 @@ export function WordListItem({ word }) {
             <Button onClick={goModifying}>
               <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
-            <Button
+            <StyledButton
               onClick={() => handleBookmark()}
               isBookmarked={isBookmarked}
               className="bookmark"
             >
               <FontAwesomeIcon icon={["fas", "star"]} />
-            </Button>
+            </StyledButton>
           </>
         }
       />

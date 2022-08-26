@@ -20,21 +20,26 @@ import {
   faUndo,
 } from "@fortawesome/free-solid-svg-icons";
 import { faArrowAltCircleLeft } from "@fortawesome/free-regular-svg-icons";
+import Login from "./components/User/Login";
+import Register from "./components/User/Register";
 library.add(fas, far, faArrowAltCircleLeft, faEllipsis, faStar, faEdit, faUndo);
 const Wrapper = styled.div`
-  width: 30%;
-  min-height: 800px;
+  width: 100%;
+  max-width: 600px;
   height: 100%;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  min-width: 300px;
+
+  align-items: flex-start;
   position: relative;
   background-color: #e1e2e1;
-
-  min-height: 80vh;
-  /* padding: 0 1rem 1rem 1rem; */
-
+  form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   .wrapper {
   }
 `;
@@ -66,6 +71,8 @@ function App() {
               </WordsDataContext.Provider>
             }
           />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>
