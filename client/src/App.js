@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   align-items: flex-start;
   position: relative;
   background-color: #e1e2e1;
-  form {
+  form.user {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -53,7 +53,6 @@ function App() {
       <Reset />
       <Wrapper className="wrapper">
         <Header msg={msg} />{" "}
-        {/* 리프팅스테이트업으로 헤더에 들어갈 메세지(메인:~~님 환영, 디테일: 주제명) */}
         <Routes>
           <Route
             path="/"
@@ -71,8 +70,8 @@ function App() {
               </WordsDataContext.Provider>
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login className="user" />} />
+          <Route path="/register" element={<Register className="user" />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>
