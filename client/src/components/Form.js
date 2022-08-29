@@ -48,7 +48,10 @@ const Form = ({ className, inputs, buttons }) => {
         {inputs.map((input, idx) => (
           <label key={idx}>
             {input.label}
-            <InputBox onChange={(e) => input.setStateFn(e.target.value)} />
+            <InputBox
+              ref={input.ref}
+              onChange={(e) => input.setStateFn(e.target.value)}
+            />
           </label>
         ))}
       </div>
