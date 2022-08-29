@@ -5,7 +5,12 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 
-const StyeldForm = styled(Form)``;
+const StyeldForm = styled(Form)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

@@ -15,6 +15,7 @@ const StyledDiv = styled.div`
     z-index: 2;
   }
   button {
+    background-color: #f5f5f6;
     width: 2.5rem;
   }
   div {

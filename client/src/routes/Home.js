@@ -5,13 +5,13 @@ import TopicGenerator from "../components/Generator/TopicGenerator";
 import TopicList from "../components/Lists/TopicList";
 
 function Home({ setMsg }) {
-  useEffect(() => {
-    const body = { name: "ㅋㅋ" };
-    axios
-      .post(`/api/main`, body) //
-      .then((res) => console.log(res.data))
-      .catch(console.log);
-  }, []);
+  // useEffect(() => {
+  //   const body = { name: "ㅋㅋ" };
+  //   axios
+  //     .post(`/api/main`, body) //
+  //     .then((res) => console.log(res.data))
+  //     .catch(console.log);
+  // }, []);
 
   const [itemLoading, setItemLoading] = useState(false);
   useEffect(() => {

@@ -23,12 +23,23 @@ const StyeldForm = styled.form`
       display: flex;
       justify-content: space-around;
       align-items: center;
-      margin-bottom: 1rem;
+      position: relative;
+      margin-bottom: 2rem;
     }
     input {
       height: 2.5rem;
-      font-size: 1rem;
+      font-size: 1.2rem;
       margin-left: 1rem;
+    }
+    p {
+      position: absolute;
+      right: 1rem;
+      top: 0;
+      transform: translate(0, -100%);
+      padding: 0.2rem 0.4rem;
+      color: red;
+      font-size: 0.8rem;
+      display: block;
     }
   }
   button {
@@ -41,6 +52,12 @@ const StyeldForm = styled.form`
   }
 `;
 
+const onInputChange = (e, input) => {
+  input.setValueFn(e.target.value);
+  if (!input.confirmIsValid) return;
+  input.confirmIsValid();
+};
+
 const Form = ({ className, inputs, buttons }) => {
   return (
     <StyeldForm className={className}>
@@ -49,14 +66,16 @@ const Form = ({ className, inputs, buttons }) => {
           <label key={idx}>
             {input.label}
             <InputBox
+              type={input.type}
               ref={input.ref}
-              onChange={(e) => input.setStateFn(e.target.value)}
+              onChange={(e) => onInputChange(e, input)}
             />
+            {input.isValid ? null : <p>{input.msg}</p>}
           </label>
         ))}
       </div>
       {buttons.map((button, idx) => (
-        <Button key={idx} onClick={button.onClick}>
+        <Button key={idx} onClick={button.onClick} disabled={button.disabled}>
           {button.value}
         </Button>
       ))}
