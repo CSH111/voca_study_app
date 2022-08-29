@@ -1,14 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import InputBox from "../InputBox";
 import Form from "../Form";
-import Button from "../Button";
 import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
+
 const StyeldForm = styled(Form)``;
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const emailInput = useRef();
+
+  useEffect(() => {
+    emailInput.current.focus();
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -26,6 +32,7 @@ const Login = () => {
         {
           label: "이메일",
           setStateFn: setEmail,
+          ref: emailInput,
         },
         {
           label: "비밀번호",
