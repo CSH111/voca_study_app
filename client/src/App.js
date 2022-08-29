@@ -8,11 +8,9 @@ import Home from "./routes/Home";
 import { WordsDataContext } from "./context/WordsDataContext";
 import { TopicDataContext } from "./context/TopicDataContext";
 import styled from "styled-components";
-//fontawesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-// // import {} from "@fortawesome/free-solid-svg-icons";
 import {
   faEllipsis,
   faStar,
@@ -34,14 +32,6 @@ const Wrapper = styled.div`
   align-items: flex-start;
   position: relative;
   background-color: #e1e2e1;
-  form.user {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .wrapper {
-  }
 `;
 
 function App() {
@@ -70,8 +60,8 @@ function App() {
               </WordsDataContext.Provider>
             }
           />
-          <Route path="/login" element={<Login className="user" />} />
-          <Route path="/register" element={<Register className="user" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>
