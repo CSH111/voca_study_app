@@ -4,6 +4,7 @@ import Form from "../Form";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
+import axios from "axios";
 
 const StyeldForm = styled(Form)`
   position: absolute;
@@ -23,7 +24,21 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    alert(email + pw);
+    const body = {
+      email: email,
+      pw: pw,
+    };
+    axios
+      .post("/api/login", body)
+      .then((res) => {
+        console.log(res.data);
+        alert("로그인성공");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data.msg);
+      });
   };
   const goRegister = (e) => {
     e.preventDefault();
@@ -36,13 +51,13 @@ const Login = () => {
       inputs={[
         {
           label: "이메일",
-          setStateFn: setEmail,
+          setValueFn: setEmail,
           ref: emailInput,
           type: "email",
         },
         {
           label: "비밀번호",
-          setStateFn: setPw,
+          setValueFn: setPw,
           type: "password",
         },
       ]}
