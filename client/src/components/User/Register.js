@@ -46,11 +46,14 @@ const Register = () => {
       .post("/api/register", body) //
       .then((res) => {
         console.log(res.data);
-        alert("가입성공");
-        navigate("/login");
+        if (res.data.success) {
+          alert("가입성공");
+          navigate("/login");
+        }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data.error.code === 11000)
+          return alert("중복된 이메일");
         alert(err.response.data.msg);
       });
   };
