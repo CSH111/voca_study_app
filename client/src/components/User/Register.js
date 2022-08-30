@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "../Form";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StyeldForm = styled(Form)`
   position: absolute;
@@ -20,21 +22,42 @@ const Register = () => {
   const nameInput = useRef();
   const pwInput = useRef();
   const pwConfirmInput = useRef();
+  const navigate = useNavigate();
+
   useEffect(() => {
     nameInput.current.focus();
   }, []);
 
+  const isValidAll = () => {
+    if (name.trim() && email.trim && isValidPw && isSame) {
+      return true;
+    }
+    return false;
+  };
   const onRegisterClick = (e) => {
     e.preventDefault();
+    if (!isValidAll()) return alert("재입력하셈");
     const body = {
-      test: email,
+      name: name,
+      email: email,
+      pw: pw,
     };
     axios
-      .post("/api/main", body) //
-      .then((res) => console.log(res.data))
-      .catch(console.log);
+      .post("/api/register", body) //
+      .then((res) => {
+        console.log(res.data);
+        alert("가입성공");
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.response.data.msg);
+      });
   };
-
+  const onReturnClick = (e) => {
+    e.preventDefault();
+    navigate(-1);
+  };
   const confirmIsValidPw = () => {
     //나중에 정규표현식으로 상세설정
     pwInput.current.value.length >= 8
@@ -47,18 +70,19 @@ const Register = () => {
       ? setIsSame(true)
       : setIsSame(false);
   };
-
   return (
     <StyeldForm
       className="registerForm"
       inputs={[
         {
           label: "이름",
+          type: "text",
           setValueFn: setName,
           ref: nameInput,
         },
         {
           label: "이메일",
+          type: "email",
           setValueFn: setEmail,
         },
         {
@@ -84,6 +108,17 @@ const Register = () => {
         {
           value: "회원가입",
           onClick: onRegisterClick,
+          // disabled: true,
+        },
+        {
+          value: <FontAwesomeIcon icon={["fas", "undo"]} />,
+          onClick: onReturnClick,
+        },
+        {
+          value: "테스트",
+          onClick: (e) => {
+            e.preventDefault();
+          },
           // disabled: true,
         },
       ]}
