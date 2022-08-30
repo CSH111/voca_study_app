@@ -38,10 +38,12 @@ const Login = () => {
           label: "이메일",
           setStateFn: setEmail,
           ref: emailInput,
+          type: "email",
         },
         {
           label: "비밀번호",
           setStateFn: setPw,
+          type: "password",
         },
       ]}
       buttons={[
