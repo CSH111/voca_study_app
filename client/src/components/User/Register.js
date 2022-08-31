@@ -52,6 +52,7 @@ const Register = () => {
         }
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.data.error.code === 11000)
           return alert("중복된 이메일");
         alert(err.response.data.msg);

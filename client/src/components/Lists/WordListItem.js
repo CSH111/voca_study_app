@@ -49,6 +49,7 @@ export function WordListItem({ word }) {
       setWords(words.filter((item) => item.id !== word.id));
     });
   }
+
   function handleIsDone() {
     const updatedWords = makeNewContextData(words, word, {
       isDone: !word.isDone,
@@ -79,9 +80,7 @@ export function WordListItem({ word }) {
         setWords(updatedWords);
       })
       .catch((err) => {
-        console.log(isBookmarked);
         setIsBookmarked(isBookmarked);
-        console.log(isBookmarked);
 
         console.log(err);
       });

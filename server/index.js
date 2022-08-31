@@ -32,7 +32,9 @@ app.post("/api/register", (req, res) => {
     email: req.body.email,
     pw: req.body.pw,
   };
-  User.create(temp) //
+  const user = new User(temp);
+  user
+    .save()
     .then(() => {
       res.status(200).json({ success: true, msg: "등록성공" });
     })

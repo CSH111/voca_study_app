@@ -28,7 +28,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
         setIsDisabled(false);
       });
   }, []);
-
+  //리셋
   const handleAddBtnClick = (e) => {
     e.preventDefault();
 
