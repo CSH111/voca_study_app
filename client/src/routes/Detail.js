@@ -12,6 +12,17 @@ import { useEffect } from "react";
 function Detail({ setMsg }) {
   const { topic } = useParams();
   const [itemLoading, setitemLoading] = useState(false);
+  const [testWords, setTestWords] = useState([]);
+
+  useEffect(() => {
+    if (topic !== "bookmark") {
+      fetch(`http://localhost:3001/words?topic=${topic}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTestWords(data);
+        });
+    }
+  }, []);
   const navigate = useNavigate();
   useEffect(() => {
     setMsg(topic);
@@ -20,12 +31,22 @@ function Detail({ setMsg }) {
   if (topic !== "bookmark") {
     return (
       <>
-        <WordGenerator topic={topic} setitemLoading={setitemLoading} />
+        <WordGenerator
+          topic={topic}
+          setitemLoading={setitemLoading}
+          setTestWords={setTestWords}
+          testWords={testWords}
+        />
         <hr />
         <Button onClick={() => navigate("/")}>
           <FontAwesomeIcon icon={["fas", "undo"]} />
         </Button>
-        <WordList topic={topic} itemLoading={itemLoading} />
+        <WordList
+          topic={topic}
+          itemLoading={itemLoading}
+          setTestWords={setTestWords}
+          testWords={testWords}
+        />
       </>
     );
   }
