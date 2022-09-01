@@ -5,18 +5,21 @@ import TopicGenerator from "../components/Generator/TopicGenerator";
 import TopicList from "../components/Lists/TopicList";
 
 function Home({ setMsg }) {
-  // useEffect(() => {
-  //   const body = { name: "ㅋㅋ" };
-  //   axios
-  //     .post(`/api/main`, body) //
-  //     .then((res) => console.log(res.data))
-  //     .catch(console.log);
-  // }, []);
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    axios
+      .get(`/api/home`) //
+      .then((res) => {
+        console.log(res.data.userInfo);
+        setUserName(res.data.userInfo.name);
+      })
+      .catch(console.log);
+  }, []);
 
   const [itemLoading, setItemLoading] = useState(false);
   useEffect(() => {
-    setMsg("떙떙's Workbook");
-  }, []);
+    setMsg(`${userName}'s Wordbook`);
+  }, [userName]);
   return (
     <>
       <TopicGenerator setItemLoading={setItemLoading} />
