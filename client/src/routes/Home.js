@@ -1,25 +1,25 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TopicGenerator from "../components/Generator/TopicGenerator";
 import TopicList from "../components/Lists/TopicList";
 
 function Home({ setMsg }) {
-  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(`/api/home`) //
       .then((res) => {
-        console.log(res.data.userInfo);
-        setUserName(res.data.userInfo.name);
+        if (!res.data.userInfo) return navigate("/login");
+
+        setMsg(`${res.data.userInfo.name}'s Wordbook`);
       })
       .catch(console.log);
   }, []);
 
   const [itemLoading, setItemLoading] = useState(false);
-  useEffect(() => {
-    setMsg(`${userName}'s Wordbook`);
-  }, [userName]);
+
   return (
     <>
       <TopicGenerator setItemLoading={setItemLoading} />
