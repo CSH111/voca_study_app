@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 const StyledLi = styled.li`
+  height: 70px;
+  width: 100%;
   border: solid 1px black;
   background-color: #f5f5f6;
+  margin-top: 1rem;
   overflow: hidden;
-
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  height: 75px;
   align-items: center;
   > div:last-child {
     /* background-color: red; */

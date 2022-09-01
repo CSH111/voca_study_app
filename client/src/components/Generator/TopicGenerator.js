@@ -41,16 +41,7 @@ const TopicGenerator = function ({ setItemLoading }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ topic: topicValue }),
-    })
-      .then((res) => res.ok && res.url)
-      .then(fetch)
-      .then((res) => res.ok && res.json())
-      .then((data) => {
-        // setItemLoading(false);
-        // setTopics(data);
-        // setTopicValue("");
-        navigate(`/${topicValue}`);
-      });
+    }).then((res) => res.ok && navigate(`/${topicValue}`));
   };
 
   return (

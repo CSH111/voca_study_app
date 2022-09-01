@@ -3,12 +3,10 @@ import styled from "styled-components";
 
 const StyledUl = styled.ul`
   width: 100%;
+  height: 500px;
   display: flex;
   flex-direction: column;
-  li {
-    width: 100%;
-    margin-top: 2rem;
-  }
+  overflow-y: scroll;
 `;
 const List = ({ children }) => {
   return <StyledUl>{children}</StyledUl>;
