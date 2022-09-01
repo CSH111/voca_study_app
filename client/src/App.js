@@ -28,27 +28,33 @@ const Wrapper = styled.div`
   max-height: 700px;
   display: flex;
   flex-direction: column;
-
   align-items: flex-start;
   position: relative;
   background-color: #e1e2e1;
+  /* background-color: red; */
 `;
 
 function App() {
   const [words, setWords] = useState([]);
   const [topics, setTopics] = useState([]);
   const [msg, setMsg] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <BrowserRouter>
       <Reset />
       <Wrapper className="wrapper">
-        <Header msg={msg} />{" "}
+        <Header
+          msg={msg}
+          isLoggedIn={isLoggedIn}
+          setMsg={setMsg}
+          setIsLoggedIn={setIsLoggedIn}
+        />{" "}
         <Routes>
           <Route
             path="/"
             element={
               <TopicDataContext.Provider value={{ topics, setTopics }}>
-                <Home setMsg={setMsg} />
+                <Home setMsg={setMsg} setIsLoggedIn={setIsLoggedIn} />
               </TopicDataContext.Provider>
             }
           />

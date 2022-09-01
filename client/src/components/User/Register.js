@@ -118,13 +118,6 @@ const Register = () => {
           value: <FontAwesomeIcon icon={["fas", "undo"]} />,
           onClick: onReturnClick,
         },
-        {
-          value: "테스트",
-          onClick: (e) => {
-            e.preventDefault();
-          },
-          // disabled: true,
-        },
       ]}
     />
   );

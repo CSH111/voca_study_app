@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import TopicGenerator from "../components/Generator/TopicGenerator";
 import TopicList from "../components/Lists/TopicList";
 
-function Home({ setMsg }) {
+function Home({ setMsg, setIsLoggedIn }) {
   const navigate = useNavigate();
   useEffect(() => {
     axios
@@ -14,6 +14,7 @@ function Home({ setMsg }) {
         if (!res.data.userInfo) return navigate("/login");
 
         setMsg(`${res.data.userInfo.name}'s Wordbook`);
+        setIsLoggedIn(true);
       })
       .catch(console.log);
   }, []);

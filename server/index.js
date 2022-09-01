@@ -2,16 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const port = 5000;
-// const flash = require("connect-flash");
+
 const { mongoURI } = require("./config/key");
 const { User } = require("./Model/User");
 const bcrypt = require("bcrypt");
 //세션
 const session = require("express-session");
-// const passport = require("passport");
-// const LocalStrategy = require("passport-local").Strategy;
 const MongoDBStore = require("connect-mongodb-session")(session);
-const MAX_AGE = 1000 * 60 * 60 * 3; // 3hrs
+const MAX_AGE = 1000 * 60 * 60 * 24 * 365; // 1year
 const mongoDBstore = new MongoDBStore({
   uri: mongoURI,
   collection: "mySessions",
@@ -19,7 +17,7 @@ const mongoDBstore = new MongoDBStore({
 
 app.use(
   session({
-    secret: "비밀코드",
+    secret: "secret",
     name: "session-id",
     store: mongoDBstore,
     cookie: {
@@ -31,18 +29,10 @@ app.use(
     saveUninitialized: false,
   })
 );
-// app.use(flash());
-// app.use(passport.initialize());
-// app.use(passport.session());
-//
+
 app.use(express.json());
 app.use(express.urlencoded({ exrended: true }));
 
-// setting up connect-mongodb-session store
-
-// setting up connect-mongodb-session store
-
-//
 app.get("/", (req, res) => {
   res.send("Hello World!!!!!!");
 });
@@ -78,54 +68,6 @@ app.post("/api/register", (req, res) => {
     });
 });
 
-// passport.serializeUser(function (user, done) {
-//   done(null, user.email);
-// });
-
-// passport.deserializeUser(function (email, done) {
-//   done(null, email);
-// });
-
-// //
-// passport.use(
-//   new LocalStrategy(
-//     {
-//       usernameField: "email",
-//       passwordField: "pw",
-//       session: true,
-//       passReqToCallback: false,
-//     },
-
-//     function (입력한아이디, 입력한비번, done) {
-//       User.findOne({ email: 입력한아이디 }, function (에러, 결과) {
-//         if (에러) return done(에러);
-
-//         if (!결과)
-//           return done(null, false, { message: "존재하지않는 아이디요" });
-
-//         결과.comparePassword(입력한비번, (err, isMatch) => {
-//           if (!isMatch) return done(null, false, { message: "비번틀렸어요" });
-//           return done(null, 결과);
-//         });
-//       });
-//     }
-//   )
-// );
-
-// app.post(
-//   "/api/login",
-//   passport.authenticate("local", {
-//     successRedirect: "/register",
-//     // failureRedirect: "/login1",
-//     failureFlash: true,
-//   }),
-//   (req, res) => {
-//     console.log(req.flash());
-//     console.log(res);
-//     res.status(200).json({ msg: "로그인성공" });
-//   }
-// );
-
 //home 로그인여부
 app.get("/api/home", (req, res) => {
   console.log(req.session);
@@ -157,17 +99,22 @@ app.post("/api/login", (req, res) => {
         req.session.user = userSession;
         res.status(200).json({ msg: "로그인성공", userName: doc.name });
       });
-
-      // if (doc.pw !== temp.pw) {
-      //   res.status(400).json({ msg: "비밀번호가 다릅니다." });
-      //   return;
-      // }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({ success: false, msg: "로그인실패" });
     });
+});
 
-  // .catch((err) => {
-  //   console.log(err);
-  //   res.status(400).json({ success: false, msg: "등록실패" });
-  // });
+//logout
+app.post("/api/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(400).json({ success: false, msg: "로그아웃 실패" });
+      return;
+    }
+    res.status(200).json({ success: true, msg: "로그아웃 성공" });
+  });
 });
 
 //할거. 비밀번호 암호화, authorization
