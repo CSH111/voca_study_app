@@ -22,8 +22,19 @@ const Login = () => {
     emailInput.current.focus();
   }, []);
 
+  const isTyped = () => {
+    if (email.trim() && pw.trim()) {
+      return true;
+    }
+    return false;
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
+    if (!isTyped()) {
+      alert("다시 입력하세요");
+      return;
+    }
     const body = {
       email: email,
       pw: pw,
