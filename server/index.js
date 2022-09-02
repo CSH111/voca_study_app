@@ -6,6 +6,8 @@ const port = 5000;
 const { mongoURI } = require("./config/key");
 const { User } = require("./Model/User");
 const bcrypt = require("bcrypt");
+const authorize = require("./middleware/authorize");
+const authenticate = require("./middleware/authenticate");
 //세션
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
@@ -34,7 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ exrended: true }));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!!!!!!");
+  res.send("Hello World!!!!!!"); //빌드해서 넣어주기
 });
 
 app.listen(port, () => {
@@ -71,48 +73,21 @@ app.post("/api/register", (req, res) => {
     });
 });
 
-//home 로그인여부
-app.get("/api/home", (req, res) => {
-  console.log(req.user);
-  if (req.session.user) {
-    //user는 로그인시 생성한 객체
-    res
-      .status(200)
-      .json({ success: true, login: true, userInfo: req.session.user });
-    return;
-  }
-  res.status(200).json({ success: true, login: false });
+//home 로그인여부 검사
+app.get("/api/home", authorize, (req, res) => {
+  //user는 로그인시 생성한 객체
+  res
+    .status(200)
+    .json({ success: true, login: true, userInfo: req.session.user });
 });
 
 //로그인
-app.post("/api/login", (req, res) => {
-  const temp = {
-    email: req.body.email,
-    pw: req.body.pw,
-  };
-  User.findOne({ email: temp.email })
-    .exec()
-    .then((doc) => {
-      if (!doc) {
-        res.status(400).json({ msg: "존재하지 않는 아이디입니다." });
-        return;
-      }
-      bcrypt.compare(temp.pw, doc.pw, (err, result) => {
-        if (!result) {
-          res.status(400).json({ msg: "비밀번호가 다릅니다." });
-          return;
-        }
-        //세션활성화
-        const userSession = { email: doc.email, name: doc.name };
-
-        req.session.user = userSession; // session에 user객체 생성
-        res.status(200).json({ msg: "로그인성공" });
-      });
-    }) //
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json({ success: false, msg: "로그인실패" });
-    });
+app.post("/api/login", authenticate, (req, res) => {
+  //세션활성화
+  console.log(req.temp);
+  const userSession = { email: req.body.email, name: req.body.name };
+  req.session.user = userSession; // session에 user객체 생성
+  res.status(200).json({ msg: "로그인성공" });
 });
 
 //logout
