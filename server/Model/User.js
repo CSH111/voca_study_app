@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const saltRounds = 10;
+
 userSchema.pre("save", function (next) {
   const user = this;
   if (!user.isModified("pw")) return next();
@@ -30,12 +31,12 @@ userSchema.pre("save", function (next) {
   });
 });
 
-userSchema.methods.comparePassword = function (plainPassword, callback) {
-  bcrypt.compare(plainPassword, this.pw, function (err, isMatch) {
-    if (err) return callback(err);
-    callback(null, isMatch);
-  });
-};
+// userSchema.methods.comparePassword = function (plainPassword, callback) {
+//   bcrypt.compare(plainPassword, this.pw, function (err, isMatch) {
+//     if (err) return callback(err);
+//     callback(null, isMatch);
+//   });
+// };
 
 const User = mongoose.model("user", userSchema);
 
