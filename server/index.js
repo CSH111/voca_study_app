@@ -60,6 +60,9 @@ app.post("/api/register", (req, res) => {
   user
     .save()
     .then(() => {
+      //세션 활성화(for 자동로그인)
+      const userSession = { email: temp.email, name: temp.name };
+      req.session.user = userSession; // session에 user객체 생성
       res.status(200).json({ success: true, msg: "등록성공" });
     })
     .catch((err) => {
@@ -70,8 +73,15 @@ app.post("/api/register", (req, res) => {
 
 //home 로그인여부
 app.get("/api/home", (req, res) => {
-  console.log(req.session);
-  res.status(200).json({ success: true, userInfo: req.session.user });
+  console.log(req.user);
+  if (req.session.user) {
+    //user는 로그인시 생성한 객체
+    res
+      .status(200)
+      .json({ success: true, login: true, userInfo: req.session.user });
+    return;
+  }
+  res.status(200).json({ success: true, login: false });
 });
 
 //로그인
@@ -87,19 +97,18 @@ app.post("/api/login", (req, res) => {
         res.status(400).json({ msg: "존재하지 않는 아이디입니다." });
         return;
       }
-      return doc; //
-    }) //
-    .then((doc) => {
       bcrypt.compare(temp.pw, doc.pw, (err, result) => {
         if (!result) {
           res.status(400).json({ msg: "비밀번호가 다릅니다." });
           return;
         }
+        //세션활성화
         const userSession = { email: doc.email, name: doc.name };
-        req.session.user = userSession;
-        res.status(200).json({ msg: "로그인성공", userName: doc.name });
+
+        req.session.user = userSession; // session에 user객체 생성
+        res.status(200).json({ msg: "로그인성공" });
       });
-    })
+    }) //
     .catch((err) => {
       console.log(err);
       res.status(400).json({ success: false, msg: "로그인실패" });
@@ -117,4 +126,4 @@ app.post("/api/logout", (req, res) => {
   });
 });
 
-//할거. 비밀번호 암호화, authorization
+//할거. 라우터적용,가입시 자동로그인, word 데이터입출력

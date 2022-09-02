@@ -11,10 +11,12 @@ function Home({ setMsg, setIsLoggedIn }) {
     axios
       .get(`/api/home`) //
       .then((res) => {
-        if (!res.data.userInfo) return navigate("/login");
-
-        setMsg(`${res.data.userInfo.name}'s Wordbook`);
-        setIsLoggedIn(true);
+        if (res.data.login) {
+          setMsg(`${res.data.userInfo.name}'s Wordbook`);
+          setIsLoggedIn(true);
+          return;
+        }
+        navigate("/login");
       })
       .catch(console.log);
   }, []);

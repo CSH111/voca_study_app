@@ -48,7 +48,9 @@ const Register = () => {
         console.log(res.data);
         if (res.data.success) {
           alert("가입성공");
-          navigate("/login");
+
+          //로그인요청
+          navigate("/");
         }
       })
       .catch((err) => {
