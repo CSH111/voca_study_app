@@ -11,14 +11,15 @@ function Home({ setMsg, setIsLoggedIn }) {
     axios
       .get(`/api/home`) //
       .then((res) => {
-        if (res.data.login) {
-          setMsg(`${res.data.userInfo.name}'s Wordbook`);
-          setIsLoggedIn(true);
-          return;
-        }
-        navigate("/login");
+        console.log(res);
+        setMsg(`${res.data.userInfo.name}'s Wordbook`);
+        setIsLoggedIn(true);
+        return;
       })
-      .catch(console.log);
+      .catch((err) => {
+        console.log(err);
+        navigate("/login");
+      });
   }, []);
 
   const [itemLoading, setItemLoading] = useState(false);

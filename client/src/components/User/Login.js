@@ -40,7 +40,7 @@ const Login = () => {
       pw: pw,
     };
     axios
-      .post("/api/login", body)
+      .post("/api/user/account/login", body)
       .then((res) => {
         console.log(res.data);
         alert("로그인성공");

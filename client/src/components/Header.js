@@ -31,7 +31,7 @@ const Header = ({ msg, setMsg, isLoggedIn, setIsLoggedIn }) => {
   const onLogOutCLick = (arg) => {
     console.log("zz");
     axios
-      .post("/api/logout", null) //
+      .post("/api/user/account/logout", null) //
       .then((res) => {
         setMsg("");
         setIsLoggedIn(false);

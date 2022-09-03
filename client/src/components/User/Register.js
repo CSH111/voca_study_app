@@ -34,6 +34,7 @@ const Register = () => {
     }
     return false;
   };
+
   const onRegisterClick = (e) => {
     e.preventDefault();
     if (!isValidAll()) return alert("재입력하셈");
@@ -43,7 +44,7 @@ const Register = () => {
       pw: pw,
     };
     axios
-      .post("/api/register", body) //
+      .post("/api/user/account/register", body) //
       .then((res) => {
         console.log(res.data);
         if (res.data.success) {
