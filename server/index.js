@@ -35,9 +35,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ exrended: true }));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!!!!!!"); //빌드해서 넣어주기
-});
+app.use("/api/user/account", require("./routes/account.js"));
 
 app.listen(port, () => {
   mongoose
@@ -50,8 +48,20 @@ app.listen(port, () => {
     })
     .catch(console.log);
 });
-// /api/user/account/register
-//회원가입
+
+app.get("/", (req, res) => {
+  res.send("Hello World!!!!!!"); //빌드해서 넣어주기
+});
+
+//토픽추가
+app.post("/api/data/create/topic", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.session.user.email },
+    { $push: { topics: [{ topicName: req.body.topicName }] } }
+  ).then(() => {
+    res.status(200).json({ success: true });
+  });
+});
 
 //home 로그인여부 검사
 app.get("/api/home", authorize, (req, res) => {
@@ -59,6 +69,4 @@ app.get("/api/home", authorize, (req, res) => {
   res.status(200).json({ success: true, userInfo: req.session.user });
 });
 
-app.use("/api/user/account", require("./routes/account.js"));
-
-//할거. 라우터적용, word 데이터입출력, 세션유지 선택 안내
+//할거. word 데이터입출력, 세션유지 선택 안내

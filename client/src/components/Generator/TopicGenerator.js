@@ -6,6 +6,7 @@ import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import InputBox from "../InputBox";
+import axios from "axios";
 
 const StyledForm = styled.form``;
 const StyledTextInput = styled(InputBox)``;
@@ -24,25 +25,56 @@ const TopicGenerator = function ({ setItemLoading }) {
       topicInput.current.focus();
       return;
     }
-    if (isExist(topicValue)) {
-      alert("이미 존재하는 이름입니다.");
-      topicInput.current.focus();
-      return;
-    }
+
     if (topicValue === "bookmark") {
       alert("사용할 수 없는 이름입니다.");
       topicInput.current.focus();
       return;
     }
     setItemLoading(true);
-    fetch("http://localhost:3001/topics", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ topic: topicValue }),
-    }).then((res) => res.ok && navigate(`/${topicValue}`));
+    const body = { topicName: topicValue };
+    axios
+      .post("/api/data/create/topic", body) //
+      .then((res) => {
+        setTopicValue("");
+        topicInput.current.focus();
+      })
+      .catch(console.log);
+
+    // fetch("http://localhost:3001/topics", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ topic: topicValue }),
+    // }).then((res) => res.ok && navigate(`/${topicValue}`));
   };
+
+  // const createTopic = (e) => {
+  //   e.preventDefault();
+  //   if (!topicValue.trim()) {
+  //     topicInput.current.focus();
+  //     return;
+  //   }
+  //   if (isExist(topicValue)) {
+  //     alert("이미 존재하는 이름입니다.");
+  //     topicInput.current.focus();
+  //     return;
+  //   }
+  //   if (topicValue === "bookmark") {
+  //     alert("사용할 수 없는 이름입니다.");
+  //     topicInput.current.focus();
+  //     return;
+  //   }
+  //   setItemLoading(true);
+  //   fetch("http://localhost:3001/topics", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ topic: topicValue }),
+  //   }).then((res) => res.ok && navigate(`/${topicValue}`));
+  // };
 
   return (
     <StyledForm>
