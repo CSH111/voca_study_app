@@ -38,6 +38,8 @@ const TopicGenerator = function ({ setItemLoading }) {
       .then((res) => {
         setTopicValue("");
         topicInput.current.focus();
+
+        setItemLoading(false);
       })
       .catch(console.log);
 

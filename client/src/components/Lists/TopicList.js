@@ -28,7 +28,9 @@ const TopicList = ({ itemLoading }) => {
     axios
       .post("/api/data/topic", null) //
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.topics);
+        setTopics(res.data.topics);
+        setLoading(false);
       })
       .catch(console.log);
   }, []);
@@ -48,7 +50,7 @@ const TopicList = ({ itemLoading }) => {
       </StyledDiv>
       <List>
         {topics.map((topic) => (
-          <TopicListItem topic={topic} key={topic.id} />
+          <TopicListItem topic={topic.topicName} key={topic._id} />
         ))}
         {itemLoading ? <li>Loading...</li> : null}
       </List>

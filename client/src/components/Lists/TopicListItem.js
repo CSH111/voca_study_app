@@ -11,6 +11,7 @@ import styled from "styled-components";
 import ListItem from "./ListItem";
 import InputBox from "../InputBox";
 import { useRef } from "react";
+import axios from "axios";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -29,14 +30,14 @@ const TopicListItem = ({ topic }) => {
   const [loading, setLoading] = useState(false);
   const modifyingValue = useRef();
 
-  useEffect(() => {
-    fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
-      .then((response) => response.json())
-      .then((data) => {
-        setWordsAmount(data.length);
-        setWordsDoneAmount(data.filter((word) => word.isDone).length);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setWordsAmount(data.length);
+  //       setWordsDoneAmount(data.filter((word) => word.isDone).length);
+  //     });
+  // }, []);
 
   const deleteTopic = () => {
     return fetch(`http://localhost:3001/topics/${topic.id}`, {
@@ -137,7 +138,7 @@ const TopicListItem = ({ topic }) => {
       ) : (
         <StyledDiv isModifying={isModifying}>
           <h3>
-            <Link to={`/${topic.topic}`}>{topic.topic}</Link>
+            <Link to={`/${topic.topic}`}>{topic}</Link>
           </h3>
           <ProgressBar
             progress={
