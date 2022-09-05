@@ -63,6 +63,15 @@ app.post("/api/data/create/topic", (req, res) => {
   });
 });
 
+//토픽 불러오기
+app.post("/api/data/topic", (req, res) => {
+  User.findOne({ email: req.session.user.email }) //
+    .then((user) => {
+      res.status(200).json({ success: true, topics: user.topics });
+    })
+    .catch(console.log);
+});
+
 //home 로그인여부 검사
 app.get("/api/home", authorize, (req, res) => {
   //user는 로그인시 생성한 객체

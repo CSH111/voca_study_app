@@ -4,12 +4,13 @@ import { TopicDataContext } from "../../context/TopicDataContext";
 import List from "./List";
 import TopicListItem from "./TopicListItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../Button";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledDiv = styled.div`
   align-self: flex-end;
 `;
+
 const TopicList = ({ itemLoading }) => {
   const [loading, setLoading] = useState(true);
   const { topics, setTopics } = useContext(TopicDataContext);
@@ -22,6 +23,15 @@ const TopicList = ({ itemLoading }) => {
   //       setTopics(data);
   //     });
   // }, []);
+
+  useEffect(() => {
+    axios
+      .post("/api/data/topic", null) //
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(console.log);
+  }, []);
 
   if (loading) {
     return <div>loading..</div>;
