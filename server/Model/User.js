@@ -1,5 +1,13 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
+const topicSchema = new mongoose.Schema({
+  topicName: {
+    type: String,
+    requied: true,
+  },
+});
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -14,6 +22,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     requied: true,
   },
+  // topics: {},
+  topics: [topicSchema],
 });
 
 const saltRounds = 10;
@@ -30,13 +40,6 @@ userSchema.pre("save", function (next) {
     });
   });
 });
-
-// userSchema.methods.comparePassword = function (plainPassword, callback) {
-//   bcrypt.compare(plainPassword, this.pw, function (err, isMatch) {
-//     if (err) return callback(err);
-//     callback(null, isMatch);
-//   });
-// };
 
 const User = mongoose.model("user", userSchema);
 

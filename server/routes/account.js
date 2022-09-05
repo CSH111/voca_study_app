@@ -21,6 +21,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
+//회원가입
 router.post("/register", (req, res) => {
   const temp = {
     name: req.body.name,

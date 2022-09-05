@@ -11,7 +11,6 @@ function Home({ setMsg, setIsLoggedIn }) {
     axios
       .get(`/api/home`) //
       .then((res) => {
-        console.log(res);
         setMsg(`${res.data.userInfo.name}'s Wordbook`);
         setIsLoggedIn(true);
         return;
