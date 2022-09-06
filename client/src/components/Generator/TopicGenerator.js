@@ -34,7 +34,7 @@ const TopicGenerator = function ({ setItemLoading }) {
     setItemLoading(true);
     const body = { topicName: topicValue };
     axios
-      .post("/api/data/create/topic", body) //
+      .post("/api/data/topic/create", body) //
       .then((res) => {
         setTopicValue("");
         topicInput.current.focus();

@@ -29,7 +29,7 @@ const TopicListItem = ({ topic }) => {
   const { topics, setTopics } = useContext(TopicDataContext);
   const [loading, setLoading] = useState(false);
   const modifyingValue = useRef();
-
+  const [isDeleted, setIsDeleted] = useState(false);
   // useEffect(() => {
   //   fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
   //     .then((response) => response.json())
@@ -56,17 +56,26 @@ const TopicListItem = ({ topic }) => {
         });
       });
   };
-  const onDeleteBtnCLick = () => {
+
+  const handleDelBtnClick = () => {
     if (!window.confirm("삭제할꺼?")) {
       return;
     }
-    deleteTopic()
-      .then(() => {
-        const newTopics = topics.filter((item) => item.id !== topic.id);
-        setTopics(newTopics);
-        deleteWords();
+    const body = { topicName: topic };
+    axios
+      .post("/api/data/topic/delete", body) //
+      .then((res) => {
+        console.log(res.data);
+        setIsDeleted(true);
       })
-      .catch(() => alert("삭제실패"));
+      .catch(console.log);
+    // deleteTopic()
+    // .then(() => {
+    //   const newTopics = topics.filter((item) => item.id !== topic.id);
+    //   setTopics(newTopics);
+    //   deleteWords();
+    // })
+    // .catch(() => alert("삭제실패"));
   };
 
   const [topicValue, setTopicValue] = useState(topic.topic);
@@ -123,6 +132,9 @@ const TopicListItem = ({ topic }) => {
   if (loading) {
     return <ListItem>loading...</ListItem>;
   }
+  if (isDeleted) {
+    return null;
+  }
   return (
     <ListItem className="topic">
       {isModifying ? (
@@ -154,7 +166,7 @@ const TopicListItem = ({ topic }) => {
       <Ellipsis
         items={
           <>
-            <Button onClick={onDeleteBtnCLick}>
+            <Button onClick={handleDelBtnClick}>
               <FontAwesomeIcon icon={["fas", "trash-alt"]} />
             </Button>
             <Button onClick={() => goModifying()}>
