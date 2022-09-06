@@ -53,8 +53,17 @@ app.get("/", (req, res) => {
   res.send("Hello World!!!!!!"); //빌드해서 넣어주기
 });
 
+//토픽 불러오기
+app.post("/api/data/topic/read", (req, res) => {
+  User.findOne({ email: req.session.user.email }) //
+    .then((user) => {
+      res.status(200).json({ success: true, topics: user.topics });
+    })
+    .catch(console.log);
+});
+
 //토픽추가
-app.post("/api/data/create/topic", (req, res) => {
+app.post("/api/data/topic/create", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $push: { topics: [{ topicName: req.body.topicName }] } }
@@ -63,13 +72,14 @@ app.post("/api/data/create/topic", (req, res) => {
   });
 });
 
-//토픽 불러오기
-app.post("/api/data/topic", (req, res) => {
-  User.findOne({ email: req.session.user.email }) //
-    .then((user) => {
-      res.status(200).json({ success: true, topics: user.topics });
-    })
-    .catch(console.log);
+//토픽삭제
+app.post("/api/data/topic/delete", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.session.user.email },
+    { $pull: { topics: { topicName: req.body.topicName } } }
+  ).then(() => {
+    res.status(200).json({ success: true });
+  });
 });
 
 //home 로그인여부 검사

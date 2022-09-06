@@ -26,7 +26,7 @@ const TopicList = ({ itemLoading }) => {
 
   useEffect(() => {
     axios
-      .post("/api/data/topic", null) //
+      .post("/api/data/topic/read", null) //
       .then((res) => {
         console.log(res.data.topics);
         setTopics(res.data.topics);
