@@ -97,7 +97,10 @@ app.post("/api/data/word/create", (req, res) => {
 app.post("/api/data/word/read", (req, res) => {
   User.findOne({ email: req.session.user.email }) //
     .then((user) => {
-      res.status(200).json({ success: true, words: user.words });
+      res.status(200).json({
+        success: true,
+        words: user.words.filter((word) => word.topic === req.body.topic),
+      });
     })
     .catch(console.log);
 });

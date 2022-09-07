@@ -19,8 +19,9 @@ export function WordList({ topic, itemLoading }) {
   //     });
   // }, []);
   useEffect(() => {
+    const body = { topic };
     axios
-      .post("/api/data/word/read") //
+      .post("/api/data/word/read", body) //
       .then((res) => {
         console.log(res.data.words);
         setWords(res.data.words);
