@@ -18,7 +18,7 @@ const TopicGenerator = function ({ setItemLoading }) {
   const isExist = (inputValue) => {
     return topics.find((topic) => topic.topic === inputValue);
   };
-
+  //
   const createTopic = (e) => {
     e.preventDefault();
     if (!topicValue.trim()) {

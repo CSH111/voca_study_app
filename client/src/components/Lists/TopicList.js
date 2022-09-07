@@ -28,7 +28,6 @@ const TopicList = ({ itemLoading }) => {
     axios
       .post("/api/data/topic/read", null) //
       .then((res) => {
-        console.log(res.data.topics);
         setTopics(res.data.topics);
         setLoading(false);
       })

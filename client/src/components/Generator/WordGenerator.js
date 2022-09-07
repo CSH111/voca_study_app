@@ -1,8 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
 import { WordsDataContext } from "../../context/WordsDataContext";
-
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
@@ -16,18 +15,19 @@ const WordGenerator = ({ topic, setitemLoading }) => {
   const meaningInput = useRef();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("http://localhost:3001/topics")
-      .then((res) => res.json())
-      .then((topics) => {
-        if (!topics.find((_topic) => _topic.topic === topic)) {
-          alert("잘못된 경로");
-          navigate("/");
-          return;
-        }
-        setIsDisabled(false);
-      });
-  }, []);
+  //
+  // useEffect(() => {
+  //   fetch("http://localhost:3001/topics")
+  //     .then((res) => res.json())
+  //     .then((topics) => {
+  //       if (!topics.find((_topic) => _topic.topic === topic)) {
+  //         alert("잘못된 경로");
+  //         navigate("/");
+  //         return;
+  //       }
+  //       setIsDisabled(false);
+  //     });
+  // }, []);
   //리셋
   const handleAddBtnClick = (e) => {
     e.preventDefault();
@@ -42,32 +42,44 @@ const WordGenerator = ({ topic, setitemLoading }) => {
     }
     //
     wordInput.current.focus();
-
-    setitemLoading(true);
-    const newWord = {
-      topic: topic,
-      eng: wordInputValue,
-      kor: meaningInputValue,
+    const body = {
+      topic,
+      word: wordInputValue,
+      meaning: meaningInputValue,
       isDone: false,
       isBookmarked: false,
     };
-    [setMeaningInputValue, setWordInputValue].forEach((fn) => fn(""));
+    axios
+      .post("/api/data/word/create", body) //
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(console.log);
+    //   setitemLoading(true);
+    //   const newWord = {
+    //     topic: topic,
+    //     eng: wordInputValue,
+    //     kor: meaningInputValue,
+    //     isDone: false,
+    //     isBookmarked: false,
+    //   };
+    //   [setMeaningInputValue, setWordInputValue].forEach((fn) => fn(""));
 
-    fetch("http://localhost:3001/words", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newWord),
-    })
-      .then((res) => res.url)
-      .then((url) => fetch(`${url}?topic=${topic}`))
-      .then((res) => res.json())
-      .then((data) => {
-        setitemLoading(false);
-        setWords(data);
-        // wordInput.current.focus();
-      });
+    //   fetch("http://localhost:3001/words", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(newWord),
+    //   })
+    //     .then((res) => res.url)
+    //     .then((url) => fetch(`${url}?topic=${topic}`))
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setitemLoading(false);
+    //       setWords(data);
+    //       // wordInput.current.focus();
+    //     });
   };
 
   return (
@@ -90,7 +102,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
         onChange={(e) => setMeaningInputValue(e.target.value)}
       />
 
-      <Button onClick={handleAddBtnClick} disabled={isDisabled}>
+      <Button onClick={handleAddBtnClick} disabled={false}>
         <FontAwesomeIcon icon={faPlus} />{" "}
       </Button>
     </form>

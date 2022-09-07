@@ -150,7 +150,7 @@ const TopicListItem = ({ topic }) => {
       ) : (
         <StyledDiv isModifying={isModifying}>
           <h3>
-            <Link to={`/${topic.topic}`}>{topic}</Link>
+            <Link to={`/${topic}`}>{topic}</Link>
           </h3>
           <ProgressBar
             progress={

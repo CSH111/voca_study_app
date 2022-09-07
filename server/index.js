@@ -82,6 +82,17 @@ app.post("/api/data/topic/delete", (req, res) => {
   });
 });
 
+//word 추가
+// app.post("/api/data/word/create", (req, res) => {
+app.post("/api/data/word/create", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.session.user.email },
+    { $push: { words: [req.body] } }
+  ).then(() => {
+    res.status(200).json({ success: true });
+  });
+});
+
 //home 로그인여부 검사
 app.get("/api/home", authorize, (req, res) => {
   //user는 로그인시 생성한 객체
