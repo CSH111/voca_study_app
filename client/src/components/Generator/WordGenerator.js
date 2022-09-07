@@ -41,7 +41,6 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       return;
     }
     //
-    wordInput.current.focus();
     const body = {
       topic,
       word: wordInputValue,
@@ -52,7 +51,10 @@ const WordGenerator = ({ topic, setitemLoading }) => {
     axios
       .post("/api/data/word/create", body) //
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        setMeaningInputValue("");
+        setWordInputValue("");
+        wordInput.current.focus();
       })
       .catch(console.log);
     //   setitemLoading(true);

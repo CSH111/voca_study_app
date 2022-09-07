@@ -5,6 +5,7 @@ import Loading from "../Loading";
 import { WordListItem } from "./WordListItem";
 
 import List from "./List";
+import axios from "axios";
 export function WordList({ topic, itemLoading }) {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(true);
@@ -17,6 +18,16 @@ export function WordList({ topic, itemLoading }) {
   //       setLoading(false);
   //     });
   // }, []);
+  useEffect(() => {
+    axios
+      .post("/api/data/word/read") //
+      .then((res) => {
+        console.log(res.data.words);
+        setWords(res.data.words);
+        setLoading(false);
+      });
+  }, []);
+
   if (loading) {
     return <Loading />;
   }
@@ -26,7 +37,7 @@ export function WordList({ topic, itemLoading }) {
   return (
     <List>
       {words.map((word) => (
-        <WordListItem word={word} key={word.id} />
+        <WordListItem word={word} key={word._id} />
       ))}
 
       <li>{itemLoading ? "loading..." : null}</li>

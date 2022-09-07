@@ -55,7 +55,7 @@ app.get("/", (req, res) => {
 
 //토픽 불러오기
 app.post("/api/data/topic/read", (req, res) => {
-  User.findOne({ email: req.session.user.email }) //
+  User.findOne({ email: req.session.user.email })
     .then((user) => {
       res.status(200).json({ success: true, topics: user.topics });
     })
@@ -83,14 +83,23 @@ app.post("/api/data/topic/delete", (req, res) => {
 });
 
 //word 추가
-// app.post("/api/data/word/create", (req, res) => {
 app.post("/api/data/word/create", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $push: { words: [req.body] } }
-  ).then(() => {
-    res.status(200).json({ success: true });
-  });
+  ) //
+    .then(() => {
+      res.status(200).json({ success: true });
+    });
+});
+
+//word 불러오기
+app.post("/api/data/word/read", (req, res) => {
+  User.findOne({ email: req.session.user.email }) //
+    .then((user) => {
+      res.status(200).json({ success: true, words: user.words });
+    })
+    .catch(console.log);
 });
 
 //home 로그인여부 검사
