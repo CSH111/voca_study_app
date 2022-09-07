@@ -144,9 +144,9 @@ export function WordListItem({ word }) {
         </form>
       ) : (
         <StyledDiv className="data" isDone={word.isDone} onClick={handleIsDone}>
-          <div> {word.eng}</div>
+          <div> {word.word}</div>
 
-          <div>{word.kor}</div>
+          <div>{word.meaning}</div>
         </StyledDiv>
       )}
       <Ellipsis
