@@ -14,15 +14,15 @@ function Detail({ setMsg }) {
   const [itemLoading, setitemLoading] = useState(false);
   const [testWords, setTestWords] = useState([]);
 
-  useEffect(() => {
-    if (topic !== "bookmark") {
-      fetch(`http://localhost:3001/words?topic=${topic}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setTestWords(data);
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (topic !== "bookmark") {
+  //     fetch(`http://localhost:3001/words?topic=${topic}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setTestWords(data);
+  //       });
+  //   }
+  // }, []);
   const navigate = useNavigate();
   useEffect(() => {
     setMsg(topic);

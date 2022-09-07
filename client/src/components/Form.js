@@ -7,7 +7,7 @@ const StyeldForm = styled.form`
   width: 80%;
   min-height: 40%;
   border-radius: 1rem;
-
+  /*  */
   padding: 2rem;
   display: flex;
   flex-direction: column;

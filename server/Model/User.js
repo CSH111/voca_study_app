@@ -8,6 +8,28 @@ const topicSchema = new mongoose.Schema({
   },
 });
 
+const wordSchema = new mongoose.Schema({
+  topic: {
+    type: String,
+    requied: true,
+  },
+  word: {
+    type: String,
+    requied: true,
+  },
+  meaning: {
+    type: String,
+    requied: true,
+  },
+  isDone: {
+    type: Boolean,
+    requied: true,
+  },
+  isBookmarked: {
+    type: Boolean,
+    requied: true,
+  },
+});
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,6 +46,7 @@ const userSchema = new mongoose.Schema({
   },
   // topics: {},
   topics: [topicSchema],
+  words: [wordSchema],
 });
 
 const saltRounds = 10;
