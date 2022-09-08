@@ -23,7 +23,6 @@ export function WordList({ topic, itemLoading }) {
     axios
       .post("/api/data/word/read", body) //
       .then((res) => {
-        console.log(res.data.words);
         setWords(res.data.words);
         setLoading(false);
       });
