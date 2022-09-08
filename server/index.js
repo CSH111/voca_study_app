@@ -89,7 +89,13 @@ app.post("/api/data/word/create", (req, res) => {
     { $push: { words: [req.body] } }
   ) //
     .then(() => {
-      res.status(200).json({ success: true });
+      console.log("word 추가 완료");
+
+      User.findOne({ email: req.session.user.email }) //
+        .then((updatedData) => {
+          console.log(updatedData.words);
+          res.status(200).json({ success: true, newWords: updatedData.words });
+        });
     })
     .catch(console.log);
 });
@@ -101,6 +107,7 @@ app.post("/api/data/word/delete", (req, res) => {
     { $pull: { words: { _id: req.body.id } } }
   ) //
     .then(() => {
+      console.log("word 삭제 완료");
       res.status(200).json({ success: true });
     })
     .catch(console.log);

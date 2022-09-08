@@ -54,7 +54,7 @@ export function WordListItem({ word }) {
     axios
       .post("/api/data/word/delete", body) //
       .then((res) => {
-        console.log(res.data);
+        setWords(words.filter((_word) => _word._id !== word._id));
       });
   }
 

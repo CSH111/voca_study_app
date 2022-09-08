@@ -7,7 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import InputBox from "../InputBox";
 const WordGenerator = ({ topic, setitemLoading }) => {
-  const { setWords } = useContext(WordsDataContext);
+  const { words, setWords } = useContext(WordsDataContext);
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
@@ -51,15 +51,15 @@ const WordGenerator = ({ topic, setitemLoading }) => {
     axios
       .post("/api/data/word/create", body) //
       .then((res) => {
-        console.log(res.data.wordData);
+        console.log(res.data);
 
         setMeaningInputValue("");
         setWordInputValue("");
         wordInput.current.focus();
-        setWords((words) => [...words]);
+        setWords(res.data.newWords);
       })
       .catch(console.log);
-    //   setitemLoading(true);
+    //   setitemLoading(true);로우 프로파일 텐키리스 무선ck
     //   const newWord = {
     //     topic: topic,
     //     eng: wordInputValue,
