@@ -51,10 +51,12 @@ const WordGenerator = ({ topic, setitemLoading }) => {
     axios
       .post("/api/data/word/create", body) //
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data.wordData);
+
         setMeaningInputValue("");
         setWordInputValue("");
         wordInput.current.focus();
+        setWords((words) => [...words]);
       })
       .catch(console.log);
     //   setitemLoading(true);

@@ -90,7 +90,20 @@ app.post("/api/data/word/create", (req, res) => {
   ) //
     .then(() => {
       res.status(200).json({ success: true });
-    });
+    })
+    .catch(console.log);
+});
+
+//word 삭제
+app.post("/api/data/word/delete", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.session.user.email },
+    { $pull: { words: { _id: req.body.id } } }
+  ) //
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch(console.log);
 });
 
 //word 불러오기
