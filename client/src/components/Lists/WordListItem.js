@@ -8,6 +8,7 @@ import Button from "../Button";
 import Ellipsis from "../Ellipsis";
 import Listitem from "./ListItem";
 import InputBox from "../InputBox";
+import axios from "axios";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -39,15 +40,22 @@ export function WordListItem({ word }) {
 
   const [loading, setLoading] = useState(false);
   const wordInputBox = useRef();
+
   function handleDelBtn() {
     if (!window.confirm("삭제할꺼?")) {
       return;
     }
-    fetch(`http://localhost:3001/words/${word.id}`, {
-      method: "DELETE",
-    }).then(() => {
-      setWords(words.filter((item) => item.id !== word.id));
-    });
+    // fetch(`http://localhost:3001/words/${word.id}`, {
+    //   method: "DELETE",
+    // }).then(() => {
+    //   setWords(words.filter((item) => item.id !== word.id));
+    // });
+    const body = { id: word._id };
+    axios
+      .post("/api/data/word/delete", body) //
+      .then((res) => {
+        console.log(res.data);
+      });
   }
 
   function handleIsDone() {
