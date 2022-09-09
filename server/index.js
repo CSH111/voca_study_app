@@ -77,25 +77,27 @@ app.post("/api/data/topic/delete", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $pull: { topics: { topicName: req.body.topicName } } }
-  ).then(() => {
-    res.status(200).json({ success: true });
-  });
+  )
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch(console.log);
 });
 
 //word 추가
-app.post("/api/data/word/create", (req, res) => {
+app.post("/api/data/word/create", async (req, res) => {
+  // const updatedData =  await User.findOneAndUpdate(
+  //   { email: req.session.user.email },
+  //   { $push: { words: [req.body] } }
+  // )
+
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $push: { words: [req.body] } }
+    { $push: { words: [req.body] } },
+    { new: true }
   ) //
-    .then(() => {
-      console.log("word 추가 완료");
-
-      User.findOne({ email: req.session.user.email }) //
-        .then((updatedData) => {
-          console.log(updatedData.words);
-          res.status(200).json({ success: true, newWords: updatedData.words });
-        });
+    .then((updatedData) => {
+      res.status(200).json({ success: true, newWords: updatedData.words });
     })
     .catch(console.log);
 });
