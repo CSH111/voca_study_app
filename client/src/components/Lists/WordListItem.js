@@ -45,11 +45,6 @@ export function WordListItem({ word }) {
     if (!window.confirm("삭제할꺼?")) {
       return;
     }
-    // fetch(`http://localhost:3001/words/${word.id}`, {
-    //   method: "DELETE",
-    // }).then(() => {
-    //   setWords(words.filter((item) => item.id !== word.id));
-    // });
     const body = { id: word._id };
     axios
       .post("/api/data/word/delete", body) //
@@ -59,21 +54,21 @@ export function WordListItem({ word }) {
   }
 
   function handleIsDone() {
-    const updatedWords = makeNewContextData(words, word, {
-      isDone: !word.isDone,
-    });
-    setWords(updatedWords);
-    putData(`http://localhost:3001/words/${word.id}`, {
-      ...word,
-      isDone: !word.isDone,
-    }).then((res) => {
-      if (!res.ok) {
-        const restoredWords = makeNewContextData(words, word, {
-          isDone: word.isDone,
-        });
-        setWords(restoredWords);
-      }
-    });
+    // const updatedWords = makeNewContextData(words, word, {
+    //   isDone: !word.isDone,
+    // });
+    // setWords(updatedWords);
+    // putData(`http://localhost:3001/words/${word.id}`, {
+    //   ...word,
+    //   isDone: !word.isDone,
+    // }).then((res) => {
+    //   if (!res.ok) {
+    //     const restoredWords = makeNewContextData(words, word, {
+    //       isDone: word.isDone,
+    //     });
+    //     setWords(restoredWords);
+    //   }
+    // });
   }
   function handleBookmark() {
     setIsBookmarked(!isBookmarked);
