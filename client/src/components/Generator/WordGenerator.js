@@ -45,7 +45,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
       topic,
       word: wordInputValue,
       meaning: meaningInputValue,
-      isDone: false,
+      isMemorized: false,
       isBookmarked: false,
     };
     axios

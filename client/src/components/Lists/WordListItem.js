@@ -19,8 +19,8 @@ const StyledDiv = styled.div`
   height: 100%;
   transition: all 0.2s;
 
-  font-style: ${(props) => (props.isDone ? "italic" : "")};
-  text-decoration: ${(props) => (props.isDone ? "line-through" : "")};
+  font-style: ${(props) => (props.isMemorized ? "italic" : "")};
+  text-decoration: ${(props) => (props.isMemorized ? "line-through" : "")};
   > div {
     text-align: center;
     padding-bottom: 0.1rem;
@@ -52,8 +52,15 @@ export function WordListItem({ word }) {
         setWords(words.filter((_word) => _word._id !== word._id));
       });
   }
+  console.log(word.isMemorized);
+  function handleIsMemorized() {
+    // console.log("zz");
+    const body = { isMemorized: word.isMemorized, _id: word._id };
+    axios
+      .post("/api/data/word/update", body) //
+      .then((res) => console.log(res.data))
+      .catch(console.log);
 
-  function handleIsDone() {
     // const updatedWords = makeNewContextData(words, word, {
     //   isDone: !word.isDone,
     // });
@@ -146,7 +153,11 @@ export function WordListItem({ word }) {
           <button onClick={modifyWord}>완료</button>
         </form>
       ) : (
-        <StyledDiv className="data" isDone={word.isDone} onClick={handleIsDone}>
+        <StyledDiv
+          className="data"
+          isMemorized={word.isMemorized}
+          onClick={handleIsMemorized}
+        >
           <div> {word.word}</div>
 
           <div>{word.meaning}</div>
