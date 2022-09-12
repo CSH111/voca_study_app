@@ -44,7 +44,7 @@ const Register = () => {
       pw: pw,
     };
     axios
-      .post("/api/user/account/register", body) //
+      .post("/api/user", body) //
       .then((res) => {
         console.log(res.data);
         if (res.data.success) {

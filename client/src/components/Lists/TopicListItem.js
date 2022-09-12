@@ -61,21 +61,14 @@ const TopicListItem = ({ topic }) => {
     if (!window.confirm("삭제할꺼?")) {
       return;
     }
-    const body = { topicName: topic };
+    console.log(topic._id);
     axios
-      .post("/api/data/topic/delete", body) //
+      .delete(`/api/topic/${topic._id}`) //
       .then((res) => {
         console.log(res.data);
         setIsDeleted(true);
       })
       .catch(console.log);
-    // deleteTopic()
-    // .then(() => {
-    //   const newTopics = topics.filter((item) => item.id !== topic.id);
-    //   setTopics(newTopics);
-    //   deleteWords();
-    // })
-    // .catch(() => alert("삭제실패"));
   };
 
   const [topicValue, setTopicValue] = useState(topic.topic);
@@ -150,7 +143,7 @@ const TopicListItem = ({ topic }) => {
       ) : (
         <StyledDiv isModifying={isModifying}>
           <h3>
-            <Link to={`/${topic}`}>{topic}</Link>
+            <Link to={`/${topic.topicName}`}>{topic.topicName}</Link>
           </h3>
           <ProgressBar
             progress={

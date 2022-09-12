@@ -21,7 +21,7 @@ const wordSchema = new mongoose.Schema({
     type: String,
     requied: true,
   },
-  isDone: {
+  isMemorized: {
     type: Boolean,
     requied: true,
   },

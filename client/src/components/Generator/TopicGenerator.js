@@ -34,12 +34,12 @@ const TopicGenerator = function ({ setItemLoading }) {
     setItemLoading(true);
     const body = { topicName: topicValue };
     axios
-      .post("/api/data/topic/create", body) //
+      .post("/api/topic", body) //
       .then((res) => {
         setTopicValue("");
         topicInput.current.focus();
-
         setItemLoading(false);
+        navigate(`/${topicValue}`);
       })
       .catch(console.log);
 

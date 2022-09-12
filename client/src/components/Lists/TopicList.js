@@ -26,7 +26,7 @@ const TopicList = ({ itemLoading }) => {
 
   useEffect(() => {
     axios
-      .post("/api/data/topic/read") //
+      .get("/api/topic") //
       .then((res) => {
         setTopics(res.data.topics);
         setLoading(false);
@@ -49,7 +49,7 @@ const TopicList = ({ itemLoading }) => {
       </StyledDiv>
       <List>
         {topics.map((topic) => (
-          <TopicListItem topic={topic.topicName} key={topic._id} />
+          <TopicListItem topic={topic} key={topic._id} />
         ))}
         {itemLoading ? <li>Loading...</li> : null}
       </List>
