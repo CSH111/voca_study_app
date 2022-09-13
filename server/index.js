@@ -128,14 +128,17 @@ app.delete("/api/topic/:_id", (req, res) => {
 });
 
 //word 추가
-app.post("/api/data/word/create", (req, res) => {
+app.post("/api/word", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $push: { words: req.body } },
     { new: true }
   ) //
     .then((updatedData) => {
-      res.status(200).json({ success: true, newWords: updatedData.words });
+      const newWords = updatedData.words.filter(
+        (word) => word.topic === req.body.topic
+      );
+      res.status(200).json({ success: true, newWords });
     })
     .catch(console.log);
 });
@@ -159,10 +162,10 @@ app.post("/api/data/word/update", (req, res) => {
 });
 
 //word 삭제
-app.post("/api/data/word/delete", (req, res) => {
+app.delete("/api/word/:_id", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $pull: { words: { _id: req.body.id } } }
+    { $pull: { words: { _id: req.params.id } } }
   ) //
     .then(() => {
       console.log("word 삭제 완료");
@@ -172,12 +175,13 @@ app.post("/api/data/word/delete", (req, res) => {
 });
 
 //word 불러오기
-app.post("/api/data/word/read", (req, res) => {
+app.get("/api/word", (req, res) => {
   User.findOne({ email: req.session.user.email }) //
     .then((user) => {
+      console.log(user.words.filter((word) => word.topic === req.query.topic));
       res.status(200).json({
         success: true,
-        words: user.words.filter((word) => word.topic === req.body.topic),
+        words: user.words.filter((word) => word.topic === req.query.topic),
       });
     })
     .catch(console.log);
