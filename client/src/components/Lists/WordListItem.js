@@ -52,7 +52,6 @@ export function WordListItem({ word }) {
       });
   }
   function handleIsMemorized() {
-    // console.log("zz");
     const body = { isMemorized: word.isMemorized, _id: word._id };
     axios
       .post("/api/data/word/update", body) //

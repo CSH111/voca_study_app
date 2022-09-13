@@ -63,7 +63,7 @@ const TopicListItem = ({ topic }) => {
     }
     console.log(topic._id);
     axios
-      .delete(`/api/topic/${topic._id}`) //
+      .delete(`/api/topic/${topic._id}`, { data: { topic: topic.topicName } }) //
       .then((res) => {
         console.log(res.data);
         setIsDeleted(true);
