@@ -119,7 +119,12 @@ app.post("/api/topic", (req, res) => {
 app.delete("/api/topic/:_id", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $pull: { topics: { _id: req.params._id } } }
+    {
+      $pull: {
+        topics: { _id: req.params._id },
+        words: { topic: req.body.topic },
+      },
+    }
   )
     .then(() => {
       res.status(200).json({ success: true });
@@ -165,7 +170,7 @@ app.post("/api/data/word/update", (req, res) => {
 app.delete("/api/word/:_id", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $pull: { words: { _id: req.params.id } } }
+    { $pull: { words: { _id: req.params._id } } }
   ) //
     .then(() => {
       console.log("word 삭제 완료");
@@ -178,7 +183,6 @@ app.delete("/api/word/:_id", (req, res) => {
 app.get("/api/word", (req, res) => {
   User.findOne({ email: req.session.user.email }) //
     .then((user) => {
-      console.log(user.words.filter((word) => word.topic === req.query.topic));
       res.status(200).json({
         success: true,
         words: user.words.filter((word) => word.topic === req.query.topic),
