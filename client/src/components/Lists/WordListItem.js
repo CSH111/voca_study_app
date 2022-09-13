@@ -45,14 +45,12 @@ export function WordListItem({ word }) {
     if (!window.confirm("삭제할꺼?")) {
       return;
     }
-    const body = { id: word._id };
     axios
-      .post("/api/data/word/delete", body) //
+      .delete(`/api/word/${word._id}`) //
       .then((res) => {
         setWords(words.filter((_word) => _word._id !== word._id));
       });
   }
-  console.log(word.isMemorized);
   function handleIsMemorized() {
     // console.log("zz");
     const body = { isMemorized: word.isMemorized, _id: word._id };
