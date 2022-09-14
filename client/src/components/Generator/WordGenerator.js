@@ -15,10 +15,6 @@ const WordGenerator = ({ topic, setitemLoading }) => {
   const meaningInput = useRef();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(words);
-  }, [words]);
-
   //
   // useEffect(() => {
   //   fetch("http://localhost:3001/topics")
@@ -55,8 +51,6 @@ const WordGenerator = ({ topic, setitemLoading }) => {
     axios
       .post("/api/word", body) //
       .then((res) => {
-        console.log(res.data);
-
         setMeaningInputValue("");
         setWordInputValue("");
         wordInput.current.focus();
