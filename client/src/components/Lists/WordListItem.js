@@ -96,33 +96,47 @@ export function WordListItem({ word }) {
     e.preventDefault();
     setIsModifying(false);
     setLoading(true);
-    putData(`http://localhost:3001/words/${word.id}`, {
-      ...word,
-      eng: wordValue,
-      kor: meaningValue,
-    }).then((res) => {
-      if (!res.ok) {
-        alert("업로드 실패");
-        return;
-      }
-      const updatedWords = makeNewContextData(words, word, {
-        eng: wordValue,
-        kor: meaningValue,
-      });
+    const body = {
+      word: wordValue,
+      meaning: meaningValue,
+    };
+    axios
+      .patch(`/api/word/${word._id}`, body)
+      .then((res) => {
+        setWords(res.data.newWords);
+      })
+      .catch(console.log);
 
-      setWords(updatedWords);
-      setLoading(false);
-    });
+    // putData(`http://localhost:3001/words/${word.id}`, {
+    //   ...word,
+    //   eng: wordValue,
+    //   kor: meaningValue,
+    // }).then((res) => {
+    //   if (!res.ok) {
+    //     alert("업로드 실패");
+    //     return;
+    //   }
+    //   const updatedWords = makeNewContextData(words, word, {
+    //     eng: wordValue,
+    //     kor: meaningValue,
+    //   });
+
+    //   setWords(updatedWords);
+    //   setLoading(false);
+    // });
+
+    // setWords(updatedWords);
+    setLoading(false);
   };
-  const [wordValue, setWordValue] = useState(word.eng);
-  const [meaningValue, setMeaningValue] = useState(word.kor);
+  const [wordValue, setWordValue] = useState(word.word);
+  const [meaningValue, setMeaningValue] = useState(word.meaning);
   const handleWordInput = (e) => {
     setWordValue(e.target.value);
   };
   const handleMeaningInput = (e) => {
     setMeaningValue(e.target.value);
   };
-  const goModifying = () => {
+  const handleModifyClick = () => {
     setIsModifying(true);
     setTimeout(() => {
       wordInputBox.current.focus();
@@ -166,7 +180,7 @@ export function WordListItem({ word }) {
             <Button onClick={handleDelBtn}>
               <FontAwesomeIcon icon={["fas", "trash-alt"]} />
             </Button>
-            <Button onClick={goModifying}>
+            <Button onClick={handleModifyClick}>
               <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
             <StyledButton

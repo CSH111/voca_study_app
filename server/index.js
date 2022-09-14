@@ -109,7 +109,7 @@ app.get("/api/topic", (req, res) => {
 app.post("/api/topic", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $push: { topics: [{ topicName: req.body.topicName }] } }
+    { $push: { topics: { topicName: req.body.topicName } } }
   ).then(() => {
     res.status(200).json({ success: true });
   });
@@ -123,6 +123,8 @@ app.delete("/api/topic/:_id", (req, res) => {
       $pull: {
         topics: { _id: req.params._id },
         words: { topic: req.body.topic },
+        // "topics._id": req.params._id,
+        // words: { topic: req.body.topic },
       },
     }
   )
@@ -149,22 +151,23 @@ app.post("/api/word", (req, res) => {
 });
 
 //word 수정 - isMemorizes
-app.post("/api/data/word/update", (req, res) => {
-  User.findOne({ email: req.session.user.email }) //
-    .then((user) => {
-      user.words;
-    });
-
+app.patch("/api/word/:_id", (req, res) => {
+  console.log(req.body.word, req.body.meaning);
   User.findOneAndUpdate(
-    { email: req.session.user.email },
-    { $push: { words: [req.body] } },
+    { email: req.session.user.email, "words._id": req.params._id },
+    {
+      $set: {
+        "words.$.word": req.body.word, //
+        "words.$.meaning": req.body.meaning,
+      },
+    },
     { new: true }
   ) //
     .then((updatedData) => {
       res.status(200).json({ success: true, newWords: updatedData.words });
     })
     .catch(console.log);
-});
+}); //
 
 //word 삭제
 app.delete("/api/word/:_id", (req, res) => {
