@@ -11,6 +11,8 @@ const authorize = require("./middleware/authorize");
 //세션
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const topicRouter = require("./routes/topic");
+const wordRouter = require("./routes/word");
 
 const mongoDBstore = new MongoDBStore({
   uri: mongoURI,
@@ -35,7 +37,8 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ exrended: true }));
 
-app.use("/api/user/account", require("./routes/account.js"));
+app.use("/api/topic", topicRouter);
+app.use("/api/word", wordRouter);
 
 app.listen(port, () => {
   mongoose
@@ -96,44 +99,6 @@ app.post("/api/logout", (req, res) => {
   });
 });
 
-//토픽 불러오기
-app.get("/api/topic", (req, res) => {
-  User.findOne({ email: req.session.user.email })
-    .then((user) => {
-      res.status(200).json({ success: true, topics: user.topics });
-    })
-    .catch(console.log); //세션없을 때 불필요한 에러 출력->해결요망
-});
-
-//토픽추가
-app.post("/api/topic", (req, res) => {
-  User.findOneAndUpdate(
-    { email: req.session.user.email },
-    { $push: { topics: { topicName: req.body.topicName } } }
-  ).then(() => {
-    res.status(200).json({ success: true });
-  });
-});
-
-//토픽삭제
-app.delete("/api/topic/:_id", (req, res) => {
-  User.findOneAndUpdate(
-    { email: req.session.user.email },
-    {
-      $pull: {
-        topics: { _id: req.params._id },
-        words: { topic: req.body.topic },
-        // "topics._id": req.params._id,
-        // words: { topic: req.body.topic },
-      },
-    }
-  )
-    .then(() => {
-      res.status(200).json({ success: true });
-    })
-    .catch(console.log);
-});
-
 //word 추가
 app.post("/api/word", (req, res) => {
   User.findOneAndUpdate(
@@ -150,7 +115,7 @@ app.post("/api/word", (req, res) => {
     .catch(console.log);
 });
 
-//word 수정 - isMemorizes
+//word 수정 - 단어
 app.patch("/api/word/:_id", (req, res) => {
   console.log(req.body.word, req.body.meaning);
   User.findOneAndUpdate(
