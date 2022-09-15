@@ -34,10 +34,12 @@ const StyledButton = styled(Button)`
 `;
 
 export function WordListItem({ word }) {
-  const [isModifying, setIsModifying] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(word.isBookmarked);
   const { words, setWords } = useContext(WordsDataContext);
 
+  const [isModifying, setIsModifying] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(word.isBookmarked);
+  const [wordValue, setWordValue] = useState(word.word);
+  const [meaningValue, setMeaningValue] = useState(word.meaning);
   const [loading, setLoading] = useState(false);
   const wordInputBox = useRef();
 
@@ -92,52 +94,36 @@ export function WordListItem({ word }) {
         console.log(err);
       });
   }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsModifying(false);
-    setLoading(true);
+
+  const modifiedWords = words.map((_word) => {
+    if (_word._id === word._id) {
+      _word.word = wordValue;
+      _word.meaning = meaningValue;
+    }
+    return _word;
+  });
+
+  const patchWord = () => {
     const body = {
       word: wordValue,
       meaning: meaningValue,
     };
-    axios
+    return axios
       .patch(`/api/word/${word._id}`, body)
       .then((res) => {
-        setWords(
-          words.map((_word) => {
-            if (_word._id === word._id) {
-              _word.word = wordValue;
-              _word.meaning = meaningValue;
-            }
-            return _word;
-          })
-        );
+        setWords(modifiedWords);
       })
       .catch(console.log);
-
-    // putData(`http://localhost:3001/words/${word.id}`, {
-    //   ...word,
-    //   eng: wordValue,
-    //   kor: meaningValue,
-    // }).then((res) => {
-    //   if (!res.ok) {
-    //     alert("업로드 실패");
-    //     return;
-    //   }
-    //   const updatedWords = makeNewContextData(words, word, {
-    //     eng: wordValue,
-    //     kor: meaningValue,
-    //   });
-
-    //   setWords(updatedWords);
-    //   setLoading(false);
-    // });
-
-    // setWords(updatedWords);
-    setLoading(false);
   };
-  const [wordValue, setWordValue] = useState(word.word);
-  const [meaningValue, setMeaningValue] = useState(word.meaning);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    await patchWord();
+    setLoading(false);
+    setIsModifying(false);
+  };
+
   const handleWordInput = (e) => {
     setWordValue(e.target.value);
   };
