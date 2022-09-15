@@ -52,12 +52,12 @@ export function WordListItem({ word }) {
       });
   }
   function handleIsMemorized() {
-    const body = { isMemorized: word.isMemorized, _id: word._id };
-    axios
-      .post("/api/data/word/update", body) //
-      .then((res) => console.log(res.data))
-      .catch(console.log);
-
+    // const body = { isMemorized: word.isMemorized, _id: word._id };
+    // axios
+    //   .post("/api/data/word/update", body) //
+    //   .then((res) => console.log(res.data))
+    //   .catch(console.log);
+    //----
     // const updatedWords = makeNewContextData(words, word, {
     //   isDone: !word.isDone,
     // });
@@ -92,7 +92,7 @@ export function WordListItem({ word }) {
         console.log(err);
       });
   }
-  const modifyWord = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsModifying(false);
     setLoading(true);
@@ -103,7 +103,15 @@ export function WordListItem({ word }) {
     axios
       .patch(`/api/word/${word._id}`, body)
       .then((res) => {
-        setWords(res.data.newWords);
+        setWords(
+          words.map((_word) => {
+            if (_word._id === word._id) {
+              _word.word = wordValue;
+              _word.meaning = meaningValue;
+            }
+            return _word;
+          })
+        );
       })
       .catch(console.log);
 
@@ -148,7 +156,7 @@ export function WordListItem({ word }) {
   return (
     <Listitem>
       {isModifying ? (
-        <form action="">
+        <form onSubmit={handleSubmit} action="">
           <InputBox
             className="input"
             type="text"
@@ -161,7 +169,7 @@ export function WordListItem({ word }) {
             value={meaningValue}
             onChange={handleMeaningInput}
           />
-          <button onClick={modifyWord}>완료</button>
+          <button>완료</button>
         </form>
       ) : (
         <StyledDiv
