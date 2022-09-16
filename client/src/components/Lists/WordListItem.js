@@ -42,7 +42,6 @@ export function WordListItem({ word }) {
   const [meaningValue, setMeaningValue] = useState(word.meaning);
   const [loading, setLoading] = useState(false);
   const wordInputBox = useRef();
-
   function handleDelBtn() {
     if (!window.confirm("삭제할꺼?")) {
       return;
@@ -76,42 +75,31 @@ export function WordListItem({ word }) {
     //   }
     // });
   }
-  function handleBookmark() {
-    setIsBookmarked(!isBookmarked);
-    putData(`http://localhost:3001/words/${word.id}`, {
-      ...word,
-      isBookmarked: !word.isBookmarked,
-    })
-      .then((res) => {
-        const updatedWords = makeNewContextData(words, word, {
-          isBookmarked: !word.isBookmarked,
-        });
-        setWords(updatedWords);
-      })
-      .catch((err) => {
-        setIsBookmarked(isBookmarked);
+  const handleBookmark = async () => {
+    // setIsBookmarked(!isBookmarked);
+    await patchWord({ isBookmarked: !isBookmarked });
+  };
 
-        console.log(err);
-      });
-  }
+  const getModifiedWords = (changedDataObj) =>
+    words.map((_word) => {
+      if (_word._id === word._id) {
+        return { ...word, ...changedDataObj };
+      }
+      return _word;
+    });
 
-  const modifiedWords = words.map((_word) => {
-    if (_word._id === word._id) {
-      _word.word = wordValue;
-      _word.meaning = meaningValue;
-    }
-    return _word;
-  });
-
-  const patchWord = () => {
+  const patchWord = (changedDataObj) => {
     const body = {
-      word: wordValue,
-      meaning: meaningValue,
+      ...word,
+      ...changedDataObj,
     };
+    console.log({ ...word });
+    console.log({ ...changedDataObj });
+    console.log(body);
     return axios
       .patch(`/api/word/${word._id}`, body)
       .then((res) => {
-        setWords(modifiedWords);
+        setWords(getModifiedWords(changedDataObj));
       })
       .catch(console.log);
   };
@@ -119,7 +107,7 @@ export function WordListItem({ word }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await patchWord();
+    await patchWord({ word: wordValue, meaning: meaningValue });
     setLoading(false);
     setIsModifying(false);
   };
@@ -127,9 +115,11 @@ export function WordListItem({ word }) {
   const handleWordInput = (e) => {
     setWordValue(e.target.value);
   };
+
   const handleMeaningInput = (e) => {
     setMeaningValue(e.target.value);
   };
+
   const handleModifyClick = () => {
     setIsModifying(true);
     setTimeout(() => {

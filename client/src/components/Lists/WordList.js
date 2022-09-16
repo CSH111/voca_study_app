@@ -6,6 +6,7 @@ import { WordListItem } from "./WordListItem";
 
 import List from "./List";
 import axios from "axios";
+
 export function WordList({ topic, itemLoading }) {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(true);
