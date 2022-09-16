@@ -29,10 +29,13 @@ router.post("/", (req, res) => {
     .catch(console.log);
 });
 
+//word 수정
 router.patch("/:_id", (req, res) => {
-  console.log(req.body);
   User.findOneAndUpdate(
-    { email: req.session.user.email, "words._id": req.params._id },
+    {
+      email: req.session.user.email,
+      "words._id": req.params._id,
+    },
     {
       $set: {
         "words.$": req.body,
@@ -40,8 +43,8 @@ router.patch("/:_id", (req, res) => {
     },
     { new: true }
   ) //
-    .then((updatedData) => {
-      // res.status(200).json({ success: true, newWords: updatedData.words });
+    .then((data) => {
+      if (data === null) return res.status(400).json({ success: false });
       res.status(200).json({ success: true });
     })
     .catch(console.log);

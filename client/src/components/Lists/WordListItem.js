@@ -19,8 +19,9 @@ const StyledDiv = styled.div`
   height: 100%;
   transition: all 0.2s;
 
-  font-style: ${(props) => (props.isMemorized ? "italic" : "")};
-  text-decoration: ${(props) => (props.isMemorized ? "line-through" : "")};
+  font-style: ${({ isMemorized }) => (isMemorized ? "italic" : "")};
+  text-decoration: ${({ isMemorized }) =>
+    isMemorized ? "line-through" : "none"};
   > div {
     text-align: center;
     padding-bottom: 0.1rem;
@@ -38,6 +39,7 @@ export function WordListItem({ word }) {
 
   const [isModifying, setIsModifying] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(word.isBookmarked);
+  const [isMemorized, setIsMemorized] = useState(word.isMemorized);
   const [wordValue, setWordValue] = useState(word.word);
   const [meaningValue, setMeaningValue] = useState(word.meaning);
   const [loading, setLoading] = useState(false);
@@ -52,32 +54,25 @@ export function WordListItem({ word }) {
         setWords(words.filter((_word) => _word._id !== word._id));
       });
   }
+
   function handleIsMemorized() {
-    // const body = { isMemorized: word.isMemorized, _id: word._id };
-    // axios
-    //   .post("/api/data/word/update", body) //
-    //   .then((res) => console.log(res.data))
-    //   .catch(console.log);
-    //----
-    // const updatedWords = makeNewContextData(words, word, {
-    //   isDone: !word.isDone,
-    // });
-    // setWords(updatedWords);
-    // putData(`http://localhost:3001/words/${word.id}`, {
-    //   ...word,
-    //   isDone: !word.isDone,
-    // }).then((res) => {
-    //   if (!res.ok) {
-    //     const restoredWords = makeNewContextData(words, word, {
-    //       isDone: word.isDone,
-    //     });
-    //     setWords(restoredWords);
-    //   }
-    // });
+    console.log("hi");
+    setIsMemorized(!isMemorized);
+    setIsMemorized(!isMemorized);
+    console.log("hi");
+
+    patchWord({ isMemorized: !isMemorized }) //
+      .then((data) => {
+        if (!data.success) setIsMemorized(isMemorized);
+      });
   }
-  const handleBookmark = async () => {
-    // setIsBookmarked(!isBookmarked);
-    await patchWord({ isBookmarked: !isBookmarked });
+
+  const handleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+    patchWord({ isBookmarked: !isBookmarked }) //
+      .then((data) => {
+        if (!data.success) setIsBookmarked(isBookmarked);
+      });
   };
 
   const getModifiedWords = (changedDataObj) =>
@@ -93,15 +88,16 @@ export function WordListItem({ word }) {
       ...word,
       ...changedDataObj,
     };
-    console.log({ ...word });
-    console.log({ ...changedDataObj });
-    console.log(body);
     return axios
       .patch(`/api/word/${word._id}`, body)
       .then((res) => {
         setWords(getModifiedWords(changedDataObj));
+        return { success: true };
       })
-      .catch(console.log);
+      .catch((err) => {
+        console.log(err);
+        return { success: false };
+      });
   };
 
   const handleSubmit = async (e) => {
@@ -126,8 +122,9 @@ export function WordListItem({ word }) {
       wordInputBox.current.focus();
     }, 0);
   };
+
   if (loading) {
-    return <li colSpan={6}>loading...</li>;
+    return <li>loading...</li>;
   }
   return (
     <Listitem>
@@ -168,7 +165,7 @@ export function WordListItem({ word }) {
               <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
             <StyledButton
-              onClick={() => handleBookmark()}
+              onClick={handleBookmark}
               isBookmarked={isBookmarked}
               className="bookmark"
             >
@@ -180,3 +177,5 @@ export function WordListItem({ word }) {
     </Listitem>
   );
 }
+
+//왜 ismemorized 만 반응성이 느린지?
