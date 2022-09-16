@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { User } = require("../Model/User");
 
 //word 불러오기
-router.get("/word", (req, res) => {
+router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email }) //
     .then((user) => {
       res.status(200).json({
@@ -14,7 +14,7 @@ router.get("/word", (req, res) => {
 });
 
 //word 추가
-router.post("/word", (req, res) => {
+router.post("/", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $push: { words: req.body } },
@@ -29,27 +29,26 @@ router.post("/word", (req, res) => {
     .catch(console.log);
 });
 
-//word 수정 - 단어
-router.patch("/word/:_id", (req, res) => {
-  console.log(req.body.word, req.body.meaning);
+router.patch("/:_id", (req, res) => {
+  console.log(req.body);
   User.findOneAndUpdate(
     { email: req.session.user.email, "words._id": req.params._id },
     {
       $set: {
-        "words.$.word": req.body.word, //
-        "words.$.meaning": req.body.meaning,
+        "words.$": req.body,
       },
     },
     { new: true }
   ) //
     .then((updatedData) => {
-      res.status(200).json({ success: true, newWords: updatedData.words });
+      // res.status(200).json({ success: true, newWords: updatedData.words });
+      res.status(200).json({ success: true });
     })
     .catch(console.log);
 }); //
 
 //word 삭제
-router.delete("/word/:_id", (req, res) => {
+router.delete("/:_id", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $pull: { words: { _id: req.params._id } } }
