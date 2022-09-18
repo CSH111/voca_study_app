@@ -44,44 +44,6 @@ export function WordListItem({ word }) {
   const [meaningValue, setMeaningValue] = useState(word.meaning);
   const [loading, setLoading] = useState(false);
   const wordInputBox = useRef();
-  function handleDelBtn() {
-    if (!window.confirm("삭제할꺼?")) {
-      return;
-    }
-    axios
-      .delete(`/api/word/${word._id}`) //
-      .then((res) => {
-        setWords(words.filter((_word) => _word._id !== word._id));
-      });
-  }
-
-  function handleIsMemorized() {
-    console.log("hi");
-    setIsMemorized(!isMemorized);
-    setIsMemorized(!isMemorized);
-    console.log("hi");
-
-    patchWord({ isMemorized: !isMemorized }) //
-      .then((data) => {
-        if (!data.success) setIsMemorized(isMemorized);
-      });
-  }
-
-  const handleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-    patchWord({ isBookmarked: !isBookmarked }) //
-      .then((data) => {
-        if (!data.success) setIsBookmarked(isBookmarked);
-      });
-  };
-
-  const getModifiedWords = (changedDataObj) =>
-    words.map((_word) => {
-      if (_word._id === word._id) {
-        return { ...word, ...changedDataObj };
-      }
-      return _word;
-    });
 
   const patchWord = (changedDataObj) => {
     const body = {
@@ -100,7 +62,42 @@ export function WordListItem({ word }) {
       });
   };
 
-  const handleSubmit = async (e) => {
+  const handleDelBtn = () => {
+    if (!window.confirm("삭제할꺼?")) {
+      return;
+    }
+    axios
+      .delete(`/api/word/${word._id}`) //
+      .then((res) => {
+        setWords(words.filter((_word) => _word._id !== word._id));
+      });
+  };
+
+  const handleIsMemorized = () => {
+    setIsMemorized(!isMemorized);
+    patchWord({ isMemorized: !isMemorized }) //
+      .then((data) => {
+        if (!data.success) setIsMemorized(isMemorized);
+      });
+  };
+
+  const handleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+    patchWord({ isBookmarked: !isBookmarked }) //
+      .then((data) => {
+        if (!data.success) setIsBookmarked(isBookmarked);
+      });
+  };
+
+  const getModifiedWords = (changedDataObj) =>
+    words.map((_word) => {
+      if (_word._id === word._id) {
+        return { ...word, ...changedDataObj };
+      }
+      return _word;
+    });
+
+  const handleSubmitModifying = async (e) => {
     e.preventDefault();
     setLoading(true);
     await patchWord({ word: wordValue, meaning: meaningValue });
@@ -129,7 +126,7 @@ export function WordListItem({ word }) {
   return (
     <Listitem>
       {isModifying ? (
-        <form onSubmit={handleSubmit} action="">
+        <form onSubmit={handleSubmitModifying} action="">
           <InputBox
             className="input"
             type="text"
@@ -147,7 +144,7 @@ export function WordListItem({ word }) {
       ) : (
         <StyledDiv
           className="data"
-          isMemorized={word.isMemorized}
+          isMemorized={isMemorized}
           onClick={handleIsMemorized}
         >
           <div> {word.word}</div>
@@ -177,5 +174,3 @@ export function WordListItem({ word }) {
     </Listitem>
   );
 }
-
-//왜 ismemorized 만 반응성이 느린지?

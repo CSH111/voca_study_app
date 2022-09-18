@@ -5,11 +5,16 @@ const topicSchema = new mongoose.Schema({
   topicName: {
     type: String,
     requied: true,
+    unique: 1,
   },
 });
 
 const wordSchema = new mongoose.Schema({
   topic: {
+    type: String,
+    requied: true,
+  },
+  topicID: {
     type: String,
     requied: true,
   },

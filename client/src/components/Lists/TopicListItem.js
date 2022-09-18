@@ -30,14 +30,6 @@ const TopicListItem = ({ topic }) => {
   const [loading, setLoading] = useState(false);
   const modifyingValue = useRef();
   const [isDeleted, setIsDeleted] = useState(false);
-  // useEffect(() => {
-  //   fetch(`http://localhost:3001/words?topic=${topic.topic}`) //
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setWordsAmount(data.length);
-  //       setWordsDoneAmount(data.filter((word) => word.isDone).length);
-  //     });
-  // }, []);
 
   const deleteTopic = () => {
     return fetch(`http://localhost:3001/topics/${topic.id}`, {
