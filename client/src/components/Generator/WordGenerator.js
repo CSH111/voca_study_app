@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import InputBox from "../InputBox";
-const WordGenerator = ({ topic, setitemLoading }) => {
+const WordGenerator = ({ topic, topicID, setitemLoading }) => {
   const { words, setWords } = useContext(WordsDataContext);
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
@@ -31,7 +31,6 @@ const WordGenerator = ({ topic, setitemLoading }) => {
   //리셋
   const handleAddBtnClick = (e) => {
     e.preventDefault();
-
     if (!wordInputValue) {
       wordInput.current.focus();
       return;
@@ -43,6 +42,7 @@ const WordGenerator = ({ topic, setitemLoading }) => {
     //
     const body = {
       topic,
+      topicID,
       word: wordInputValue,
       meaning: meaningInputValue,
       isMemorized: false,

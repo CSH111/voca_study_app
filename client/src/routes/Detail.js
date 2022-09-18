@@ -8,24 +8,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/Button";
 import styled from "styled-components";
 import { useEffect } from "react";
+import axios from "axios";
 
 function Detail({ setMsg }) {
   const { topic } = useParams();
   const [itemLoading, setitemLoading] = useState(false);
   const [testWords, setTestWords] = useState([]);
+  const [topicID, setTopicID] = useState("");
 
-  // useEffect(() => {
-  //   if (topic !== "bookmark") {
-  //     fetch(`http://localhost:3001/words?topic=${topic}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setTestWords(data);
-  //       });
-  //   }
-  // }, []);
   const navigate = useNavigate();
   useEffect(() => {
     setMsg(topic);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/topic") //
+      .then((res) => {
+        const topicData = res.data.topics.find(
+          (_topic) => _topic.topicName === topic
+        );
+        setTopicID(topicData._id);
+      });
   }, []);
 
   if (topic !== "bookmark") {
@@ -33,6 +37,7 @@ function Detail({ setMsg }) {
       <>
         <WordGenerator
           topic={topic}
+          topicID={topicID}
           setitemLoading={setitemLoading}
           setTestWords={setTestWords}
           testWords={testWords}

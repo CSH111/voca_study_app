@@ -15,6 +15,7 @@ router.get("/", (req, res) => {
 
 //word 추가
 router.post("/", (req, res) => {
+  console.log(req.body);
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $push: { words: req.body } },
