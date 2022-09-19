@@ -24,7 +24,6 @@ const Button = (props) => {
   return (
     <StyledButton
       onClick={props.onClick}
-      isBookmarked={props.isBookmarked}
       className={props.className}
       disabled={props.disabled}
     >

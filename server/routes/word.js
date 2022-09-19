@@ -15,7 +15,6 @@ router.get("/", (req, res) => {
 
 //word 추가
 router.post("/", (req, res) => {
-  console.log(req.body);
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $push: { words: req.body } },
@@ -34,17 +33,21 @@ router.post("/", (req, res) => {
 router.patch("/:_id", (req, res) => {
   User.findOneAndUpdate(
     {
-      email: req.session.user.email,
-      "words._id": req.params._id,
+      $and: [
+        { email: req.session.user.email },
+        { words: { $elemMatch: { _id: req.params._id } } },
+        // "words._id": req.params._id,
+      ],
     },
     {
       $set: {
         "words.$": req.body,
       },
-    },
-    { new: true }
+    }
+    // { new: true }
   ) //
     .then((data) => {
+      console.log(data);
       if (data === null) return res.status(400).json({ success: false });
       res.status(200).json({ success: true });
     })
