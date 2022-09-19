@@ -15,15 +15,6 @@ const TopicList = ({ itemLoading }) => {
   const [loading, setLoading] = useState(true);
   const { topics, setTopics } = useContext(TopicDataContext);
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:3001/topics`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setLoading(false);
-  //       setTopics(data);
-  //     });
-  // }, []);
-
   useEffect(() => {
     axios
       .get("/api/topic") //

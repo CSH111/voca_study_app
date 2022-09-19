@@ -36,10 +36,28 @@ router.delete("/:_id", (req, res) => {
     .catch(console.log);
 });
 
-// //토픽 수정
-// router.patch((req, res) => {
-//   console.log(req.body);
-//   res.status(200).json({ success: true });
-// });
+//토픽수정
+router.patch("/:_id", (req, res) => {
+  console.log(req.body);
+  User.findOneAndUpdate(
+    {
+      email: req.session.user.email,
+      "topics._id": req.params._id,
+      "words.topicID": req.params._id,
+      // words: { $elemMatch: { topicID: req.params._id } },
+    },
+    {
+      $set: {
+        "topics.$.topicName": req.body.topicName,
+        "words.$[elem].topic": req.body.topicName,
+      },
+    },
+    { arrayFilters: [{ "elem.topicID": req.params._id }], multi: true }
+  )
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch(console.log);
+});
 
 module.exports = router;

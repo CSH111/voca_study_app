@@ -99,101 +99,10 @@ app.post("/api/logout", (req, res) => {
   });
 });
 
-//word 추가
-app.post("/api/word", (req, res) => {
-  User.findOneAndUpdate(
-    { email: req.session.user.email },
-    { $push: { words: req.body } },
-    { new: true }
-  ) //
-    .then((updatedData) => {
-      const newWords = updatedData.words.filter(
-        (word) => word.topic === req.body.topic
-      );
-      res.status(200).json({ success: true, newWords });
-    })
-    .catch(console.log);
-});
-
-//word 수정 - 단어
-app.patch("/api/word/:_id", (req, res) => {
-  console.log(req.body.word, req.body.meaning);
-  User.findOneAndUpdate(
-    { email: req.session.user.email, "words._id": req.params._id },
-    {
-      $set: {
-        "words.$.word": req.body.word, //
-        "words.$.meaning": req.body.meaning,
-      },
-    },
-    { new: true }
-  ) //
-    .then((updatedData) => {
-      res.status(200).json({ success: true, newWords: updatedData.words });
-    })
-    .catch(console.log);
-}); //
-
-//word 삭제
-app.delete("/api/word/:_id", (req, res) => {
-  User.findOneAndUpdate(
-    { email: req.session.user.email },
-    { $pull: { words: { _id: req.params._id } } }
-  ) //
-    .then(() => {
-      console.log("word 삭제 완료");
-      res.status(200).json({ success: true });
-    })
-    .catch(console.log);
-});
-
-//word 불러오기
-app.get("/api/word", (req, res) => {
-  User.findOne({ email: req.session.user.email }) //
-    .then((user) => {
-      res.status(200).json({
-        success: true,
-        words: user.words.filter((word) => word.topic === req.query.topic),
-      });
-    })
-    .catch(console.log);
-});
-
 //home 로그인여부 검사
 app.get("/api/home", authorize, (req, res) => {
   //user는 로그인시 생성한 객체
   res.status(200).json({ success: true, userInfo: req.session.user });
 });
 
-//할거. word 데이터입출력, 세션유지 선택 안내
-
-//rest API 제대로 설계
-// 회원가입
-// POST:: /api/user
-
-//로그인
-// POST:: /api/login
-
-//로그아웃
-// POST:: /api/logout
-
-//토픽생성
-// POST:: /api/topic
-
-//모든토픽 불러오기
-// GET:: /api/topic
-
-//토픽 삭제
-// DELETE:: /api/topic
-
-//단어 생성
-// POST:: /api/word (body:토픽id)
-
-//모든단어 불러오기
-// GET:: /api/word
-
-//단어 삭제
-// DELETE:: api/word/id
-
-//단어 수정
-// PUT:: api/word/id
+//할거., 세션유지 선택 안내
