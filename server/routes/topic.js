@@ -43,8 +43,7 @@ router.patch("/:_id", (req, res) => {
     {
       email: req.session.user.email,
       "topics._id": req.params._id,
-      "words.topicID": req.params._id,
-      // words: { $elemMatch: { topicID: req.params._id } },
+      "words?.topicID": req.params._id,
     },
     {
       $set: {

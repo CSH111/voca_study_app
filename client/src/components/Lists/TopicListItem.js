@@ -47,44 +47,39 @@ const TopicListItem = ({ topic }) => {
   const handleTopicInput = (e) => {
     setTopicValue(e.target.value);
   };
+
   const handleModificationMode = () => {
     setIsModifying(true);
-    console.dir(modifyingValue.current);
     setTimeout(() => {
       modifyingValue.current.focus();
     }, 0);
   };
-  // const modifyWords = () => {
-  //   return fetch(`http://localhost:3001/words?topic=${topic.topic}`)
-  //     .then((response) => response.json())
-  //     .then((words) =>
-  //       words.forEach((word) => {
-  //         putData(`http://localhost:3001/words/${word.id}`, {
-  //           ...word,
-  //           topic: topicValue,
-  //         });
-  //       })
-  //     );
-  // };
-  // const modifyTopic = () => {
-  //   putData(`http://localhost:3001/topics/${topic.id}`, {
-  //     ...topic,
-  //     topic: topicValue,
-  //   });
-  //   const updatedTopics = makeNewContextData(topics, topic, {
-  //     topic: topicValue,
-  //   });
-  //   setTopics(updatedTopics);
-  // };
+
+  const getUpdatedTopics = (newTopicObject) => {
+    return topics.map((_topic) => {
+      if (_topic._id === topic._id) {
+        return { ...topic, ...newTopicObject };
+      }
+      return _topic;
+    });
+  };
+
+  const updateTopic = () => {
+    const body = { topicName: topicValue };
+    return axios
+      .patch(`/api/topic/${topic._id}`, body) //
+      .then(() => {
+        setTopics(getUpdatedTopics(body));
+      })
+      .catch(console.log);
+  };
 
   const handleSubmission = (e) => {
     e.preventDefault();
     setIsModifying(false);
     setLoading(true);
-    const body = { topicName: topicValue };
-    axios
-      .patch(`/api/topic/${topic._id}`, body) //
-      .then((res) => console.log(res.data));
+    updateTopic() //
+      .finally(() => setLoading(false));
   };
 
   if (loading) {
@@ -110,14 +105,14 @@ const TopicListItem = ({ topic }) => {
           <h3>
             <Link to={`/${topic.topicName}`}>{topic.topicName}</Link>
           </h3>
-          <ProgressBar
+          {/* <ProgressBar
             progress={
               wordsDoneAmount / wordsAmount !== NaN
                 ? wordsDoneAmount / wordsAmount
                 : 0
             }
             innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
-          />
+          /> */}
         </StyledDiv>
       )}
 
