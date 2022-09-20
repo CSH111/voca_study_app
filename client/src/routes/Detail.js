@@ -13,15 +13,15 @@ import axios from "axios";
 function Detail({ setMsg }) {
   const { topic } = useParams();
   const [itemLoading, setitemLoading] = useState(false);
-  const [testWords, setTestWords] = useState([]);
   const [topicID, setTopicID] = useState("");
-
   const navigate = useNavigate();
+  const isBookmarkList = topic === "bookmark" ? true : false;
   useEffect(() => {
     setMsg(topic);
   }, []);
 
   useEffect(() => {
+    if (topic === "bookmark") return;
     axios
       .get("/api/topic") //
       .then((res) => {
@@ -32,38 +32,36 @@ function Detail({ setMsg }) {
       });
   }, []);
 
-  if (topic !== "bookmark") {
-    return (
-      <>
+  return (
+    <>
+      {topic === "bookmark" ? null : (
         <WordGenerator
           topic={topic}
           topicID={topicID}
           setitemLoading={setitemLoading}
-          setTestWords={setTestWords}
-          testWords={testWords}
         />
-        <hr />
-        <Button onClick={() => navigate("/")}>
-          <FontAwesomeIcon icon={["fas", "undo"]} />
-        </Button>
-        <WordList
-          topic={topic}
-          itemLoading={itemLoading}
-          setTestWords={setTestWords}
-          testWords={testWords}
-        />
-      </>
-    );
-  }
-  return (
-    <>
+      )}
       <hr />
       <Button onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={["fas", "undo"]} />
-      </Button>{" "}
-      <BookmarkList />
+      </Button>
+      <WordList
+        topic={topic}
+        itemLoading={itemLoading}
+        isBookmarkList={isBookmarkList}
+      />
     </>
   );
+
+  // return (
+  //   <>
+  //     <hr />
+  //     <Button onClick={() => navigate("/")}>
+  //       <FontAwesomeIcon icon={["fas", "undo"]} />
+  //     </Button>{" "}
+  //     <BookmarkList />
+  //   </>
+  // );
 }
 
 export default Detail;

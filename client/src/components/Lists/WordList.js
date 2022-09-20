@@ -7,14 +7,22 @@ import { WordListItem } from "./WordListItem";
 import List from "./List";
 import axios from "axios";
 
-export function WordList({ topic, itemLoading }) {
+export function WordList({ topic, itemLoading, isBookmarkList }) {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(true);
-
+  // const isTopicBookmark =
   useEffect(() => {
-    // const body = { topic };
+    if (!isBookmarkList) {
+      axios
+        .get(`/api/word?topic=${topic}`) //
+        .then((res) => {
+          setWords(res.data.words);
+          setLoading(false);
+        });
+      return;
+    }
     axios
-      .get(`/api/word?topic=${topic}`) //
+      .get(`/api/word?isBookmarked=${true}`) //
       .then((res) => {
         setWords(res.data.words);
         setLoading(false);

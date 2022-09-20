@@ -5,9 +5,12 @@ const { User } = require("../Model/User");
 router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email }) //
     .then((user) => {
+      const words = req.query.isBookmarked
+        ? user.words.filter((word) => word.isBookmarked === true)
+        : user.words.filter((word) => word.topic === req.query.topic);
       res.status(200).json({
         success: true,
-        words: user.words.filter((word) => word.topic === req.query.topic),
+        words,
       });
     })
     .catch(console.log);
@@ -47,7 +50,6 @@ router.patch("/:_id", (req, res) => {
     // { new: true }
   ) //
     .then((data) => {
-      console.log(data);
       if (data === null) return res.status(400).json({ success: false });
       res.status(200).json({ success: true });
     })
