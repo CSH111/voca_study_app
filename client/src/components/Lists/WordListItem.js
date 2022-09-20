@@ -9,6 +9,7 @@ import Ellipsis from "../Ellipsis";
 import Listitem from "./ListItem";
 import InputBox from "../InputBox";
 import axios from "axios";
+import { useEffect } from "react";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -36,7 +37,6 @@ const StyledButton = styled(Button)`
 
 export function WordListItem({ word }) {
   const { words, setWords } = useContext(WordsDataContext);
-
   const [isModifying, setIsModifying] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(word.isBookmarked);
   const [isMemorized, setIsMemorized] = useState(word.isMemorized);
@@ -44,23 +44,6 @@ export function WordListItem({ word }) {
   const [meaningValue, setMeaningValue] = useState(word.meaning);
   const [loading, setLoading] = useState(false);
   const wordInputBox = useRef();
-
-  const patchWord = (changedDataObj) => {
-    const body = {
-      ...word,
-      ...changedDataObj,
-    };
-    return axios
-      .patch(`/api/word/${word._id}`, body)
-      .then((res) => {
-        setWords(getModifiedWords(changedDataObj));
-        return { success: true };
-      })
-      .catch((err) => {
-        console.log(err);
-        return { success: false };
-      });
-  };
 
   const handleDelBtn = () => {
     if (!window.confirm("삭제할꺼?")) {
@@ -73,19 +56,33 @@ export function WordListItem({ word }) {
       });
   };
 
+  const updateWord = (changedDataObj) => {
+    const body = {
+      ...word,
+      ...changedDataObj,
+    };
+    return axios
+      .patch(`/api/word/${word._id}`, body) //
+      .then(() => {
+        setWords(getModifiedWords(changedDataObj));
+      });
+  };
+
   const handleIsMemorized = () => {
     setIsMemorized(!isMemorized);
-    patchWord({ isMemorized: !isMemorized }) //
-      .then((data) => {
-        if (!data.success) setIsMemorized(isMemorized);
+    updateWord({ isMemorized: !isMemorized }) //
+      .catch((err) => {
+        console.log(err);
+        setIsMemorized(isMemorized);
       });
   };
 
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
-    patchWord({ isBookmarked: !isBookmarked }) //
-      .then((data) => {
-        if (!data.success) setIsBookmarked(isBookmarked);
+    updateWord({ isBookmarked: !isBookmarked }) //
+      .catch((err) => {
+        console.log(err);
+        setIsBookmarked(isBookmarked);
       });
   };
 
@@ -97,10 +94,10 @@ export function WordListItem({ word }) {
       return _word;
     });
 
-  const handleSubmitModifying = async (e) => {
+  const handleSubmission = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await patchWord({ word: wordValue, meaning: meaningValue });
+    await updateWord({ word: wordValue, meaning: meaningValue });
     setLoading(false);
     setIsModifying(false);
   };
@@ -113,12 +110,13 @@ export function WordListItem({ word }) {
     setMeaningValue(e.target.value);
   };
 
-  const handleModifyClick = () => {
+  const handleModifyingMode = () => {
     setIsModifying(true);
-    setTimeout(() => {
-      wordInputBox.current.focus();
-    }, 0);
   };
+
+  useEffect(() => {
+    if (isModifying) wordInputBox.current.focus();
+  }, [isModifying]);
 
   if (loading) {
     return <li>loading...</li>;
@@ -126,7 +124,7 @@ export function WordListItem({ word }) {
   return (
     <Listitem>
       {isModifying ? (
-        <form onSubmit={handleSubmitModifying} action="">
+        <form onSubmit={handleSubmission} action="">
           <InputBox
             className="input"
             type="text"
@@ -158,7 +156,7 @@ export function WordListItem({ word }) {
             <Button onClick={handleDelBtn}>
               <FontAwesomeIcon icon={["fas", "trash-alt"]} />
             </Button>
-            <Button onClick={handleModifyClick}>
+            <Button onClick={handleModifyingMode}>
               <FontAwesomeIcon icon={["fas", "edit"]} />
             </Button>
             <StyledButton
