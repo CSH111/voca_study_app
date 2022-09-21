@@ -15,68 +15,49 @@ const TopicGenerator = function ({ setItemLoading }) {
   const { topics, setTopics } = useContext(TopicDataContext);
   const topicInput = useRef();
   const navigate = useNavigate();
-  const isExist = (inputValue) => {
-    return topics.find((topic) => topic.topic === inputValue);
-  };
-  //
-  const createTopic = (e) => {
-    e.preventDefault();
-    if (!topicValue.trim()) {
-      topicInput.current.focus();
-      return;
-    }
 
-    if (topicValue === "bookmark") {
-      alert("사용할 수 없는 이름입니다.");
-      topicInput.current.focus();
-      return;
+  //
+
+  const isEmpty = (_topicValue) => {
+    if (!_topicValue.trim()) {
+      alert("공백을 입력할 수 없습니다.");
+      return true;
     }
+    return false;
+  };
+
+  const isDuplicated = (_topicValue) => {
+    const topicNames = topics.map((topic) => topic.topicName);
+    if (topicNames.includes(_topicValue)) {
+      alert("중복된 토픽입니다.");
+      return true;
+    }
+    return false;
+  };
+
+  const isInValidTopicName = (_topicValue) => {
+    if (isEmpty(_topicValue) || isDuplicated(_topicValue)) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleTopicCreate = (e) => {
+    e.preventDefault();
+    topicInput.current.focus();
+    if (isInValidTopicName(topicValue)) return;
     setItemLoading(true);
     const body = { topicName: topicValue };
     axios
       .post("/api/topic", body) //
-      .then((res) => {
+      .then(() => {
         setTopicValue("");
         topicInput.current.focus();
         setItemLoading(false);
         navigate(`/${topicValue}`);
       })
       .catch(console.log);
-
-    // fetch("http://localhost:3001/topics", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ topic: topicValue }),
-    // }).then((res) => res.ok && navigate(`/${topicValue}`));
   };
-
-  // const createTopic = (e) => {
-  //   e.preventDefault();
-  //   if (!topicValue.trim()) {
-  //     topicInput.current.focus();
-  //     return;
-  //   }
-  //   if (isExist(topicValue)) {
-  //     alert("이미 존재하는 이름입니다.");
-  //     topicInput.current.focus();
-  //     return;
-  //   }
-  //   if (topicValue === "bookmark") {
-  //     alert("사용할 수 없는 이름입니다.");
-  //     topicInput.current.focus();
-  //     return;
-  //   }
-  //   setItemLoading(true);
-  //   fetch("http://localhost:3001/topics", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ topic: topicValue }),
-  //   }).then((res) => res.ok && navigate(`/${topicValue}`));
-  // };
 
   return (
     <StyledForm>
@@ -90,7 +71,7 @@ const TopicGenerator = function ({ setItemLoading }) {
         />
       </label>
 
-      <Button onClick={createTopic}>
+      <Button onClick={handleTopicCreate}>
         <FontAwesomeIcon icon={faPlus} />{" "}
       </Button>
     </StyledForm>
