@@ -105,4 +105,6 @@ app.get("/api/home", authorize, (req, res) => {
   res.status(200).json({ success: true, userInfo: req.session.user });
 });
 
-//할거., 세션유지 선택 안내
+//할거., 세션유지 선택 안내, 회원탈퇴
+
+//토픽이름 중복처리 필요(일단 프론트에서만 ㄱ)
