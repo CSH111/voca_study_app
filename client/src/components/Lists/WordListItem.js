@@ -1,7 +1,5 @@
 import { useContext, useRef, useState } from "react";
 import { WordsDataContext } from "../../context/WordsDataContext";
-import makeNewContextData from "../../function/makeNewContextData";
-import putData from "../../function/putData";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
@@ -42,7 +40,7 @@ export function WordListItem({ word }) {
   const [isMemorized, setIsMemorized] = useState(word.isMemorized);
   const [wordValue, setWordValue] = useState(word.word);
   const [meaningValue, setMeaningValue] = useState(word.meaning);
-  const [loading, setLoading] = useState(false);
+  const [loadingModification, setLoadingModification] = useState(false);
   const wordInputBox = useRef();
 
   const handleDelBtn = () => {
@@ -96,9 +94,9 @@ export function WordListItem({ word }) {
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoadingModification(true);
     await updateWord({ word: wordValue, meaning: meaningValue });
-    setLoading(false);
+    setLoadingModification(false);
     setIsModifying(false);
   };
 
@@ -118,12 +116,12 @@ export function WordListItem({ word }) {
     if (isModifying) wordInputBox.current.focus();
   }, [isModifying]);
 
-  if (loading) {
-    return <li>loading...</li>;
+  if (loadingModification) {
+    return <Listitem>loading...</Listitem>;
   }
   return (
     <Listitem>
-      {isModifying ? (
+      {isModifying && (
         <form onSubmit={handleSubmission} action="">
           <InputBox
             className="input"
@@ -139,7 +137,8 @@ export function WordListItem({ word }) {
           />
           <button>완료</button>
         </form>
-      ) : (
+      )}
+      {!isModifying && (
         <StyledDiv
           className="data"
           isMemorized={isMemorized}
@@ -150,6 +149,7 @@ export function WordListItem({ word }) {
           <div>{word.meaning}</div>
         </StyledDiv>
       )}
+
       <Ellipsis
         items={
           <>

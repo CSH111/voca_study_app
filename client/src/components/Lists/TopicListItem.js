@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TopicDataContext } from "../../context/TopicDataContext";
-import putData from "../../function/putData";
-import makeNewContextData from "../../function/makeNewContextData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
 import ProgressBar from "../ProgressBar";
@@ -28,7 +26,7 @@ const TopicListItem = ({ topic }) => {
   const [wordsAmount, setWordsAmount] = useState("");
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
   const [topicValue, setTopicValue] = useState(topic.topicName);
-  const [loading, setLoading] = useState(false);
+  const [topicItemLoading, setTopicItemLoading] = useState(false);
   const modifyingValue = useRef();
   const [isDeleted, setIsDeleted] = useState(false);
 
@@ -77,12 +75,12 @@ const TopicListItem = ({ topic }) => {
   const handleSubmission = (e) => {
     e.preventDefault();
     setIsModifying(false);
-    setLoading(true);
+    setTopicItemLoading(true);
     updateTopic() //
-      .finally(() => setLoading(false));
+      .finally(() => setTopicItemLoading(false));
   };
 
-  if (loading) {
+  if (topicItemLoading) {
     return <ListItem>loading...</ListItem>;
   }
   if (isDeleted) {
@@ -90,7 +88,7 @@ const TopicListItem = ({ topic }) => {
   }
   return (
     <ListItem className="topic">
-      {isModifying ? (
+      {isModifying && (
         <StyledForm isModifying={isModifying}>
           <InputBox
             type="text"
@@ -100,7 +98,8 @@ const TopicListItem = ({ topic }) => {
           />
           <Button onClick={handleSubmission}>끝</Button>
         </StyledForm>
-      ) : (
+      )}
+      {!isModifying && (
         <StyledDiv isModifying={isModifying}>
           <h3>
             <Link to={`/${topic.topicName}`}>{topic.topicName}</Link>

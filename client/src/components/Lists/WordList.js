@@ -6,8 +6,9 @@ import { WordListItem } from "./WordListItem";
 
 import List from "./List";
 import axios from "axios";
+import ListItem from "./ListItem";
 
-export function WordList({ topic, itemLoading, isBookmarkList }) {
+export function WordList({ topic, isBookmarkList, wordItemLoading }) {
   const { words, setWords } = useContext(WordsDataContext);
   const [loading, setLoading] = useState(true);
   // const isTopicBookmark =
@@ -32,7 +33,7 @@ export function WordList({ topic, itemLoading, isBookmarkList }) {
   if (loading) {
     return <Loading />;
   }
-  if (!words.length && !itemLoading) {
+  if (!words.length) {
     return <div>단어를 추가하세요.</div>;
   }
   return (
@@ -40,8 +41,7 @@ export function WordList({ topic, itemLoading, isBookmarkList }) {
       {words.map((word) => (
         <WordListItem word={word} key={word._id} />
       ))}
-
-      <li>{itemLoading ? "loading..." : null}</li>
+      {wordItemLoading ? <ListItem>loading...(spinner)</ListItem> : null}
     </List>
   );
 }
