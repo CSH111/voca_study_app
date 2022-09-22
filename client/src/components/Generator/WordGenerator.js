@@ -6,40 +6,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import InputBox from "../InputBox";
-const WordGenerator = ({ topic, topicID, setitemLoading }) => {
-  const { words, setWords } = useContext(WordsDataContext);
+const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
+  const wordsStore = useContext(WordsDataContext);
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
-  const [isDisabled, setIsDisabled] = useState(true);
   const wordInput = useRef();
   const meaningInput = useRef();
   const navigate = useNavigate();
 
-  //
-  // useEffect(() => {
-  //   fetch("http://localhost:3001/topics")
-  //     .then((res) => res.json())
-  //     .then((topics) => {
-  //       if (!topics.find((_topic) => _topic.topic === topic)) {
-  //         alert("잘못된 경로");
-  //         navigate("/");
-  //         return;
-  //       }
-  //       setIsDisabled(false);
-  //     });
-  // }, []);
-  //리셋
   const handleAddBtnClick = (e) => {
     e.preventDefault();
-    if (!wordInputValue) {
+    if (!wordInputValue.trim()) {
       wordInput.current.focus();
       return;
     }
-    if (!meaningInputValue) {
+    if (!meaningInputValue.trim()) {
       meaningInput.current.focus();
       return;
     }
-    //
+    setwordItemLoading(true);
+    setMeaningInputValue("");
+    setWordInputValue("");
+    wordInput.current.focus();
+
     const body = {
       topic,
       topicID,
@@ -51,37 +40,10 @@ const WordGenerator = ({ topic, topicID, setitemLoading }) => {
     axios
       .post("/api/word", body) //
       .then((res) => {
-        setMeaningInputValue("");
-        setWordInputValue("");
-        wordInput.current.focus();
-        setWords(res.data.newWords);
+        setwordItemLoading(false);
+        wordsStore.setWords(res.data.newWords);
       })
       .catch(console.log);
-    //   setitemLoading(true);로우 프로파일 텐키리스 무선ck
-    //   const newWord = {
-    //     topic: topic,
-    //     eng: wordInputValue,
-    //     kor: meaningInputValue,
-    //     isDone: false,
-    //     isBookmarked: false,
-    //   };
-    //   [setMeaningInputValue, setWordInputValue].forEach((fn) => fn(""));
-
-    //   fetch("http://localhost:3001/words", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(newWord),
-    //   })
-    //     .then((res) => res.url)
-    //     .then((url) => fetch(`${url}?topic=${topic}`))
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setitemLoading(false);
-    //       setWords(data);
-    //       // wordInput.current.focus();
-    //     });
   };
 
   return (
@@ -104,7 +66,7 @@ const WordGenerator = ({ topic, topicID, setitemLoading }) => {
         onChange={(e) => setMeaningInputValue(e.target.value)}
       />
 
-      <Button onClick={handleAddBtnClick} disabled={false}>
+      <Button onClick={handleAddBtnClick}>
         <FontAwesomeIcon icon={faPlus} />{" "}
       </Button>
     </form>

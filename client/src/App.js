@@ -36,6 +36,7 @@ const Wrapper = styled.div`
 
 function App() {
   const [words, setWords] = useState([]);
+  const [wordLoading, setWordLoading] = useState(null);
   const [topics, setTopics] = useState([]);
   const [msg, setMsg] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,7 +62,9 @@ function App() {
           <Route
             path="/:topic"
             element={
-              <WordsDataContext.Provider value={{ words, setWords }}>
+              <WordsDataContext.Provider
+                value={{ words, setWords, wordLoading, setWordLoading }}
+              >
                 <Detail setMsg={setMsg} />
               </WordsDataContext.Provider>
             }

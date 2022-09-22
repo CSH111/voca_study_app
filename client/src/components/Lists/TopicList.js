@@ -11,8 +11,8 @@ const StyledDiv = styled.div`
   align-self: flex-end;
 `;
 
-const TopicList = ({ itemLoading }) => {
-  const [loading, setLoading] = useState(true);
+const TopicList = () => {
+  const [topicsLoading, setTopicsLoading] = useState(true);
   const { topics, setTopics } = useContext(TopicDataContext);
 
   useEffect(() => {
@@ -20,15 +20,16 @@ const TopicList = ({ itemLoading }) => {
       .get("/api/topic") //
       .then((res) => {
         setTopics(res.data.topics);
-        setLoading(false);
+        setTopicsLoading(false);
       })
       .catch(console.log);
   }, []);
 
-  if (loading) {
-    return <div>loading..</div>;
+  if (topicsLoading) {
+    return <div>loaing...</div>;
   }
-  if (!topics.length && !itemLoading) {
+
+  if (!topics.length) {
     return <div>토픽을 추가하세요.</div>;
   }
   return (
@@ -42,7 +43,6 @@ const TopicList = ({ itemLoading }) => {
         {topics.map((topic) => (
           <TopicListItem topic={topic} key={topic._id} />
         ))}
-        {itemLoading ? <li>Loading...</li> : null}
       </List>
     </>
   );

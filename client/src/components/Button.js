@@ -8,6 +8,7 @@ const StyledButton = styled.button`
   border: none;
   transition: all 0.2s;
   background-color: #cdcdcd;
+  /* cursor: pointer; */
   ${({ disabled }) => {
     if (!disabled) {
       return `

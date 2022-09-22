@@ -12,6 +12,7 @@ function Detail({ setMsg }) {
   const { topic } = useParams();
   const [itemLoading, setitemLoading] = useState(false);
   const [topicID, setTopicID] = useState("");
+  const [wordItemLoading, setwordItemLoading] = useState(false);
   const navigate = useNavigate();
   const isBookmarkList = topic === "bookmark" ? true : false;
   useEffect(() => {
@@ -36,7 +37,8 @@ function Detail({ setMsg }) {
         <WordGenerator
           topic={topic}
           topicID={topicID}
-          setitemLoading={setitemLoading}
+          setwordItemLoading={setwordItemLoading}
+          // setitemLoading={setitemLoading}
         />
       )}
       <hr />
@@ -45,7 +47,7 @@ function Detail({ setMsg }) {
       </Button>
       <WordList
         topic={topic}
-        itemLoading={itemLoading}
+        wordItemLoading={wordItemLoading}
         isBookmarkList={isBookmarkList}
       />
     </>
