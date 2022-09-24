@@ -1,5 +1,4 @@
 import { useContext, useRef, useState } from "react";
-import { WordsDataContext } from "../../context/WordsDataContext";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
@@ -8,6 +7,7 @@ import Listitem from "./ListItem";
 import InputBox from "../InputBox";
 import axios from "axios";
 import { useEffect } from "react";
+import { DataContext } from "../../context/DataContext";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ const StyledButton = styled(Button)`
 `;
 
 export function WordListItem({ word }) {
-  const { words, setWords } = useContext(WordsDataContext);
+  const store = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(word.isBookmarked);
   const [isMemorized, setIsMemorized] = useState(word.isMemorized);
@@ -50,7 +50,9 @@ export function WordListItem({ word }) {
     axios
       .delete(`/api/word/${word._id}`) //
       .then((res) => {
-        setWords(words.filter((_word) => _word._id !== word._id));
+        store.setWords((words) => {
+          return words.filter((_word) => _word._id !== word._id);
+        });
       });
   };
 
@@ -62,7 +64,7 @@ export function WordListItem({ word }) {
     return axios
       .patch(`/api/word/${word._id}`, body) //
       .then(() => {
-        setWords(getModifiedWords(changedDataObj));
+        store.setWords(getModifiedWords(changedDataObj));
       });
   };
 
@@ -85,7 +87,7 @@ export function WordListItem({ word }) {
   };
 
   const getModifiedWords = (changedDataObj) =>
-    words.map((_word) => {
+    store.words.map((_word) => {
       if (_word._id === word._id) {
         return { ...word, ...changedDataObj };
       }

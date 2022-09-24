@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { TopicDataContext } from "../../context/TopicDataContext";
+import { DataContext } from "../../context/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
 import ProgressBar from "../ProgressBar";
@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
 const StyledForm = styled.form``;
 
 const TopicListItem = ({ topic }) => {
-  const { topics, setTopics } = useContext(TopicDataContext);
+  const { topics, setTopics } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
   const [wordsAmount, setWordsAmount] = useState("");
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
