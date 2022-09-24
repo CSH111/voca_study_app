@@ -8,6 +8,7 @@ import InputBox from "../InputBox";
 import axios from "axios";
 import { useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
+import Spinner from "../Spinner";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -119,7 +120,11 @@ export function WordListItem({ word }) {
   }, [isModifying]);
 
   if (loadingModification) {
-    return <Listitem>loading...</Listitem>;
+    return (
+      <Listitem>
+        <Spinner />
+      </Listitem>
+    );
   }
   return (
     <Listitem>

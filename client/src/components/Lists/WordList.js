@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import Loading from "../Loading";
 import { WordListItem } from "./WordListItem";
 import List from "./List";
 import axios from "axios";
 import ListItem from "./ListItem";
 import { DataContext } from "../../context/DataContext";
+import Spinner from "../Spinner";
 
 export function WordList({ topic, isBookmarkList, wordItemLoading }) {
   const store = useContext(DataContext);
@@ -21,7 +21,7 @@ export function WordList({ topic, isBookmarkList, wordItemLoading }) {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return <Spinner />;
   }
   if (!store.words.length) {
     return <div>단어를 추가하세요.</div>;
@@ -31,7 +31,11 @@ export function WordList({ topic, isBookmarkList, wordItemLoading }) {
       {store.words.map((word) => (
         <WordListItem word={word} key={word._id} />
       ))}
-      {wordItemLoading ? <ListItem>loading...(spinner)</ListItem> : null}
+      {wordItemLoading ? (
+        <ListItem>
+          <Spinner />
+        </ListItem>
+      ) : null}
     </List>
   );
 }

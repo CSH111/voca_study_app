@@ -44,13 +44,10 @@ const Register = () => {
       pw: pw,
     };
     axios
-      .post("/api/user", body) //
+      .post("/api/user", body)
       .then((res) => {
-        console.log(res.data);
         if (res.data.success) {
           alert("가입성공");
-
-          //로그인요청
           navigate("/");
         }
       })

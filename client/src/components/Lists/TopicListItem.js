@@ -129,45 +129,5 @@ const TopicListItem = ({ topic }) => {
       />
     </ListItem>
   );
-
-  //
-  // return (
-  //   <ListItem className="topic">
-  //     <StyledForm isModifying={isModifying}>
-  //       <InputBox
-  //         type="text"
-  //         value={topicValue}
-  //         onChange={handleTopicInput}
-  //         ref={modifyingValue}
-  //       />
-  //       <Button onClick={onModifyBtnClick}>끝</Button>
-  //     </StyledForm>
-  //     <StyledDiv isModifying={isModifying}>
-  //       <h3>
-  //         <Link to={`/${topic.topic}`}>{topic.topic}</Link>
-  //       </h3>
-  //       <ProgressBar
-  //         progress={
-  //           wordsDoneAmount / wordsAmount !== NaN
-  //             ? wordsDoneAmount / wordsAmount
-  //             : 0
-  //         }
-  //         innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
-  //       />
-  //     </StyledDiv>
-  //     <Ellipsis
-  //       items={
-  //         <>
-  //           <Button onClick={onDeleteBtnCLick}>
-  //             <FontAwesomeIcon icon={["fas", "trash-alt"]} />
-  //           </Button>
-  //           <Button onClick={() => goModifying()}>
-  //             <FontAwesomeIcon icon={["fas", "edit"]} />
-  //           </Button>
-  //         </>
-  //       }
-  //     />
-  //   </ListItem>
-  // );
 };
 export default TopicListItem;

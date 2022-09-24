@@ -35,14 +35,10 @@ const Login = () => {
       alert("다시 입력하세요");
       return;
     }
-    const body = {
-      email: email,
-      pw: pw,
-    };
+    const body = { email, pw };
     axios
       .post("/api/login", body)
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
         alert("로그인성공");
         navigate("/");
       })

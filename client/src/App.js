@@ -6,19 +6,14 @@ import { Reset } from "styled-reset";
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
 import styled from "styled-components";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import {
-  faEllipsis,
-  faStar,
-  faEdit,
-  faUndo,
-} from "@fortawesome/free-solid-svg-icons";
-import { faArrowAltCircleLeft } from "@fortawesome/free-regular-svg-icons";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
-library.add(fas, far, faArrowAltCircleLeft, faEllipsis, faStar, faEdit, faUndo);
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { far, faArrowAltCircleLeft } from "@fortawesome/free-regular-svg-icons";
+// prettier-ignore
+import {fas, faEllipsis, faStar, faEdit, faUndo, faCircle, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+// prettier-ignore
+library.add(fas, far, faArrowAltCircleLeft, faEllipsis, faStar, faEdit, faUndo, faCircleNotch, faCircle);
 const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;

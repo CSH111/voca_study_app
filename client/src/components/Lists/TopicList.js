@@ -6,6 +6,7 @@ import TopicListItem from "./TopicListItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import axios from "axios";
+import Spinner from "../Spinner";
 
 const StyledDiv = styled.div`
   align-self: flex-end;
@@ -27,7 +28,7 @@ const TopicList = () => {
   }, []);
 
   if (topicsLoading) {
-    return <div>loaing...</div>;
+    return <Spinner />;
   }
 
   if (!store.topics.length) {
