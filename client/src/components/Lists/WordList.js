@@ -9,18 +9,11 @@ import { DataContext } from "../../context/DataContext";
 export function WordList({ topic, isBookmarkList, wordItemLoading }) {
   const store = useContext(DataContext);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (!isBookmarkList) {
-      axios
-        .get(`/api/word?topic=${topic}`) //
-        .then((res) => {
-          store.setWords(res.data.words);
-          setLoading(false);
-        });
-      return;
-    }
+    const query = isBookmarkList ? `isBookmarked=${true}` : `topic=${topic}`;
     axios
-      .get(`/api/word?isBookmarked=${true}`) //
+      .get(`/api/word?${query}`) //
       .then((res) => {
         store.setWords(res.data.words);
         setLoading(false);
