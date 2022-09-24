@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { TopicDataContext } from "../../context/TopicDataContext";
+import { DataContext } from "../../context/DataContext";
 import List from "./List";
 import TopicListItem from "./TopicListItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,13 +13,14 @@ const StyledDiv = styled.div`
 
 const TopicList = () => {
   const [topicsLoading, setTopicsLoading] = useState(true);
-  const { topics, setTopics } = useContext(TopicDataContext);
+  // const { topics, setTopics } = useContext(TopicDataContext);
+  const store = useContext(DataContext);
 
   useEffect(() => {
     axios
       .get("/api/topic") //
       .then((res) => {
-        setTopics(res.data.topics);
+        store.setTopics(res.data.topics);
         setTopicsLoading(false);
       })
       .catch(console.log);
@@ -29,7 +30,7 @@ const TopicList = () => {
     return <div>loaing...</div>;
   }
 
-  if (!topics.length) {
+  if (!store.topics.length) {
     return <div>토픽을 추가하세요.</div>;
   }
   return (
@@ -40,7 +41,7 @@ const TopicList = () => {
         </Link>
       </StyledDiv>
       <List>
-        {topics.map((topic) => (
+        {store.topics.map((topic) => (
           <TopicListItem topic={topic} key={topic._id} />
         ))}
       </List>

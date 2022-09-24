@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { WordsDataContext } from "../../context/WordsDataContext";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import InputBox from "../InputBox";
+import { DataContext } from "../../context/DataContext";
 const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
-  const wordsStore = useContext(WordsDataContext);
+  const store = useContext(DataContext);
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();
@@ -41,7 +41,7 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       .post("/api/word", body) //
       .then((res) => {
         setwordItemLoading(false);
-        wordsStore.setWords(res.data.newWords);
+        store.setWords(res.data.newWords);
       })
       .catch(console.log);
   };

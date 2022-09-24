@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from "react";
-import { TopicDataContext } from "../../context/TopicDataContext";
+import { DataContext } from "../../context/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
@@ -12,7 +12,7 @@ const StyledForm = styled.form``;
 const StyledTextInput = styled(InputBox)``;
 const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
-  const { topics, setTopics } = useContext(TopicDataContext);
+  const store = useContext(DataContext);
   const topicInput = useRef();
   const navigate = useNavigate();
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
@@ -27,7 +27,7 @@ const TopicGenerator = function ({ setItemLoading }) {
   };
 
   const isDuplicated = (_topicValue) => {
-    const topicNames = topics.map((topic) => topic.topicName);
+    const topicNames = store.topics.map((topic) => topic.topicName);
     if (topicNames.includes(_topicValue)) {
       alert("중복된 토픽입니다.");
       return true;

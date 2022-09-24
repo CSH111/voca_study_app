@@ -23,7 +23,7 @@ const InputBox = React.forwardRef((props, ref) => {
       onChange={props.onChange}
       className={props.className}
       disabled={props.disabled}
-    ></StyledInput>
+    />
   );
 });
 

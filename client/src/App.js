@@ -5,8 +5,6 @@ import { useState } from "react";
 import { Reset } from "styled-reset";
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
-import { WordsDataContext } from "./context/WordsDataContext";
-import { TopicDataContext } from "./context/TopicDataContext";
 import styled from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -35,9 +33,6 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const [words, setWords] = useState([]);
-  const [wordLoading, setWordLoading] = useState(null);
-  const [topics, setTopics] = useState([]);
   const [msg, setMsg] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
@@ -53,22 +48,9 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              <TopicDataContext.Provider value={{ topics, setTopics }}>
-                <Home setMsg={setMsg} setIsLoggedIn={setIsLoggedIn} />
-              </TopicDataContext.Provider>
-            }
+            element={<Home setMsg={setMsg} setIsLoggedIn={setIsLoggedIn} />}
           />
-          <Route
-            path="/:topic"
-            element={
-              <WordsDataContext.Provider
-                value={{ words, setWords, wordLoading, setWordLoading }}
-              >
-                <Detail setMsg={setMsg} />
-              </WordsDataContext.Provider>
-            }
-          />
+          <Route path="/:topic" element={<Detail setMsg={setMsg} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
