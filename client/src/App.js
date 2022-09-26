@@ -1,6 +1,7 @@
 import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
+import Spinner from "./components/Spinner";
 import { useState } from "react";
 import { Reset } from "styled-reset";
 import Detail from "./routes/Detail";

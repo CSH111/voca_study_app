@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TopicGenerator from "../components/Generator/TopicGenerator";
 import TopicList from "../components/Lists/TopicList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Home({ setMsg, setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -26,6 +27,9 @@ function Home({ setMsg, setIsLoggedIn }) {
   return (
     <>
       <TopicGenerator setItemLoading={setItemLoading} />
+      <Link to={"/bookmark"} className="toBookmark">
+        <FontAwesomeIcon icon={["fas", "star"]} /> my bookmark
+      </Link>
       <TopicList itemLoading={itemLoading} />
     </>
   );

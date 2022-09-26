@@ -8,13 +8,17 @@ import styled from "styled-components";
 import axios from "axios";
 import Spinner from "../Spinner";
 
-const StyledDiv = styled.div`
-  align-self: flex-end;
+const StyledList = styled(List)`
+  position: relative;
+  > .spinner {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 2.5rem;
+  }
 `;
-
 const TopicList = () => {
   const [topicsLoading, setTopicsLoading] = useState(true);
-  // const { topics, setTopics } = useContext(TopicDataContext);
   const store = useContext(DataContext);
 
   useEffect(() => {
@@ -27,26 +31,20 @@ const TopicList = () => {
       .catch(console.log);
   }, []);
 
-  if (topicsLoading) {
-    return <Spinner />;
-  }
-
-  if (!store.topics.length) {
-    return <div>토픽을 추가하세요.</div>;
-  }
+  const listItems = store.topics.length ? (
+    store.topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)
+  ) : (
+    <div>토픽을 추가하세요</div>
+  );
   return (
-    <>
-      <StyledDiv>
-        <Link to={"/bookmark"}>
-          <FontAwesomeIcon icon={["fas", "star"]} /> my bookmark
-        </Link>
-      </StyledDiv>
-      <List>
-        {store.topics.map((topic) => (
-          <TopicListItem topic={topic} key={topic._id} />
-        ))}
-      </List>
-    </>
+    <StyledList>
+      {topicsLoading && (
+        <div className="spinner">
+          <Spinner />
+        </div>
+      )}
+      {!topicsLoading && listItems}
+    </StyledList>
   );
 };
 
