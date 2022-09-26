@@ -12,23 +12,10 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();
   const meaningInput = useRef();
-  const navigate = useNavigate();
+  const isEmptyWordValue = !wordInputValue.trim();
+  const isEmptyMeaningValue = !meaningInputValue.trim();
 
-  const handleAddBtnClick = (e) => {
-    e.preventDefault();
-    if (!wordInputValue.trim()) {
-      wordInput.current.focus();
-      return;
-    }
-    if (!meaningInputValue.trim()) {
-      meaningInput.current.focus();
-      return;
-    }
-    setwordItemLoading(true);
-    setMeaningInputValue("");
-    setWordInputValue("");
-    wordInput.current.focus();
-
+  const updateWord = () => {
     const body = {
       topic,
       topicID,
@@ -37,6 +24,7 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       isMemorized: false,
       isBookmarked: false,
     };
+
     axios
       .post("/api/word", body) //
       .then((res) => {
@@ -44,6 +32,19 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
         store.setWords(res.data.newWords);
       })
       .catch(console.log);
+  };
+
+  const handleAddBtnClick = (e) => {
+    e.preventDefault();
+    if (isEmptyWordValue) return wordInput.current.focus();
+    if (isEmptyMeaningValue) return meaningInput.current.focus();
+
+    setwordItemLoading(true);
+    setMeaningInputValue("");
+    setWordInputValue("");
+    wordInput.current.focus();
+
+    updateWord();
   };
 
   return (

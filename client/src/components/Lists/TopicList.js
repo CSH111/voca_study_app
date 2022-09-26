@@ -36,6 +36,7 @@ const TopicList = () => {
   ) : (
     <div>토픽을 추가하세요</div>
   );
+
   return (
     <StyledList>
       {topicsLoading && (
