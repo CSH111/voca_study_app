@@ -43,7 +43,6 @@ const StyledDiv = styled.div`
         `}
   }
 `;
-
 const Ellipsis = ({ items }) => {
   const [menuOn, setMenuOn] = useState(false);
   return (
