@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import WordGenerator from "../components/Generator/WordGenerator";
-import { WordList } from "../components/Lists/WordList";
+import WordList from "../components/Lists/WordList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/Button";
 import { useEffect } from "react";
@@ -33,7 +33,7 @@ function Detail({ setMsg }) {
 
   return (
     <>
-      {!isBookmarkList && (
+      {topic !== "bookmark" && (
         <WordGenerator
           topic={topic}
           topicID={topicID}
@@ -45,11 +45,7 @@ function Detail({ setMsg }) {
       <Button onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={["fas", "undo"]} />
       </Button>
-      <WordList
-        topic={topic}
-        wordItemLoading={wordItemLoading}
-        isBookmarkList={isBookmarkList}
-      />
+      <WordList topic={topic} wordItemLoading={wordItemLoading} />
     </>
   );
 }

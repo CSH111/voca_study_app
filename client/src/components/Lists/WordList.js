@@ -5,37 +5,57 @@ import axios from "axios";
 import ListItem from "./ListItem";
 import { DataContext } from "../../context/DataContext";
 import Spinner from "../Spinner";
+import styled from "styled-components";
 
-export function WordList({ topic, isBookmarkList, wordItemLoading }) {
+const StyledList = styled(List)`
+  position: relative;
+  > .spinner {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 2.5rem;
+  }
+`;
+
+const WordList = ({ topic, wordItemLoading }) => {
   const store = useContext(DataContext);
-  const [loading, setLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(true);
 
   useEffect(() => {
-    const query = isBookmarkList ? `isBookmarked=${true}` : `topic=${topic}`;
+    const query =
+      topic === "bookmark" ? `isBookmarked=${true}` : `topic=${topic}`;
+
     axios
       .get(`/api/word?${query}`) //
       .then((res) => {
         store.setWords(res.data.words);
-        setLoading(false);
+        setListLoading(false);
       });
   }, []);
 
-  if (loading) {
-    return <Spinner />;
-  }
-  if (!store.words.length) {
-    return <div>단어를 추가하세요.</div>;
-  }
+  const listItems = store.words.length ? (
+    store.words.map((word) => <WordListItem word={word} key={word._id} />)
+  ) : (
+    <div>단어를 추가하세요</div>
+  );
+
   return (
-    <List>
-      {store.words.map((word) => (
-        <WordListItem word={word} key={word._id} />
-      ))}
+    <StyledList>
+      {listLoading && (
+        <div className="spinner">
+          <Spinner />
+        </div>
+      )}
+      {!listLoading && listItems}
       {wordItemLoading ? (
         <ListItem>
           <Spinner />
         </ListItem>
       ) : null}
-    </List>
+    </StyledList>
   );
-}
+};
+
+export default WordList;
+
+//리팩토링할거=> 워드 추가시 store에 바로반영 => 반투명화 + 스피너on => 서버수신확인 => 불투명+ 스피너 off
