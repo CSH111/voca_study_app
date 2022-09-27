@@ -24,7 +24,7 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       isMemorized: false,
       isBookmarked: false,
     };
-
+    // 바디줄이기
     axios
       .post("/api/word", body) //
       .then((res) => {

@@ -10,12 +10,24 @@ import ListItem from "./ListItem";
 import InputBox from "../InputBox";
 import { useRef } from "react";
 import axios from "axios";
+import Spinner from "../Spinner";
 
 const StyledDiv = styled.div`
   display: flex;
   align-items: center;
   h3 {
     margin-right: 0.5rem;
+  }
+`;
+const StyledListItem = styled(ListItem)`
+  position: relative;
+
+  > .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.75rem;
   }
 `;
 const StyledForm = styled.form``;
@@ -80,39 +92,43 @@ const TopicListItem = ({ topic }) => {
       .finally(() => setTopicItemLoading(false));
   };
 
-  if (topicItemLoading) {
-    return <ListItem>loading...</ListItem>;
-  }
+  const topicItemcontents = isModifying ? (
+    <StyledForm isModifying={isModifying}>
+      <InputBox
+        type="text"
+        value={topicValue}
+        onChange={handleTopicInput}
+        ref={modifyingValue}
+      />
+      <Button onClick={handleSubmission}>끝</Button>
+    </StyledForm>
+  ) : (
+    <StyledDiv isModifying={isModifying}>
+      <h3>
+        <Link to={`/${topic.topicName}`}>{topic.topicName}</Link>
+      </h3>
+      {/* <ProgressBar
+        progress={
+          wordsDoneAmount / wordsAmount !== NaN
+            ? wordsDoneAmount / wordsAmount
+            : 0
+        }
+        innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
+      /> */}
+    </StyledDiv>
+  );
+
   if (isDeleted) {
     return null;
   }
   return (
-    <ListItem className="topic">
-      {isModifying && (
-        <StyledForm isModifying={isModifying}>
-          <InputBox
-            type="text"
-            value={topicValue}
-            onChange={handleTopicInput}
-            ref={modifyingValue}
-          />
-          <Button onClick={handleSubmission}>끝</Button>
-        </StyledForm>
-      )}
-      {!isModifying && (
-        <StyledDiv isModifying={isModifying}>
-          <h3>
-            <Link to={`/${topic.topicName}`}>{topic.topicName}</Link>
-          </h3>
-          {/* <ProgressBar
-            progress={
-              wordsDoneAmount / wordsAmount !== NaN
-                ? wordsDoneAmount / wordsAmount
-                : 0
-            }
-            innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
-          /> */}
-        </StyledDiv>
+    <StyledListItem className="topic">
+      {topicItemLoading ? (
+        <div className="spinner">
+          <Spinner />
+        </div>
+      ) : (
+        topicItemcontents
       )}
 
       <Ellipsis
@@ -127,7 +143,7 @@ const TopicListItem = ({ topic }) => {
           </>
         }
       />
-    </ListItem>
+    </StyledListItem>
   );
 };
 export default TopicListItem;
