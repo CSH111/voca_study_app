@@ -10,16 +10,6 @@ import { useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
 import Spinner from "../Spinner";
 
-const StyledListItem = styled(ListItem)`
-  position: relative;
-  .spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.75rem;
-  }
-`;
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -108,9 +98,9 @@ export function WordListItem({ word }) {
   const handleSubmission = async (e) => {
     e.preventDefault();
     setIsItemLoading(true);
+    setIsModifying(false);
     await updateWord({ word: wordValue, meaning: meaningValue });
     setIsItemLoading(false);
-    setIsModifying(false);
   };
 
   const handleWordInput = (e) => {
@@ -143,7 +133,7 @@ export function WordListItem({ word }) {
         value={meaningValue}
         onChange={handleMeaningInput}
       />
-      <button>완료</button>
+      <Button type="submit">완료</Button>
     </form>
   ) : (
     <StyledDiv
@@ -156,43 +146,36 @@ export function WordListItem({ word }) {
       <div>{word.meaning}</div>
     </StyledDiv>
   );
-  // if (isItemLoading) {
-  //   return (
-  //     <Listitem>
-  //       <Spinner />
-  //     </Listitem>
-  //   );
-  // }
   return (
-    <StyledListItem>
-      {isItemLoading ? (
-        <div className="spinner">
-          <Spinner />
-        </div>
-      ) : (
+    <ListItem>
+      {isItemLoading && (
         <>
-          {listItemContents}
-          <Ellipsis
-            items={
-              <>
-                <Button onClick={handleDelBtn}>
-                  <FontAwesomeIcon icon={["fas", "trash-alt"]} />
-                </Button>
-                <Button onClick={handleModifyingMode}>
-                  <FontAwesomeIcon icon={["fas", "edit"]} />
-                </Button>
-                <StyledButton
-                  onClick={handleBookmark}
-                  isBookmarked={isBookmarked}
-                  className="bookmark"
-                >
-                  <FontAwesomeIcon icon={["fas", "star"]} />
-                </StyledButton>
-              </>
-            }
-          />
+          <div className="blur-filter"></div>
+          <div className="spinner">
+            <Spinner />
+          </div>
         </>
       )}
-    </StyledListItem>
+      {listItemContents}
+      <Ellipsis
+        items={
+          <>
+            <Button onClick={handleDelBtn}>
+              <FontAwesomeIcon icon="fa-solid fa-trash-can" />
+            </Button>
+            <Button onClick={handleModifyingMode}>
+              <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+            </Button>
+            <StyledButton
+              onClick={handleBookmark}
+              isBookmarked={isBookmarked}
+              className="bookmark"
+            >
+              <FontAwesomeIcon icon="fa-solid fa-star" />
+            </StyledButton>
+          </>
+        }
+      />
+    </ListItem>
   );
 }

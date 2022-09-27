@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
 import List from "./List";
 import TopicListItem from "./TopicListItem";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import axios from "axios";
 import Spinner from "../Spinner";

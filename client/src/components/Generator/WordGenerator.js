@@ -1,8 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useContext, useRef, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import InputBox from "../InputBox";
 import { DataContext } from "../../context/DataContext";
@@ -68,7 +66,7 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       />
 
       <Button onClick={handleAddBtnClick}>
-        <FontAwesomeIcon icon={faPlus} />{" "}
+        <FontAwesomeIcon icon="fa-solid fa-plus" />
       </Button>
     </form>
   );

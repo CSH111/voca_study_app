@@ -1,7 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,7 +8,6 @@ import InputBox from "../InputBox";
 import axios from "axios";
 
 const StyledForm = styled.form``;
-const StyledTextInput = styled(InputBox)``;
 const TopicGenerator = function ({ setItemLoading }) {
   const [topicValue, setTopicValue] = useState("");
   const store = useContext(DataContext);
@@ -71,7 +69,7 @@ const TopicGenerator = function ({ setItemLoading }) {
       </label>
 
       <Button onClick={handleTopicCreate} disabled={isSubmitDisabled}>
-        <FontAwesomeIcon icon={faPlus} />{" "}
+        <FontAwesomeIcon icon="fa-solid fa-plus" />
       </Button>
     </StyledForm>
   );

@@ -43,7 +43,8 @@ function Detail({ setMsg }) {
       )}
       <hr />
       <Button onClick={() => navigate("/")}>
-        <FontAwesomeIcon icon={["fas", "undo"]} />
+        {/* <FontAwesomeIcon icon={["fas", "undo"]} /> */}
+        <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />
       </Button>
       <WordList topic={topic} wordItemLoading={wordItemLoading} />
     </>

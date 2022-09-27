@@ -43,12 +43,16 @@ const StyledDiv = styled.div`
         `}
   }
 `;
-const Ellipsis = ({ items }) => {
+const Ellipsis = ({ items, disabled }) => {
   const [menuOn, setMenuOn] = useState(false);
   return (
     <StyledDiv menuOn={menuOn} className="ellipsis">
-      <Button className="ellipsisBtn" onClick={() => setMenuOn(!menuOn)}>
-        <FontAwesomeIcon icon={["fas", "ellipsis"]} />
+      <Button
+        className="ellipsisBtn"
+        disabled={disabled}
+        onClick={() => setMenuOn(!menuOn)}
+      >
+        <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
       </Button>
 
       <div className="items">{items}</div>
