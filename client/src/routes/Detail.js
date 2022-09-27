@@ -22,7 +22,7 @@ function Detail({ setMsg }) {
   useEffect(() => {
     if (topic === "bookmark") return;
     axios
-      .get("/api/topic") //
+      .get("/api/topic") // 쿼리문 topic?topicName=xxx 로 다시만들기 -> 바디줄이기의 일환
       .then((res) => {
         const topicData = res.data.topics.find(
           (_topic) => _topic.topicName === topic

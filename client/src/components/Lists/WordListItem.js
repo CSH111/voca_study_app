@@ -3,17 +3,27 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
 import Ellipsis from "../Ellipsis";
-import Listitem from "./ListItem";
+import ListItem from "./ListItem";
 import InputBox from "../InputBox";
 import axios from "axios";
 import { useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
 import Spinner from "../Spinner";
 
+const StyledListItem = styled(ListItem)`
+  position: relative;
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.75rem;
+  }
+`;
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: flex-start;
   width: 100%;
   height: 100%;
@@ -41,7 +51,7 @@ export function WordListItem({ word }) {
   const [isMemorized, setIsMemorized] = useState(word.isMemorized);
   const [wordValue, setWordValue] = useState(word.word);
   const [meaningValue, setMeaningValue] = useState(word.meaning);
-  const [loadingModification, setLoadingModification] = useState(false);
+  const [isItemLoading, setIsItemLoading] = useState(false);
   const wordInputBox = useRef();
 
   const handleDelBtn = () => {
@@ -97,9 +107,9 @@ export function WordListItem({ word }) {
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    setLoadingModification(true);
+    setIsItemLoading(true);
     await updateWord({ word: wordValue, meaning: meaningValue });
-    setLoadingModification(false);
+    setIsItemLoading(false);
     setIsModifying(false);
   };
 
@@ -119,63 +129,70 @@ export function WordListItem({ word }) {
     if (isModifying) wordInputBox.current.focus();
   }, [isModifying]);
 
-  if (loadingModification) {
-    return (
-      <Listitem>
-        <Spinner />
-      </Listitem>
-    );
-  }
-  return (
-    <Listitem>
-      {isModifying && (
-        <form onSubmit={handleSubmission} action="">
-          <InputBox
-            className="input"
-            type="text"
-            value={wordValue}
-            onChange={handleWordInput}
-            ref={wordInputBox}
-          />
-          <InputBox
-            type="text"
-            value={meaningValue}
-            onChange={handleMeaningInput}
-          />
-          <button>완료</button>
-        </form>
-      )}
-      {!isModifying && (
-        <StyledDiv
-          className="data"
-          isMemorized={isMemorized}
-          onClick={handleIsMemorized}
-        >
-          <div> {word.word}</div>
-
-          <div>{word.meaning}</div>
-        </StyledDiv>
-      )}
-
-      <Ellipsis
-        items={
-          <>
-            <Button onClick={handleDelBtn}>
-              <FontAwesomeIcon icon={["fas", "trash-alt"]} />
-            </Button>
-            <Button onClick={handleModifyingMode}>
-              <FontAwesomeIcon icon={["fas", "edit"]} />
-            </Button>
-            <StyledButton
-              onClick={handleBookmark}
-              isBookmarked={isBookmarked}
-              className="bookmark"
-            >
-              <FontAwesomeIcon icon={["fas", "star"]} />
-            </StyledButton>
-          </>
-        }
+  const listItemContents = isModifying ? (
+    <form onSubmit={handleSubmission} action="">
+      <InputBox
+        className="input"
+        type="text"
+        value={wordValue}
+        onChange={handleWordInput}
+        ref={wordInputBox}
       />
-    </Listitem>
+      <InputBox
+        type="text"
+        value={meaningValue}
+        onChange={handleMeaningInput}
+      />
+      <button>완료</button>
+    </form>
+  ) : (
+    <StyledDiv
+      className="data"
+      isMemorized={isMemorized}
+      onClick={handleIsMemorized}
+    >
+      <div> {word.word}</div>
+
+      <div>{word.meaning}</div>
+    </StyledDiv>
+  );
+  // if (isItemLoading) {
+  //   return (
+  //     <Listitem>
+  //       <Spinner />
+  //     </Listitem>
+  //   );
+  // }
+  return (
+    <StyledListItem>
+      {isItemLoading ? (
+        <div className="spinner">
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          {listItemContents}
+          <Ellipsis
+            items={
+              <>
+                <Button onClick={handleDelBtn}>
+                  <FontAwesomeIcon icon={["fas", "trash-alt"]} />
+                </Button>
+                <Button onClick={handleModifyingMode}>
+                  <FontAwesomeIcon icon={["fas", "edit"]} />
+                </Button>
+                <StyledButton
+                  onClick={handleBookmark}
+                  isBookmarked={isBookmarked}
+                  className="bookmark"
+                >
+                  <FontAwesomeIcon icon={["fas", "star"]} />
+                </StyledButton>
+              </>
+            }
+          />
+        </>
+      )}
+    </StyledListItem>
   );
 }

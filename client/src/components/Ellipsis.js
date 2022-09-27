@@ -18,7 +18,7 @@ const StyledDiv = styled.div`
     background-color: #f5f5f6;
     width: 2.5rem;
   }
-  div {
+  .items {
     z-index: 1;
     position: absolute;
     display: flex;
