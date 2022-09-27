@@ -1,7 +1,6 @@
 import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
-import Spinner from "./components/Spinner";
 import { useState } from "react";
 import { Reset } from "styled-reset";
 import Detail from "./routes/Detail";
@@ -10,11 +9,10 @@ import styled from "styled-components";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { far, faArrowAltCircleLeft } from "@fortawesome/free-regular-svg-icons";
-// prettier-ignore
-import {fas, faEllipsis, faStar, faEdit, faUndo, faCircle, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
-// prettier-ignore
-library.add(fas, far, faArrowAltCircleLeft, faEllipsis, faStar, faEdit, faUndo, faCircleNotch, faCircle);
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+library.add(fas, far);
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;

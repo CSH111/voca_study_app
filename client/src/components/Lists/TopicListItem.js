@@ -19,18 +19,6 @@ const StyledDiv = styled.div`
     margin-right: 0.5rem;
   }
 `;
-const StyledListItem = styled(ListItem)`
-  position: relative;
-
-  > .spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.75rem;
-  }
-`;
-const StyledForm = styled.form``;
 
 const TopicListItem = ({ topic }) => {
   const { topics, setTopics } = useContext(DataContext);
@@ -38,7 +26,7 @@ const TopicListItem = ({ topic }) => {
   const [wordsAmount, setWordsAmount] = useState("");
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
   const [topicValue, setTopicValue] = useState(topic.topicName);
-  const [topicItemLoading, setTopicItemLoading] = useState(false);
+  const [isItemLoading, setIsItemLoading] = useState(false);
   const modifyingValue = useRef();
   const [isDeleted, setIsDeleted] = useState(false);
 
@@ -87,21 +75,21 @@ const TopicListItem = ({ topic }) => {
   const handleSubmission = (e) => {
     e.preventDefault();
     setIsModifying(false);
-    setTopicItemLoading(true);
+    setIsItemLoading(true);
     updateTopic() //
-      .finally(() => setTopicItemLoading(false));
+      .finally(() => setIsItemLoading(false));
   };
 
   const topicItemcontents = isModifying ? (
-    <StyledForm isModifying={isModifying}>
+    <form onSubmit={handleSubmission}>
       <InputBox
         type="text"
         value={topicValue}
         onChange={handleTopicInput}
         ref={modifyingValue}
       />
-      <Button onClick={handleSubmission}>끝</Button>
-    </StyledForm>
+      <Button type="submit">끝</Button>
+    </form>
   ) : (
     <StyledDiv isModifying={isModifying}>
       <h3>
@@ -122,28 +110,30 @@ const TopicListItem = ({ topic }) => {
     return null;
   }
   return (
-    <StyledListItem className="topic">
-      {topicItemLoading ? (
-        <div className="spinner">
-          <Spinner />
-        </div>
-      ) : (
-        topicItemcontents
+    <ListItem className="topic" isBlur={isItemLoading}>
+      {isItemLoading && (
+        <>
+          <div className="blur-filter"></div>
+          <div className="spinner">
+            <Spinner />
+          </div>
+        </>
       )}
-
+      {topicItemcontents}
       <Ellipsis
+        disabled={isItemLoading}
         items={
           <>
-            <Button onClick={handleDelete}>
-              <FontAwesomeIcon icon={["fas", "trash-alt"]} />
+            <Button onClick={handleDelete} disabled={isItemLoading}>
+              <FontAwesomeIcon icon="fa-solid fa-trash-can" />
             </Button>
-            <Button onClick={handleModificationMode}>
-              <FontAwesomeIcon icon={["fas", "edit"]} />
+            <Button onClick={handleModificationMode} disabled={isItemLoading}>
+              <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
             </Button>
           </>
         }
       />
-    </StyledListItem>
+    </ListItem>
   );
 };
 export default TopicListItem;
