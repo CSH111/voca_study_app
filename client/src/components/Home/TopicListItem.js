@@ -2,15 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../Button";
-import ProgressBar from "../ProgressBar";
-import Ellipsis from "../Ellipsis";
+import Button from "../common/Button";
+import ProgressBar from "./ProgressBar";
+import Ellipsis from "../common/Ellipsis";
 import styled from "styled-components";
-import ListItem from "./ListItem";
-import InputBox from "../InputBox";
+import ListItem from "../common/Lists/ListItem";
+import InputBox from "../common/InputBox";
 import { useRef } from "react";
 import axios from "axios";
-import Spinner from "../Spinner";
+import Spinner from "../common/Spinner";
 
 const StyledDiv = styled.div`
   display: flex;

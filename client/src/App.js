@@ -1,13 +1,13 @@
 import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
-import { useState } from "react";
+import Header from "./components/layout/Header";
+import { useState, useEffect } from "react";
 import { Reset } from "styled-reset";
-import Detail from "./routes/Detail";
-import Home from "./routes/Home";
+import Detail from "./pages/Detail";
+import Home from "./pages/Home";
 import styled from "styled-components";
-import Login from "./components/User/Login";
-import Register from "./components/User/Register";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +29,7 @@ const Wrapper = styled.div`
 function App() {
   const [msg, setMsg] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <Reset />
@@ -53,4 +54,5 @@ function App() {
   );
 }
 
+// 토픽별 단어갯수 앱에서 최초 1회받아오기.
 export default App;

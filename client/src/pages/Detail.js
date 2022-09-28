@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-import WordGenerator from "../components/Generator/WordGenerator";
-import WordList from "../components/Lists/WordList";
+import WordGenerator from "../components/Detail/WordGenerator";
+import WordList from "../components/Detail/WordList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../components/Button";
+import Button from "../components/common/Button";
 import { useEffect } from "react";
 import axios from "axios";
 

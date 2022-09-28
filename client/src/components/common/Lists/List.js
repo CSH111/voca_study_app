@@ -10,8 +10,5 @@ const List = styled.ul`
   align-items: center;
   overflow-y: scroll;
 `;
-// const List = ({ children }) => {
-//   return <StyledUl>{children}</StyledUl>;
-// };
 
 export default List;

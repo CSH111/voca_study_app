@@ -1,14 +1,14 @@
 import { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../Button";
-import Ellipsis from "../Ellipsis";
-import ListItem from "./ListItem";
-import InputBox from "../InputBox";
+import Button from "../common/Button";
+import Ellipsis from "../common/Ellipsis";
+import ListItem from "../common/Lists/ListItem";
+import InputBox from "../common/InputBox";
 import axios from "axios";
 import { useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
-import Spinner from "../Spinner";
+import Spinner from "../common/Spinner";
 
 const StyledDiv = styled.div`
   display: flex;
