@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Form from "../Form";
+import Form from "../components/common/Form";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";

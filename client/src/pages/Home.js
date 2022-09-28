@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import TopicGenerator from "../components/Generator/TopicGenerator";
-import TopicList from "../components/Lists/TopicList";
+import TopicGenerator from "../components/Home/TopicGenerator";
+import TopicList from "../components/Home/TopicList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Home({ setMsg, setIsLoggedIn }) {

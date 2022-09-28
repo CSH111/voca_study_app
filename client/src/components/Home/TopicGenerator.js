@@ -1,10 +1,10 @@
 import { useContext, useRef, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../Button";
+import Button from "../common/Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import InputBox from "../InputBox";
+import InputBox from "../common/InputBox";
 import axios from "axios";
 
 const StyledForm = styled.form``;

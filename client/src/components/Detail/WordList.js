@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { WordListItem } from "./WordListItem";
-import List from "./List";
+import List from "../common/Lists/List";
 import axios from "axios";
-import ListItem from "./ListItem";
+import ListItem from "../common/Lists/ListItem";
 import { DataContext } from "../../context/DataContext";
-import Spinner from "../Spinner";
+import Spinner from "../common/Spinner";
 import styled from "styled-components";
 
 const StyledList = styled(List)`
