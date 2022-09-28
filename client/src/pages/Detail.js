@@ -7,14 +7,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/common/Button";
 import { useEffect } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { DataContext } from "../context/DataContext";
 
 function Detail({ setMsg }) {
   const { topic } = useParams();
-  const [itemLoading, setitemLoading] = useState(false);
   const [topicID, setTopicID] = useState("");
   const [wordItemLoading, setwordItemLoading] = useState(false);
+  const store = useContext(DataContext);
   const navigate = useNavigate();
-  const isBookmarkList = topic === "bookmark" ? true : false;
+
+  useEffect(() => {
+    const topics = store.topics.map((topic) => topic.topicName);
+    if (!topics.includes(topic)) {
+      alert("잘못된 경로");
+      navigate("/");
+    }
+  });
+
   useEffect(() => {
     setMsg(topic);
   }, []);
