@@ -13,7 +13,7 @@ const TopicGenerator = function ({ setItemLoading }) {
   const store = useContext(DataContext);
   const topicInput = useRef();
   const navigate = useNavigate();
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(false);
   //
 
   const isEmpty = (_topicValue) => {
@@ -44,12 +44,13 @@ const TopicGenerator = function ({ setItemLoading }) {
     e.preventDefault();
     if (isInValidTopicName(topicValue)) return;
     setItemLoading(true);
-    setIsSubmitDisabled(true);
+    setIsSubmitBtnDisabled(true);
     const body = { topicName: topicValue };
     axios
       .post("/api/topic", body) //
       .then(() => {
         setTopicValue("");
+        // store
         setItemLoading(false);
         navigate(`/${topicValue}`);
       })
@@ -68,7 +69,7 @@ const TopicGenerator = function ({ setItemLoading }) {
         />
       </label>
 
-      <Button onClick={handleTopicCreate} disabled={isSubmitDisabled}>
+      <Button onClick={handleTopicCreate} disabled={isSubmitBtnDisabled}>
         <FontAwesomeIcon icon="fa-solid fa-plus" />
       </Button>
     </StyledForm>
