@@ -5,7 +5,6 @@ const topicSchema = new mongoose.Schema({
   topicName: {
     type: String,
     requied: true,
-    unique: 1,
   },
 });
 

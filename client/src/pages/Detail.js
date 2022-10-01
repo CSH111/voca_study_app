@@ -14,16 +14,7 @@ function Detail({ setMsg }) {
   const { topic } = useParams();
   const [topicID, setTopicID] = useState("");
   const [wordItemLoading, setwordItemLoading] = useState(false);
-  const store = useContext(DataContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const topics = store.topics.map((topic) => topic.topicName);
-    if (!topics.includes(topic)) {
-      alert("잘못된 경로");
-      navigate("/");
-    }
-  });
 
   useEffect(() => {
     setMsg(topic);
@@ -37,6 +28,11 @@ function Detail({ setMsg }) {
         const topicData = res.data.topics.find(
           (_topic) => _topic.topicName === topic
         );
+        if (!topicData) {
+          alert("잘못된 경로");
+          navigate("/");
+          return;
+        }
         setTopicID(topicData._id);
       });
   }, []);
@@ -48,12 +44,10 @@ function Detail({ setMsg }) {
           topic={topic}
           topicID={topicID}
           setwordItemLoading={setwordItemLoading}
-          // setitemLoading={setitemLoading}
         />
       )}
       <hr />
       <Button onClick={() => navigate("/")}>
-        {/* <FontAwesomeIcon icon={["fas", "undo"]} /> */}
         <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />
       </Button>
       <WordList topic={topic} wordItemLoading={wordItemLoading} />
