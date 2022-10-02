@@ -57,18 +57,6 @@ export function WordListItem({ word }) {
       });
   };
 
-  const updateWord = (changedDataObj) => {
-    const body = {
-      ...word,
-      ...changedDataObj,
-    };
-    return axios
-      .patch(`/api/word/${word._id}`, body) //
-      .then(() => {
-        store.setWords(getModifiedWords(changedDataObj));
-      });
-  };
-
   const handleIsMemorized = () => {
     setIsMemorized(!isMemorized);
     updateWord({ isMemorized: !isMemorized }) //
@@ -84,6 +72,18 @@ export function WordListItem({ word }) {
       .catch((err) => {
         console.log(err);
         setIsBookmarked(isBookmarked);
+      });
+  };
+
+  const updateWord = (changedDataObj) => {
+    const body = {
+      ...word,
+      ...changedDataObj,
+    };
+    return axios
+      .patch(`/api/word/${word._id}`, body) //
+      .then(() => {
+        store.setWords(getModifiedWords(changedDataObj));
       });
   };
 

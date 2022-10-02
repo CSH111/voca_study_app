@@ -25,20 +25,12 @@ function Words() {
 
   useEffect(() => {
     if (topic === "bookmark") return;
-    axios
-      .get("/api/topic") // 쿼리문 topic?topicName=xxx 로 다시만들기 -> 바디줄이기의 일환
-      .then((res) => {
-        const topicData = res.data.topics.find(
-          (_topic) => _topic.topicName === topic
-        );
-        if (!topicData) {
-          alert("잘못된 경로");
-          navigate("/");
-          return;
-        }
-        setTopicID(topicData._id);
-      });
-  }, []);
+    const currTopicID = store.topics.find(
+      (_topic) => _topic.topicName === topic
+    )?._id;
+
+    setTopicID(currTopicID);
+  }, [store.topics]);
 
   return (
     <>

@@ -21,8 +21,6 @@ const ContextProvider = ({ children }) => {
         setWords,
         wordLoading,
         setWordLoading,
-        // headMsg,
-        // setHeadMsg,
         isLoggedIn,
         setIsLoggedIn,
         userName,

@@ -16,18 +16,8 @@ const StyledList = styled(List)`
   }
 `;
 const TopicList = () => {
-  const [topicsLoading, setTopicsLoading] = useState(true);
+  const [topicsLoading, setTopicsLoading] = useState(false);
   const store = useContext(DataContext);
-
-  useEffect(() => {
-    axios
-      .get("/api/topic") //
-      .then((res) => {
-        store.setTopics(res.data.topics);
-        setTopicsLoading(false);
-      })
-      .catch(console.log);
-  }, []);
 
   const listItems = store.topics.length ? (
     store.topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)

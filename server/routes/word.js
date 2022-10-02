@@ -5,13 +5,8 @@ const { User } = require("../Model/User");
 router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email }) //
     .then((user) => {
-      const words = req.query.isBookmarked
-        ? user.words.filter((word) => word.isBookmarked === true)
-        : user.words.filter((word) => word.topic === req.query.topic);
-      res.status(200).json({
-        success: true,
-        words,
-      });
+      const words = user.words;
+      res.status(200).json({ success: true, words });
     })
     .catch(console.log);
 });
@@ -23,10 +18,8 @@ router.post("/", (req, res) => {
     { $push: { words: req.body } },
     { new: true }
   ) //
-    .then((updatedData) => {
-      const newWords = updatedData.words.filter(
-        (word) => word.topic === req.body.topic
-      );
+    .then((newUser) => {
+      const newWords = newUser.words;
       res.status(200).json({ success: true, newWords });
     })
     .catch(console.log);

@@ -14,9 +14,10 @@ router.get("/", (req, res) => {
 router.post("/", authorize, (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $push: { topics: { topicName: req.body.topicName } } }
-  ).then(() => {
-    res.status(200).json({ success: true });
+    { $push: { topics: { topicName: req.body.topicName } } },
+    { new: true }
+  ).then((newUser) => {
+    res.status(200).json({ success: true, topics: newUser.topics });
   });
 });
 

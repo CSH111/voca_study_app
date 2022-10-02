@@ -11,23 +11,9 @@ import { DataContext } from "../context/DataContext";
 function Topics({}) {
   const navigate = useNavigate();
   const store = useContext(DataContext);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/user`) //
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setMsg(`${res.data.userName}'s Wordbook`);
-  //       setIsLoggedIn(true);
-  //       return;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       navigate("/login");
-  //     });
-  // }, []);
-
   const [itemLoading, setItemLoading] = useState(false);
+
+  //페이지에서 데이터 받고 리스트로 넘겨주기. 리스트에서는 출력만 하게끔...
 
   return (
     <>
