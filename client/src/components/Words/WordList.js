@@ -19,22 +19,12 @@ const StyledList = styled(List)`
 
 const WordList = ({ topic, wordItemLoading }) => {
   const store = useContext(DataContext);
-  const [listLoading, setListLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(false);
 
-  useEffect(() => {
-    const query =
-      topic === "bookmark" ? `isBookmarked=${true}` : `topic=${topic}`;
+  const words = store.words.filter((word) => word.topic === topic);
 
-    axios
-      .get(`/api/word?${query}`) //
-      .then((res) => {
-        store.setWords(res.data.words);
-        setListLoading(false);
-      });
-  }, []);
-
-  const listItems = store.words.length ? (
-    store.words.map((word) => <WordListItem word={word} key={word._id} />)
+  const listItems = words.length ? (
+    words.map((word) => <WordListItem word={word} key={word._id} />)
   ) : (
     <div>단어를 추가하세요</div>
   );

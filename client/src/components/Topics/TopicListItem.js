@@ -30,6 +30,7 @@ const TopicListItem = ({ topic }) => {
   const modifyingValue = useRef();
   const [isDeleted, setIsDeleted] = useState(false);
 
+  // 삭제 로딩 표시
   const handleDelete = () => {
     if (!window.confirm("삭제할꺼?")) {
       return;

@@ -38,6 +38,8 @@ const Wrapper = styled.div`
 
 function App() {
   const store = useContext(DataContext);
+
+  // user data가져오기
   useEffect(() => {
     axios
       .get(`/api/user`) //
@@ -46,6 +48,22 @@ function App() {
         store.setIsLoggedIn(true);
         return;
       })
+      .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/topic") //
+      .then((res) => {
+        store.setTopics(res.data.topics);
+      })
+      .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("/api/word") //
+      .then((res) => store.setWords(res.data.words))
       .catch(console.log);
   }, []);
 

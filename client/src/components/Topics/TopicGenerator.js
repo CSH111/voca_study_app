@@ -48,9 +48,9 @@ const TopicGenerator = function ({ setItemLoading }) {
     const body = { topicName: topicValue };
     axios
       .post("/api/topic", body) //
-      .then(() => {
+      .then((res) => {
         setTopicValue("");
-        // store
+        store.setTopics(res.data.topics);
         setItemLoading(false);
         navigate(`/${topicValue}`);
       })
