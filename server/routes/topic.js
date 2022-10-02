@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const authorize = require("../middleware/authorize");
 const { User } = require("../Model/User");
 
 router.get("/", (req, res) => {
@@ -10,7 +11,7 @@ router.get("/", (req, res) => {
 });
 
 //토픽추가
-router.post("/", (req, res) => {
+router.post("/", authorize, (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $push: { topics: { topicName: req.body.topicName } } }

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-import WordGenerator from "../components/Detail/WordGenerator";
-import WordList from "../components/Detail/WordList";
+import WordGenerator from "../components/Words/WordGenerator";
+import WordList from "../components/Words/WordList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../components/common/Button";
 import { useEffect } from "react";
@@ -10,14 +10,17 @@ import axios from "axios";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 
-function Detail({ setMsg }) {
-  const { topic } = useParams();
+function Words() {
+  const params = useParams();
+  const topic = params.topic;
+  const store = useContext(DataContext);
   const [topicID, setTopicID] = useState("");
   const [wordItemLoading, setwordItemLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setMsg(topic);
+    store.setParams(params);
+    return () => store.setParams({});
   }, []);
 
   useEffect(() => {
@@ -55,4 +58,4 @@ function Detail({ setMsg }) {
   );
 }
 
-export default Detail;
+export default Words;

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import { ContextProvider } from "./context/DataContext";
@@ -10,7 +11,9 @@ root.render(
   <>
     {/* <React.StrictMode> */}
     <ContextProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ContextProvider>
     {/* </React.StrictMode> */}
   </>

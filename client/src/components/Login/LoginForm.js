@@ -1,7 +1,9 @@
 import axios from "axios";
 import React from "react";
+import { useContext } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../../context/DataContext";
 import { Form } from "../common/Form/Form";
 import Input from "../common/Form/Input";
 import { StyledInput } from "../common/Form/styles";
@@ -12,17 +14,19 @@ const LoginForm = () => {
   const pwInput = useRef();
   const navigate = useNavigate();
   const handleRegister = () => navigate("/register");
-
+  const store = useContext(DataContext);
   // const isEmpty = (value) => value.trim() === "";
-  const handleLogin = (context) => {
-    const setValues = context.setValues;
-    const { email, pw } = context.values;
+  const handleLogin = (formContext) => {
+    const setValues = formContext.setValues;
+    const { email, pw } = formContext.values;
     const body = { email, pw };
     axios
       .post("/api/login", body)
-      .then(() => {
+      .then((res) => {
+        store.setUserName(res.data.userName);
+        store.setIsLoggedIn(true);
         alert("로그인성공");
-        navigate("/");
+        navigate("/topics");
       })
       .catch((err) => {
         console.log(err);
@@ -31,7 +35,7 @@ const LoginForm = () => {
         emailInput.current.focus();
       });
   };
-
+  // auth app에서 처리하기
   return (
     <Form onSubmit={handleLogin}>
       <StyledInput
