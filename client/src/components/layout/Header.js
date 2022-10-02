@@ -1,6 +1,10 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { DataContext } from "../../context/DataContext";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -26,16 +30,26 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Header = ({ msg, setMsg, isLoggedIn, setIsLoggedIn }) => {
+const Header = ({}) => {
   const navigate = useNavigate();
-  const onLogOutCLick = (arg) => {
-    console.log("zz");
+  const store = useContext(DataContext);
+  const currentParam = store.params.topic;
+  const userName = store.userName;
+  const isLoggedIn = store.isLoggedIn;
+  const setIsLoggedIn = store.setIsLoggedIn;
+  const [msg, setMsg] = useState("");
+
+  useEffect(() => {
+    setMsg(currentParam ? currentParam : userName);
+  }, [currentParam, userName]);
+
+  const handleLogout = () => {
     axios
       .post("/api/logout") //
-      .then((res) => {
-        setMsg("");
+      .then(() => {
+        store.setUserName("");
         setIsLoggedIn(false);
-        navigate("/login");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -48,7 +62,7 @@ const Header = ({ msg, setMsg, isLoggedIn, setIsLoggedIn }) => {
       <h1>초간단 단어장</h1>
       <h2>
         {msg}
-        {isLoggedIn ? <button onClick={onLogOutCLick}>로그아웃</button> : null}
+        {isLoggedIn ? <button onClick={handleLogout}>로그아웃</button> : null}
       </h2>
     </StyledHeader>
   );

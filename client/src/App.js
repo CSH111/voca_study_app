@@ -1,16 +1,26 @@
-import { Routes, BrowserRouter, Route, Link } from "react-router-dom";
+import {
+  Routes,
+  BrowserRouter,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import Header from "./components/layout/Header";
 import { useState, useEffect } from "react";
 import { Reset } from "styled-reset";
-import Detail from "./pages/Detail";
-import Home from "./pages/Home";
+import Words from "./pages/Words";
+import Topics from "./pages/Topics";
 import styled from "styled-components";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import Home from "./pages/Home";
+import axios from "axios";
+import { useContext } from "react";
+import { DataContext } from "./context/DataContext";
 library.add(fas, far);
 
 const Wrapper = styled.div`
@@ -27,32 +37,36 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const [msg, setMsg] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const store = useContext(DataContext);
+  useEffect(() => {
+    axios
+      .get(`/api/user`) //
+      .then((res) => {
+        store.setUserName(res.data.userName);
+        store.setIsLoggedIn(true);
+        return;
+      })
+      .catch(console.log);
+  }, []);
 
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
+    <>
       <Reset />
       <Wrapper className="wrapper">
-        <Header
-          msg={msg}
-          isLoggedIn={isLoggedIn}
-          setMsg={setMsg}
-          setIsLoggedIn={setIsLoggedIn}
-        />{" "}
+        <Header />
         <Routes>
-          <Route
-            path="/"
-            element={<Home setMsg={setMsg} setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route path="/:topic" element={<Detail setMsg={setMsg} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/:topic" element={<Words />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </Wrapper>
-    </BrowserRouter>
+    </>
+    // </BrowserRouter>
   );
 }
-
+//패스 수정 /topics/:topic으로 그러면 bookmark 인지 처리 할 필요도 x 일듯?
 // 토픽별 단어갯수 앱에서 최초 1회받아오기.
 export default App;

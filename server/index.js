@@ -8,16 +8,17 @@ const { User } = require("./Model/User");
 const authenticate = require("./middleware/authenticate");
 const authorize = require("./middleware/authorize");
 
+const topicRouter = require("./routes/topic");
+const wordRouter = require("./routes/word");
 //세션
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const topicRouter = require("./routes/topic");
-const wordRouter = require("./routes/word");
 
 const mongoDBstore = new MongoDBStore({
   uri: mongoURI,
   collection: "mySessions",
 });
+
 const MAX_AGE = 1000 * 60 * 60 * 24 * 365; // 1year
 app.use(
   session({
@@ -84,13 +85,22 @@ app.post("/api/login", authenticate, (req, res) => {
   //
 
   const userSession = { email: req.body.email, name: req.body.name };
-  req.session.user = userSession; // session에 user객체 생성
-  res.status(200).json({ msg: "로그인성공" });
+  req.session.user = userSession;
+  // express-session에 의해 브라우저에 세션이 생성
+
+  // req.session 에 하위 객체(user)를 만들었을 때 DB에 세션 생성
+  // session의 하위객체(user) 존재여부에 따라 authorize 가능
+  //(authenticate 통과한 세션만 user를 가지고 있기 때문)
+  //  + auth후 클라이언트에서 리다이렉트 처리ㄱㄱ(별수없는듯)
+  // session의 하위 객체내용에 따라 필요 데이터 전송가능
+
+  res.status(200).json({ msg: "로그인성공", userName: userSession.name });
 });
 
 //로그아웃
 app.post("/api/logout", (req, res) => {
   req.session.destroy((err) => {
+    //DB의 세션 데이터를 삭제
     if (err) {
       res.status(400).json({ success: false, msg: "로그아웃 실패~!" });
       return;
@@ -99,11 +109,13 @@ app.post("/api/logout", (req, res) => {
   });
 });
 
-//home 로그인여부 검사
-app.get("/api/home", authorize, (req, res) => {
+//home 유저데이터 전송
+app.get("/api/user", authorize, (req, res) => {
   //user는 로그인시 생성한 객체
-  res.status(200).json({ success: true, userInfo: req.session.user });
+  res.status(200).json({ success: true, userName: req.session.user.name });
 });
+
+//회원가입 후 자동로그인 안되고있었음
 
 //할거., 세션유지 선택 안내, 회원탈퇴
 
