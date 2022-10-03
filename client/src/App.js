@@ -40,11 +40,13 @@ const Wrapper = styled.div`
 function App() {
   const store = useContext(DataContext);
 
-  // user data가져오기
+  // user data가져오기 useEffect 하나로 만들기
   useEffect(() => {
     axios
       .get(`/api/user`) //
       .then((res) => {
+        getTopics();
+        getWords();
         store.setUserName(res.data.userName);
         store.setIsLoggedIn(true);
         return;
@@ -52,21 +54,25 @@ function App() {
       .catch(console.log);
   }, []);
 
-  useEffect(() => {
+  const getTopics = () => {
     axios
       .get("/api/topic") //
       .then((res) => {
-        store.setTopics(res.data.topics);
+        // store.setTopics(res.data.topics);
+        store.setTopicsData({ topics: res.data.topics, loading: false });
       })
       .catch(console.log);
-  }, []);
+  };
 
-  useEffect(() => {
+  const getWords = () => {
     axios
       .get("/api/word") //
-      .then((res) => store.setWords(res.data.words))
+      .then((res) => {
+        store.setWords(res.data.words);
+        console.log(res.data.words);
+      })
       .catch(console.log);
-  }, []);
+  };
 
   return (
     // <BrowserRouter>

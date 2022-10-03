@@ -16,11 +16,12 @@ const StyledList = styled(List)`
   }
 `;
 const TopicList = () => {
-  const [topicsLoading, setTopicsLoading] = useState(false);
   const store = useContext(DataContext);
-
-  const listItems = store.topics.length ? (
-    store.topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)
+  const topicsLoading = store.topicsData.loading;
+  const listItems = store.topicsData.topics.length ? (
+    store.topicsData.topics.map((topic) => (
+      <TopicListItem topic={topic} key={topic._id} />
+    ))
   ) : (
     <div>토픽을 추가하세요</div>
   );
