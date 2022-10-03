@@ -50,9 +50,9 @@ const TopicGenerator = function ({ setItemLoading }) {
       .post("/api/topic", body) //
       .then((res) => {
         setTopicValue("");
-        store.setTopics(res.data.topics);
+        store.setTopicsData((data) => ({ ...data, topics: res.data.topics }));
         setItemLoading(false);
-        navigate(`/${topicValue}`);
+        navigate(`/topics/${topicValue}`);
       })
       .catch(console.log);
   };

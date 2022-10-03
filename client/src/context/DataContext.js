@@ -5,6 +5,7 @@ import React from "react";
 const DataContext = React.createContext(null);
 
 const ContextProvider = ({ children }) => {
+  const [topicsData, setTopicsData] = useState({ topics: [], loading: true });
   const [topics, setTopics] = useState([]);
   const [words, setWords] = useState([]);
   const [wordLoading, setWordLoading] = useState(null);
@@ -15,6 +16,8 @@ const ContextProvider = ({ children }) => {
   return (
     <DataContext.Provider
       value={{
+        topicsData,
+        setTopicsData,
         topics,
         setTopics,
         words,
