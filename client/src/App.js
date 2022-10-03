@@ -13,6 +13,7 @@ import Words from "./pages/Words";
 import Topics from "./pages/Topics";
 import styled from "styled-components";
 import Login from "./pages/Login";
+import Bookmark from "./pages/Bookmark";
 import Register from "./pages/Register";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
@@ -75,8 +76,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/bookmark" element={<Bookmark />} />
           <Route path="/topics" element={<Topics />} />
-          <Route path="/:topic" element={<Words />} />
+          <Route path="/topics/:topic" element={<Words />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
