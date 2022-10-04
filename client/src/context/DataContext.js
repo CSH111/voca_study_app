@@ -6,8 +6,7 @@ const DataContext = React.createContext(null);
 
 const ContextProvider = ({ children }) => {
   const [topicsData, setTopicsData] = useState({ topics: [], loading: true });
-  const [topics, setTopics] = useState([]);
-  const [words, setWords] = useState([]);
+  const [wordsData, setWordsData] = useState({ words: [], loading: true });
   const [wordLoading, setWordLoading] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [userName, setUserName] = useState(null);
@@ -18,10 +17,8 @@ const ContextProvider = ({ children }) => {
       value={{
         topicsData,
         setTopicsData,
-        topics,
-        setTopics,
-        words,
-        setWords,
+        wordsData,
+        setWordsData,
         wordLoading,
         setWordLoading,
         isLoggedIn,

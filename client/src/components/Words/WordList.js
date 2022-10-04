@@ -19,24 +19,23 @@ const StyledList = styled(List)`
 
 const WordList = ({ topic, wordItemLoading }) => {
   const store = useContext(DataContext);
-  const [listLoading, setListLoading] = useState(false);
-
-  const words = store.words.filter((word) => word.topic === topic);
+  const isLoading = store.wordsData.loading;
+  const words = store.wordsData.words.filter((word) => word.topic === topic);
 
   const listItems = words.length ? (
-    words.map((word) => <WordListItem word={word} key={word._id} />)
+    words.map((word) => <WordListItem wordID={word._id} key={word._id} />)
   ) : (
     <div>단어를 추가하세요</div>
   );
 
   return (
     <StyledList>
-      {listLoading && (
+      {isLoading && (
         <div className="spinner">
           <Spinner />
         </div>
       )}
-      {!listLoading && listItems}
+      {!isLoading && listItems}
       {wordItemLoading ? (
         <ListItem>
           <Spinner />

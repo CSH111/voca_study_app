@@ -18,6 +18,7 @@ const StyledList = styled(List)`
 const TopicList = () => {
   const store = useContext(DataContext);
   const topicsLoading = store.topicsData.loading;
+
   const listItems = store.topicsData.topics.length ? (
     store.topicsData.topics.map((topic) => (
       <TopicListItem topic={topic} key={topic._id} />

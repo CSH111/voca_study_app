@@ -34,15 +34,18 @@ const StyledButton = styled(Button)`
   color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
 `;
 
-export function WordListItem({ word }) {
+export function WordListItem({ wordID }) {
   const store = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(word.isBookmarked);
-  const [isMemorized, setIsMemorized] = useState(word.isMemorized);
+  const [word] = store.wordsData.words.filter((_word) => _word._id === wordID);
+  const isBookmarked = word.isBookmarked;
+  const isMemorized = word.isMemorized;
   const [wordValue, setWordValue] = useState(word.word);
   const [meaningValue, setMeaningValue] = useState(word.meaning);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const wordInputBox = useRef();
+
+  // const setNewData
 
   const handleDelBtn = () => {
     if (!window.confirm("삭제할꺼?")) {
@@ -51,28 +54,28 @@ export function WordListItem({ word }) {
     axios
       .delete(`/api/word/${word._id}`) //
       .then((res) => {
-        store.setWords((words) => {
-          return words.filter((_word) => _word._id !== word._id);
+        // store.setWords((words) => {
+        store.setWordsData((data) => {
+          return {
+            ...data,
+            words: data.words.filter((_word) => _word._id !== word._id),
+          };
         });
       });
   };
 
-  const handleIsMemorized = () => {
-    setIsMemorized(!isMemorized);
-    updateWord({ isMemorized: !isMemorized }) //
-      .catch((err) => {
-        console.log(err);
-        setIsMemorized(isMemorized);
-      });
+  const handleIsMemorized = async () => {
+    setIsItemLoading(true);
+    await updateWord({ isMemorized: !isMemorized }) //
+      .catch(console.log);
+    setIsItemLoading(false);
   };
 
-  const handleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-    updateWord({ isBookmarked: !isBookmarked }) //
-      .catch((err) => {
-        console.log(err);
-        setIsBookmarked(isBookmarked);
-      });
+  const handleBookmark = async () => {
+    setIsItemLoading(true);
+    await updateWord({ isBookmarked: !isBookmarked }) //
+      .catch(console.log);
+    setIsItemLoading(false);
   };
 
   const updateWord = (changedDataObj) => {
@@ -83,14 +86,17 @@ export function WordListItem({ word }) {
     return axios
       .patch(`/api/word/${word._id}`, body) //
       .then(() => {
-        store.setWords(getModifiedWords(changedDataObj));
+        store.setWordsData((data) => ({
+          ...data,
+          words: getModifiedWords(body),
+        }));
       });
   };
 
-  const getModifiedWords = (changedDataObj) =>
-    store.words.map((_word) => {
+  const getModifiedWords = (newWord) =>
+    store.wordsData.words.map((_word) => {
       if (_word._id === word._id) {
-        return { ...word, ...changedDataObj };
+        return newWord;
       }
       return _word;
     });
@@ -99,7 +105,9 @@ export function WordListItem({ word }) {
     e.preventDefault();
     setIsItemLoading(true);
     setIsModifying(false);
-    await updateWord({ word: wordValue, meaning: meaningValue });
+    await updateWord({ word: wordValue, meaning: meaningValue }).catch(
+      console.log
+    );
     setIsItemLoading(false);
   };
 

@@ -24,23 +24,19 @@ function Words() {
   }, []);
 
   useEffect(() => {
-    if (topic === "bookmark") return;
-    const currTopicID = store.topics.find(
+    const currTopicID = store.topicsData.topics.find(
       (_topic) => _topic.topicName === topic
     )?._id;
-
     setTopicID(currTopicID);
-  }, [store.topics]);
+  }, []);
 
   return (
     <>
-      {topic !== "bookmark" && (
-        <WordGenerator
-          topic={topic}
-          topicID={topicID}
-          setwordItemLoading={setwordItemLoading}
-        />
-      )}
+      <WordGenerator
+        topic={topic}
+        topicID={topicID}
+        setwordItemLoading={setwordItemLoading}
+      />
       <hr />
       <Button onClick={() => navigate("/")}>
         <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />

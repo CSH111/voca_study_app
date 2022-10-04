@@ -1,16 +1,10 @@
-import axios from "axios";
-import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TopicGenerator from "../components/Topics/TopicGenerator";
 import TopicList from "../components/Topics/TopicList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import { DataContext } from "../context/DataContext";
 
 function Topics({}) {
-  const navigate = useNavigate();
-  const store = useContext(DataContext);
   const [itemLoading, setItemLoading] = useState(false);
 
   //페이지에서 데이터 받고 리스트로 넘겨주기. 리스트에서는 출력만 하게끔...

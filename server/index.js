@@ -71,7 +71,9 @@ app.post("/api/user", (req, res) => {
       //세션 활성화(for 자동로그인)
       const userSession = { email: temp.email, name: temp.name };
       req.session.user = userSession; // session에 user객체 생성
-      res.status(200).json({ success: true, msg: "등록성공" });
+      res
+        .status(200)
+        .json({ success: true, msg: "등록성공", userName: temp.name });
     })
     .catch((err) => {
       console.log(err);
