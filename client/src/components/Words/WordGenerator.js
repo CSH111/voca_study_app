@@ -27,7 +27,8 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       .post("/api/word", body) //
       .then((res) => {
         setwordItemLoading(false);
-        store.setWords(res.data.newWords);
+        // store.setWords(res.data.newWords);
+        store.setWordsData((data) => ({ ...data, words: res.data.newWords }));
       })
       .catch(console.log);
   };

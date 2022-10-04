@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
 `;
 
 const TopicListItem = ({ topic }) => {
-  const { topicsData, setTopicsData, setWords } = useContext(DataContext);
+  const { topicsData, setTopicsData, setWordsData } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
   const [wordsAmount, setWordsAmount] = useState("");
   const [wordsDoneAmount, setWordsDoneAmount] = useState("");
@@ -68,13 +68,16 @@ const TopicListItem = ({ topic }) => {
     return axios
       .patch(`/api/topic/${topic._id}`, body) //
       .then(() => {
-        setWords((words) => {
-          return words.map((word) => {
-            if (word.topic === topic.topicName) {
-              return { ...word, topic: body.topicName };
-            }
-            return word;
-          });
+        setWordsData((data) => {
+          return {
+            ...data,
+            words: data.words.map((word) => {
+              if (word.topic === topic.topicName) {
+                return { ...word, topic: body.topicName };
+              }
+              return word;
+            }),
+          };
         });
         setTopicsData((data) => ({ ...data, topics: getUpdatedTopics(body) }));
       })

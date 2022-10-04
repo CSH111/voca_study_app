@@ -25,7 +25,7 @@ const TopicGenerator = function ({ setItemLoading }) {
   };
 
   const isDuplicated = (_topicValue) => {
-    const topicNames = store.topics.map((topic) => topic.topicName);
+    const topicNames = store.topicsData.topics.map((topic) => topic.topicName);
     if (topicNames.includes(_topicValue)) {
       alert("중복된 토픽입니다.");
       return true;
