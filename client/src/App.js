@@ -10,20 +10,9 @@ import axios from "axios";
 import { DataContext } from "./context/DataContext";
 import styled from "styled-components";
 import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
+import MainLayout from "./components/layout/MainLayout";
 
 library.add(fas, far);
-
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: 600px;
-  height: 100%;
-  max-height: 700px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  background-color: #e1e2e1;
-`;
 
 function App() {
   const store = useContext(DataContext);
@@ -67,17 +56,16 @@ function App() {
   return (
     <BrowserRouter>
       <Reset />
-      <Wrapper className="wrapper">
-        <Header />
-        <Routes>
+      <Routes>
+        <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/bookmark" element={<Bookmark />} />
           <Route path="/topics" element={<Topics />} />
           <Route path="/topics/:topic" element={<Words />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-        </Routes>
-      </Wrapper>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }

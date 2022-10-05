@@ -14,11 +14,11 @@ const LoginForm = () => {
   const emailInput = useRef();
   const pwInput = useRef();
   const navigate = useNavigate();
-  const handleRegister = () => navigate("/register");
   const store = useContext(DataContext);
-  // const isEmpty = (value) => value.trim() === "";
+
+  const handleRegister = () => navigate("/register");
+
   const handleLogin = (formContext) => {
-    const setValues = formContext.setValues;
     const { email, pw } = formContext.values;
     const body = { email, pw };
     axios
@@ -39,7 +39,7 @@ const LoginForm = () => {
   // auth app에서 처리하기
   return (
     <Form onSubmit={handleLogin}>
-      <StyledInput
+      <Input
         label="이메일"
         id="email"
         name="email"

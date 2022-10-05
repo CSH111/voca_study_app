@@ -51,7 +51,7 @@ const Header = () => {
       default:
         setMsg(currentParam);
     }
-  }, [currentParam, location]);
+  }, [currentParam, location, userName]);
 
   const handleLogout = () => {
     axios
