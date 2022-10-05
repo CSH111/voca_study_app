@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import TopicGenerator from "../components/Topics/TopicGenerator";
-import TopicList from "../components/Topics/TopicList";
+import TopicGenerator from "./TopicGenerator";
+import TopicList from "./TopicList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Topics({}) {

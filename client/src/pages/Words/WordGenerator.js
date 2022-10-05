@@ -1,9 +1,9 @@
 import { useContext, useRef, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../common/Button";
-import InputBox from "../common/InputBox";
+import InputBox from "../../components/common/InputBox";
 import { DataContext } from "../../context/DataContext";
+import Button from "../../components/common/Button";
 const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
   const store = useContext(DataContext);
   const [wordInputValue, setWordInputValue] = useState("");

@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-import WordGenerator from "../components/Words/WordGenerator";
-import WordList from "../components/Words/WordList";
+import WordGenerator from "./WordGenerator";
+import WordList from "./WordList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../components/common/Button";
+// import Button from "../../components/common/Button";
+
 import { useEffect } from "react";
 import axios from "axios";
 import { useContext } from "react";
-import { DataContext } from "../context/DataContext";
+import { DataContext } from "../../context/DataContext";
+import Button from "../../components/common/Button";
 
 function Words() {
   const params = useParams();

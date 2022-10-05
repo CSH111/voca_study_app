@@ -1,11 +1,12 @@
 import { useContext, useRef, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "../common/Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import InputBox from "../common/InputBox";
+
 import axios from "axios";
+import Button from "../../components/common/Button";
+import InputBox from "../../components/common/InputBox";
 
 const StyledForm = styled.form``;
 const TopicGenerator = function ({ setItemLoading }) {

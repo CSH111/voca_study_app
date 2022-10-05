@@ -1,13 +1,10 @@
-import axios from "axios";
 import React from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useRef } from "react";
+import axios from "axios";
+import { useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form } from "../../components/common/Form/Form";
+import Input from "../../components/common/Form/Input";
 import { DataContext } from "../../context/DataContext";
-import { Form } from "../common/Form/Form";
-import Input from "../common/Form/Input";
-import { StyledInput } from "../common/Form/styles";
 
 const RegisterForm = () => {
   const inputs = useRef({});

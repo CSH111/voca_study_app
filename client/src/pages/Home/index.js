@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { DataContext } from "../context/DataContext";
+import { DataContext } from "../../context/DataContext";
 
 const Home = ({}) => {
   const navigate = useNavigate();

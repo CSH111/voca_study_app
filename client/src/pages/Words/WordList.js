@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { WordListItem } from "./WordListItem";
-import List from "../common/Lists/List";
-import axios from "axios";
-import ListItem from "../common/Lists/ListItem";
 import { DataContext } from "../../context/DataContext";
-import Spinner from "../common/Spinner";
+import Spinner from "../../components/common/Spinner";
 import styled from "styled-components";
+import ListItem from "../../components/common/Lists/ListItem";
+import List from "../../components/common/Lists/List";
 
 const StyledList = styled(List)`
   position: relative;
