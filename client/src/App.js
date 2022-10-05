@@ -1,22 +1,16 @@
 import { Routes, BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/layout/Header";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Reset } from "styled-reset";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { useContext } from "react";
 import { DataContext } from "./context/DataContext";
-import Home from "./pages/Home";
-import Words from "./pages/Words";
-import Topics from "./pages/Topics";
 import styled from "styled-components";
-import Login from "./pages/Login";
-import Bookmark from "./pages/Bookmark";
-import Register from "./pages/Register";
-//
+import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
+
 library.add(fas, far);
 
 const Wrapper = styled.div`

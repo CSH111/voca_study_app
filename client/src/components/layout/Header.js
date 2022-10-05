@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { DataContext } from "../../context/DataContext";
 
@@ -30,7 +30,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const Header = ({}) => {
+const Header = () => {
   const navigate = useNavigate();
   const store = useContext(DataContext);
   const currentParam = store.params.topic;
@@ -38,10 +38,20 @@ const Header = ({}) => {
   const isLoggedIn = store.isLoggedIn;
   const setIsLoggedIn = store.setIsLoggedIn;
   const [msg, setMsg] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
-    setMsg(currentParam ? currentParam : userName);
-  }, [currentParam, userName]);
+    switch (location.pathname) {
+      case "/bookmark":
+        setMsg("my Bookmark");
+        break;
+      case "/topics":
+        setMsg(`${userName}'s wordbook`);
+        break;
+      default:
+        setMsg(currentParam);
+    }
+  }, [currentParam, location]);
 
   const handleLogout = () => {
     axios

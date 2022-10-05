@@ -3,10 +3,11 @@ import React from "react";
 import { useContext } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form } from "../../components/common/Form/Form";
+import Input from "../../components/common/Form/Input";
+import { StyledInput } from "../../components/common/Form/styles";
 import { DataContext } from "../../context/DataContext";
-import { Form } from "../common/Form/Form";
-import Input from "../common/Form/Input";
-import { StyledInput } from "../common/Form/styles";
+
 //로그인 기억하기 옵션
 // 비밀번호 불일치시 아이디값 남겨두기
 const LoginForm = () => {
