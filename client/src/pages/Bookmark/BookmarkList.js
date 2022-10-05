@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import Spinner from "../../components/common/Spinner";
 import { WordListItem } from "../Words/WordListItem";
-// import { WordListItem } from "../../components/Words/WordListItem";
 
 const BookmarkList = () => {
   const store = useContext(DataContext);
