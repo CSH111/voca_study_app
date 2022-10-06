@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../context/DataContext";
+import { DataContext } from "../../services/DataContext";
 import TopicListItem from "./TopicListItem";
 import styled from "styled-components";
 import Spinner from "../../components/common/Spinner";

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { DataContext } from "../../context/DataContext";
+import { DataContext } from "../../services/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ProgressBar from "./ProgressBar";
