@@ -6,7 +6,6 @@ const DataContext = React.createContext(null);
 const ContextProvider = ({ children }) => {
   const [topicsData, setTopicsData] = useState({ topics: [], loading: true });
   const [wordsData, setWordsData] = useState({ words: [], loading: true });
-  const [params, setParams] = useState({});
 
   return (
     <DataContext.Provider
@@ -15,8 +14,6 @@ const ContextProvider = ({ children }) => {
         setTopicsData,
         wordsData,
         setWordsData,
-        params,
-        setParams,
       }}
     >
       {children}

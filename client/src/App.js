@@ -1,6 +1,5 @@
 import { Routes, BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import Header from "./components/layout/Header";
 import { useEffect, useContext } from "react";
 import { Reset } from "styled-reset";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -8,10 +7,8 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { DataContext } from "./services/DataContext";
-import styled from "styled-components";
 import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
 import MainLayout from "./components/layout/MainLayout";
-import AuthContext from "./services/Auth/AuthContext";
 import useAuthContext from "./services/Auth/useAuthContext";
 library.add(fas, far);
 
@@ -74,6 +71,8 @@ function App() {
     </BrowserRouter>
   );
 }
+
+//컨텍스트 로그아웃 시 데이터 삭제
 
 //컨텍스트 분리 auth 컨텍스트 등
 //토픽, 단어 추가 수정 등 폼 재구현(기획 필요)
