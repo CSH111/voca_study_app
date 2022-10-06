@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useContext } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { DataContext } from "../../context/DataContext";
+import useAuthContext from "../../services/Auth/useAuthContext";
+import { DataContext } from "../../services/DataContext";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -34,11 +35,13 @@ const Header = () => {
   const navigate = useNavigate();
   const store = useContext(DataContext);
   const currentParam = store.params.topic;
-  const userName = store.userName;
-  const isLoggedIn = store.isLoggedIn;
-  const setIsLoggedIn = store.setIsLoggedIn;
+  // const userName = store.userName;
+  // const isLoggedIn = store.isLoggedIn;
+  // const setIsLoggedIn = store.setIsLoggedIn;
   const [msg, setMsg] = useState("");
   const location = useLocation();
+
+  const { isLoggedIn, setIsLoggedIn, userName } = useAuthContext();
 
   useEffect(() => {
     switch (location.pathname) {

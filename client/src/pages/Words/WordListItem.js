@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useEffect } from "react";
-import { DataContext } from "../../context/DataContext";
+import { DataContext } from "../../services/DataContext";
 
 import Button from "../../components/common/Button";
 import Ellipsis from "../../components/common/Ellipsis";

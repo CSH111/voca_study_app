@@ -1,15 +1,16 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useContext, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../components/common/Form/Form";
 import Input from "../../components/common/Form/Input";
-import { DataContext } from "../../context/DataContext";
+import useAuthContext from "../../services/Auth/useAuthContext";
 
 const RegisterForm = () => {
   const inputs = useRef({});
   const navigate = useNavigate();
-  const store = useContext(DataContext);
+  const { setIsLoggedIn, setUserName } = useAuthContext();
+
   useEffect(() => {
     inputs.current.email.focus();
   }, []);
@@ -37,8 +38,8 @@ const RegisterForm = () => {
       .then((res) => {
         if (res.data.success) {
           alert("가입성공");
-          store.setUserName(res.data.userName);
-          store.setIsLoggedIn(true);
+          setUserName(res.data.userName);
+          setIsLoggedIn(true);
           navigate("/");
         }
       })

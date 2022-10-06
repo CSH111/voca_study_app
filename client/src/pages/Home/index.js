@@ -2,17 +2,20 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { DataContext } from "../../context/DataContext";
+import useAuthContext from "../../services/Auth/useAuthContext";
+// import { DataContext } from "../../services/DataContext";
 
 const Home = ({}) => {
   const navigate = useNavigate();
   const handleLogin = () => navigate("/login");
   const handleRegister = () => navigate("/register");
-  const store = useContext(DataContext);
+  // const store = useContext(DataContext);
+
+  const { isLoggedIn } = useAuthContext();
 
   useEffect(() => {
-    if (store.isLoggedIn) navigate("/topics");
-  }, [store.isLoggedIn]);
+    if (isLoggedIn) navigate("/topics");
+  }, [isLoggedIn]);
 
   return (
     <>

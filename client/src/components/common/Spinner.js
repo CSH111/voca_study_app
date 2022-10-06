@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Spinner = ({ size, color }) => {
+const Spinner = () => {
   return <FontAwesomeIcon icon="fa-solid fa-circle-notch" spin />;
 };
 

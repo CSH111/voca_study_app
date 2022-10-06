@@ -1,31 +1,33 @@
 import axios from "axios";
 import React from "react";
-import { useContext } from "react";
+// import { useContext } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../components/common/Form/Form";
 import Input from "../../components/common/Form/Input";
-import { StyledInput } from "../../components/common/Form/styles";
-import { DataContext } from "../../context/DataContext";
-
+// import { StyledInput } from "../../components/common/Form/styles";
+// import { DataContext } from "../../services/DataContext";
+import useAuthContext from "../../services/Auth/useAuthContext";
 //로그인 기억하기 옵션
 // 비밀번호 불일치시 아이디값 남겨두기
 const LoginForm = () => {
   const emailInput = useRef();
   const pwInput = useRef();
   const navigate = useNavigate();
-  const store = useContext(DataContext);
+  // const store = useContext(DataContext);
+  const { setIsLoggedIn, setUserName } = useAuthContext();
 
   const handleRegister = () => navigate("/register");
 
   const handleLogin = (formContext) => {
     const { email, pw } = formContext.values;
     const body = { email, pw };
+
     axios
       .post("/api/login", body)
       .then((res) => {
-        store.setUserName(res.data.userName);
-        store.setIsLoggedIn(true);
+        setUserName(res.data.userName);
+        setIsLoggedIn(true);
         alert("로그인성공");
         navigate("/topics");
       })

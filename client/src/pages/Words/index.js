@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import axios from "axios";
 import { useContext } from "react";
-import { DataContext } from "../../context/DataContext";
+import { DataContext } from "../../services/DataContext";
 import Button from "../../components/common/Button";
 
 function Words() {

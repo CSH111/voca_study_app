@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { DataContext } from "../../context/DataContext";
+import { DataContext } from "../../services/DataContext";
 import Spinner from "../../components/common/Spinner";
 import { WordListItem } from "../Words/WordListItem";
 
