@@ -1,11 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useContext } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import useAuthContext from "../../services/Auth/useAuthContext";
-import { DataContext } from "../../services/DataContext";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -33,15 +31,11 @@ const StyledHeader = styled.header`
 
 const Header = () => {
   const navigate = useNavigate();
-  const store = useContext(DataContext);
-  const currentParam = store.params.topic;
-  // const userName = store.userName;
-  // const isLoggedIn = store.isLoggedIn;
-  // const setIsLoggedIn = store.setIsLoggedIn;
+  const { topic } = useParams();
   const [msg, setMsg] = useState("");
   const location = useLocation();
 
-  const { isLoggedIn, setIsLoggedIn, userName } = useAuthContext();
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuthContext();
 
   useEffect(() => {
     switch (location.pathname) {
@@ -52,15 +46,15 @@ const Header = () => {
         setMsg(`${userName}'s wordbook`);
         break;
       default:
-        setMsg(currentParam);
+        setMsg(topic);
     }
-  }, [currentParam, location, userName]);
+  }, [location, userName]);
 
   const handleLogout = () => {
     axios
       .post("/api/logout") //
       .then(() => {
-        store.setUserName("");
+        setUserName("");
         setIsLoggedIn(false);
         navigate("/");
       })
