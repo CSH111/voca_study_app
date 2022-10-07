@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../components/common/Form/Form";
 import Input from "../../components/common/Form/Input";
-import useAuthContext from "../../services/Auth/useAuthContext";
+import { useAuthContext } from "../../services/Auth/AuthContext";
 
 const RegisterForm = () => {
   const inputs = useRef({});

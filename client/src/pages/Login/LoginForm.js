@@ -7,7 +7,7 @@ import { Form } from "../../components/common/Form/Form";
 import Input from "../../components/common/Form/Input";
 // import { StyledInput } from "../../components/common/Form/styles";
 // import { DataContext } from "../../services/DataContext";
-import useAuthContext from "../../services/Auth/useAuthContext";
+import { useAuthContext } from "../../services/Auth/AuthContext";
 //로그인 기억하기 옵션
 // 비밀번호 불일치시 아이디값 남겨두기
 const LoginForm = () => {
