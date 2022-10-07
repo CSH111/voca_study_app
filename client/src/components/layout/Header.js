@@ -52,7 +52,7 @@ const Header = () => {
 
   const handleLogout = () => {
     axios
-      .post("/api/logout") //
+      .delete("/api/session") //
       .then(() => {
         setUserName("");
         setIsLoggedIn(false);

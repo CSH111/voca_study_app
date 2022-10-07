@@ -82,7 +82,7 @@ app.post("/api/user", (req, res) => {
 });
 
 //로그인
-app.post("/api/login", authenticate, (req, res) => {
+app.post("/api/session", authenticate, (req, res) => {
   //세션활성화
   //
 
@@ -100,7 +100,7 @@ app.post("/api/login", authenticate, (req, res) => {
 });
 
 //로그아웃
-app.post("/api/logout", (req, res) => {
+app.delete("/api/session", (req, res) => {
   req.session.destroy((err) => {
     //DB의 세션 데이터를 삭제
     if (err) {
