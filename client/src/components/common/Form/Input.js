@@ -9,9 +9,7 @@ const Input = React.forwardRef((props, ref) => {
   //value 초기값 생성
   useEffect(() => {
     formCtx.setValues((values) => ({ ...values, [props.name]: "" }));
-    return () => {
-      formCtx.setValues({});
-    };
+    return () => formCtx.setValues({});
   }, []);
 
   const handleChange = (e) => {

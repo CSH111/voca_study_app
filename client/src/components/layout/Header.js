@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import useAuthContext from "../../services/Auth/useAuthContext";
+import { useAuthContext } from "../../services/Auth/AuthContext";
 
 const StyledHeader = styled.header`
   width: 100%;

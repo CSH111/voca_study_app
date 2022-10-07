@@ -9,7 +9,7 @@ import axios from "axios";
 import { DataContext } from "./services/DataContext";
 import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
 import MainLayout from "./components/layout/MainLayout";
-import useAuthContext from "./services/Auth/useAuthContext";
+import { useAuthContext } from "./services/Auth/AuthContext";
 library.add(fas, far);
 
 function App() {
