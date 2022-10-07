@@ -24,7 +24,7 @@ const LoginForm = () => {
     const body = { email, pw };
 
     axios
-      .post("/api/login", body)
+      .post("/api/session", body)
       .then((res) => {
         setUserName(res.data.userName);
         setIsLoggedIn(true);
