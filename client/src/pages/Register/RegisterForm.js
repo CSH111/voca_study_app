@@ -9,7 +9,7 @@ import { useAuthContext } from "../../services/Auth/AuthContext";
 const RegisterForm = () => {
   const inputs = useRef({});
   const navigate = useNavigate();
-  const { setIsLoggedIn, setUserName } = useAuthContext();
+  const { setUser } = useAuthContext();
 
   useEffect(() => {
     inputs.current.email.focus();
@@ -38,8 +38,7 @@ const RegisterForm = () => {
       .then((res) => {
         if (res.data.success) {
           alert("가입성공");
-          setUserName(res.data.userName);
-          setIsLoggedIn(true);
+          setUser(res.data.userName);
           navigate("/");
         }
       })

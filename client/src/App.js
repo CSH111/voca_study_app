@@ -1,4 +1,4 @@
-import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Routes, BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { useEffect, useContext } from "react";
 import { Reset } from "styled-reset";
@@ -10,32 +10,30 @@ import { DataContext } from "./services/DataContext";
 import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
 import MainLayout from "./components/layout/MainLayout";
 import { useAuthContext } from "./services/Auth/AuthContext";
+import PrivateRoute from "./routes/ProtectedRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import { useState } from "react";
 library.add(fas, far);
 
 function App() {
   const store = useContext(DataContext);
-  const { isLoggedIn, setIsLoggedIn, setUserName } = useAuthContext();
-
+  const { user, setUser } = useAuthContext();
   useEffect(() => {
     axios
       .get(`/api/user`) //
       .then((res) => {
-        // store.setUserName(res.data.userName);
-        // store.setIsLoggedIn(true);
-        setUserName(res.data.userName);
-        setIsLoggedIn(true);
-
+        setUser(res.data.userName);
         return;
       })
       .catch(console.log);
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (user) {
       getTopics();
       getWords();
     }
-  }, [isLoggedIn]);
+  }, [user]);
 
   const getTopics = () => {
     axios

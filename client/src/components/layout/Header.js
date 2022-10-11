@@ -35,7 +35,7 @@ const Header = () => {
   const [msg, setMsg] = useState("");
   const location = useLocation();
 
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuthContext();
+  const { user, setUser } = useAuthContext();
 
   useEffect(() => {
     switch (location.pathname) {
@@ -43,19 +43,18 @@ const Header = () => {
         setMsg("my Bookmark");
         break;
       case "/topics":
-        setMsg(`${userName}'s wordbook`);
+        setMsg(`${user}'s wordbook`);
         break;
       default:
         setMsg(topic);
     }
-  }, [location, userName]);
+  }, [location, user]);
 
   const handleLogout = () => {
     axios
       .delete("/api/session") //
       .then(() => {
-        setUserName("");
-        setIsLoggedIn(false);
+        setUser("");
         navigate("/");
       })
       .catch((err) => {
@@ -69,7 +68,7 @@ const Header = () => {
       <h1>초간단 단어장</h1>
       <h2>
         {msg}
-        {isLoggedIn ? <button onClick={handleLogout}>로그아웃</button> : null}
+        {user ? <button onClick={handleLogout}>로그아웃</button> : null}
       </h2>
     </StyledHeader>
   );

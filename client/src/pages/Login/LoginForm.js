@@ -15,7 +15,7 @@ const LoginForm = () => {
   const pwInput = useRef();
   const navigate = useNavigate();
   // const store = useContext(DataContext);
-  const { setIsLoggedIn, setUserName } = useAuthContext();
+  const { user, setUser } = useAuthContext();
 
   const handleRegister = () => navigate("/register");
 
@@ -26,8 +26,7 @@ const LoginForm = () => {
     axios
       .post("/api/session", body)
       .then((res) => {
-        setUserName(res.data.userName);
-        setIsLoggedIn(true);
+        setUser(res.data.userName);
         alert("로그인성공");
         navigate("/topics");
       })
