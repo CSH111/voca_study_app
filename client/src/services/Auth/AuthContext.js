@@ -6,13 +6,10 @@ const AuthContext = React.createContext(null);
 const useAuthContext = () => useContext(AuthContext);
 
 const AuthContextProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [userName, setUserName] = useState(null);
+  const [user, setUser] = useState("");
 
   return (
-    <AuthContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, userName, setUserName }}
-    >
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );

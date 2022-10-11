@@ -9,11 +9,11 @@ const Home = ({}) => {
   const handleLogin = () => navigate("/login");
   const handleRegister = () => navigate("/register");
 
-  const { isLoggedIn } = useAuthContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
-    if (isLoggedIn) navigate("/topics");
-  }, [isLoggedIn]);
+    if (user) navigate("/topics");
+  }, [user]);
 
   return (
     <>
