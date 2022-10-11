@@ -1,4 +1,4 @@
-import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import { Reset } from "styled-reset";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -6,6 +6,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
 import MainLayout from "./components/layout/MainLayout";
+import PrivateRoutes from "./routes/PrivateRoutes";
 library.add(fas, far);
 
 function App() {
@@ -17,9 +18,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/topics" element={<Topics />} />
-          <Route path="/topics/:topic" element={<Words />} />
-          <Route path="/bookmark" element={<Bookmark />} />
+          <Route path="*" element={<Navigate to="/" />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/topics" element={<Topics />} />
+            <Route path="/topics/:topic" element={<Words />} />
+            <Route path="/bookmark" element={<Bookmark />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
