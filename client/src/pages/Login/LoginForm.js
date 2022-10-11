@@ -1,43 +1,30 @@
 import axios from "axios";
 import React from "react";
-// import { useContext } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../components/common/Form/Form";
 import Input from "../../components/common/Form/Input";
-// import { StyledInput } from "../../components/common/Form/styles";
-// import { DataContext } from "../../services/DataContext";
-import { useAuthContext } from "../../services/Auth/AuthContext";
+import { useLogin } from "../../services/Auth/hooks/useLogin";
+
 //로그인 기억하기 옵션
 // 비밀번호 불일치시 아이디값 남겨두기
+
 const LoginForm = () => {
   const emailInput = useRef();
   const pwInput = useRef();
   const navigate = useNavigate();
-  // const store = useContext(DataContext);
-  const { user, setUser } = useAuthContext();
+  const { login } = useLogin();
 
   const handleRegister = () => navigate("/register");
 
   const handleLogin = (formContext) => {
     const { email, pw } = formContext.values;
     const body = { email, pw };
-
-    axios
-      .post("/api/session", body)
-      .then((res) => {
-        setUser(res.data.userName);
-        alert("로그인성공");
-        navigate("/topics");
-      })
-      .catch((err) => {
-        console.log(err);
-        //에러 종류에 따라 처리
-        alert(err.response.data.msg);
-        emailInput.current.focus();
-      });
+    login(body);
   };
+
   // auth app에서 처리하기
+
   return (
     <Form onSubmit={handleLogin}>
       <Input

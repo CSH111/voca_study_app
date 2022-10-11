@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../services/Auth/AuthContext";
+import { useAuthContext } from "../../services/Auth/hooks/useAuthContext";
 
 const Home = ({}) => {
   const navigate = useNavigate();

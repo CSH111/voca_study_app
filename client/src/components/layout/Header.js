@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useAuthContext } from "../../services/Auth/AuthContext";
+import { useAuthContext } from "../../services/Auth/hooks/useAuthContext";
+import { useLogout } from "../../services/Auth/hooks/useLogout";
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -30,12 +30,11 @@ const StyledHeader = styled.header`
 `;
 
 const Header = () => {
-  const navigate = useNavigate();
   const { topic } = useParams();
   const [msg, setMsg] = useState("");
   const location = useLocation();
-
-  const { user, setUser } = useAuthContext();
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     switch (location.pathname) {
@@ -50,18 +49,7 @@ const Header = () => {
     }
   }, [location, user]);
 
-  const handleLogout = () => {
-    axios
-      .delete("/api/session") //
-      .then(() => {
-        setUser("");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("로그아웃 실패");
-      });
-  };
+  const handleLogout = () => logout();
 
   return (
     <StyledHeader>
