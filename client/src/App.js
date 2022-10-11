@@ -1,46 +1,14 @@
-import { Routes, BrowserRouter, Route, Switch } from "react-router-dom";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import { useEffect, useContext } from "react";
 import { Reset } from "styled-reset";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { DataContext } from "./services/DataContext";
 import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
 import MainLayout from "./components/layout/MainLayout";
-import { useAuthContext } from "./services/Auth/hooks/useAuthContext";
 library.add(fas, far);
 
 function App() {
-  const store = useContext(DataContext);
-  const { user } = useAuthContext();
-
-  useEffect(() => {
-    if (user) {
-      getTopics();
-      getWords();
-    }
-  }, [user]);
-
-  const getTopics = () => {
-    axios
-      .get("/api/topic") //
-      .then((res) => {
-        store.setTopicsData({ topics: res.data.topics, loading: false });
-      })
-      .catch(console.log);
-  };
-
-  const getWords = () => {
-    axios
-      .get("/api/word") //
-      .then((res) => {
-        store.setWordsData({ words: res.data.words, loading: false });
-      })
-      .catch(console.log);
-  };
-
   return (
     <BrowserRouter>
       <Reset />

@@ -9,8 +9,6 @@ function Bookmark() {
 
   return (
     <>
-      <hr />
-      북마크페이지
       <Button onClick={() => navigate("/")}>
         <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />
       </Button>

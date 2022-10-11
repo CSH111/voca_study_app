@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useAuthContext } from "./hooks/useAuthContext";
 
-export const AuthContext = React.createContext(null);
+const AuthContext = React.createContext(null);
+// const ctx = useAuthContext();
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
@@ -23,4 +25,4 @@ const AuthContextProvider = ({ children }) => {
   );
 };
 
-export { AuthContextProvider };
+export { AuthContext, AuthContextProvider };
