@@ -1,16 +1,14 @@
 import React from "react";
-import axios from "axios";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../components/common/Form/Form";
 import Input from "../../components/common/Form/Input";
-import { useAuthContext } from "../../services/Auth/AuthContext";
+import { useRegister } from "../../services/Auth/hooks/useRegister";
 
 const RegisterForm = () => {
   const inputs = useRef({});
   const navigate = useNavigate();
-  const { setUser } = useAuthContext();
-
+  const { register } = useRegister();
   useEffect(() => {
     inputs.current.email.focus();
   }, []);
@@ -24,7 +22,9 @@ const RegisterForm = () => {
       }
     }
   };
+
   const handleBack = () => navigate(-1);
+
   const handleRegister = (ctx) => {
     confirmValid();
     const body = {
@@ -32,25 +32,7 @@ const RegisterForm = () => {
       email: ctx.values.email,
       pw: ctx.values.pw,
     };
-    console.log(body);
-    axios
-      .post("/api/user", body)
-      .then((res) => {
-        if (res.data.success) {
-          alert("가입성공");
-          setUser(res.data.userName);
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.data.error.code === 11000)
-          return alert("중복된 이메일");
-        alert("가입실패");
-      });
-    // emailInput.current.focus();
-    // context.setValues({ email: "", pw: "" }); // 모든 인풋 value 비우기 2
-    // context.setValues((values) => ({ ...values, pw: "" })); //pw 만 비우기
+    register(body);
   };
   return (
     <Form onSubmit={handleRegister}>
