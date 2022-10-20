@@ -1,14 +1,19 @@
-import React from "react";
-import { useEffect, useContext } from "react";
-import { FormContext } from "./Form";
+import { useState } from "react";
+import { forwardRef, useEffect } from "react";
+import { useFormContext } from "./FormContext";
 
-const Input = React.forwardRef((props, ref) => {
-  const formCtx = useContext(FormContext);
+const Input = forwardRef((props, ref) => {
+  const formCtx = useFormContext();
   const valueInContext = formCtx.values[props.name] ?? "";
+  const [isValid, setIsValid] = useState(!props.required);
+  const { onChange, errorMsg, ...restProps } = props;
 
   //value 초기값 생성
   useEffect(() => {
     formCtx.setValues((values) => ({ ...values, [props.name]: "" }));
+
+    formCtx.setValidityObj((obj) => ({ ...obj, [props.name]: isValid }));
+
     return () => formCtx.setValues({});
   }, []);
 
@@ -17,21 +22,27 @@ const Input = React.forwardRef((props, ref) => {
       ...values,
       [props.name]: e.target.value,
     }));
-    // 필요하다면 디바운스 적용
+    setIsValid(e.target.validity.valid);
+
+    formCtx.setValidityObj((obj) => ({
+      ...obj,
+      [props.name]: e.target.validity.valid,
+    }));
+
+    if (onChange) onChange(e.target.value);
+
+    // 필요하다면 디바운스 적용 input prop 으로 적용여부 선택 할 수 있도록 ㄱㄱ
   };
 
   return (
     <div className="control">
-      <label htmlFor={props.id}>{props.label}</label>
       <input
-        id={props.id}
-        name={props.name}
-        className={props.className}
-        type={props.type}
+        {...restProps}
         onChange={handleChange}
         value={valueInContext}
         ref={ref}
       />
+      {!isValid && valueInContext && <div className="errorMsg">{errorMsg}</div>}
     </div>
   );
 });

@@ -20,5 +20,5 @@ export const useLogin = () => {
         alert(err.response.data.msg);
       });
   };
-  return { login };
+  return { login }; //에러 메세지도 리턴 ㄱ state로
 };
