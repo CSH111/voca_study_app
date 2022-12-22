@@ -25,19 +25,26 @@ const RegisterForm = () => {
   const [pwValue, setPwValue] = useState("");
   const handlePwChange = (value) => setPwValue(value);
 
-  const handleValidity = (validity) => {
-    setAllValid(validity ? true : false);
+  const handleChange = (values, isAllValid) => {
+    setAllValid(isAllValid);
+    // console.log(values);
+    console.log(isAllValid);
   };
 
   const handleSubmit = (values) => {
-    const { email, name, pw } = values;
-    const body = { email, name, pw };
-    console.log(body);
-    register(body);
+    console.log(values);
+    const {
+      email: { value: email },
+      name: { value: name },
+      pw: { value: pw },
+    } = values;
+    console.log({ email, name, pw });
+
+    register({ email, name, pw });
   };
 
   return (
-    <Form onSubmit={handleSubmit} onChange={handleValidity}>
+    <Form onSubmit={handleSubmit} onChange={handleChange}>
       <label htmlFor="email">이메일</label>
       <Input
         id="email"

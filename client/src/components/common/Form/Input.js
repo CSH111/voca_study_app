@@ -2,17 +2,23 @@ import { useState } from "react";
 import { forwardRef, useEffect } from "react";
 import { useFormContext } from "./FormContext";
 
+const useInput = () => {};
+
 const Input = forwardRef((props, ref) => {
   const formCtx = useFormContext();
-  const valueInContext = formCtx.values[props.name] ?? "";
-  const [isValid, setIsValid] = useState(!props.required);
+  const valueInContext = formCtx.values[props.name]?.value ?? "";
   const { onChange, errorMsg, ...restProps } = props;
 
   //value 초기값 생성
   useEffect(() => {
-    formCtx.setValues((values) => ({ ...values, [props.name]: "" }));
-
-    formCtx.setValidityObj((obj) => ({ ...obj, [props.name]: isValid }));
+    formCtx.setValues((values) => ({
+      ...values,
+      [props.name]: {
+        value: "",
+        validity: !props.required,
+        validityMsg: errorMsg,
+      },
+    }));
 
     return () => formCtx.setValues({});
   }, []);
@@ -20,9 +26,12 @@ const Input = forwardRef((props, ref) => {
   const handleChange = (e) => {
     formCtx.setValues((values) => ({
       ...values,
-      [props.name]: e.target.value,
+      [props.name]: {
+        value: e.target.value,
+        validity: e.target.validity.valid,
+        validityMsg: errorMsg,
+      },
     }));
-    setIsValid(e.target.validity.valid);
 
     formCtx.setValidityObj((obj) => ({
       ...obj,
@@ -36,13 +45,7 @@ const Input = forwardRef((props, ref) => {
 
   return (
     <div className="control">
-      <input
-        {...restProps}
-        onChange={handleChange}
-        value={valueInContext}
-        ref={ref}
-      />
-      {!isValid && valueInContext && <div className="errorMsg">{errorMsg}</div>}
+      <input {...restProps} onChange={handleChange} value={valueInContext} ref={ref} />
     </div>
   );
 });

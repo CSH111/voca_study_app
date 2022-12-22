@@ -9,7 +9,7 @@ import { ModalBg } from "../../components/common/Modal";
 
 function Topics({}) {
   const [itemLoading, setItemLoading] = useState(false);
-  console.log(ModalBg);
+  // console.log(ModalBg);
   //페이지에서 데이터 받고 리스트로 넘겨주기. 리스트에서는 출력만 하게끔...
 
   return (

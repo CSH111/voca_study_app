@@ -26,11 +26,10 @@ const ValueSender = ({ onSubmit, onChange, children }) => {
   useEffect(() => {}, []);
 
   useEffect(() => {
-    // setTimeout(() => {
-    const validityArr = Object.values(formCtx.validityObj);
-    const formValidity = validityArr.reduce((acc, curr) => acc && curr, true);
-    if (onChange) onChange(formValidity);
-    // }, 0);
+    if (!onChange) return;
+    const keys = Object.keys(formCtx.values);
+    const isAllValid = keys.reduce((acc, cur) => acc && formCtx.values[cur]?.validity, true);
+    onChange(formCtx.values, isAllValid); //inputchange에서 여기에 메세지담으면 되려나?
   }, [formCtx]);
 
   //디바운싱 옵션
