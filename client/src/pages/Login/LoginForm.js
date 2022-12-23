@@ -13,7 +13,13 @@ const LoginForm = () => {
   const pwInput = useRef();
   const { login } = useLogin();
 
-  const handleSubmit = (values) => login(values);
+  const handleSubmit = (values) => {
+    const {
+      email: { value: email },
+      pw: { value: pw },
+    } = values;
+    login({ email, pw });
+  };
 
   return (
     <Form onSubmit={handleSubmit}>

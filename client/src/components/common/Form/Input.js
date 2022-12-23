@@ -2,8 +2,6 @@ import { useState } from "react";
 import { forwardRef, useEffect } from "react";
 import { useFormContext } from "./FormContext";
 
-const useInput = () => {};
-
 const Input = forwardRef((props, ref) => {
   const formCtx = useFormContext();
   const valueInContext = formCtx.values[props.name]?.value ?? "";
