@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import RegisterForm from "./RegisterForm";
+import { RegisterForm } from "../components/Register";
 
 const Register = () => {
   return (

@@ -21,8 +21,7 @@ const StyledDiv = styled.div`
   transition: all 0.2s;
 
   font-style: ${({ isMemorized }) => (isMemorized ? "italic" : "")};
-  text-decoration: ${({ isMemorized }) =>
-    isMemorized ? "line-through" : "none"};
+  text-decoration: ${({ isMemorized }) => (isMemorized ? "line-through" : "none")};
   > div {
     text-align: center;
     padding-bottom: 0.1rem;
@@ -35,7 +34,7 @@ const StyledButton = styled(Button)`
   color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
 `;
 
-export function WordListItem({ wordID }) {
+const WordListItem = ({ wordID }) => {
   const store = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
   const [word] = store.wordsData.words.filter((_word) => _word._id === wordID);
@@ -106,9 +105,7 @@ export function WordListItem({ wordID }) {
     e.preventDefault();
     setIsItemLoading(true);
     setIsModifying(false);
-    await updateWord({ word: wordValue, meaning: meaningValue }).catch(
-      console.log
-    );
+    await updateWord({ word: wordValue, meaning: meaningValue }).catch(console.log);
     setIsItemLoading(false);
   };
 
@@ -137,19 +134,11 @@ export function WordListItem({ wordID }) {
         onChange={handleWordInput}
         ref={wordInputBox}
       />
-      <InputBox
-        type="text"
-        value={meaningValue}
-        onChange={handleMeaningInput}
-      />
+      <InputBox type="text" value={meaningValue} onChange={handleMeaningInput} />
       <Button type="submit">완료</Button>
     </form>
   ) : (
-    <StyledDiv
-      className="data"
-      isMemorized={isMemorized}
-      onClick={handleIsMemorized}
-    >
+    <StyledDiv className="data" isMemorized={isMemorized} onClick={handleIsMemorized}>
       <div> {word.word}</div>
 
       <div>{word.meaning}</div>
@@ -175,11 +164,7 @@ export function WordListItem({ wordID }) {
             <Button onClick={handleModifyingMode}>
               <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
             </Button>
-            <StyledButton
-              onClick={handleBookmark}
-              isBookmarked={isBookmarked}
-              className="bookmark"
-            >
+            <StyledButton onClick={handleBookmark} isBookmarked={isBookmarked} className="bookmark">
               <FontAwesomeIcon icon="fa-solid fa-star" />
             </StyledButton>
           </>
@@ -187,4 +172,6 @@ export function WordListItem({ wordID }) {
       />
     </ListItem>
   );
-}
+};
+
+export default WordListItem;

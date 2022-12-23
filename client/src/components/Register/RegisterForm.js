@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect, useRef } from "react";
-import { Form } from "../../components/common/Form/Form";
-import Input from "../../components/common/Form/Input";
+import { Form } from "../common/Form/Form";
+import Input from "../common/Form/Input";
 import { useRegister } from "../../services/Auth/hooks/useRegister";
 
 const RegisterForm = () => {

@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import TopicGenerator from "./TopicGenerator";
-import TopicList from "./TopicList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TopicModal from "./TopicModal";
-import { ModalBg } from "../../components/common/Modal";
-// import { ModalBg } from "../../components/common/Modal/ModalBg";
+import { ModalBg } from "../components/common/Modal";
+import {
+  ProgressBar,
+  TopicGenerator,
+  TopicList,
+  TopicListItem,
+  TopicModal,
+} from "../components/Topics";
 
 function Topics({}) {
   const [itemLoading, setItemLoading] = useState(false);

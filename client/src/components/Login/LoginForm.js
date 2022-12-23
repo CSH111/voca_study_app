@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import { Form } from "../../components/common/Form/Form";
-import Input from "../../components/common/Form/Input";
+import { Form } from "../common/Form/Form";
+import Input from "../common/Form/Input";
 import { useLogin } from "../../services/Auth/hooks/useLogin";
 
 //로그인 기억하기 옵션

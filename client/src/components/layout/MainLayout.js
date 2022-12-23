@@ -3,25 +3,32 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: 600px;
-  height: 100%;
-  max-height: 700px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  background-color: #e1e2e1;
-`;
-
 const MainLayout = () => {
   return (
     <Wrapper>
       <Header />
-      <Outlet />
+      <Body>
+        <StyledOutlet />
+      </Body>
     </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+const Body = styled.div`
+  align-self: center;
+  flex: 1;
+  width: 80%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledOutlet = styled(Outlet)``;
 export default MainLayout;

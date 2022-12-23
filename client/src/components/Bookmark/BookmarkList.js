@@ -1,14 +1,12 @@
 import React from "react";
 import { useContext } from "react";
 import { DataContext } from "../../services/DataContext";
-import Spinner from "../../components/common/Spinner";
-import { WordListItem } from "../Words/WordListItem";
+import Spinner from "../common/Spinner";
+import WordListItem from "../Words/WordListItem";
 
 const BookmarkList = () => {
   const store = useContext(DataContext);
-  const words = store.wordsData.words.filter(
-    (word) => word.isBookmarked === true
-  );
+  const words = store.wordsData.words.filter((word) => word.isBookmarked === true);
   const isLoading = store.wordsData.loading;
   const listItem = words.length ? (
     words.map((word) => <WordListItem wordID={word._id} key={word._id} />)

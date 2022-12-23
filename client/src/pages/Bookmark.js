@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BookmarkList from "./BookmarkList";
-import Button from "../../components/common/Button";
+import { BookmarkList } from "../components/Bookmark";
+import Button from "../components/common/Button";
 
 function Bookmark() {
   const navigate = useNavigate();
