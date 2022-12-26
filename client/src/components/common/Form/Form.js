@@ -2,21 +2,19 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { FormCtxProvider, useFormContext } from "./FormContext";
 
-import * as S from "./styles";
-
-const Form = ({ children, onSubmit, onChange }) => {
+const Form = ({ children, onSubmit, onChange, className }) => {
   const [values, setValues] = useState({});
   const [validityObj, setValidityObj] = useState({});
   return (
     <FormCtxProvider value={{ values, setValues, validityObj, setValidityObj }}>
-      <ValueSender onSubmit={onSubmit} onChange={onChange}>
+      <ValueSender onSubmit={onSubmit} onChange={onChange} className={className}>
         {children}
       </ValueSender>
     </FormCtxProvider>
   );
 };
 
-const ValueSender = ({ onSubmit, onChange, children }) => {
+const ValueSender = ({ onSubmit, onChange, children, className }) => {
   const formCtx = useFormContext();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,12 +33,10 @@ const ValueSender = ({ onSubmit, onChange, children }) => {
   //디바운싱 옵션
 
   return (
-    <form onSubmit={handleSubmit}>{children}</form>
-
-    // <S.Form onSubmit={handleSubmit} onChange={handleChange}>
-    //   {children}
-    // </S.Form>
+    <form className={className} onSubmit={handleSubmit}>
+      {children}
+    </form>
   );
 };
 
-export { Form };
+export default Form;

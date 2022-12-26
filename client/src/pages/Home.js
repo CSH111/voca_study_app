@@ -1,12 +1,10 @@
-import axios from "axios";
-import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Paper from "../components/common/Paper";
+import { PageContainer, Paper, PaperTitle, RectangularButton } from "../components/common";
+import { Box, ButtonBox } from "../components/Home";
 import { useAuthContext } from "../services/Auth/hooks/useAuthContext";
 
-const Home = ({}) => {
+const Home = () => {
   const navigate = useNavigate();
   const handleLogin = () => navigate("/login");
   const handleRegister = () => navigate("/register");
@@ -18,24 +16,16 @@ const Home = ({}) => {
   }, [user]);
 
   return (
-    <StyledContainer>
-      <StyledPaper>
-        <div>환영합니다/</div>
-        <button onClick={handleLogin}>로그인</button>
-        <button onClick={handleRegister}>회원가입</button>
-      </StyledPaper>
-    </StyledContainer>
+    <PageContainer>
+      <Paper>
+        <PaperTitle>초간단 단어장에 오신 것을 환영합니다</PaperTitle>
+        <ButtonBox>
+          <RectangularButton onClick={handleLogin}>로그인</RectangularButton>
+          <RectangularButton onClick={handleRegister}>회원가입</RectangularButton>
+        </ButtonBox>
+      </Paper>
+    </PageContainer>
   );
 };
 
 export default Home;
-
-const StyledContainer = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const StyledPaper = styled(Paper)`
-  /* background-color: coral; */
-`;

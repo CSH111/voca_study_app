@@ -1,25 +1,11 @@
 import { useState } from "react";
 import { useEffect, useRef } from "react";
-import { Form } from "../common/Form/Form";
-import Input from "../common/Form/Input";
+import { Form, Input } from "../common/Form";
 import { useRegister } from "../../services/Auth/hooks/useRegister";
-
+import * as S from "./styles";
 const RegisterForm = () => {
   const inputs = useRef({});
   const { register } = useRegister();
-  // useEffect(() => {
-  //   inputs.current.email.focus();
-  // }, []);
-
-  // const confirmValid = () => {
-  //   for (let key in inputs.current) {
-  //     if (inputs.current[key].value === "") {
-  //       alert(`모두 입력하세요`);
-  //       inputs.current[key].focus();
-  //       break;
-  //     }
-  //   }
-  // };
 
   const [allValid, setAllValid] = useState(false);
   const [pwValue, setPwValue] = useState("");
@@ -44,9 +30,9 @@ const RegisterForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} onChange={handleChange}>
-      <label htmlFor="email">이메일</label>
-      <Input
+    <S.Form onSubmit={handleSubmit} onChange={handleChange}>
+      <S.Label htmlFor="email">이메일</S.Label>
+      <S.Input
         id="email"
         name="email"
         type="email"
@@ -55,8 +41,8 @@ const RegisterForm = () => {
         required
         autoFocus
       />
-      <label htmlFor="name">이름</label>
-      <Input
+      <S.Label htmlFor="name">이름</S.Label>
+      <S.Input
         id="name"
         name="name"
         type="text"
@@ -64,8 +50,8 @@ const RegisterForm = () => {
         required
         // 랜덤 사용자 이름 부여하기
       />
-      <label htmlFor="pw">비밀번호</label>
-      <Input
+      <S.Label htmlFor="pw">비밀번호</S.Label>
+      <S.Input
         id="pw"
         name="pw"
         type="password"
@@ -75,8 +61,8 @@ const RegisterForm = () => {
         pattern="(?=.*[A-Za-z])(?=.*[0-9])(?=.{8,}).*$"
         errorMsg={"8-20자의 영문 숫자 조합"}
       />
-      <label htmlFor="pwConfirm">비밀번호 확인</label>
-      <Input
+      <S.Label htmlFor="pwConfirm">비밀번호 확인</S.Label>
+      <S.Input
         id="pwConfirm"
         name="pwConfirm"
         type="password"
@@ -85,10 +71,10 @@ const RegisterForm = () => {
         pattern={pwValue}
         errorMsg={"불일치"}
       />
-      <button type="submit" disabled={!allValid}>
-        제출
-      </button>
-    </Form>
+      <S.Button type="submit" disabled={!allValid}>
+        가입
+      </S.Button>
+    </S.Form>
   );
 };
 
