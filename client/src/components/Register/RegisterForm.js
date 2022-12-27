@@ -16,7 +16,6 @@ const RegisterForm = () => {
   const handleChange = (inputStates, isAllValid) => {
     setAllValid(isAllValid);
     setControlState(inputStates);
-    console.log(inputStates);
   };
 
   const handleSubmit = (values) => {

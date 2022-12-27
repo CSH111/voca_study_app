@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useAuthContext";
 
 export const useLogin = () => {
-  const { setUser } = useAuthContext();
+  const { setUser, setIsLoading: setAuthLoading } = useAuthContext();
   const navigate = useNavigate();
 
   const login = async (body, callback) => {
@@ -12,6 +12,7 @@ export const useLogin = () => {
       .then((res) => {
         console.log(res);
         setUser(res.data.userName);
+        setAuthLoading(false);
         alert("로그인성공");
         navigate("/topics");
       })

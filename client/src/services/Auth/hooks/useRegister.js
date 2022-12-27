@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useAuthContext";
 
 export const useRegister = () => {
-  const { setUser } = useAuthContext();
+  const { setUser, setIsLoading: setAuthLoading } = useAuthContext();
   const navigate = useNavigate();
 
   const register = (body) => {
@@ -13,6 +13,7 @@ export const useRegister = () => {
         if (res.data.success) {
           alert("가입성공");
           setUser(res.data.userName);
+          setAuthLoading(false);
           navigate("/");
         }
       })
