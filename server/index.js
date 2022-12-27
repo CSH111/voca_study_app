@@ -60,7 +60,7 @@ app.get("/", (req, res) => {
 //회원가입
 app.post("/api/user", (req, res) => {
   const temp = {
-    name: req.body.name,
+    name: req.body.name === "" ? req.body.email.split("@")[0] : req.body.name,
     email: req.body.email,
     pw: req.body.pw,
   };
@@ -71,9 +71,7 @@ app.post("/api/user", (req, res) => {
       //세션 활성화(for 자동로그인)
       const userSession = { email: temp.email, name: temp.name };
       req.session.user = userSession; // session에 user객체 생성
-      res
-        .status(200)
-        .json({ success: true, msg: "등록성공", userName: temp.name });
+      res.status(200).json({ success: true, msg: "등록성공", userName: temp.name });
     })
     .catch((err) => {
       console.log(err);

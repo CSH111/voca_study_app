@@ -4,49 +4,49 @@ const bcrypt = require("bcrypt");
 const topicSchema = new mongoose.Schema({
   topicName: {
     type: String,
-    requied: true,
+    required: true,
   },
 });
 
 const wordSchema = new mongoose.Schema({
   topic: {
     type: String,
-    requied: true,
+    required: true,
   },
   topicID: {
     type: String,
-    requied: true,
+    required: true,
   },
   word: {
     type: String,
-    requied: true,
+    required: true,
   },
   meaning: {
     type: String,
-    requied: true,
+    required: true,
   },
   isMemorized: {
     type: Boolean,
-    requied: true,
+    required: true,
   },
   isBookmarked: {
     type: Boolean,
-    requied: true,
+    required: true,
   },
 });
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    requied: true,
+    required: true,
   },
   email: {
     type: String,
     unique: 1,
-    requied: true,
+    required: true,
   },
   pw: {
     type: String,
-    requied: true,
+    required: true,
   },
   // topics: {},
   topics: [topicSchema],
