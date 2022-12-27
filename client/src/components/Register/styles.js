@@ -11,9 +11,20 @@ export const Input = styled(OriginalInput)`
   height: 40px;
 `;
 export const Label = styled.label`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 `;
 
 export const Button = styled(RectangularButton)`
   margin-top: 10px;
+`;
+
+export const LabelAndMsgBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+export const ValidityMsg = styled.div`
+  font-size: 13px;
+  color: red;
 `;

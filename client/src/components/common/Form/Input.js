@@ -5,7 +5,7 @@ import { useFormContext } from "./FormContext";
 const Input = forwardRef((props, ref) => {
   const formCtx = useFormContext();
   const valueInContext = formCtx.values[props.name]?.value ?? "";
-  const { onChange, errorMsg, ...restProps } = props;
+  const { className, onChange, errorMsg, id, name, type, required, autoFocus, pattern } = props;
 
   //value 초기값 생성
   useEffect(() => {
@@ -41,7 +41,20 @@ const Input = forwardRef((props, ref) => {
     // 필요하다면 디바운스 적용 input prop 으로 적용여부 선택 할 수 있도록 ㄱㄱ
   };
 
-  return <input {...restProps} onChange={handleChange} value={valueInContext} ref={ref} />;
+  return (
+    <input
+      id={id}
+      name={name}
+      type={type}
+      className={className}
+      required={required}
+      autoFocus={autoFocus}
+      onChange={handleChange}
+      value={valueInContext}
+      pattern={pattern}
+      ref={ref}
+    />
+  );
 });
 
 export default Input;
