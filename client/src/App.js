@@ -1,18 +1,9 @@
-import {
-  Routes,
-  BrowserRouter as Router,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, BrowserRouter as Router, Route, Navigate } from "react-router-dom";
 import "./App.css";
-import { Reset } from "styled-reset";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
 import MainLayout from "./components/layout/MainLayout";
 import PrivateRoutes from "./routes/PrivateRoutes";
-library.add(fas, far);
+import { Reset } from "styled-reset";
 
 function App() {
   return (

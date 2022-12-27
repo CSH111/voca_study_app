@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Button from "./Button";
 import { useState } from "react";
+import { EllipsisIcon } from "../common/icons";
 
 const StyledDiv = styled.div`
   position: relative;
@@ -47,12 +47,8 @@ const Ellipsis = ({ items, disabled }) => {
   const [menuOn, setMenuOn] = useState(false);
   return (
     <StyledDiv menuOn={menuOn} className="ellipsis">
-      <Button
-        className="ellipsisBtn"
-        disabled={disabled}
-        onClick={() => setMenuOn(!menuOn)}
-      >
-        <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+      <Button className="ellipsisBtn" disabled={disabled} onClick={() => setMenuOn(!menuOn)}>
+        <EllipsisIcon />
       </Button>
 
       <div className="items">{items}</div>

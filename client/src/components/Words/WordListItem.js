@@ -1,35 +1,14 @@
 import { useContext, useRef, useState } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useEffect } from "react";
 import { DataContext } from "../../services/DataContext";
 
-import Button from "../../components/common/Button";
-import Ellipsis from "../../components/common/Ellipsis";
+import { StarIcon, EditIcon, DeleteIcon } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
-import InputBox from "../../components/common/InputBox";
-import Spinner from "../../components/common/Spinner";
+import { InputBox, Ellipsis, Button } from "../../components/common";
+import { Spinner } from "../common/icons";
 
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  width: 100%;
-  height: 100%;
-  transition: all 0.2s;
-
-  font-style: ${({ isMemorized }) => (isMemorized ? "italic" : "")};
-  text-decoration: ${({ isMemorized }) => (isMemorized ? "line-through" : "none")};
-  > div {
-    text-align: center;
-    padding-bottom: 0.1rem;
-    margin-left: 0.5rem;
-    min-width: 70px;
-    border-bottom: solid #3c3c3c 1px;
-  }
-`;
 const StyledButton = styled(Button)`
   color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
 `;
@@ -159,13 +138,13 @@ const WordListItem = ({ wordID }) => {
         items={
           <>
             <Button onClick={handleDelBtn}>
-              <FontAwesomeIcon icon="fa-solid fa-trash-can" />
+              <DeleteIcon />
             </Button>
             <Button onClick={handleModifyingMode}>
-              <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+              <EditIcon />
             </Button>
             <StyledButton onClick={handleBookmark} isBookmarked={isBookmarked} className="bookmark">
-              <FontAwesomeIcon icon="fa-solid fa-star" />
+              <StarIcon />
             </StyledButton>
           </>
         }
@@ -175,3 +154,23 @@ const WordListItem = ({ wordID }) => {
 };
 
 export default WordListItem;
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s;
+
+  font-style: ${({ isMemorized }) => (isMemorized ? "italic" : "")};
+  text-decoration: ${({ isMemorized }) => (isMemorized ? "line-through" : "none")};
+  > div {
+    text-align: center;
+    padding-bottom: 0.1rem;
+    margin-left: 0.5rem;
+    min-width: 70px;
+    border-bottom: solid #3c3c3c 1px;
+  }
+`;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { DataContext } from "../../services/DataContext";
-import Spinner from "../common/Spinner";
+import { Spinner } from "../common/icons";
 import WordListItem from "../Words/WordListItem";
 
 const BookmarkList = () => {

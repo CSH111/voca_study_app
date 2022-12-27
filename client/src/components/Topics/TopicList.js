@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../services/DataContext";
 import TopicListItem from "./TopicListItem";
 import styled from "styled-components";
-import Spinner from "../../components/common/Spinner";
+import { Spinner } from "../../components/common/icons";
 import List from "../../components/common/Lists/List";
 
 const StyledList = styled(List)`
@@ -19,9 +19,7 @@ const TopicList = () => {
   const topicsLoading = store.topicsData.loading;
 
   const listItems = store.topicsData.topics.length ? (
-    store.topicsData.topics.map((topic) => (
-      <TopicListItem topic={topic} key={topic._id} />
-    ))
+    store.topicsData.topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)
   ) : (
     <div>토픽을 추가하세요</div>
   );

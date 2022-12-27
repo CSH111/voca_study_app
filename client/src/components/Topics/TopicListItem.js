@@ -1,17 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../services/DataContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import ProgressBar from "./ProgressBar";
+import { DeleteIcon, EditIcon } from "../common/icons";
 import styled from "styled-components";
 import { useRef } from "react";
 import axios from "axios";
-import Button from "../../components/common/Button";
-import Ellipsis from "../../components/common/Ellipsis";
 import ListItem from "../../components/common/Lists/ListItem";
-import InputBox from "../../components/common/InputBox";
-import Spinner from "../../components/common/Spinner";
+import { Button, Ellipsis, InputBox } from "../../components/common";
+import { Spinner } from "../../components/common/icons";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -95,12 +92,7 @@ const TopicListItem = ({ topic }) => {
 
   const topicItemcontents = isModifying ? (
     <form onSubmit={handleSubmission}>
-      <InputBox
-        type="text"
-        value={topicValue}
-        onChange={handleTopicInput}
-        ref={modifyingValue}
-      />
+      <InputBox type="text" value={topicValue} onChange={handleTopicInput} ref={modifyingValue} />
       <Button type="submit">끝</Button>
     </form>
   ) : (
@@ -138,10 +130,10 @@ const TopicListItem = ({ topic }) => {
         items={
           <>
             <Button onClick={handleDelete} disabled={isItemLoading}>
-              <FontAwesomeIcon icon="fa-solid fa-trash-can" />
+              <DeleteIcon />
             </Button>
             <Button onClick={handleModificationMode} disabled={isItemLoading}>
-              <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+              <EditIcon />
             </Button>
           </>
         }

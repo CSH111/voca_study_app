@@ -1,9 +1,9 @@
 import { useContext, useRef, useState } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InputBox from "../common/InputBox";
 import { DataContext } from "../../services/DataContext";
-import Button from "../common/Button";
+import { Button, InputBox } from "../common";
+import { AddIcon } from "../common/icons";
+
 const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
   const store = useContext(DataContext);
   const [wordInputValue, setWordInputValue] = useState("");
@@ -67,7 +67,7 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       />
 
       <Button onClick={handleAddBtnClick}>
-        <FontAwesomeIcon icon="fa-solid fa-plus" />
+        <AddIcon />
       </Button>
     </form>
   );

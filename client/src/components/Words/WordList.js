@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import WordListItem from "./WordListItem";
 import { DataContext } from "../../services/DataContext";
-import Spinner from "../../components/common/Spinner";
+import { Spinner } from "../../components/common/icons";
 import styled from "styled-components";
 import ListItem from "../../components/common/Lists/ListItem";
 import List from "../../components/common/Lists/List";
