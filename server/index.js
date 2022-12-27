@@ -82,10 +82,10 @@ app.post("/api/user", (req, res) => {
 //로그인
 app.post("/api/session", authenticate, (req, res) => {
   //세션활성화
-  //
 
   const userSession = { email: req.body.email, name: req.body.name };
   req.session.user = userSession;
+
   // express-session에 의해 브라우저에 세션이 생성
 
   // req.session 에 하위 객체(user)를 만들었을 때 DB에 세션 생성

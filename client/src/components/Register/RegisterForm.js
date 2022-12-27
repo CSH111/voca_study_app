@@ -20,13 +20,11 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
     const {
       email: { value: email },
       name: { value: name },
       pw: { value: pw },
     } = values;
-    console.log({ email, name, pw });
 
     register({ email, name, pw });
   };

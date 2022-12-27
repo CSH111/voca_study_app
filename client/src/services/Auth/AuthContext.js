@@ -8,20 +8,20 @@ const AuthContext = React.createContext(null);
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(`/api/user`) //
       .then((res) => {
         setUser(res.data.userName);
+        setIsLoading(false);
       })
       .catch(console.log);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser, isLoading }}>{children}</AuthContext.Provider>
   );
 };
 
