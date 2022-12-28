@@ -1,23 +1,19 @@
 import styled from "styled-components";
 
-const StyledLi = styled.li`
+const ListItem = styled.li`
   position: relative;
-  height: 70px;
+  min-height: 70px;
+  height: 100%;
   width: 100%;
-  /* border: solid 1px black; */
-  /* background-color:  */
-  /* margin-top: 1rem; */
   overflow: hidden;
-  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   transition: all 0.15s;
+  cursor: ${({ cursor }) => cursor ?? "auto"};
   &:hover {
     background-color: #e6e6e6;
   }
   > div:last-child {
-    /* background-color: red; */
     align-self: flex-start;
   }
   .blur-filter {
@@ -34,8 +30,8 @@ const StyledLi = styled.li`
     font-size: 1.75rem;
   }
 `;
-const ListItem = ({ className, children }) => {
-  return <StyledLi className={className}>{children}</StyledLi>;
-};
+// const ListItem = ({ className, children }) => {
+//   return <StyledLi className={className}>{children}</StyledLi>;
+// };
 
 export default ListItem;

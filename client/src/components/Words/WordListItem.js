@@ -3,8 +3,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect } from "react";
 import { DataContext } from "../../services/DataContext";
+import * as S from "./styles";
 
-import { StarIcon, EditIcon, DeleteIcon } from "../common/icons";
+import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
 import { InputBox, Ellipsis, Button } from "../../components/common";
 import { Spinner } from "../common/icons";
@@ -96,8 +97,13 @@ const WordListItem = ({ wordID }) => {
     setMeaningValue(e.target.value);
   };
 
-  const handleModifyingMode = () => {
+  const handleFixModeOpen = () => {
     setIsModifying(true);
+  };
+
+  const handleFixModeClose = () => {
+    setIsModifying(false);
+    setWordValue(word.word);
   };
 
   useEffect(() => {
@@ -105,26 +111,39 @@ const WordListItem = ({ wordID }) => {
   }, [isModifying]);
 
   const listItemContents = isModifying ? (
-    <form onSubmit={handleSubmission} action="">
-      <InputBox
-        className="input"
-        type="text"
-        value={wordValue}
-        onChange={handleWordInput}
-        ref={wordInputBox}
-      />
-      <InputBox type="text" value={meaningValue} onChange={handleMeaningInput} />
-      <Button type="submit">완료</Button>
-    </form>
+    <S.Form onSubmit={handleSubmission} action="" columnOnSmallDevice={true}>
+      <S.Controls>
+        <S.InputContainer>
+          <InputBox
+            className="input"
+            type="text"
+            value={wordValue}
+            onChange={handleWordInput}
+            ref={wordInputBox}
+          />
+        </S.InputContainer>
+        <S.InputContainer>
+          <InputBox type="text" value={meaningValue} onChange={handleMeaningInput} />
+        </S.InputContainer>
+      </S.Controls>
+      <StyledButtonsBox>
+        <Button type="submit" color="green" width="35px" height="35px">
+          <CheckIcon />
+        </Button>
+        <Button type="button" width="35px" height="35px" onClick={handleFixModeClose}>
+          <CancelIcon />
+        </Button>
+      </StyledButtonsBox>
+    </S.Form>
   ) : (
     <StyledDiv className="data" isMemorized={isMemorized} onClick={handleIsMemorized}>
-      <div> {word.word}</div>
+      <div className="word"> {word.word}</div>
 
-      <div>{word.meaning}</div>
+      <div className="meaning">{word.meaning}</div>
     </StyledDiv>
   );
   return (
-    <ListItem>
+    <ListItem cursor="pointer">
       {isItemLoading && (
         <>
           <div className="blur-filter"></div>
@@ -140,7 +159,7 @@ const WordListItem = ({ wordID }) => {
             <Button onClick={handleDelBtn}>
               <DeleteIcon />
             </Button>
-            <Button onClick={handleModifyingMode}>
+            <Button onClick={handleFixModeOpen}>
               <EditIcon />
             </Button>
             <StyledButton onClick={handleBookmark} isBookmarked={isBookmarked} className="bookmark">
@@ -159,9 +178,10 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-self: stretch;
   align-items: flex-start;
+
   width: 100%;
-  height: 100%;
   transition: all 0.2s;
 
   font-style: ${({ isMemorized }) => (isMemorized ? "italic" : "")};
@@ -172,5 +192,10 @@ const StyledDiv = styled.div`
     margin-left: 0.5rem;
     min-width: 70px;
     border-bottom: solid #3c3c3c 1px;
+    /* overflow: auto; */
   }
+`;
+
+const StyledButtonsBox = styled.div`
+  display: flex;
 `;

@@ -28,6 +28,9 @@ const Body = styled.div`
   max-width: 800px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 800px) {
+    width: 95%;
+  }
 `;
 
 const StyledOutlet = styled(Outlet)``;

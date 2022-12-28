@@ -39,3 +39,11 @@ export const FolderIcon = (props) => {
 export const BookMarkIcon = (props) => {
   return <FontAwesomeIcon icon="fa-solid fa-book-bookmark" {...props} />;
 };
+
+export const CheckIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-check" />;
+};
+
+export const CancelIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-xmark" />;
+};

@@ -6,6 +6,7 @@ import { DataContext } from "../services/DataContext";
 import Button from "../components/common/Button";
 import { WordGenerator, WordList, WordListItem } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
+import { Devider, PageContainer, Paper, PaperTitle } from "../components/common";
 
 function Words() {
   const params = useParams();
@@ -21,15 +22,24 @@ function Words() {
   }, []);
 
   return (
-    <>
-      <WordGenerator topic={topic} topicID={topicID} setwordItemLoading={setwordItemLoading} />
-      <hr />
-      <Button onClick={() => navigate("/topics")}>
-        <GoBackIcon />
-      </Button>
-
-      <WordList topic={topic} wordItemLoading={wordItemLoading} />
-    </>
+    <PageContainer align="flex-start">
+      <Paper
+        width="100%"
+        flex="1"
+        bodyAlign="flex-start"
+        paperHeader={
+          <PaperTitle>
+            {topic}{" "}
+            <Button onClick={() => navigate("/topics")} width="35px" height="35px">
+              <GoBackIcon />
+            </Button>
+          </PaperTitle>
+        }
+      >
+        <WordGenerator topic={topic} topicID={topicID} setwordItemLoading={setwordItemLoading} />
+        <WordList topic={topic} wordItemLoading={wordItemLoading} />
+      </Paper>
+    </PageContainer>
   );
 }
 

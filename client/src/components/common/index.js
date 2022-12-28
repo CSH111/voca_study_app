@@ -8,3 +8,4 @@ export { default as RectangularButton } from "./RectangularButton";
 export { default as PaperTitle } from "./PaperTitle";
 export { default as PageContainer } from "./PageContainer";
 export { default as AuthLink } from "./AuthLink";
+export { default as Devider } from "./Devider";

@@ -3,6 +3,8 @@ import axios from "axios";
 import { DataContext } from "../../services/DataContext";
 import { Button, InputBox } from "../common";
 import { AddIcon } from "../common/icons";
+import styled from "styled-components";
+import * as S from "./styles";
 
 const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
   const store = useContext(DataContext);
@@ -47,30 +49,52 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
   };
 
   return (
-    <form action="">
-      <label htmlFor="wordInput">단어</label>
-      <InputBox
-        type="text"
-        id="wordInput"
-        ref={wordInput}
-        value={wordInputValue}
-        onChange={(e) => setWordInputValue(e.target.value)}
-      />
-
-      <label htmlFor="meaningInput">뜻</label>
-      <InputBox
-        type="text"
-        id="meaningInput"
-        ref={meaningInput}
-        value={meaningInputValue}
-        onChange={(e) => setMeaningInputValue(e.target.value)}
-      />
-
-      <Button onClick={handleAddBtnClick}>
+    <S.Form>
+      <S.Controls>
+        <S.InputContainer>
+          <label htmlFor="wordInput">단어</label>
+          <InputBox
+            type="text"
+            id="wordInput"
+            ref={wordInput}
+            value={wordInputValue}
+            onChange={(e) => setWordInputValue(e.target.value)}
+          />
+        </S.InputContainer>
+        <S.InputContainer>
+          <label htmlFor="meaningInput">뜻</label>
+          <InputBox
+            type="text"
+            id="meaningInput"
+            ref={meaningInput}
+            value={meaningInputValue}
+            onChange={(e) => setMeaningInputValue(e.target.value)}
+          />
+        </S.InputContainer>
+      </S.Controls>
+      <Button onClick={handleAddBtnClick} width="35px" height="35px">
         <AddIcon />
       </Button>
-    </form>
+    </S.Form>
   );
 };
 
 export default WordGenerator;
+
+// const StyledForm = styled.form`
+//   display: flex;
+//   flex-wrap: wrap;
+//   margin-bottom: 20px;
+//   > *:not(:last-child) {
+//     margin-right: 10px;
+//   }
+// `;
+
+// const InputContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   label {
+//     font-size: 12px;
+//   }
+// `;

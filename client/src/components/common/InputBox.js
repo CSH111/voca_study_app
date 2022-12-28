@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 const InputBox = styled.input`
-  background-color: #ffe2bc;
   border: none;
-  border-radius: 2rem;
-  height: 2rem;
-  padding: 1rem;
+  border-bottom: solid 1px black;
+  height: 30px;
+  padding: 5px;
+  /* width: 100%; */
+  /* min-width: 100px; */
+  background: none;
   &:focus {
     outline: none;
-    background-color: #ffc982;
+    /* background-color: #ebebeb; */
   }
 `;
 

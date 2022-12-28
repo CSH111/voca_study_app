@@ -15,8 +15,8 @@ const StyledDiv = styled.div`
     z-index: 2;
   }
   button {
-    background-color: #f5f5f600;
-    width: 2.5rem;
+    min-width: 35px;
+    height: 35px;
   }
   .items {
     z-index: 1;

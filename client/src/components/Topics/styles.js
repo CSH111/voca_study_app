@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Link = styled(RRDLink)`
   display: flex;
   align-items: center;
-  height: 100%;
+
   flex: 1;
   padding: 10px;
 `;
