@@ -1,14 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ModalBg } from "../components/common/Modal";
-import { StarIcon } from "../components/common/icons";
-import {
-  ProgressBar,
-  TopicGenerator,
-  TopicList,
-  TopicListItem,
-  TopicModal,
-} from "../components/Topics";
+import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topics";
 import { PageContainer, Paper, PaperTitle } from "../components/common";
 
 function Topics({}) {
@@ -19,14 +10,9 @@ function Topics({}) {
   return (
     <PageContainer>
       <TopicGenerator setItemLoading={setItemLoading} />
-      <Paper width={"100%"}>
-        <PaperTitle>My Topics</PaperTitle>
-        <Link to={"/bookmark"} className="toBookmark">
-          <StarIcon />
-          북마크
-        </Link>
+      <Paper width={"100%"} paperHeader={<PaperTitle>My Topics</PaperTitle>} bodyAlign="flex-start">
+        <BookMarkListItem />
         <TopicList itemLoading={itemLoading} />
-        {/* <ModalBg /> */}
       </Paper>
     </PageContainer>
   );

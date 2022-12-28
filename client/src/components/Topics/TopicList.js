@@ -7,6 +7,7 @@ import List from "../../components/common/Lists/List";
 
 const StyledList = styled(List)`
   position: relative;
+  flex: 1;
   > .spinner {
     position: absolute;
     top: 50%;

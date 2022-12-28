@@ -1,22 +1,15 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { DataContext } from "../../services/DataContext";
 
-import { DeleteIcon, EditIcon } from "../common/icons";
+import * as S from "./styles";
+import { DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
 import styled from "styled-components";
 import { useRef } from "react";
 import axios from "axios";
 import ListItem from "../../components/common/Lists/ListItem";
 import { Button, Ellipsis, InputBox } from "../../components/common";
 import { Spinner } from "../../components/common/icons";
-
-const StyledDiv = styled.div`
-  display: flex;
-  align-items: center;
-  h3 {
-    margin-right: 0.5rem;
-  }
-`;
 
 const TopicListItem = ({ topic }) => {
   const { topicsData, setTopicsData, setWordsData } = useContext(DataContext);
@@ -90,41 +83,49 @@ const TopicListItem = ({ topic }) => {
       .finally(() => setIsItemLoading(false));
   };
 
-  const topicItemcontents = isModifying ? (
-    <form onSubmit={handleSubmission}>
-      <InputBox type="text" value={topicValue} onChange={handleTopicInput} ref={modifyingValue} />
-      <Button type="submit">끝</Button>
-    </form>
-  ) : (
-    <StyledDiv isModifying={isModifying}>
-      <h3>
-        <Link to={`/topics/${topic.topicName}`}>{topic.topicName}</Link>
-      </h3>
-      {/* <ProgressBar
-        progress={
-          wordsDoneAmount / wordsAmount !== NaN
-            ? wordsDoneAmount / wordsAmount
-            : 0
-        }
-        innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
-      /> */}
-    </StyledDiv>
-  );
-
   if (isDeleted) {
     return null;
   }
   return (
     <ListItem className="topic" isBlur={isItemLoading}>
-      {isItemLoading && (
-        <>
-          <div className="blur-filter"></div>
-          <div className="spinner">
-            <Spinner />
-          </div>
-        </>
-      )}
-      {topicItemcontents}
+      <S.Link to={`/topics/${topic.topicName}`}>
+        <FolderIcon fontSize="25px" />
+        <Center>
+          {isItemLoading && (
+            <>
+              <div className="blur-filter"></div>
+              <div className="spinner">
+                <Spinner />
+              </div>
+            </>
+          )}
+          {/* {topicItemcontents} */}
+          {isModifying ? (
+            <form onSubmit={handleSubmission}>
+              <InputBox
+                type="text"
+                value={topicValue}
+                onChange={handleTopicInput}
+                ref={modifyingValue}
+              />
+              <Button type="submit">끝</Button>
+            </form>
+          ) : (
+            <StyledDiv>
+              <h3>{topic.topicName}</h3>
+              {/* <ProgressBar
+      progress={
+        wordsDoneAmount / wordsAmount !== NaN
+          ? wordsDoneAmount / wordsAmount
+          : 0
+      }
+      innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
+    /> */}
+            </StyledDiv>
+          )}
+        </Center>
+      </S.Link>
+
       <Ellipsis
         disabled={isItemLoading}
         items={
@@ -142,3 +143,23 @@ const TopicListItem = ({ topic }) => {
   );
 };
 export default TopicListItem;
+
+// const StyledLink = styled(Link)`
+//   display: flex;
+//   align-items: center;
+//   height: 100%;
+//   flex: 1;
+// `;
+
+const Center = styled.div`
+  /* flex: 1; */
+  margin: 0 10px;
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  h3 {
+    margin-right: 0.5rem;
+  }
+`;

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-const Paper = ({ children, width, className, paperHeader, paperFooter }) => {
+const Paper = ({ children, width, className, paperHeader, paperFooter, bodyAlign }) => {
   return (
     <StyledDiv width={width} className={className}>
-      <div className="paper-header">{paperHeader}</div>
-      <div className="paper-body">{children}</div>
-      <div className="paper-footer">{paperFooter}</div>
+      {paperHeader && <div className="paper-header">{paperHeader}</div>}
+      <Body bodyAlign={bodyAlign}>{children}</Body>
+      {paperFooter && <div className="paper-footer">{paperFooter}</div>}
     </StyledDiv>
   );
 };
@@ -18,12 +18,26 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px;
+  padding: 20px;
+  .paper-header {
+    margin-bottom: 20px;
+  }
   .paper-footer {
     align-self: center;
     min-height: 50px;
     display: flex;
     align-items: center;
   }
+  /* .paper-body {
+    flex: 1;
+  } */
 `;
+const Body = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: ${({ bodyAlign }) => bodyAlign ?? "center"};
+  /* align-items: stretch; */
+`;
+
 export default Paper;

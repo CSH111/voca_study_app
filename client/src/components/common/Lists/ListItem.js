@@ -4,14 +4,18 @@ const StyledLi = styled.li`
   position: relative;
   height: 70px;
   width: 100%;
-  border: solid 1px black;
-  background-color: #f5f5f6;
-  margin-top: 1rem;
+  /* border: solid 1px black; */
+  /* background-color:  */
+  /* margin-top: 1rem; */
   overflow: hidden;
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.15s;
+  &:hover {
+    background-color: #e6e6e6;
+  }
   > div:last-child {
     /* background-color: red; */
     align-self: flex-start;
@@ -20,7 +24,7 @@ const StyledLi = styled.li`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #ffffff79;
+    background-color: #cacaca79;
   }
   .spinner {
     position: absolute;

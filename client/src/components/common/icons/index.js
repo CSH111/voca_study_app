@@ -11,19 +11,31 @@ export const Spinner = () => {
 export const EllipsisIcon = () => {
   return <FontAwesomeIcon icon="fa-solid fa-ellipsis" />;
 };
+
 export const AddIcon = () => {
   return <FontAwesomeIcon icon="fa-solid fa-plus" />;
 };
+
 export const DeleteIcon = () => {
   return <FontAwesomeIcon icon="fa-solid fa-trash-can" />;
 };
+
 export const EditIcon = () => {
   return <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />;
 };
+
 export const StarIcon = () => {
   return <FontAwesomeIcon icon="fa-solid fa-star" />;
 };
 
 export const GoBackIcon = () => {
   return <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />;
+};
+
+export const FolderIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-sharp fa-solid fa-folder" {...props} />;
+};
+
+export const BookMarkIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-book-bookmark" {...props} />;
 };
