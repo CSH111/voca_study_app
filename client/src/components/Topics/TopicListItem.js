@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { DataContext } from "../../services/DataContext";
 
 import * as S from "./styles";
-import { DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
+import { CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
 import styled from "styled-components";
 import { useRef } from "react";
 import axios from "axios";
@@ -77,6 +77,7 @@ const TopicListItem = ({ topic }) => {
 
   const handleSubmission = (e) => {
     e.preventDefault();
+    console.log("hi");
     setIsModifying(false);
     setIsItemLoading(true);
     updateTopic() //
@@ -88,27 +89,28 @@ const TopicListItem = ({ topic }) => {
   }
   return (
     <ListItem className="topic" isBlur={isItemLoading}>
-      <S.Link to={`/topics/${topic.topicName}`}>
+      {isItemLoading && (
+        <>
+          <div className="blur-filter"></div>
+          <div className="spinner">
+            <Spinner />
+          </div>
+        </>
+      )}
+      <S.Link to={isModifying ? "#" : `/topics/${topic.topicName}`}>
         <FolderIcon fontSize="25px" />
-        <Center>
-          {isItemLoading && (
-            <>
-              <div className="blur-filter"></div>
-              <div className="spinner">
-                <Spinner />
-              </div>
-            </>
-          )}
-          {/* {topicItemcontents} */}
+        <StyledCenter>
           {isModifying ? (
-            <form onSubmit={handleSubmission}>
+            <form>
               <InputBox
                 type="text"
                 value={topicValue}
                 onChange={handleTopicInput}
                 ref={modifyingValue}
               />
-              <Button type="submit">끝</Button>
+              <Button onClick={handleSubmission} height="35px" width="35px" margin="0 0 0 5px">
+                <CheckIcon />
+              </Button>
             </form>
           ) : (
             <StyledDiv>
@@ -123,7 +125,7 @@ const TopicListItem = ({ topic }) => {
     /> */}
             </StyledDiv>
           )}
-        </Center>
+        </StyledCenter>
       </S.Link>
 
       <Ellipsis
@@ -144,15 +146,7 @@ const TopicListItem = ({ topic }) => {
 };
 export default TopicListItem;
 
-// const StyledLink = styled(Link)`
-//   display: flex;
-//   align-items: center;
-//   height: 100%;
-//   flex: 1;
-// `;
-
-const Center = styled.div`
-  /* flex: 1; */
+const StyledCenter = styled.div`
   margin: 0 10px;
 `;
 

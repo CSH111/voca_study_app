@@ -4,32 +4,32 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fas, far);
 
-export const Spinner = () => {
-  return <FontAwesomeIcon icon="fa-solid fa-circle-notch" spin />;
+export const Spinner = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-circle-notch" spin {...props} />;
 };
 
-export const EllipsisIcon = () => {
-  return <FontAwesomeIcon icon="fa-solid fa-ellipsis" />;
+export const EllipsisIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-ellipsis" {...props} />;
 };
 
-export const AddIcon = () => {
-  return <FontAwesomeIcon icon="fa-solid fa-plus" />;
+export const AddIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-plus" {...props} />;
 };
 
-export const DeleteIcon = () => {
-  return <FontAwesomeIcon icon="fa-solid fa-trash-can" />;
+export const DeleteIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-trash-can" {...props} />;
 };
 
-export const EditIcon = () => {
-  return <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />;
+export const EditIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-pen-to-square" {...props} />;
 };
 
-export const StarIcon = () => {
-  return <FontAwesomeIcon icon="fa-solid fa-star" />;
+export const StarIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-star" {...props} />;
 };
 
-export const GoBackIcon = () => {
-  return <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />;
+export const GoBackIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" {...props} />;
 };
 
 export const FolderIcon = (props) => {
@@ -41,9 +41,9 @@ export const BookMarkIcon = (props) => {
 };
 
 export const CheckIcon = (props) => {
-  return <FontAwesomeIcon icon="fa-solid fa-check" />;
+  return <FontAwesomeIcon icon="fa-solid fa-check" {...props} />;
 };
 
 export const CancelIcon = (props) => {
-  return <FontAwesomeIcon icon="fa-solid fa-xmark" />;
+  return <FontAwesomeIcon icon="fa-solid fa-xmark" {...props} />;
 };
