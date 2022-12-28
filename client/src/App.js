@@ -4,6 +4,7 @@ import { Bookmark, Home, Login, Register, Topics, Words } from "./pages";
 import MainLayout from "./components/layout/MainLayout";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import { Reset } from "styled-reset";
+import PublicRoutes from "./routes/PublicRoutes";
 
 function App() {
   return (
@@ -11,10 +12,12 @@ function App() {
       <Reset />
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route element={<PublicRoutes />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Route>
           <Route element={<PrivateRoutes />}>
             <Route path="/topics" element={<Topics />} />
             <Route path="/topics/:topic" element={<Words />} />
