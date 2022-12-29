@@ -10,25 +10,29 @@ import axios from "axios";
 import ListItem from "../../components/common/Lists/ListItem";
 import { Button, DeleteModal, Ellipsis, InputBox, ModalPortal } from "../../components/common";
 import { Spinner } from "../../components/common/icons";
-import Modal from "../common/Modal";
+import ProgressBar from "./ProgressBar";
+// import Modal from "../common/Modal";
+
 //TODO 앞,뒤 공백 제거 후 생성요청보내기
 const TopicListItem = ({ topic }) => {
-  const { topicsData, setTopicsData, setWordsData } = useContext(DataContext);
+  const { topicsData, setTopicsData, wordsData, setWordsData } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
-  const [wordsAmount, setWordsAmount] = useState("");
-  const [wordsDoneAmount, setWordsDoneAmount] = useState("");
+  // const [wordsAmount, setWordsAmount] = useState("");
+  // const [wordsDoneAmount, setWordsDoneAmount] = useState("");
   const [topicValue, setTopicValue] = useState(topic.topicName);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const modifyingValue = useRef();
   const [isDeleted, setIsDeleted] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
+  const wordsForThisTopic = wordsData.words.filter((word) => word.topic === topic.topicName);
+  const wordsAmount = wordsForThisTopic.length;
+  const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
   // 삭제 로딩 표시
+  console.log(wordsAmount);
+
   const handleDeleteModal = () => {
     setIsDeleteModalOpened(true);
   };
-  // const handleModalClose = () => {
-  //   setIsDeleteModalOpened(false);
-  // };
   const handleDelete = () => {
     axios
       .delete(`/api/topic/${topic._id}`, { data: { topic: topic.topicName } }) //
@@ -134,15 +138,9 @@ const TopicListItem = ({ topic }) => {
             </StyledForm>
           ) : (
             <StyledDiv>
+              <div>({wordsAmount})</div>
               <h3>{topic.topicName}</h3>
-              {/* <ProgressBar
-      progress={
-        wordsDoneAmount / wordsAmount !== NaN
-          ? wordsDoneAmount / wordsAmount
-          : 0
-      }
-      innerText={wordsAmount ? wordsDoneAmount + "/" + wordsAmount : null}
-    /> */}
+              <ProgressBar show={wordsAmount > 0} progress={wordsDoneAmount / wordsAmount} />
             </StyledDiv>
           )}
         </StyledCenter>
@@ -182,8 +180,9 @@ const StyledCenter = styled.div`
 const StyledDiv = styled.div`
   display: flex;
   align-items: center;
-  h3 {
-    margin-right: 0.5rem;
+
+  > *:not(:last-child) {
+    margin-right: 10px;
   }
 `;
 
@@ -199,26 +198,4 @@ const StyledForm = styled.form`
 
 const StyledButtonsBox = styled.div`
   display: flex;
-`;
-
-const StyledModalContents = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  p {
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 25px;
-  }
-  .del-modal-btns-box {
-    margin-top: 10px;
-    align-self: flex-end;
-    button {
-      font-size: 16px;
-      &:not(:last-child) {
-        margin-right: 5px;
-      }
-    }
-  }
 `;
