@@ -10,10 +10,6 @@ import ListItem from "../../components/common/Lists/ListItem";
 import { InputBox, Ellipsis, Button, DeleteModal, ModalPortal } from "../../components/common";
 import { Spinner } from "../common/icons";
 
-const StyledButton = styled(Button)`
-  color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
-`;
-
 const WordListItem = ({ wordID }) => {
   const store = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
@@ -142,6 +138,7 @@ const WordListItem = ({ wordID }) => {
       <div className="meaning">{word.meaning}</div>
     </StyledDiv>
   );
+
   return (
     <ListItem cursor="pointer">
       {isItemLoading && (
@@ -207,4 +204,7 @@ const StyledDiv = styled.div`
 
 const StyledButtonsBox = styled.div`
   display: flex;
+`;
+const StyledButton = styled(Button)`
+  color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
 `;

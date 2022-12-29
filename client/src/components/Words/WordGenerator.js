@@ -80,21 +80,3 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
 };
 
 export default WordGenerator;
-
-// const StyledForm = styled.form`
-//   display: flex;
-//   flex-wrap: wrap;
-//   margin-bottom: 20px;
-//   > *:not(:last-child) {
-//     margin-right: 10px;
-//   }
-// `;
-
-// const InputContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-start;
-//   label {
-//     font-size: 12px;
-//   }
-// `;

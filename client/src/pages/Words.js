@@ -37,7 +37,7 @@ function Words() {
         }
       >
         <WordGenerator topic={topic} topicID={topicID} setwordItemLoading={setwordItemLoading} />
-        <WordList topic={topic} wordItemLoading={wordItemLoading} />
+        <WordList topic={topic} isNewItemLoading={wordItemLoading} />
       </Paper>
     </PageContainer>
   );
