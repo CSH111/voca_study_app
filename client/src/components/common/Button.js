@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Button = styled.button`
   font-size: ${({ fontSize }) => fontSize ?? "20px"};
@@ -6,6 +6,7 @@ const Button = styled.button`
   height: ${({ height }) => height ?? "auto"};
   margin: ${({ margin }) => margin ?? "0"};
   color: ${({ color }) => color ?? "auto"};
+  padding: ${(p) => p.padding ?? "5px 10px"};
   border-radius: 0.3rem;
   border: none;
   transition: all 0.2s;
@@ -15,9 +16,20 @@ const Button = styled.button`
     background-color: #b2b2b2;
     cursor: pointer;
   }
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  ${(p) =>
+    p.themeColor === "gray" &&
+    css`
+      background-color: #d1d1d1;
+    `}
+  ${(p) =>
+    p.themeColor === "red" &&
+    css`
+      background-color: #f04040;
+      color: white;
+      &:hover:enabled {
+        background-color: #b01515;
+      }
+    `}
 `;
 //
 

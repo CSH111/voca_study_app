@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CancelIcon } from "../icons";
 import Button from "../Button";
 
-const Modal = ({ children, state, setState }) => {
+const Modal = ({ children, state, setState, footer }) => {
   const handleBgClick = () => {
     setState(false);
   };
@@ -22,9 +22,10 @@ const Modal = ({ children, state, setState }) => {
         onClick={handlePaperClick}
         paperHeader={
           <StyledButton onClick={handleModalClose}>
-            <CancelIcon fontSize="30px" />
+            <CancelIcon fontSize="25px" />
           </StyledButton>
         }
+        paperFooter={footer}
       >
         {children}
       </StyledPaper>
@@ -38,10 +39,7 @@ const StyledButton = styled(Button)`
   float: right;
 `;
 
-const StyledPaper = styled(Paper)`
-  /* margin: auto auto; */
-  /* align-self: center; */
-`;
+const StyledPaper = styled(Paper)``;
 
 const StyledBg = styled.div`
   /* display: ${({ open }) => (open ? "flex" : "none")}; */

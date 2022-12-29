@@ -61,17 +61,24 @@ const TopicGenerator = function ({ setItemLoading }) {
 
   return (
     <StyledForm>
-      <InputBox
-        type="text"
-        value={topicValue}
-        onChange={(e) => setTopicValue(e.target.value)}
-        ref={topicInput}
-        placeholder="토픽폴더를 추가하세요"
-      />
+      <div>
+        <InputBox
+          type="text"
+          value={topicValue}
+          onChange={(e) => setTopicValue(e.target.value)}
+          ref={topicInput}
+          placeholder="토픽폴더를 추가하세요"
+        />
 
-      <Button onClick={handleTopicCreate} disabled={isSubmitBtnDisabled} height="35px" width="35px">
-        <AddIcon />
-      </Button>
+        <Button
+          onClick={handleTopicCreate}
+          disabled={isSubmitBtnDisabled}
+          height="35px"
+          width="35px"
+        >
+          <AddIcon />
+        </Button>
+      </div>
       <MsgBox>{msg}</MsgBox>
     </StyledForm>
   );
@@ -81,6 +88,12 @@ export default TopicGenerator;
 
 const StyledForm = styled.form`
   margin: 0 auto;
+  > div:first-child {
+    display: flex;
+    button {
+      margin-left: 5px;
+    }
+  }
 `;
 const MsgBox = styled.div`
   min-height: 50px;

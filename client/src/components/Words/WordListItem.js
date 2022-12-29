@@ -7,7 +7,7 @@ import * as S from "./styles";
 
 import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
-import { InputBox, Ellipsis, Button } from "../../components/common";
+import { InputBox, Ellipsis, Button, DeleteModal, ModalPortal } from "../../components/common";
 import { Spinner } from "../common/icons";
 
 const StyledButton = styled(Button)`
@@ -24,13 +24,13 @@ const WordListItem = ({ wordID }) => {
   const [meaningValue, setMeaningValue] = useState(word.meaning);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const wordInputBox = useRef();
-
+  const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   // const setNewData
 
-  const handleDelBtn = () => {
-    if (!window.confirm("삭제할꺼?")) {
-      return;
-    }
+  const handleDeleteModal = () => {
+    setIsDeleteModalOpened(true);
+  };
+  const handleDelete = () => {
     axios
       .delete(`/api/word/${word._id}`) //
       .then((res) => {
@@ -156,7 +156,7 @@ const WordListItem = ({ wordID }) => {
       <Ellipsis
         items={
           <>
-            <Button onClick={handleDelBtn}>
+            <Button onClick={handleDeleteModal} color="red">
               <DeleteIcon />
             </Button>
             <Button onClick={handleFixModeOpen}>
@@ -168,6 +168,15 @@ const WordListItem = ({ wordID }) => {
           </>
         }
       />
+      {isDeleteModalOpened && (
+        <ModalPortal>
+          <DeleteModal
+            handleDelete={handleDelete}
+            setState={setIsDeleteModalOpened}
+            msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
+          />
+        </ModalPortal>
+      )}
     </ListItem>
   );
 };

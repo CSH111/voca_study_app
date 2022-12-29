@@ -8,8 +8,9 @@ import styled from "styled-components";
 import { useRef } from "react";
 import axios from "axios";
 import ListItem from "../../components/common/Lists/ListItem";
-import { Button, Ellipsis, InputBox } from "../../components/common";
+import { Button, DeleteModal, Ellipsis, InputBox, ModalPortal } from "../../components/common";
 import { Spinner } from "../../components/common/icons";
+import Modal from "../common/Modal";
 //TODO 앞,뒤 공백 제거 후 생성요청보내기
 const TopicListItem = ({ topic }) => {
   const { topicsData, setTopicsData, setWordsData } = useContext(DataContext);
@@ -20,12 +21,15 @@ const TopicListItem = ({ topic }) => {
   const [isItemLoading, setIsItemLoading] = useState(false);
   const modifyingValue = useRef();
   const [isDeleted, setIsDeleted] = useState(false);
-
+  const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   // 삭제 로딩 표시
+  const handleDeleteModal = () => {
+    setIsDeleteModalOpened(true);
+  };
+  // const handleModalClose = () => {
+  //   setIsDeleteModalOpened(false);
+  // };
   const handleDelete = () => {
-    if (!window.confirm("삭제할꺼?")) {
-      return;
-    }
     axios
       .delete(`/api/topic/${topic._id}`, { data: { topic: topic.topicName } }) //
       .then((res) => {
@@ -148,7 +152,7 @@ const TopicListItem = ({ topic }) => {
         disabled={isItemLoading}
         items={
           <>
-            <Button onClick={handleDelete} disabled={isItemLoading}>
+            <Button onClick={handleDeleteModal} disabled={isItemLoading} color="red">
               <DeleteIcon />
             </Button>
             <Button onClick={handleFixModeOpen} disabled={isItemLoading}>
@@ -157,6 +161,15 @@ const TopicListItem = ({ topic }) => {
           </>
         }
       />
+      {isDeleteModalOpened && (
+        <ModalPortal>
+          <DeleteModal
+            msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
+            handleDelete={handleDelete}
+            setState={setIsDeleteModalOpened}
+          />
+        </ModalPortal>
+      )}
     </ListItem>
   );
 };
@@ -186,4 +199,26 @@ const StyledForm = styled.form`
 
 const StyledButtonsBox = styled.div`
   display: flex;
+`;
+
+const StyledModalContents = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  p {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
+  }
+  .del-modal-btns-box {
+    margin-top: 10px;
+    align-self: flex-end;
+    button {
+      font-size: 16px;
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
+    }
+  }
 `;

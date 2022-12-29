@@ -5,6 +5,7 @@ const Paper = ({
   width,
   className,
   paperHeader,
+  headerMb,
   paperFooter,
   bodyAlign,
   flex,
@@ -41,7 +42,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   padding: 20px;
   .paper-header {
-    margin-bottom: 20px;
+    margin-bottom: ${(p) => p.headerMb ?? "20px"};
   }
   .paper-footer {
     align-self: center;

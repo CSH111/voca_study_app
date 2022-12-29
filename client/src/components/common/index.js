@@ -9,3 +9,5 @@ export { default as PaperTitle } from "./PaperTitle";
 export { default as PageContainer } from "./PageContainer";
 export { default as AuthLink } from "./AuthLink";
 export { default as Devider } from "./Devider";
+export { default as ModalPortal } from "./ModalPortal";
+export { default as DeleteModal } from "./DeleteModal";
