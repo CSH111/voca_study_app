@@ -28,6 +28,7 @@ export const Controls = styled.div`
 export const Form = styled.form`
   display: flex;
   align-items: center;
+  /* justify-content: flex-start; */
   > *:not(:last-child) {
     margin-right: 5px;
   }

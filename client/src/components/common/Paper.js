@@ -1,8 +1,26 @@
 import styled from "styled-components";
 
-const Paper = ({ children, width, className, paperHeader, paperFooter, bodyAlign, flex }) => {
+const Paper = ({
+  children,
+  width,
+  className,
+  paperHeader,
+  paperFooter,
+  bodyAlign,
+  flex,
+  shadowColor,
+  onClick,
+  minHeight,
+}) => {
   return (
-    <StyledDiv width={width} className={className} flex={flex}>
+    <StyledDiv
+      onClick={onClick}
+      width={width}
+      className={className}
+      flex={flex}
+      shadowColor={shadowColor}
+      minHeight={minHeight}
+    >
       {paperHeader && <div className="paper-header">{paperHeader}</div>}
       <Body bodyAlign={bodyAlign}>{children}</Body>
       {paperFooter && <div className="paper-footer">{paperFooter}</div>}
@@ -15,9 +33,9 @@ const StyledDiv = styled.div`
   flex: ${({ flex }) => flex ?? "none"};
   margin-bottom: 10%;
   margin-top: 10%;
-  min-height: 400px;
+  min-height: ${(p) => p.minHeight ?? "400px"};
   width: ${(p) => p.width ?? "400px"};
-  box-shadow: 3px 3px 6px 2px gray;
+  box-shadow: 3px 3px 6px 2px ${({ shadowColor }) => shadowColor ?? "gray"};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

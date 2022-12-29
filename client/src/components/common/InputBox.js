@@ -4,7 +4,9 @@ const InputBox = styled.input`
   border: none;
   border-bottom: solid 1px black;
   height: 30px;
-  padding: 5px;
+  line-height: 30px;
+  font-size: 16px;
+  /* padding: 0px; */
   /* width: 100%; */
   /* min-width: 100px; */
   background: none;

@@ -4,7 +4,7 @@ const Button = styled.button`
   font-size: ${({ fontSize }) => fontSize ?? "20px"};
   width: ${({ width }) => width ?? "auto"};
   height: ${({ height }) => height ?? "auto"};
-  margin: ${({ margin }) => margin ?? "auto"};
+  margin: ${({ margin }) => margin ?? "0"};
   color: ${({ color }) => color ?? "auto"};
   border-radius: 0.3rem;
   border: none;

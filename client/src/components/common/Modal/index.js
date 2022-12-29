@@ -1,4 +1,62 @@
-import ModalContainer from "./ModalContainer";
-import ModalBg from "./ModalBg";
+import styled from "styled-components";
+import Paper from "../Paper";
+import { useState } from "react";
+import { CancelIcon } from "../icons";
+import Button from "../Button";
 
-export { ModalContainer, ModalBg };
+const Modal = ({ children, state, setState }) => {
+  const handleBgClick = () => {
+    setState(false);
+  };
+  const handlePaperClick = (e) => {
+    e.stopPropagation();
+  };
+  const handleModalClose = () => {
+    setState(false);
+  };
+  return (
+    <StyledBg onClick={handleBgClick}>
+      <StyledPaper
+        shadowColor="#161616ff"
+        minHeight="200px"
+        onClick={handlePaperClick}
+        paperHeader={
+          <StyledButton onClick={handleModalClose}>
+            <CancelIcon fontSize="30px" />
+          </StyledButton>
+        }
+      >
+        {children}
+      </StyledPaper>
+    </StyledBg>
+  );
+};
+
+export default Modal;
+
+const StyledButton = styled(Button)`
+  float: right;
+`;
+
+const StyledPaper = styled(Paper)`
+  /* margin: auto auto; */
+  /* align-self: center; */
+`;
+
+const StyledBg = styled.div`
+  /* display: ${({ open }) => (open ? "flex" : "none")}; */
+  /* opacity: ${({ open }) => (open ? "1" : "0")};
+  transition: opacity 0.5s; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background-color: #000000b6;
+`;
+
+// export { ModalContainer, ModalBg };
