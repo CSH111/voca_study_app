@@ -3,14 +3,14 @@ import { useContext, useState } from "react";
 import { DataContext } from "../../services/DataContext";
 
 import * as S from "./styles";
-import { CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
+import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
 import styled from "styled-components";
 import { useRef } from "react";
 import axios from "axios";
 import ListItem from "../../components/common/Lists/ListItem";
 import { Button, Ellipsis, InputBox } from "../../components/common";
 import { Spinner } from "../../components/common/icons";
-
+//TODO 앞,뒤 공백 제거 후 생성요청보내기
 const TopicListItem = ({ topic }) => {
   const { topicsData, setTopicsData, setWordsData } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
@@ -38,11 +38,16 @@ const TopicListItem = ({ topic }) => {
     setTopicValue(e.target.value);
   };
 
-  const handleModificationMode = () => {
+  const handleFixModeOpen = () => {
     setIsModifying(true);
     setTimeout(() => {
       modifyingValue.current.focus();
     }, 0);
+  };
+
+  const handleFixModeClose = () => {
+    setIsModifying(false);
+    setTopicValue(topic.topicName);
   };
 
   const getUpdatedTopics = (newTopicObject) => {
@@ -101,17 +106,28 @@ const TopicListItem = ({ topic }) => {
         <FolderIcon fontSize="25px" />
         <StyledCenter>
           {isModifying ? (
-            <form>
+            <StyledForm>
               <InputBox
                 type="text"
                 value={topicValue}
                 onChange={handleTopicInput}
                 ref={modifyingValue}
               />
-              <Button onClick={handleSubmission} height="35px" width="35px" margin="0 0 0 5px">
-                <CheckIcon />
-              </Button>
-            </form>
+              <StyledButtonsBox className="btnBox">
+                <Button
+                  onClick={handleSubmission}
+                  height="35px"
+                  width="35px"
+                  margin="0 0 0 5px"
+                  color="green"
+                >
+                  <CheckIcon />
+                </Button>
+                <Button onClick={handleFixModeClose} height="35px" width="35px" margin="0 0 0 5px">
+                  <CancelIcon />
+                </Button>
+              </StyledButtonsBox>
+            </StyledForm>
           ) : (
             <StyledDiv>
               <h3>{topic.topicName}</h3>
@@ -135,7 +151,7 @@ const TopicListItem = ({ topic }) => {
             <Button onClick={handleDelete} disabled={isItemLoading}>
               <DeleteIcon />
             </Button>
-            <Button onClick={handleModificationMode} disabled={isItemLoading}>
+            <Button onClick={handleFixModeOpen} disabled={isItemLoading}>
               <EditIcon />
             </Button>
           </>
@@ -156,4 +172,18 @@ const StyledDiv = styled.div`
   h3 {
     margin-right: 0.5rem;
   }
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    .btnBox {
+      align-self: flex-end;
+    }
+  }
+`;
+
+const StyledButtonsBox = styled.div`
+  display: flex;
 `;
