@@ -5,13 +5,14 @@ import { CancelIcon, Spinner } from "../icons";
 import Button from "../Button";
 
 const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
-  const handleBgClick = () => {
+  const handleBgClick = (e) => {
+    e.stopPropagation();
     setIsOpen(false);
   };
   const handlePaperClick = (e) => {
     e.stopPropagation();
   };
-  const handleModalClose = () => {
+  const handleCloseBtnClick = () => {
     setIsOpen(false);
   };
 
@@ -35,11 +36,12 @@ const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
           minHeight="200px"
           onClick={handlePaperClick}
           paperHeader={
-            <StyledButton onClick={handleModalClose}>
+            <StyledButton onClick={handleCloseBtnClick}>
               <CancelIcon fontSize="25px" />
             </StyledButton>
           }
           paperFooter={footer}
+          isModal
         >
           {children}
           {isLoading && (

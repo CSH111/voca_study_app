@@ -47,3 +47,7 @@ export const CheckIcon = (props) => {
 export const CancelIcon = (props) => {
   return <FontAwesomeIcon icon="fa-solid fa-xmark" {...props} />;
 };
+
+export const StudyIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-book-open-reader" {...props} />;
+};

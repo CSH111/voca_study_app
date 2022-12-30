@@ -36,7 +36,7 @@ const StyledButton = styled.button`
 const Button = ({ children, onClick, ...rest }) => {
   const handleClick = (e) => {
     e.stopPropagation();
-    onClick(e);
+    onClick && onClick(e);
   };
   return (
     <StyledButton {...rest} onClick={handleClick}>

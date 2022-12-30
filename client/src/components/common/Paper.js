@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Paper = ({
   children,
@@ -12,6 +12,7 @@ const Paper = ({
   shadowColor,
   onClick,
   minHeight,
+  isModal,
 }) => {
   return (
     <StyledDiv
@@ -21,6 +22,8 @@ const Paper = ({
       flex={flex}
       shadowColor={shadowColor}
       minHeight={minHeight}
+      headerMb={headerMb}
+      isModal={isModal}
     >
       {paperHeader && <div className="paper-header">{paperHeader}</div>}
       <Body bodyAlign={bodyAlign}>{children}</Body>
@@ -31,11 +34,15 @@ const Paper = ({
 
 const StyledDiv = styled.div`
   background-color: white;
-  flex: ${({ flex }) => flex ?? "none"};
   margin-bottom: 10%;
   margin-top: 10%;
   min-height: ${(p) => p.minHeight ?? "400px"};
   width: ${(p) => p.width ?? "400px"};
+  flex: ${(p) => p.flex ?? "none"};
+
+  /* min-width: ${(p) => p.minWidth ?? "400px"}; */
+  /* width: 400px; */
+  /* max-width: ${(p) => p.maxWidth ?? "400px"}; */
   box-shadow: 3px 3px 6px 2px ${({ shadowColor }) => shadowColor ?? "gray"};
   display: flex;
   flex-direction: column;
@@ -50,9 +57,12 @@ const StyledDiv = styled.div`
     display: flex;
     align-items: center;
   }
-  /* .paper-body {
-    flex: 1;
-  } */
+
+  @media (max-width: 800px) {
+    box-shadow: ${(p) => !p.isModal && "none"};
+    width: ${(p) => (p.isModal ? "90%" : "100%")};
+    margin: 0;
+  }
 `;
 const Body = styled.div`
   flex: 1;

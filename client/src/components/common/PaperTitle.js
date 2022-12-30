@@ -4,8 +4,7 @@ const PaperTitle = styled.h3`
   font-weight: bold;
   font-size: 25px;
   word-break: keep-all;
-  /* margin: 20px 0; */
-  /* margin-bottom: 20px; */
+  line-height: 35px;
 `;
 
 export default PaperTitle;

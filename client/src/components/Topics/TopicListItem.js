@@ -12,27 +12,28 @@ import { Button, DeleteModal, Ellipsis, InputBox, ModalPortal } from "../../comp
 import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
 import { useNavigate } from "react-router-dom";
+import Modal from "../common/Modal";
+import LinkModal from "./LinkModal";
 // import Modal from "../common/Modal";
 
 const TopicListItem = ({ topic }) => {
   const { topicsData, setTopicsData, wordsData, setWordsData } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
-  const [topicValue, setTopicValue] = useState(topic.topicName);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const fixInput = useRef();
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
+  const [isLinkModalOpened, setIsLinkModalOpened] = useState(false);
   const wordsForThisTopic = wordsData.words.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
-  const navigate = useNavigate();
+
   // 삭제후 같은이름 추가(및 뒤로가기 시 버그)
 
   const handleDeleteModal = (e) => {
     setIsDeleteModalOpened(true);
   };
 
-  // console.log(topicsData.topics.filter);
   const handleDelete = () => {
     const _topics = topicsData.topics.filter(({ topicName }) => topicName !== topic.topicName);
 
@@ -47,11 +48,8 @@ const TopicListItem = ({ topic }) => {
       .catch(console.log);
   };
 
-  const handleTopicInput = (e) => {};
-
   const handleFixModeOpen = (e) => {
     setIsModifying(true);
-    console.log(topic.topicName);
     setTimeout(() => {
       fixInput.current.focus();
       fixInput.current.value = topic.topicName;
@@ -96,7 +94,6 @@ const TopicListItem = ({ topic }) => {
     e.preventDefault();
     const inputValue = fixInput.current.value;
     if (inputValue === "") return;
-    console.log("submit");
     setIsModifying(false);
     setIsItemLoading(true);
     updateTopic(fixInput.current.value) //
@@ -104,7 +101,7 @@ const TopicListItem = ({ topic }) => {
   };
 
   const handleListClick = () => {
-    navigate(`/topics/${topic.topicName}`);
+    setIsLinkModalOpened(true);
   };
 
   return (
@@ -117,7 +114,6 @@ const TopicListItem = ({ topic }) => {
           </div>
         </>
       )}
-      {/* <S.Link to={isModifying ? "#" : `/topics/${topic.topicName}`}> */}
       <S.ListContainer>
         <FolderIcon fontSize="25px" />
         <StyledCenter>
@@ -135,7 +131,13 @@ const TopicListItem = ({ topic }) => {
                 >
                   <CheckIcon />
                 </Button>
-                <Button onClick={handleFixModeClose} height="35px" width="35px" margin="0 0 0 5px">
+                <Button
+                  type="button"
+                  onClick={handleFixModeClose}
+                  height="35px"
+                  width="35px"
+                  margin="0 0 0 5px"
+                >
                   <CancelIcon />
                 </Button>
               </StyledButtonsBox>
@@ -149,7 +151,6 @@ const TopicListItem = ({ topic }) => {
           )}
         </StyledCenter>
       </S.ListContainer>
-      {/* </S.Link> */}
 
       <Ellipsis
         disabled={isItemLoading}
@@ -171,6 +172,14 @@ const TopicListItem = ({ topic }) => {
           isOpen={isDeleteModalOpened}
           setIsOpen={setIsDeleteModalOpened}
           isLoading={isDeleteLoading}
+        />
+      </ModalPortal>
+      <ModalPortal>
+        <LinkModal
+          isOpen={isLinkModalOpened}
+          setIsOpen={setIsLinkModalOpened}
+          leftLink={`/test/${topic.topicName}`}
+          rightLink={`/topics/${topic.topicName}`}
         />
       </ModalPortal>
     </ListItem>
