@@ -41,13 +41,13 @@ const TopicGenerator = function ({ setItemLoading }) {
       setMsg("공백을 입력할 수 없습니다.");
       return;
     }
-    if (isDuplicated(topicValue)) {
+    if (isDuplicated(topicValue.trim())) {
       setMsg("중복된 이름입니다.");
       return;
     }
     setItemLoading(true);
     setIsSubmitBtnDisabled(true);
-    const body = { topicName: topicValue };
+    const body = { topicName: topicValue.trim() };
     axios
       .post("/api/topic", body) //
       .then((res) => {
