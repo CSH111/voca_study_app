@@ -11,6 +11,7 @@ import ListItem from "../../components/common/Lists/ListItem";
 import { Button, DeleteModal, Ellipsis, InputBox, ModalPortal } from "../../components/common";
 import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
+import { useNavigate } from "react-router-dom";
 // import Modal from "../common/Modal";
 
 const TopicListItem = ({ topic }) => {
@@ -18,22 +19,22 @@ const TopicListItem = ({ topic }) => {
   const [isModifying, setIsModifying] = useState(false);
   const [topicValue, setTopicValue] = useState(topic.topicName);
   const [isItemLoading, setIsItemLoading] = useState(false);
-  const modifyingValue = useRef();
+  const fixInput = useRef();
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const wordsForThisTopic = wordsData.words.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
-
+  const navigate = useNavigate();
   // 삭제후 같은이름 추가(및 뒤로가기 시 버그)
 
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (e) => {
     setIsDeleteModalOpened(true);
   };
 
   // console.log(topicsData.topics.filter);
   const handleDelete = () => {
-    const _topics = topicsData.topics.filter(({ topicName }) => topicName !== topicValue);
+    const _topics = topicsData.topics.filter(({ topicName }) => topicName !== topic.topicName);
 
     setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
@@ -46,20 +47,19 @@ const TopicListItem = ({ topic }) => {
       .catch(console.log);
   };
 
-  const handleTopicInput = (e) => {
-    setTopicValue(e.target.value);
-  };
+  const handleTopicInput = (e) => {};
 
-  const handleFixModeOpen = () => {
+  const handleFixModeOpen = (e) => {
     setIsModifying(true);
+    console.log(topic.topicName);
     setTimeout(() => {
-      modifyingValue.current.focus();
+      fixInput.current.focus();
+      fixInput.current.value = topic.topicName;
     }, 0);
   };
 
   const handleFixModeClose = () => {
     setIsModifying(false);
-    setTopicValue(topic.topicName);
   };
 
   const getUpdatedTopics = (newTopicObject) => {
@@ -71,8 +71,8 @@ const TopicListItem = ({ topic }) => {
     });
   };
 
-  const updateTopic = () => {
-    const body = { topicName: topicValue };
+  const updateTopic = (value) => {
+    const body = { topicName: value };
     return axios
       .patch(`/api/topic/${topic._id}`, body) //
       .then(() => {
@@ -94,15 +94,21 @@ const TopicListItem = ({ topic }) => {
 
   const handleSubmission = (e) => {
     e.preventDefault();
-    console.log("hi");
+    const inputValue = fixInput.current.value;
+    if (inputValue === "") return;
+    console.log("submit");
     setIsModifying(false);
     setIsItemLoading(true);
-    updateTopic() //
+    updateTopic(fixInput.current.value) //
       .finally(() => setIsItemLoading(false));
   };
 
+  const handleListClick = () => {
+    navigate(`/topics/${topic.topicName}`);
+  };
+
   return (
-    <ListItem className="topic" isBlur={isItemLoading}>
+    <ListItem isBlur={isItemLoading} onClick={handleListClick}>
       {(isItemLoading || isDeleteLoading) && (
         <>
           <div className="blur-filter"></div>
@@ -111,19 +117,16 @@ const TopicListItem = ({ topic }) => {
           </div>
         </>
       )}
-      <S.Link to={isModifying ? "#" : `/topics/${topic.topicName}`}>
+      {/* <S.Link to={isModifying ? "#" : `/topics/${topic.topicName}`}> */}
+      <S.ListContainer>
         <FolderIcon fontSize="25px" />
         <StyledCenter>
           {isModifying ? (
             <StyledForm>
-              <InputBox
-                type="text"
-                value={topicValue}
-                onChange={handleTopicInput}
-                ref={modifyingValue}
-              />
+              <InputBox type="text" ref={fixInput} />
               <StyledButtonsBox className="btnBox">
                 <Button
+                  type="submit"
                   onClick={handleSubmission}
                   height="35px"
                   width="35px"
@@ -145,7 +148,8 @@ const TopicListItem = ({ topic }) => {
             </StyledDiv>
           )}
         </StyledCenter>
-      </S.Link>
+      </S.ListContainer>
+      {/* </S.Link> */}
 
       <Ellipsis
         disabled={isItemLoading}

@@ -3,7 +3,7 @@ import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topic
 import { Button, ModalPortal, PageContainer, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
 import Modal from "../components/common/Modal";
-
+//TODO: 페이지에서 topic url 입력이동시 버그
 function Topics() {
   const [itemLoading, setItemLoading] = useState(false);
   const [isAddModalOpened, setIsAddModalOpened] = useState(false);

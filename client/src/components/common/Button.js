@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Button = styled.button`
+const StyledButton = styled.button`
   font-size: ${({ fontSize }) => fontSize ?? "20px"};
   width: ${({ width }) => width ?? "auto"};
   height: ${({ height }) => height ?? "auto"};
@@ -32,5 +32,17 @@ const Button = styled.button`
     `}
 `;
 //
+
+const Button = ({ children, onClick, ...rest }) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onClick(e);
+  };
+  return (
+    <StyledButton {...rest} onClick={handleClick}>
+      {children}
+    </StyledButton>
+  );
+};
 
 export default Button;

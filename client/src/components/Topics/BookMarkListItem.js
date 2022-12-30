@@ -6,12 +6,13 @@ import styled from "styled-components";
 const BookMarkListItem = () => {
   return (
     <ListItem>
-      <S.Link to={"/bookmark"} className="toBookmark">
-        {/* <div> */}
+      <S.ListContainer>
+        {/* <S.Link to={"/bookmark"} className="toBookmark"> */}
         <BookMarkIcon fontSize="25px" />
         <StyledTitle>북마크 단어 모음</StyledTitle>
-        {/* </div> */}
-      </S.Link>
+        {/* </S.Link> */}
+      </S.ListContainer>
+      {/* <div></div> */}
     </ListItem>
   );
 };

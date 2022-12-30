@@ -45,9 +45,14 @@ const StyledDiv = styled.div`
 `;
 const Ellipsis = ({ items, disabled }) => {
   const [menuOn, setMenuOn] = useState(false);
+  const handleClick = (e) => {
+    // e.stopPropagation();
+    setMenuOn(!menuOn);
+  };
+
   return (
     <StyledDiv menuOn={menuOn} className="ellipsis">
-      <Button className="ellipsisBtn" disabled={disabled} onClick={() => setMenuOn(!menuOn)}>
+      <Button className="ellipsisBtn" disabled={disabled} onClick={handleClick}>
         <EllipsisIcon />
       </Button>
 
