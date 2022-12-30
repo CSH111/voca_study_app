@@ -17,26 +17,28 @@ import ProgressBar from "./ProgressBar";
 const TopicListItem = ({ topic }) => {
   const { topicsData, setTopicsData, wordsData, setWordsData } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
-  // const [wordsAmount, setWordsAmount] = useState("");
-  // const [wordsDoneAmount, setWordsDoneAmount] = useState("");
   const [topicValue, setTopicValue] = useState(topic.topicName);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const modifyingValue = useRef();
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const wordsForThisTopic = wordsData.words.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
-  // 삭제 로딩 표시
-  console.log(wordsAmount);
+
+  //TODO 삭제 로딩 표시 // 삭제후 같은이름 추가(및 뒤로가기 시 버그)
 
   const handleDeleteModal = () => {
     setIsDeleteModalOpened(true);
   };
   const handleDelete = () => {
+    setIsDeleteLoading(true);
+    setIsDeleteModalOpened(false);
     axios
       .delete(`/api/topic/${topic._id}`, { data: { topic: topic.topicName } }) //
       .then((res) => {
+        setIsDeleteLoading(false);
         setIsDeleted(true);
       })
       .catch(console.log);
@@ -102,7 +104,7 @@ const TopicListItem = ({ topic }) => {
   }
   return (
     <ListItem className="topic" isBlur={isItemLoading}>
-      {isItemLoading && (
+      {(isItemLoading || isDeleteLoading) && (
         <>
           <div className="blur-filter"></div>
           <div className="spinner">
@@ -159,15 +161,17 @@ const TopicListItem = ({ topic }) => {
           </>
         }
       />
-      {isDeleteModalOpened && (
-        <ModalPortal>
-          <DeleteModal
-            msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
-            handleDelete={handleDelete}
-            setState={setIsDeleteModalOpened}
-          />
-        </ModalPortal>
-      )}
+      {/* {isDeleteModalOpened && ( */}
+      <ModalPortal>
+        <DeleteModal
+          msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
+          handleDelete={handleDelete}
+          isOpen={isDeleteModalOpened}
+          setIsOpen={setIsDeleteModalOpened}
+          isLoading={isDeleteLoading}
+        />
+      </ModalPortal>
+      {/* )} */}
     </ListItem>
   );
 };

@@ -1,15 +1,14 @@
-import { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Modal from "./Modal";
 
-const DeleteModal = ({ msg, handleDelete, setState }) => {
+const DeleteModal = ({ msg, handleDelete, setIsOpen, isOpen, isLoading }) => {
   const handleModalClose = () => {
-    setState(false);
+    setIsOpen(false);
   };
 
   return (
-    <Modal setState={setState}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} isLoading={isLoading}>
       <StyledModalContents>
         <p>{msg}</p>
         <div className="del-modal-btns-box">

@@ -21,12 +21,14 @@ const WordListItem = ({ wordID }) => {
   const [isItemLoading, setIsItemLoading] = useState(false);
   const wordInputBox = useRef();
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
-  // const setNewData
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const handleDeleteModal = () => {
     setIsDeleteModalOpened(true);
   };
   const handleDelete = () => {
+    setIsDeleteLoading(true);
+    setIsDeleteModalOpened(false);
     axios
       .delete(`/api/word/${word._id}`) //
       .then((res) => {
@@ -37,6 +39,9 @@ const WordListItem = ({ wordID }) => {
             words: data.words.filter((_word) => _word._id !== word._id),
           };
         });
+      })
+      .finally(() => {
+        setIsDeleteLoading(false);
       });
   };
 
@@ -141,7 +146,7 @@ const WordListItem = ({ wordID }) => {
 
   return (
     <ListItem cursor="pointer">
-      {isItemLoading && (
+      {(isItemLoading || isDeleteLoading) && (
         <>
           <div className="blur-filter"></div>
           <div className="spinner">
@@ -165,15 +170,15 @@ const WordListItem = ({ wordID }) => {
           </>
         }
       />
-      {isDeleteModalOpened && (
-        <ModalPortal>
-          <DeleteModal
-            handleDelete={handleDelete}
-            setState={setIsDeleteModalOpened}
-            msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
-          />
-        </ModalPortal>
-      )}
+      <ModalPortal>
+        <DeleteModal
+          handleDelete={handleDelete}
+          setIsOpen={setIsDeleteModalOpened}
+          isOpen={isDeleteModalOpened}
+          msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
+          isLoading={isDeleteLoading}
+        />
+      </ModalPortal>
     </ListItem>
   );
 };

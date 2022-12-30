@@ -31,13 +31,11 @@ function Topics() {
         <BookMarkListItem />
         <TopicList itemLoading={itemLoading} />
       </Paper>
-      {isAddModalOpened && (
-        <ModalPortal>
-          <Modal state={isAddModalOpened} setState={setIsAddModalOpened}>
-            <TopicGenerator setItemLoading={setItemLoading} />
-          </Modal>
-        </ModalPortal>
-      )}
+      <ModalPortal>
+        <Modal isOpen={isAddModalOpened} setIsOpen={setIsAddModalOpened} isLoading={itemLoading}>
+          <TopicGenerator setItemLoading={setItemLoading} />
+        </Modal>
+      </ModalPortal>
     </PageContainer>
   );
 }
