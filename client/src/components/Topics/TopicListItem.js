@@ -13,7 +13,6 @@ import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
 // import Modal from "../common/Modal";
 
-//TODO 앞,뒤 공백 제거 후 생성요청보내기
 const TopicListItem = ({ topic }) => {
   const { topicsData, setTopicsData, wordsData, setWordsData } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
@@ -21,25 +20,28 @@ const TopicListItem = ({ topic }) => {
   const [isItemLoading, setIsItemLoading] = useState(false);
   const modifyingValue = useRef();
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const wordsForThisTopic = wordsData.words.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
 
-  //TODO 삭제 로딩 표시 // 삭제후 같은이름 추가(및 뒤로가기 시 버그)
+  // 삭제후 같은이름 추가(및 뒤로가기 시 버그)
 
   const handleDeleteModal = () => {
     setIsDeleteModalOpened(true);
   };
+
+  // console.log(topicsData.topics.filter);
   const handleDelete = () => {
+    const _topics = topicsData.topics.filter(({ topicName }) => topicName !== topicValue);
+
     setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
     axios
       .delete(`/api/topic/${topic._id}`, { data: { topic: topic.topicName } }) //
       .then((res) => {
         setIsDeleteLoading(false);
-        setIsDeleted(true);
+        setTopicsData((data) => ({ ...data, topics: [..._topics] }));
       })
       .catch(console.log);
   };
@@ -99,9 +101,6 @@ const TopicListItem = ({ topic }) => {
       .finally(() => setIsItemLoading(false));
   };
 
-  if (isDeleted) {
-    return null;
-  }
   return (
     <ListItem className="topic" isBlur={isItemLoading}>
       {(isItemLoading || isDeleteLoading) && (
