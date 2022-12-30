@@ -160,7 +160,6 @@ const TopicListItem = ({ topic }) => {
           </>
         }
       />
-      {/* {isDeleteModalOpened && ( */}
       <ModalPortal>
         <DeleteModal
           msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
@@ -170,7 +169,6 @@ const TopicListItem = ({ topic }) => {
           isLoading={isDeleteLoading}
         />
       </ModalPortal>
-      {/* )} */}
     </ListItem>
   );
 };
@@ -186,6 +184,11 @@ const StyledDiv = styled.div`
 
   > *:not(:last-child) {
     margin-right: 10px;
+  }
+
+  h3 {
+    display: inline;
+    word-break: break-all;
   }
 `;
 
