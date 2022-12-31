@@ -3,6 +3,7 @@ import Paper from "../Paper";
 import { useEffect, useState } from "react";
 import { CancelIcon, Spinner } from "../icons";
 import Button from "../Button";
+import ModalPortal from "../ModalPortal";
 
 const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
   const handleBgClick = (e) => {
@@ -27,31 +28,32 @@ const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
   }, [isOpen]);
 
   const [renderTreeState, setRenderTreeState] = useState(false);
-
   return (
-    renderTreeState && (
-      <StyledBg onClick={handleBgClick} state={isOpen}>
-        <StyledPaper
-          shadowColor="#161616ff"
-          minHeight="200px"
-          onClick={handlePaperClick}
-          paperHeader={
-            <StyledButton onClick={handleCloseBtnClick}>
-              <CancelIcon fontSize="25px" />
-            </StyledButton>
-          }
-          paperFooter={footer}
-          isModal
-        >
-          {children}
-          {isLoading && (
-            <StyledLoadingCover>
-              <Spinner fontSize="35px" color="#000000" />
-            </StyledLoadingCover>
-          )}
-        </StyledPaper>
-      </StyledBg>
-    )
+    <ModalPortal>
+      {renderTreeState && (
+        <StyledBg onClick={handleBgClick} state={isOpen}>
+          <StyledPaper
+            shadowColor="#161616ff"
+            minHeight="200px"
+            onClick={handlePaperClick}
+            paperHeader={
+              <StyledButton onClick={handleCloseBtnClick}>
+                <CancelIcon fontSize="25px" />
+              </StyledButton>
+            }
+            paperFooter={footer}
+            isModal
+          >
+            {children}
+            {isLoading && (
+              <StyledLoadingCover>
+                <Spinner fontSize="35px" color="#000000" />
+              </StyledLoadingCover>
+            )}
+          </StyledPaper>
+        </StyledBg>
+      )}
+    </ModalPortal>
   );
 };
 

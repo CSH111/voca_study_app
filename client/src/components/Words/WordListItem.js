@@ -7,7 +7,7 @@ import * as S from "./styles";
 
 import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
-import { InputBox, Ellipsis, Button, DeleteModal, ModalPortal } from "../../components/common";
+import { InputBox, Ellipsis, Button, DeleteModal } from "../../components/common";
 import { Spinner } from "../common/icons";
 
 const WordListItem = ({ wordID }) => {
@@ -170,15 +170,13 @@ const WordListItem = ({ wordID }) => {
           </>
         }
       />
-      <ModalPortal>
-        <DeleteModal
-          handleDelete={handleDelete}
-          setIsOpen={setIsDeleteModalOpened}
-          isOpen={isDeleteModalOpened}
-          msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
-          isLoading={isDeleteLoading}
-        />
-      </ModalPortal>
+      <DeleteModal
+        handleDelete={handleDelete}
+        setIsOpen={setIsDeleteModalOpened}
+        isOpen={isDeleteModalOpened}
+        msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
+        isLoading={isDeleteLoading}
+      />
     </ListItem>
   );
 };

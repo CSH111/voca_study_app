@@ -8,14 +8,13 @@ import styled from "styled-components";
 import { useRef } from "react";
 import axios from "axios";
 import ListItem from "../../components/common/Lists/ListItem";
-import { Button, DeleteModal, Ellipsis, InputBox, ModalPortal } from "../../components/common";
+import { Button, DeleteModal, Ellipsis, InputBox } from "../../components/common";
 import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
-import { useNavigate } from "react-router-dom";
-import Modal from "../common/Modal";
+
 import LinkModal from "./LinkModal";
 // import Modal from "../common/Modal";
-
+//TODO: topic 삭제시 컨텍스트반영ㄱ(삭제후 같은이름 생성시 버그)
 const TopicListItem = ({ topic }) => {
   const { topicsData, setTopicsData, wordsData, setWordsData } = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
@@ -165,23 +164,19 @@ const TopicListItem = ({ topic }) => {
           </>
         }
       />
-      <ModalPortal>
-        <DeleteModal
-          msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
-          handleDelete={handleDelete}
-          isOpen={isDeleteModalOpened}
-          setIsOpen={setIsDeleteModalOpened}
-          isLoading={isDeleteLoading}
-        />
-      </ModalPortal>
-      <ModalPortal>
-        <LinkModal
-          isOpen={isLinkModalOpened}
-          setIsOpen={setIsLinkModalOpened}
-          leftLink={`/test/${topic.topicName}`}
-          rightLink={`/topics/${topic.topicName}`}
-        />
-      </ModalPortal>
+      <DeleteModal
+        msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
+        handleDelete={handleDelete}
+        isOpen={isDeleteModalOpened}
+        setIsOpen={setIsDeleteModalOpened}
+        isLoading={isDeleteLoading}
+      />
+      <LinkModal
+        isOpen={isLinkModalOpened}
+        setIsOpen={setIsLinkModalOpened}
+        leftLink={`/test/${topic.topicName}`}
+        rightLink={`/topics/${topic.topicName}`}
+      />
     </ListItem>
   );
 };

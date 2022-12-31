@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topics";
-import { Button, ModalPortal, PageContainer, Paper, PaperTitle } from "../components/common";
+import { Button, PageContainer, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
 import Modal from "../components/common/Modal";
 //TODO: 페이지에서 topic url 입력이동시 버그
@@ -31,11 +31,9 @@ function Topics() {
         <BookMarkListItem />
         <TopicList itemLoading={itemLoading} />
       </Paper>
-      <ModalPortal>
-        <Modal isOpen={isAddModalOpened} setIsOpen={setIsAddModalOpened} isLoading={itemLoading}>
-          <TopicGenerator setItemLoading={setItemLoading} />
-        </Modal>
-      </ModalPortal>
+      <Modal isOpen={isAddModalOpened} setIsOpen={setIsAddModalOpened} isLoading={itemLoading}>
+        <TopicGenerator setItemLoading={setItemLoading} />
+      </Modal>
     </PageContainer>
   );
 }

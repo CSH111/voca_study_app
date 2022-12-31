@@ -2,7 +2,6 @@ import * as S from "./styles";
 import { BookMarkIcon } from "../common/icons";
 import ListItem from "../common/Lists/ListItem";
 import styled from "styled-components";
-import { ModalPortal } from "../common";
 import LinkModal from "./LinkModal";
 import { useState } from "react";
 
@@ -19,14 +18,12 @@ const BookMarkListItem = () => {
         <StyledTitle>북마크 단어 모음</StyledTitle>
       </S.ListContainer>
 
-      <ModalPortal>
-        <LinkModal
-          isOpen={isLinkModalOpened}
-          setIsOpen={setIsLinkModalOpened}
-          leftLink={`/test/bookmark}`}
-          rightLink={`/bookmark`}
-        />
-      </ModalPortal>
+      <LinkModal
+        isOpen={isLinkModalOpened}
+        setIsOpen={setIsLinkModalOpened}
+        leftLink={`/test/bookmark}`}
+        rightLink={`/bookmark`}
+      />
     </ListItem>
   );
 };
