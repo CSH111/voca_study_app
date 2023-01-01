@@ -9,3 +9,4 @@ export { default as PageContainer } from "./PageContainer";
 export { default as AuthLink } from "./AuthLink";
 export { default as Devider } from "./Devider";
 export { default as DeleteModal } from "./DeleteModal";
+export { default as BookmarkButton } from "./BookmarkButton";

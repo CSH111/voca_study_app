@@ -49,6 +49,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   padding: 20px;
   .paper-header {
+    display: flex;
     margin-bottom: ${(p) => p.headerMb ?? "20px"};
   }
   .paper-footer {

@@ -51,3 +51,11 @@ export const CancelIcon = (props) => {
 export const StudyIcon = (props) => {
   return <FontAwesomeIcon icon="fa-solid fa-book-open-reader" {...props} />;
 };
+
+export const LeftIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-angle-left" {...props} />;
+};
+
+export const RightIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-angle-right" {...props} />;
+};

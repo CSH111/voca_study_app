@@ -7,7 +7,7 @@ import * as S from "./styles";
 
 import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
-import { InputBox, Ellipsis, Button, DeleteModal } from "../../components/common";
+import { InputBox, Ellipsis, Button, DeleteModal, BookmarkButton } from "../../components/common";
 import { Spinner } from "../common/icons";
 //TODO: filter대신 find, input state 대신 ref이용하기
 const WordListItem = ({ wordData }) => {
@@ -165,9 +165,9 @@ const WordListItem = ({ wordData }) => {
             <Button onClick={handleFixModeOpen}>
               <EditIcon />
             </Button>
-            <StyledButton onClick={handleBookmark} isBookmarked={isBookmarked} className="bookmark">
+            <BookmarkButton onClick={handleBookmark} isBookmarked={isBookmarked}>
               <StarIcon />
-            </StyledButton>
+            </BookmarkButton>
           </>
         }
       />
@@ -209,6 +209,6 @@ const StyledDiv = styled.div`
 const StyledButtonsBox = styled.div`
   display: flex;
 `;
-const StyledButton = styled(Button)`
-  color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
-`;
+// const StyledButton = styled(Button)`
+//   color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
+// `;

@@ -9,7 +9,7 @@ const StyledButton = styled.button`
   padding: ${(p) => p.padding ?? "5px 10px"};
   border-radius: 0.3rem;
   border: none;
-  transition: all 0.2s;
+  transition: all 0.15s;
   background-color: transparent;
   /* cursor: pointer; */
   &:hover:enabled {
@@ -30,6 +30,9 @@ const StyledButton = styled.button`
         background-color: #b01515;
       }
     `}
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 //
 
