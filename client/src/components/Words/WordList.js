@@ -1,22 +1,22 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment } from "react";
 import WordListItem from "./WordListItem";
-import { DataContext } from "../../services/DataContext";
+import { useWordbook } from "../../services/WordbookContext";
 import { Spinner } from "../../components/common/icons";
 import styled from "styled-components";
-import ListItem from "../../components/common/Lists/ListItem";
 import List from "../../components/common/Lists/List";
 import { Devider } from "../common";
 import WordItemSkeleton from "./WordItemSkeleton";
 
 const WordList = ({ topic, isNewItemLoading }) => {
-  const store = useContext(DataContext);
-  const isListLoading = store.wordsData.loading;
-  const words = store.wordsData.words.filter((word) => word.topic === topic);
+  const {
+    wordsData: { words: allWords, loading },
+  } = useWordbook();
+  const words = allWords.filter((word) => word.topic === topic);
 
   const listItems = words.length ? (
     words.map((word) => (
       <Fragment key={word._id}>
-        <WordListItem wordID={word._id} />
+        <WordListItem wordID={word._id} wordData={word} />
         <Devider margin="10px 0" width="2px" color="#c4c4c4" />
       </Fragment>
     ))
@@ -26,12 +26,12 @@ const WordList = ({ topic, isNewItemLoading }) => {
 
   return (
     <StyledList>
-      {isListLoading && (
+      {loading && (
         <div className="list-spinner">
           <Spinner />
         </div>
       )}
-      {!isListLoading && listItems}
+      {!loading && listItems}
       {isNewItemLoading && (
         <>
           <WordItemSkeleton />
@@ -44,7 +44,6 @@ const WordList = ({ topic, isNewItemLoading }) => {
 
 export default WordList;
 
-//리팩토링할거=> 워드 추가시 store에 바로반영 => 반투명화 + 스피너on => 서버수신확인 => 불투명+ 스피너 off
 const StyledList = styled(List)`
   position: relative;
   margin-top: 25px;

@@ -1,23 +1,25 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect } from "react";
-import { DataContext } from "../../services/DataContext";
+import { useWordbook } from "../../services/WordbookContext";
 import * as S from "./styles";
 
 import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
 import { InputBox, Ellipsis, Button, DeleteModal } from "../../components/common";
 import { Spinner } from "../common/icons";
+//TODO: filter대신 find, input state 대신 ref이용하기
+const WordListItem = ({ wordData }) => {
+  const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
+  const {
+    setWordsData,
+    wordsData: { words: allWords },
+  } = useWordbook();
 
-const WordListItem = ({ wordID }) => {
-  const store = useContext(DataContext);
   const [isModifying, setIsModifying] = useState(false);
-  const [word] = store.wordsData.words.filter((_word) => _word._id === wordID);
-  const isBookmarked = word.isBookmarked;
-  const isMemorized = word.isMemorized;
-  const [wordValue, setWordValue] = useState(word.word);
-  const [meaningValue, setMeaningValue] = useState(word.meaning);
+  const [wordValue, setWordValue] = useState(word);
+  const [meaningValue, setMeaningValue] = useState(meaning);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const wordInputBox = useRef();
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
@@ -30,13 +32,12 @@ const WordListItem = ({ wordID }) => {
     setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
     axios
-      .delete(`/api/word/${word._id}`) //
+      .delete(`/api/word/${id}`) //
       .then((res) => {
-        // store.setWords((words) => {
-        store.setWordsData((data) => {
+        setWordsData((data) => {
           return {
             ...data,
-            words: data.words.filter((_word) => _word._id !== word._id),
+            words: data.words.filter((_word) => _word._id !== id),
           };
         });
       })
@@ -61,13 +62,13 @@ const WordListItem = ({ wordID }) => {
 
   const updateWord = (changedDataObj) => {
     const body = {
-      ...word,
+      ...wordData,
       ...changedDataObj,
     };
     return axios
-      .patch(`/api/word/${word._id}`, body) //
+      .patch(`/api/word/${id}`, body) //
       .then(() => {
-        store.setWordsData((data) => ({
+        setWordsData((data) => ({
           ...data,
           words: getModifiedWords(body),
         }));
@@ -75,8 +76,8 @@ const WordListItem = ({ wordID }) => {
   };
 
   const getModifiedWords = (newWord) =>
-    store.wordsData.words.map((_word) => {
-      if (_word._id === word._id) {
+    allWords.map((_word) => {
+      if (_word._id === id) {
         return newWord;
       }
       return _word;
@@ -104,7 +105,7 @@ const WordListItem = ({ wordID }) => {
 
   const handleFixModeClose = () => {
     setIsModifying(false);
-    setWordValue(word.word);
+    setWordValue(word);
   };
 
   useEffect(() => {
@@ -138,9 +139,9 @@ const WordListItem = ({ wordID }) => {
     </S.Form>
   ) : (
     <StyledDiv className="data" isMemorized={isMemorized} onClick={handleIsMemorized}>
-      <div className="word"> {word.word}</div>
+      <div className="word"> {word}</div>
 
-      <div className="meaning">{word.meaning}</div>
+      <div className="meaning">{meaning}</div>
     </StyledDiv>
   );
 

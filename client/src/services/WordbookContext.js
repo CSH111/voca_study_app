@@ -3,10 +3,11 @@ import React from "react";
 import { useAuthContext } from "./Auth/hooks/useAuthContext";
 import { useEffect } from "react";
 import axios from "axios";
+import { useContext } from "react";
 //TODO useWords 훅으로 빼기
-const DataContext = React.createContext(null);
+const WordBookCtx = React.createContext(null);
 
-const ContextProvider = ({ children }) => {
+const WordBookProvider = ({ children }) => {
   const [topicsData, setTopicsData] = useState({ topics: [], loading: true });
   const [wordsData, setWordsData] = useState({ words: [], loading: true });
   const { user } = useAuthContext();
@@ -37,7 +38,7 @@ const ContextProvider = ({ children }) => {
   };
 
   return (
-    <DataContext.Provider
+    <WordBookCtx.Provider
       value={{
         topicsData,
         setTopicsData,
@@ -46,8 +47,10 @@ const ContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </DataContext.Provider>
+    </WordBookCtx.Provider>
   );
 };
 
-export { ContextProvider, DataContext };
+const useWordbook = () => useContext(WordBookCtx);
+
+export { WordBookProvider, useWordbook };

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { DataContext } from "../../services/DataContext";
+import { useEffect, useRef, useState } from "react";
+import { useWordbook } from "../../services/WordbookContext";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,7 +10,10 @@ import InputBox from "../../components/common/InputBox";
 
 const TopicGenerator = () => {
   const [topicValue, setTopicValue] = useState("");
-  const store = useContext(DataContext);
+  const {
+    topicsData: { topics },
+    setTopicsData,
+  } = useWordbook();
   const topicInput = useRef();
   const navigate = useNavigate();
   const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(false);
@@ -28,7 +31,7 @@ const TopicGenerator = () => {
   }, []);
 
   const isDuplicated = (_topicValue) => {
-    const topicNames = store.topicsData.topics.map((topic) => topic.topicName);
+    const topicNames = topics.map((topic) => topic.topicName);
     if (topicNames.includes(_topicValue)) {
       return true;
     }
@@ -52,12 +55,12 @@ const TopicGenerator = () => {
 
     setIsSubmitBtnDisabled(true);
     const body = { topicName: topicValue.trim() };
-    store.setTopicsData((data) => ({ ...data, loading: true }));
+    setTopicsData((data) => ({ ...data, loading: true }));
     axios
       .post("/api/topic", body) //
       .then((res) => {
         setTopicValue("");
-        store.setTopicsData((data) => ({ ...data, topics: res.data.topics, loading: false }));
+        setTopicsData((data) => ({ ...data, topics: res.data.topics, loading: false }));
 
         navigate(`/topics/${topicValue}`);
       })

@@ -8,6 +8,7 @@ import PublicRoutes from "./routes/PublicRoutes";
 //TODO: 모든 페이지컴포넌트에서 페이지컨테이너 반복사용중.. 해결하기
 //TODO: 모달 컴포넌트 전역상태 및 글로벌컴포넌트로 개선하기
 //TODO: 세로 스크롤 생길때 가로도 살짝 생김. 버그수정
+//TODO: 모달 position fixed로 ㄱㄱ
 function App() {
   return (
     <Router>

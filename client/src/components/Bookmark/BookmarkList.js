@@ -1,30 +1,27 @@
 import React from "react";
-import { useContext } from "react";
-import { DataContext } from "../../services/DataContext";
+import { useWordbook } from "../../services/WordbookContext";
 import { Devider } from "../common";
 import { Spinner } from "../common/icons";
 import WordListItem from "../Words/WordListItem";
 
 const BookmarkList = () => {
-  const store = useContext(DataContext);
-  const words = store.wordsData.words.filter((word) => word.isBookmarked === true);
-  const isLoading = store.wordsData.loading;
+  const {
+    wordsData: { words, loading },
+  } = useWordbook();
+  const bookmarkedWords = words.filter((word) => word.isBookmarked === true);
+
   const listItem = words.length ? (
-    words.map((word, idx) => (
+    bookmarkedWords.map((word) => (
       <>
         <WordListItem wordID={word._id} key={word._id} />
-        {idx < words.length - 1 && <Devider margin="10px 0" width="2px" color="#c4c4c4" />}
+        <Devider margin="10px 0" width="2px" color="#c4c4c4" />
       </>
     ))
   ) : (
     <div>단어를 추가하세요</div>
   );
-  return (
-    <>
-      {isLoading && <Spinner />}
-      {!isLoading && listItem}
-    </>
-  );
+
+  return loading ? <Spinner /> : listItem;
 };
 
 export default BookmarkList;

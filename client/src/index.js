@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { ContextProvider } from "./services/DataContext";
+import { WordBookProvider } from "./services/WordbookContext";
 import { AuthContextProvider } from "./services/Auth/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -11,9 +11,9 @@ root.render(
   <>
     {/* <React.StrictMode> */}
     <AuthContextProvider>
-      <ContextProvider>
+      <WordBookProvider>
         <App />
-      </ContextProvider>
+      </WordBookProvider>
     </AuthContextProvider>
     {/* </React.StrictMode> */}
   </>

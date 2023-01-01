@@ -1,13 +1,12 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
-import { DataContext } from "../../services/DataContext";
+import { useWordbook } from "../../services/WordbookContext";
 import { Button, InputBox } from "../common";
 import { AddIcon } from "../common/icons";
-import styled from "styled-components";
 import * as S from "./styles";
 
 const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
-  const store = useContext(DataContext);
+  const { setWordsData } = useWordbook();
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();
@@ -30,7 +29,7 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       .then((res) => {
         setwordItemLoading(false);
         // store.setWords(res.data.newWords);
-        store.setWordsData((data) => ({ ...data, words: res.data.newWords }));
+        setWordsData((data) => ({ ...data, words: res.data.newWords }));
       })
       .catch(console.log);
   };

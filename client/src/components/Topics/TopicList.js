@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../services/DataContext";
+import { useWordbook } from "../../services/WordbookContext";
 import TopicListItem from "./TopicListItem";
 import styled from "styled-components";
 import { Spinner } from "../../components/common/icons";
@@ -16,23 +15,24 @@ const StyledList = styled(List)`
   }
 `;
 const TopicList = () => {
-  const store = useContext(DataContext);
-  const topicsLoading = store.topicsData.loading;
+  const {
+    topicsData: { topics, loading },
+  } = useWordbook();
 
-  const listItems = store.topicsData.topics.length ? (
-    store.topicsData.topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)
+  const listItems = topics.length ? (
+    topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)
   ) : (
     <div>토픽을 추가하세요</div>
   );
 
   return (
     <StyledList>
-      {topicsLoading && (
+      {loading && (
         <div className="spinner">
           <Spinner />
         </div>
       )}
-      {!topicsLoading && listItems}
+      {!loading && listItems}
     </StyledList>
   );
 };

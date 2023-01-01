@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
-// import { Link } from "react-router-dom";
-import { DataContext } from "../../services/DataContext";
+import { useState } from "react";
+import { useWordbook } from "../../services/WordbookContext";
 
 import * as S from "./styles";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
@@ -13,28 +12,31 @@ import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
 
 import LinkModal from "./LinkModal";
-// import Modal from "../common/Modal";
 //TODO: topic 삭제시 컨텍스트반영ㄱ(삭제후 같은이름 생성시 버그)
 const TopicListItem = ({ topic }) => {
-  const { topicsData, setTopicsData, wordsData, setWordsData } = useContext(DataContext);
+  const {
+    topicsData: { topics },
+    setTopicsData,
+    wordsData: { words: allWords },
+    setWordsData,
+  } = useWordbook();
+
   const [isModifying, setIsModifying] = useState(false);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const fixInput = useRef();
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const [isLinkModalOpened, setIsLinkModalOpened] = useState(false);
-  const wordsForThisTopic = wordsData.words.filter((word) => word.topic === topic.topicName);
+  const wordsForThisTopic = allWords.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
-
-  // 삭제후 같은이름 추가(및 뒤로가기 시 버그)
 
   const handleDeleteModal = (e) => {
     setIsDeleteModalOpened(true);
   };
 
   const handleDelete = () => {
-    const _topics = topicsData.topics.filter(({ topicName }) => topicName !== topic.topicName);
+    const _topics = topics.filter(({ topicName }) => topicName !== topic.topicName);
 
     setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
@@ -60,7 +62,7 @@ const TopicListItem = ({ topic }) => {
   };
 
   const getUpdatedTopics = (newTopicObject) => {
-    return topicsData.topics.map((_topic) => {
+    return topics.map((_topic) => {
       if (_topic._id === topic._id) {
         return { ...topic, ...newTopicObject };
       }

@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useContext } from "react";
-import { DataContext } from "../services/DataContext";
+import { useWordbook } from "../services/WordbookContext";
 import Button from "../components/common/Button";
 import { WordGenerator, WordList, WordListItem } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
-import { Devider, PageContainer, Paper, PaperTitle } from "../components/common";
+import { PageContainer, Paper, PaperTitle } from "../components/common";
 
 function Words() {
   const params = useParams();
   const topic = params.topic;
-  const store = useContext(DataContext);
+  const {
+    topicsData: { topics },
+  } = useWordbook();
   const [topicID, setTopicID] = useState("");
   const [wordItemLoading, setwordItemLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const currTopicID = store.topicsData.topics.find((_topic) => _topic.topicName === topic)?._id;
+    //TODO: topicsID 획득방식 개선: params 데이터로 얻자
+    const currTopicID = topics.find((_topic) => _topic.topicName === topic)?._id;
     setTopicID(currTopicID);
   }, []);
 
