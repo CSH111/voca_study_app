@@ -21,7 +21,7 @@ const BookMarkListItem = () => {
       <LinkModal
         isOpen={isLinkModalOpened}
         setIsOpen={setIsLinkModalOpened}
-        leftLink={`/test/bookmark}`}
+        leftLink={`/test/bookmark`}
         rightLink={`/bookmark`}
       />
     </ListItem>

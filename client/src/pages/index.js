@@ -5,5 +5,6 @@ import Register from "./Register";
 import Topics from "./Topics";
 import Words from "./Words";
 import Loading from "./Loading";
+import Study from "./Study";
 
-export { Loading, Bookmark, Home, Login, Register, Topics, Words };
+export { Study, Loading, Bookmark, Home, Login, Register, Topics, Words };

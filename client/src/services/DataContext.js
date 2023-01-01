@@ -3,7 +3,7 @@ import React from "react";
 import { useAuthContext } from "./Auth/hooks/useAuthContext";
 import { useEffect } from "react";
 import axios from "axios";
-
+//TODO useWords 훅으로 빼기
 const DataContext = React.createContext(null);
 
 const ContextProvider = ({ children }) => {
