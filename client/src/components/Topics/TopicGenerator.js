@@ -8,7 +8,7 @@ import axios from "axios";
 import Button from "../../components/common/Button";
 import InputBox from "../../components/common/InputBox";
 
-const TopicGenerator = function ({ setItemLoading }) {
+const TopicGenerator = () => {
   const [topicValue, setTopicValue] = useState("");
   const store = useContext(DataContext);
   const topicInput = useRef();
@@ -45,15 +45,20 @@ const TopicGenerator = function ({ setItemLoading }) {
       setMsg("중복된 이름입니다.");
       return;
     }
-    setItemLoading(true);
+    if (topicValue === "bookmark") {
+      setMsg("사용할 수 없는 이름입니다.");
+      return;
+    }
+
     setIsSubmitBtnDisabled(true);
     const body = { topicName: topicValue.trim() };
+    store.setTopicsData((data) => ({ ...data, loading: true }));
     axios
       .post("/api/topic", body) //
       .then((res) => {
         setTopicValue("");
-        store.setTopicsData((data) => ({ ...data, topics: res.data.topics }));
-        setItemLoading(false);
+        store.setTopicsData((data) => ({ ...data, topics: res.data.topics, loading: false }));
+
         navigate(`/topics/${topicValue}`);
       })
       .catch(console.log);
