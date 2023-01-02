@@ -3,7 +3,7 @@ import TopicListItem from "./TopicListItem";
 import styled from "styled-components";
 import { Spinner } from "../../components/common/icons";
 import List from "../../components/common/Lists/List";
-
+//TODO 로딩끝나고 렌더링되는데 일부 계산된 데이터들 한박자 늦게 생성되는 이유 찾기
 const StyledList = styled(List)`
   position: relative;
   flex: 1;

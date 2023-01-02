@@ -12,7 +12,6 @@ const WordList = ({ topic, isNewItemLoading }) => {
     wordsData: { words: allWords, loading },
   } = useWordbook();
   const words = allWords.filter((word) => word.topic === topic);
-
   const listItems = words.length ? (
     words.map((word) => (
       <Fragment key={word._id}>

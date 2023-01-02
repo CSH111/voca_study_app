@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useWordbook } from "../../services/WordbookContext";
 import { Devider } from "../common";
 import { Spinner } from "../common/icons";
@@ -12,10 +12,10 @@ const BookmarkList = () => {
 
   const listItem = words.length ? (
     bookmarkedWords.map((word) => (
-      <>
-        <WordListItem wordID={word._id} key={word._id} />
+      <Fragment key={word._id}>
+        <WordListItem wordID={word._id} wordData={word} />
         <Devider margin="10px 0" width="2px" color="#c4c4c4" />
-      </>
+      </Fragment>
     ))
   ) : (
     <div>단어를 추가하세요</div>

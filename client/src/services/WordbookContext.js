@@ -4,22 +4,28 @@ import { useAuthContext } from "./Auth/hooks/useAuthContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { useContext } from "react";
-//TODO useWords 훅으로 빼기
+
 const WordBookCtx = React.createContext(null);
 
 const WordBookProvider = ({ children }) => {
   const [topicsData, setTopicsData] = useState({ topics: [], loading: true });
   const [wordsData, setWordsData] = useState({ words: [], loading: true });
   const { user } = useAuthContext();
+  const [isDataInitiated, setIsDataInitiated] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      getTopics();
-      getWords();
-    }
+    const getData = async () => {
+      if (user) {
+        const topicRes = getTopics();
+        const wordsRes = getWords();
+        await Promise.all([topicRes, wordsRes]);
+        setIsDataInitiated(true);
+      }
+    };
+    getData();
   }, [user]);
 
-  const getTopics = () => {
+  const getTopics = async () => {
     axios
       .get("/api/topic") //
       .then((res) => {
@@ -28,7 +34,7 @@ const WordBookProvider = ({ children }) => {
       .catch(console.log);
   };
 
-  const getWords = () => {
+  const getWords = async () => {
     axios
       .get("/api/word") //
       .then((res) => {
@@ -44,6 +50,7 @@ const WordBookProvider = ({ children }) => {
         setTopicsData,
         wordsData,
         setWordsData,
+        isDataInitiated,
       }}
     >
       {children}
