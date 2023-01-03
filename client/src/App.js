@@ -1,35 +1,18 @@
-import { Routes, BrowserRouter as Router, Route, Navigate } from "react-router-dom";
 import "./App.css";
-import { Bookmark, Home, Login, Register, Study, Topics, Words } from "./pages";
-import MainLayout from "./components/layout/MainLayout";
-import PrivateRoutes from "./routes/PrivateRoutes";
-import { Reset } from "styled-reset";
-import PublicRoutes from "./routes/PublicRoutes";
+import AppRouter from "./router";
+import { AuthContextProvider, WordbookProvider } from "./context";
+
 //TODO: 모든 페이지컴포넌트에서 페이지컨테이너 반복사용중.. 해결하기
 //TODO: 모달 컴포넌트 전역상태 및 글로벌컴포넌트로 개선하기
 //TODO: 세로 스크롤 생길때 가로도 살짝 생김. 버그수정
 //TODO: 모달 position fixed로 ㄱㄱ
 function App() {
   return (
-    <Router>
-      <Reset />
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route element={<PublicRoutes />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Route>
-          <Route element={<PrivateRoutes />}>
-            <Route path="/topics" element={<Topics />} />
-            <Route path="/topics/:topic" element={<Words />} />
-            <Route path="/bookmark" element={<Bookmark />} />
-            <Route path="/test/:topic" element={<Study />} />
-          </Route>
-        </Route>
-      </Routes>
-    </Router>
+    <AuthContextProvider>
+      <WordbookProvider>
+        <AppRouter />;
+      </WordbookProvider>
+    </AuthContextProvider>
   );
 }
 
