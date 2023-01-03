@@ -11,6 +11,9 @@ const createAuthService = (httpClient) => {
     register(body) {
       return httpClient.post("/api/user", body);
     },
+    getUser() {
+      return httpClient.get("/api/user");
+    },
   };
 };
 

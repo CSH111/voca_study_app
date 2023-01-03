@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useWordbook } from "../../services/WordbookContext";
-
+import { useWordbookContext } from "../../context/WordbookContext";
 import * as S from "./styles";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
 import styled from "styled-components";
@@ -19,7 +18,7 @@ const TopicListItem = ({ topic }) => {
     setTopicsData,
     wordsData: { words: allWords },
     setWordsData,
-  } = useWordbook();
+  } = useWordbookContext();
 
   const [isModifying, setIsModifying] = useState(false);
   const [isItemLoading, setIsItemLoading] = useState(false);

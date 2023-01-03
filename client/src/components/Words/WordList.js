@@ -1,6 +1,8 @@
 import { Fragment } from "react";
 import WordListItem from "./WordListItem";
-import { useWordbook } from "../../services/WordbookContext";
+import { useWordbookContext } from "../../context";
+// import { useWordbookContext } from "../../context";
+
 import { Spinner } from "../../components/common/icons";
 import styled from "styled-components";
 import List from "../../components/common/Lists/List";
@@ -10,7 +12,7 @@ import WordItemSkeleton from "./WordItemSkeleton";
 const WordList = ({ topic, isNewItemLoading }) => {
   const {
     wordsData: { words: allWords, loading },
-  } = useWordbook();
+  } = useWordbookContext();
   const words = allWords.filter((word) => word.topic === topic);
   const listItems = words.length ? (
     words.map((word) => (

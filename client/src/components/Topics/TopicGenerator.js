@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useWordbook } from "../../services/WordbookContext";
+import { useWordbookContext } from "../../context/WordbookContext";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import { AddIcon } from "../common/icons";
 import axios from "axios";
 import Button from "../../components/common/Button";
@@ -13,7 +12,7 @@ const TopicGenerator = () => {
   const {
     topicsData: { topics },
     setTopicsData,
-  } = useWordbook();
+  } = useWordbookContext();
   const topicInput = useRef();
   const navigate = useNavigate();
   const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(false);

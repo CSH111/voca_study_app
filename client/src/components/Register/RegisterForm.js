@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRef } from "react";
-import { useRegister } from "../../services/Auth/hooks/useRegister";
+import { useRegister } from "../../hooks";
 import * as S from "./styles";
 const RegisterForm = () => {
   const inputs = useRef({});

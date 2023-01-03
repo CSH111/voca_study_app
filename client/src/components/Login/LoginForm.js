@@ -1,9 +1,7 @@
 import React from "react";
 import { useRef } from "react";
-import { Form, Input } from "../common/Form";
-import { useLogin } from "../../services/Auth/hooks/useLogin";
+import { useLogin } from "../../hooks";
 import * as S from "./styles";
-import { RectangularButton } from "../common";
 //로그인 기억하기 옵션
 // 비밀번호 불일치시 아이디값 남겨두기
 

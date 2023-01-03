@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import AuthService from "../..";
-import { useAuthContext } from "./useAuthContext";
+import { AuthService } from "../services";
+import { useAuthContext } from "../context";
 
-export const useLogin = () => {
+const useLogin = () => {
   const { setUser, setIsLoading: setAuthLoading } = useAuthContext();
   const navigate = useNavigate();
 
@@ -23,3 +23,5 @@ export const useLogin = () => {
   };
   return { login }; //에러 메세지도 리턴 ㄱ state로
 };
+
+export default useLogin;

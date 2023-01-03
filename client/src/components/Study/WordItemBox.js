@@ -2,14 +2,14 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { useWordbook } from "../../services/WordbookContext";
+import { useWordbookContext } from "../../context/WordbookContext";
 import { BookmarkButton, Button } from "../common";
 import { StarIcon } from "../common/icons";
 
 const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsData }) => {
   const { word, meaning, isBookmarked, _id: id } = staticWordData;
   const [isMeaningShown, setIsMeaningShown] = useState(false);
-  const { setWordsData } = useWordbook();
+  const { setWordsData } = useWordbookContext();
 
   useEffect(() => {
     setIsMeaningShown(false);

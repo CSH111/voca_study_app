@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useWordbook } from "../services/WordbookContext";
+import { useWordbookContext } from "../context";
 import Button from "../components/common/Button";
 import { WordGenerator, WordList } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
@@ -12,7 +12,7 @@ function Words() {
   const {
     topicsData: { topics },
     isDataInitiated,
-  } = useWordbook();
+  } = useWordbookContext();
   const [topicID, setTopicID] = useState("");
   const [wordItemLoading, setwordItemLoading] = useState(false);
   const navigate = useNavigate();

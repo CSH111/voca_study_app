@@ -1,13 +1,13 @@
 import { useState } from "react";
 import React from "react";
-import { useAuthContext } from "./Auth/hooks/useAuthContext";
+import { useAuthContext } from "./AuthContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { useContext } from "react";
 
 const WordBookCtx = React.createContext(null);
 
-const WordBookProvider = ({ children }) => {
+export const WordbookProvider = ({ children }) => {
   const [topicsData, setTopicsData] = useState({ topics: [], loading: true });
   const [wordsData, setWordsData] = useState({ words: [], loading: true });
   const { user } = useAuthContext();
@@ -56,6 +56,4 @@ const WordBookProvider = ({ children }) => {
   );
 };
 
-const useWordbook = () => useContext(WordBookCtx);
-
-export { WordBookProvider, useWordbook };
+export const useWordbookContext = () => useContext(WordBookCtx);

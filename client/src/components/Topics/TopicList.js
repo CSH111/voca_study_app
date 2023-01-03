@@ -1,4 +1,4 @@
-import { useWordbook } from "../../services/WordbookContext";
+import { useWordbookContext } from "../../context/WordbookContext";
 import TopicListItem from "./TopicListItem";
 import styled from "styled-components";
 import { Spinner } from "../../components/common/icons";
@@ -17,7 +17,7 @@ const StyledList = styled(List)`
 const TopicList = () => {
   const {
     topicsData: { topics, loading },
-  } = useWordbook();
+  } = useWordbookContext();
 
   const listItems = topics.length ? (
     topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)

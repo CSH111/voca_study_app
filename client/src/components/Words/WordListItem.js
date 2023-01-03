@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useWordbook } from "../../services/WordbookContext";
+import { useWordbookContext } from "../../context";
 import * as S from "./styles";
 
 import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
@@ -14,7 +14,7 @@ const WordListItem = ({ wordData }) => {
   const {
     setWordsData,
     wordsData: { words: allWords },
-  } = useWordbook();
+  } = useWordbookContext();
 
   const [isModifying, setIsModifying] = useState(false);
   const [isItemLoading, setIsItemLoading] = useState(false);

@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useAuthContext } from "../../services/Auth/hooks/useAuthContext";
-import { useLogout } from "../../services/Auth/hooks/useLogout";
+import { useLogout } from "../../hooks";
+import { useAuthContext } from "../../context";
 
 const Header = () => {
   const { topic } = useParams();

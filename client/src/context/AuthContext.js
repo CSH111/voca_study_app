@@ -1,16 +1,18 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useEffect } from "react";
+import { AuthService } from "../services";
 
 const AuthContext = React.createContext(null);
 
-const AuthContextProvider = ({ children }) => {
+export const useAuthContext = () => useContext(AuthContext);
+
+export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-
+  //TODO: App.js 로 위치수정, App 의 라우터는 분리
   useEffect(() => {
-    axios
-      .get(`/api/user`) //
+    AuthService.getUser()
       .then((res) => {
         setUser(res.data.userName);
       })
@@ -28,5 +30,3 @@ const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export { AuthContext, AuthContextProvider };

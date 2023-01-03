@@ -3,7 +3,7 @@ import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topic
 import { Button, PageContainer, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
 import Modal from "../components/common/Modal";
-import { useWordbook } from "../services/WordbookContext";
+import { useWordbookContext } from "../context";
 
 function Topics() {
   const [isAddModalOpened, setIsAddModalOpened] = useState(false);
@@ -11,7 +11,7 @@ function Topics() {
 
   const {
     topicsData: { loading },
-  } = useWordbook();
+  } = useWordbookContext();
   const handleAddModalOpen = () => {
     setIsAddModalOpened(true);
   };
