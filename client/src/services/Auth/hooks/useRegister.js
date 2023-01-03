@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AuthService from "../..";
 import { useAuthContext } from "./useAuthContext";
 
 export const useRegister = () => {
@@ -7,8 +7,7 @@ export const useRegister = () => {
   const navigate = useNavigate();
 
   const register = (body) => {
-    axios
-      .post("/api/user", body)
+    AuthService.register(body)
       .then((res) => {
         if (res.data.success) {
           alert("가입성공");

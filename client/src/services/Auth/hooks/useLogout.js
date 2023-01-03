@@ -1,13 +1,12 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useAuthContext";
+import AuthService from "../..";
 
 export const useLogout = () => {
   const navigate = useNavigate();
   const { setUser } = useAuthContext();
   const logout = () => {
-    axios
-      .delete("/api/session") //
+    AuthService.logout()
       .then(() => {
         setUser("");
         navigate("/");

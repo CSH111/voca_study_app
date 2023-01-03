@@ -6,7 +6,7 @@ import Button from "../components/common/Button";
 import { WordGenerator, WordList } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
 import { PageContainer, Paper, PaperTitle } from "../components/common";
-//TODO 새로고침시 돌아감
+
 function Words() {
   const { topic } = useParams();
   const {
@@ -24,9 +24,8 @@ function Words() {
       navigate("/topics");
     }
   }, [topic, isDataInitiated]);
-
+  // TODO: 이펙트 두개 합치기
   useEffect(() => {
-    //TODO: topicsID 획득방식 개선: params 데이터로 얻자
     const currTopicID = topics.find((_topic) => _topic.topicName === topic)?._id;
     setTopicID(currTopicID);
   }, []);
