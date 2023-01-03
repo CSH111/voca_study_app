@@ -11,17 +11,19 @@ function Words() {
   const { topic } = useParams();
   const {
     topicsData: { topics },
+    isDataInitiated,
   } = useWordbook();
   const [topicID, setTopicID] = useState("");
   const [wordItemLoading, setwordItemLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isDataInitiated) return;
     const isRightTopic = topics.find((_topic) => _topic.topicName === topic);
     if (!isRightTopic) {
       navigate("/topics");
     }
-  }, [topic]);
+  }, [topic, isDataInitiated]);
 
   useEffect(() => {
     //TODO: topicsID 획득방식 개선: params 데이터로 얻자

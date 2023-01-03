@@ -14,7 +14,6 @@ import ProgressBar from "./ProgressBar";
 import LinkModal from "./LinkModal";
 
 const TopicListItem = ({ topic }) => {
-  console.log(topic);
   const {
     topicsData: { topics },
     setTopicsData,

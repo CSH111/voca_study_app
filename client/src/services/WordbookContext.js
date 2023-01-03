@@ -16,9 +16,7 @@ const WordBookProvider = ({ children }) => {
   useEffect(() => {
     const getData = async () => {
       if (user) {
-        const topicRes = getTopics();
-        const wordsRes = getWords();
-        await Promise.all([topicRes, wordsRes]);
+        await Promise.all([getTopics(), getWords()]);
         setIsDataInitiated(true);
       }
     };
@@ -26,7 +24,7 @@ const WordBookProvider = ({ children }) => {
   }, [user]);
 
   const getTopics = async () => {
-    axios
+    await axios
       .get("/api/topic") //
       .then((res) => {
         setTopicsData({ topics: res.data.topics, loading: false });
@@ -35,7 +33,7 @@ const WordBookProvider = ({ children }) => {
   };
 
   const getWords = async () => {
-    axios
+    await axios
       .get("/api/word") //
       .then((res) => {
         setWordsData({ words: res.data.words, loading: false });
