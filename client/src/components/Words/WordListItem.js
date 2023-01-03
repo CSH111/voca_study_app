@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect } from "react";
 import { useWordbook } from "../../services/WordbookContext";
 import * as S from "./styles";
 
@@ -9,7 +8,7 @@ import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common
 import ListItem from "../../components/common/Lists/ListItem";
 import { InputBox, Ellipsis, Button, DeleteModal, BookmarkButton } from "../../components/common";
 import { Spinner } from "../common/icons";
-//TODO: filter대신 find, input state 대신 ref이용하기
+
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
   const {
@@ -18,10 +17,9 @@ const WordListItem = ({ wordData }) => {
   } = useWordbook();
 
   const [isModifying, setIsModifying] = useState(false);
-  const [wordValue, setWordValue] = useState(word);
-  const [meaningValue, setMeaningValue] = useState(meaning);
   const [isItemLoading, setIsItemLoading] = useState(false);
-  const wordInputBox = useRef();
+  const wordInputElem = useRef();
+  const meaningInputElem = useRef();
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
@@ -87,45 +85,34 @@ const WordListItem = ({ wordData }) => {
     e.preventDefault();
     setIsItemLoading(true);
     setIsModifying(false);
-    await updateWord({ word: wordValue, meaning: meaningValue }).catch(console.log);
+    await updateWord({
+      word: wordInputElem.current.value,
+      meaning: meaningInputElem.current.value,
+    }).catch(console.log);
     setIsItemLoading(false);
-  };
-
-  const handleWordInput = (e) => {
-    setWordValue(e.target.value);
-  };
-
-  const handleMeaningInput = (e) => {
-    setMeaningValue(e.target.value);
   };
 
   const handleFixModeOpen = () => {
     setIsModifying(true);
+    setTimeout(() => {
+      wordInputElem.current.focus();
+      wordInputElem.current.value = word;
+      meaningInputElem.current.value = meaning;
+    }, 0);
   };
 
   const handleFixModeClose = () => {
     setIsModifying(false);
-    setWordValue(word);
   };
-
-  useEffect(() => {
-    if (isModifying) wordInputBox.current.focus();
-  }, [isModifying]);
 
   const listItemContents = isModifying ? (
     <S.Form onSubmit={handleSubmission} action="" columnOnSmallDevice={true}>
       <S.Controls>
         <S.InputContainer>
-          <InputBox
-            className="input"
-            type="text"
-            value={wordValue}
-            onChange={handleWordInput}
-            ref={wordInputBox}
-          />
+          <InputBox className="input" type="text" ref={wordInputElem} />
         </S.InputContainer>
         <S.InputContainer>
-          <InputBox type="text" value={meaningValue} onChange={handleMeaningInput} />
+          <InputBox type="text" ref={meaningInputElem} />
         </S.InputContainer>
       </S.Controls>
       <StyledButtonsBox>
@@ -202,13 +189,9 @@ const StyledDiv = styled.div`
     margin-left: 0.5rem;
     min-width: 70px;
     border-bottom: solid #3c3c3c 1px;
-    /* overflow: auto; */
   }
 `;
 
 const StyledButtonsBox = styled.div`
   display: flex;
 `;
-// const StyledButton = styled(Button)`
-//   color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
-// `;

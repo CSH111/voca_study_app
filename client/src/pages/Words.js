@@ -6,7 +6,7 @@ import Button from "../components/common/Button";
 import { WordGenerator, WordList } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
 import { PageContainer, Paper, PaperTitle } from "../components/common";
-
+//TODO 새로고침시 돌아감
 function Words() {
   const { topic } = useParams();
   const {
