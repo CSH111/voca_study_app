@@ -3,19 +3,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useWordbook } from "../services/WordbookContext";
 import Button from "../components/common/Button";
-import { WordGenerator, WordList, WordListItem } from "../components/Words";
+import { WordGenerator, WordList } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
 import { PageContainer, Paper, PaperTitle } from "../components/common";
 
 function Words() {
-  const params = useParams();
-  const topic = params.topic;
+  const { topic } = useParams();
   const {
     topicsData: { topics },
   } = useWordbook();
   const [topicID, setTopicID] = useState("");
   const [wordItemLoading, setwordItemLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isRightTopic = topics.find((_topic) => _topic.topicName === topic);
+    if (!isRightTopic) {
+      navigate("/topics");
+    }
+  }, [topic]);
 
   useEffect(() => {
     //TODO: topicsID 획득방식 개선: params 데이터로 얻자
