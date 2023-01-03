@@ -12,8 +12,9 @@ import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
 
 import LinkModal from "./LinkModal";
-//TODO: topic 삭제시 컨텍스트반영ㄱ(삭제후 같은이름 생성시 버그)
+
 const TopicListItem = ({ topic }) => {
+  console.log(topic);
   const {
     topicsData: { topics },
     setTopicsData,
@@ -36,15 +37,16 @@ const TopicListItem = ({ topic }) => {
   };
 
   const handleDelete = () => {
-    const _topics = topics.filter(({ topicName }) => topicName !== topic.topicName);
-
+    const newTopics = topics.filter(({ topicName }) => topicName !== topic.topicName);
+    const newWords = allWords.filter(({ topic: _topic }) => _topic !== topic.topicName);
     setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
     axios
       .delete(`/api/topic/${topic._id}`, { data: { topic: topic.topicName } }) //
       .then((res) => {
         setIsDeleteLoading(false);
-        setTopicsData((data) => ({ ...data, topics: [..._topics] }));
+        setTopicsData((data) => ({ ...data, topics: [...newTopics] }));
+        setWordsData((data) => ({ ...data, words: newWords }));
       })
       .catch(console.log);
   };
