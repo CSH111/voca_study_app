@@ -74,8 +74,13 @@ app.post("/api/user", (req, res) => {
       res.status(200).json({ success: true, msg: "등록성공", userName: temp.name });
     })
     .catch((err) => {
-      console.log(err);
-      res.status(400).json({ success: false, msg: "등록실패", error: err });
+      console.log(err.code);
+      console.log(err.code === 11000);
+      let msg = "등록실패";
+      if (err.code === 11000) {
+        msg = "이미 등록된 이메일입니다.";
+      }
+      res.status(400).json({ success: false, msg, error: err });
     });
 });
 
