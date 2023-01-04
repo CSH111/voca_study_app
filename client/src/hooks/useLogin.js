@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AuthService } from "../services";
+import { authService } from "../services";
 import { useAuthContext } from "../context";
 
 const useLogin = () => {
@@ -7,7 +7,8 @@ const useLogin = () => {
   const navigate = useNavigate();
 
   const login = async (body) => {
-    AuthService.login(body)
+    authService
+      .login(body)
       .then((res) => {
         console.log(res);
         setUser(res.data.userName);

@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { AuthService } from "../services";
+import { authService } from "../services";
 import { useAuthContext } from "../context";
 
 const useLogout = () => {
   const navigate = useNavigate();
   const { setUser } = useAuthContext();
   const logout = () => {
-    AuthService.logout()
+    authService
+      .logout()
       .then(() => {
         setUser("");
         navigate("/");

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AuthService } from "../services";
+import { authService } from "../services";
 import { useAuthContext } from "../context";
 
 const useRegister = () => {
@@ -7,7 +7,8 @@ const useRegister = () => {
   const navigate = useNavigate();
 
   const register = (body) => {
-    AuthService.register(body)
+    authService
+      .register(body)
       .then((res) => {
         if (res.data.success) {
           alert("가입성공");
