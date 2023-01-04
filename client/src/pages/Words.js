@@ -19,6 +19,7 @@ function Words() {
 
   useEffect(() => {
     if (!isDataInitiated) return;
+    console.log(isDataInitiated, topics);
     const isRightTopic = topics.find((_topic) => _topic.topicName === topic);
     if (!isRightTopic) {
       navigate("/topics");

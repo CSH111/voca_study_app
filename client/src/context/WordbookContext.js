@@ -24,21 +24,21 @@ export const WordbookProvider = ({ children }) => {
   }, [user]);
 
   const getTopics = async () => {
-    wordbookService
-      .getTopics()
-      .then((res) => {
-        setTopicsData({ topics: res.data.topics, loading: false });
-      })
-      .catch(console.log);
+    try {
+      const res = await wordbookService.getTopics();
+      setTopicsData({ topics: res.data.topics, loading: false });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getWords = async () => {
-    wordbookService
-      .getWords()
-      .then((res) => {
-        setWordsData({ words: res.data.words, loading: false });
-      })
-      .catch(console.log);
+    try {
+      const res = await wordbookService.getWords();
+      setWordsData({ words: res.data.words, loading: false });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
