@@ -3,9 +3,9 @@ import { useWordbookContext } from "../../context/WordbookContext";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AddIcon } from "../common/icons";
-import axios from "axios";
 import Button from "../../components/common/Button";
 import InputBox from "../../components/common/InputBox";
+import { wordbookService } from "../../services";
 
 const TopicGenerator = () => {
   const [topicValue, setTopicValue] = useState("");
@@ -55,8 +55,8 @@ const TopicGenerator = () => {
     setIsSubmitBtnDisabled(true);
     const body = { topicName: topicValue.trim() };
     setTopicsData((data) => ({ ...data, loading: true }));
-    axios
-      .post("/api/topic", body) //
+    wordbookService
+      .postTopic(body)
       .then((res) => {
         setTopicValue("");
         setTopicsData((data) => ({ ...data, topics: res.data.topics, loading: false }));

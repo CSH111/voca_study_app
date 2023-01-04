@@ -4,13 +4,13 @@ import * as S from "./styles";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
 import styled from "styled-components";
 import { useRef } from "react";
-import axios from "axios";
 import ListItem from "../../components/common/Lists/ListItem";
 import { Button, DeleteModal, Ellipsis, InputBox } from "../../components/common";
 import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
 
 import LinkModal from "./LinkModal";
+import { wordbookService } from "../../services";
 
 const TopicListItem = ({ topic }) => {
   const {
@@ -39,8 +39,8 @@ const TopicListItem = ({ topic }) => {
     const newWords = allWords.filter(({ topic: _topic }) => _topic !== topic.topicName);
     setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
-    axios
-      .delete(`/api/topic/${topic._id}`, { data: { topic: topic.topicName } }) //
+    wordbookService
+      .deleteTopic(topic._id)
       .then((res) => {
         setIsDeleteLoading(false);
         setTopicsData((data) => ({ ...data, topics: [...newTopics] }));
@@ -70,35 +70,32 @@ const TopicListItem = ({ topic }) => {
     });
   };
 
-  const updateTopic = (value) => {
+  const updateTopic = async (value) => {
     const body = { topicName: value };
-    return axios
-      .patch(`/api/topic/${topic._id}`, body) //
-      .then(() => {
-        setWordsData((data) => {
-          return {
-            ...data,
-            words: data.words.map((word) => {
-              if (word.topic === topic.topicName) {
-                return { ...word, topic: body.topicName };
-              }
-              return word;
-            }),
-          };
-        });
-        setTopicsData((data) => ({ ...data, topics: getUpdatedTopics(body) }));
-      })
-      .catch(console.log);
+    //TODO: 에러핸들링
+    await wordbookService.patchTopic(topic._id, body);
+    setWordsData((data) => {
+      return {
+        ...data,
+        words: data.words.map((word) => {
+          if (word.topic === topic.topicName) {
+            return { ...word, topic: body.topicName };
+          }
+          return word;
+        }),
+      };
+    });
+    setTopicsData((data) => ({ ...data, topics: getUpdatedTopics(body) }));
   };
 
-  const handleSubmission = (e) => {
+  const handleSubmission = async (e) => {
     e.preventDefault();
     const inputValue = fixInput.current.value;
     if (inputValue === "") return;
     setIsModifying(false);
     setIsItemLoading(true);
-    updateTopic(fixInput.current.value) //
-      .finally(() => setIsItemLoading(false));
+    await updateTopic(fixInput.current.value); //
+    setIsItemLoading(false);
   };
 
   const handleListClick = () => {

@@ -13,7 +13,7 @@ const Form = ({ children, onSubmit, onChange, className }) => {
     </FormCtxProvider>
   );
 };
-
+//TODO: 합치기. 나눠놓을 필요 x
 const ValueSender = ({ onSubmit, onChange, children, className }) => {
   const formCtx = useFormContext();
   const handleSubmit = (e) => {

@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import axios from "axios";
 import { useWordbookContext } from "../../context/WordbookContext";
 import { Button, InputBox } from "../common";
 import { AddIcon } from "../common/icons";
 import * as S from "./styles";
+import { wordbookService } from "../../services";
 
 const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
   const { setWordsData } = useWordbookContext();
@@ -24,11 +24,10 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
       isBookmarked: false,
     };
     // 바디줄이기
-    axios
-      .post("/api/word", body) //
+    wordbookService
+      .postWord(body)
       .then((res) => {
         setwordItemLoading(false);
-        // store.setWords(res.data.newWords);
         setWordsData((data) => ({ ...data, words: res.data.newWords }));
       })
       .catch(console.log);

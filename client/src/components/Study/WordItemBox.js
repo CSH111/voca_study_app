@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useWordbookContext } from "../../context/WordbookContext";
+import { wordbookService } from "../../services";
 import { BookmarkButton, Button } from "../common";
 import { StarIcon } from "../common/icons";
 
@@ -41,7 +41,8 @@ const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsDa
       ...staticWordData,
       ...changedDataObj,
     };
-    await axios.patch(`/api/word/${id}`, body); //
+    await wordbookService.patchWord(id, body);
+    //
   };
 
   const handleBookmark = async () => {

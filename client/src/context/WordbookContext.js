@@ -2,8 +2,8 @@ import { useState } from "react";
 import React from "react";
 import { useAuthContext } from "./AuthContext";
 import { useEffect } from "react";
-import axios from "axios";
 import { useContext } from "react";
+import { wordbookService } from "../services";
 
 const WordBookCtx = React.createContext(null);
 
@@ -24,8 +24,8 @@ export const WordbookProvider = ({ children }) => {
   }, [user]);
 
   const getTopics = async () => {
-    await axios
-      .get("/api/topic") //
+    wordbookService
+      .getTopics()
       .then((res) => {
         setTopicsData({ topics: res.data.topics, loading: false });
       })
@@ -33,8 +33,8 @@ export const WordbookProvider = ({ children }) => {
   };
 
   const getWords = async () => {
-    await axios
-      .get("/api/word") //
+    wordbookService
+      .getWords()
       .then((res) => {
         setWordsData({ words: res.data.words, loading: false });
       })

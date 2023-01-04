@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { useWordbookContext } from "../../context";
 import * as S from "./styles";
 
@@ -8,6 +7,7 @@ import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common
 import ListItem from "../../components/common/Lists/ListItem";
 import { InputBox, Ellipsis, Button, DeleteModal, BookmarkButton } from "../../components/common";
 import { Spinner } from "../common/icons";
+import { wordbookService } from "../../services";
 
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
@@ -29,8 +29,8 @@ const WordListItem = ({ wordData }) => {
   const handleDelete = () => {
     setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
-    axios
-      .delete(`/api/word/${id}`) //
+    wordbookService
+      .deleteWord(id)
       .then((res) => {
         setWordsData((data) => {
           return {
@@ -63,8 +63,8 @@ const WordListItem = ({ wordData }) => {
       ...wordData,
       ...changedDataObj,
     };
-    return axios
-      .patch(`/api/word/${id}`, body) //
+    return wordbookService
+      .patchWord(id, body) //
       .then(() => {
         setWordsData((data) => ({
           ...data,
