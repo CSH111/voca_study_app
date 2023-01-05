@@ -3,7 +3,7 @@ import Paper from "../Paper";
 import { useEffect, useState } from "react";
 import { CancelIcon, Spinner } from "../icons";
 import Button from "../Button";
-import ModalPortal from "../ModalPortal";
+import RootPortal from "../RootPortal";
 
 const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
   const handleBgClick = (e) => {
@@ -29,7 +29,7 @@ const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
 
   const [renderTreeState, setRenderTreeState] = useState(false);
   return (
-    <ModalPortal>
+    <RootPortal>
       {renderTreeState && (
         <StyledBg onClick={handleBgClick} state={isOpen}>
           <StyledPaper
@@ -53,7 +53,7 @@ const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
           </StyledPaper>
         </StyledBg>
       )}
-    </ModalPortal>
+    </RootPortal>
   );
 };
 
@@ -71,7 +71,7 @@ const StyledBg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;

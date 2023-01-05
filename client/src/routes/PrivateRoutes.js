@@ -1,12 +1,17 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuthContext } from "../context";
-import Loading from "../pages/Loading";
-const PrivateRoutes = () => {
-  const { user, isLoading } = useAuthContext();
+import { LoadingCover } from "../components/common";
+import { useAuthSeletor } from "../context";
 
-  if (isLoading) {
-    return <Loading />;
-  }
-  return user ? <Outlet /> : <Navigate to="/" />;
+const PrivateRoutes = () => {
+  const { user, isLoading } = useAuthSeletor();
+
+  return user ? (
+    <>
+      <Outlet />
+      {isLoading && <LoadingCover />}
+    </>
+  ) : (
+    <Navigate to="/" />
+  );
 };
 export default PrivateRoutes;

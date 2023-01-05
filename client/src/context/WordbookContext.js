@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { useAuthContext } from "./AuthContext";
+import { useAuthSeletor } from "./AuthContext";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { wordbookService } from "../services";
@@ -10,9 +10,9 @@ const WordBookCtx = React.createContext(null);
 export const WordbookProvider = ({ children }) => {
   const [topicsData, setTopicsData] = useState({ topics: [], loading: true });
   const [wordsData, setWordsData] = useState({ words: [], loading: true });
-  const { user } = useAuthContext();
+  const { user } = useAuthSeletor();
   const [isDataInitiated, setIsDataInitiated] = useState(false);
-
+  // TODO: 전역에서 전역으로 접근하는게 매우 별로다. 실수유발 쉬움
   useEffect(() => {
     const getData = async () => {
       if (user) {

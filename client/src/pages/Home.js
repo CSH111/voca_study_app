@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { PageContainer, Paper, PaperTitle, RectangularButton } from "../components/common";
-import { Box, ButtonBox } from "../components/Home";
+import { ButtonBox } from "../components/Home";
 
 const Home = () => {
   const navigate = useNavigate();

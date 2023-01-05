@@ -6,7 +6,7 @@ import Button from "../components/common/Button";
 import { WordGenerator, WordList } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
 import { PageContainer, Paper, PaperTitle } from "../components/common";
-//TODO 새로고침 돌아가는버그
+
 function Words() {
   const { topic } = useParams();
   const {
@@ -19,7 +19,6 @@ function Words() {
 
   useEffect(() => {
     if (!isDataInitiated) return;
-    console.log(isDataInitiated, topics);
     const isRightTopic = topics.find((_topic) => _topic.topicName === topic);
     if (!isRightTopic) {
       navigate("/topics");

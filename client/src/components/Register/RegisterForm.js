@@ -4,7 +4,8 @@ import { useRegister } from "../../hooks";
 import * as S from "./styles";
 const RegisterForm = () => {
   const inputs = useRef({});
-  const { register } = useRegister();
+  const register = useRegister();
+  console.log(inputs);
   const [
     { email: emailState, name: nameState, pw: pwState, pwConfirm: pwConfirmState },
     setControlState,

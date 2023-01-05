@@ -15,6 +15,8 @@ const MainLayout = () => {
 };
 
 const Wrapper = styled.div`
+  /* height: 800px; */
+  min-height: 100vh;
   flex: 1;
   display: flex;
   flex-direction: column;

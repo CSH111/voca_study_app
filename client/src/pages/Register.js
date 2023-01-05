@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { RegisterForm } from "../components/Register";
 import { AuthLink, PageContainer, Paper, PaperTitle } from "../components/common";
 

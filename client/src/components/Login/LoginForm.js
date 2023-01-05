@@ -1,14 +1,15 @@
-import React from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
+import { authErrName as EN } from "../../constants";
+import { useAuthSeletor } from "../../context";
 import { useLogin } from "../../hooks";
 import * as S from "./styles";
-//로그인 기억하기 옵션
-// 비밀번호 불일치시 아이디값 남겨두기
 
 const LoginForm = () => {
   const emailInput = useRef();
   const pwInput = useRef();
-  const { login } = useLogin();
+  const login = useLogin();
+  const { errName } = useAuthSeletor();
 
   const handleSubmit = (values) => {
     const {
@@ -17,6 +18,19 @@ const LoginForm = () => {
     } = values;
     login({ email, pw });
   };
+
+  useEffect(() => {
+    if (!errName) return;
+    switch (errName) {
+      case EN.LOGIN_NO_EMAIL:
+        emailInput.current.focus();
+        return;
+      case EN.LOGIN_WRONG_PW:
+        pwInput.current.focus();
+        return;
+      default:
+    }
+  }, [errName]);
 
   return (
     <S.Form onSubmit={handleSubmit}>

@@ -1,10 +1,7 @@
-import Bookmark from "./Bookmark";
-import Home from "./Home";
-import Login from "./Login";
-import Register from "./Register";
-import Topics from "./Topics";
-import Words from "./Words";
-import Loading from "./Loading";
-import Study from "./Study";
-
-export { Study, Loading, Bookmark, Home, Login, Register, Topics, Words };
+export { default as Bookmark } from "./Bookmark";
+export { default as Home } from "./Home";
+export { default as Login } from "./Login";
+export { default as Register } from "./Register";
+export { default as Study } from "./Study";
+export { default as Topics } from "./Topics";
+export { default as Words } from "./Words";

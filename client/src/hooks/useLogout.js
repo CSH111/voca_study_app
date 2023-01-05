@@ -1,23 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { authService } from "../services";
-import { useAuthContext } from "../context";
+import { useAuthDispatch } from "../context";
+import { authActionType as AT } from "../constants";
 
 const useLogout = () => {
   const navigate = useNavigate();
-  const { setUser } = useAuthContext();
-  const logout = () => {
-    authService
-      .logout()
-      .then(() => {
-        setUser("");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("로그아웃 실패");
-      });
+  const dispatch = useAuthDispatch();
+
+  const logout = async () => {
+    dispatch({ type: AT.LOGOUT_PENDING });
+    try {
+      await authService.logout();
+      dispatch({ type: AT.LOGOUT_FULFILLED, payload: "" });
+      navigate("/");
+    } catch (err) {
+      dispatch({ type: AT.LOGOUT_REJECTED });
+      alert("로그아웃 실패");
+    }
   };
-  return { logout };
+  return logout;
 };
 
 export default useLogout;

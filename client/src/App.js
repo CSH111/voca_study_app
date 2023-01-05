@@ -10,7 +10,7 @@ function App() {
   return (
     <AuthContextProvider>
       <WordbookProvider>
-        <AppRouter />;
+        <AppRouter />
       </WordbookProvider>
     </AuthContextProvider>
   );

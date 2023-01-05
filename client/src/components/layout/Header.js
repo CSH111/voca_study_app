@@ -2,27 +2,11 @@ import { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useLogout } from "../../hooks";
-import { useAuthContext } from "../../context";
+import { useAuthSeletor } from "../../context";
 
 const Header = () => {
-  const { topic } = useParams();
-  // const [msg, setMsg] = useState("");
-  const location = useLocation();
-  const { logout } = useLogout();
-  const { user } = useAuthContext();
-
-  useEffect(() => {
-    switch (location.pathname) {
-      case "/bookmark":
-        // setMsg("my Bookmark");
-        break;
-      case "/topics":
-        // setMsg(`${user}'s wordbook`);
-        break;
-      default:
-      // setMsg(topic);
-    }
-  }, [location, user]);
+  const logout = useLogout();
+  const { user } = useAuthSeletor();
 
   const handleLogout = () => logout();
 

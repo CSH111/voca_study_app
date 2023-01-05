@@ -1,15 +1,13 @@
-const createauthService = (httpClient) => {
+const createAuthService = (httpClient) => {
   return {
+    register(body) {
+      return httpClient.post("/api/user", body);
+    },
     login(body) {
       return httpClient.post("/api/session", body);
     },
-
     logout() {
       return httpClient.delete("/api/session");
-    },
-
-    register(body) {
-      return httpClient.post("/api/user", body);
     },
     getUser() {
       return httpClient.get("/api/user");
@@ -17,4 +15,4 @@ const createauthService = (httpClient) => {
   };
 };
 
-export default createauthService;
+export default createAuthService;
