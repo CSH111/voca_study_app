@@ -28,3 +28,9 @@ export const ValidityMsg = styled.div`
   font-size: 13px;
   color: red;
 `;
+
+export const ResultMsg = styled.p`
+  min-height: 25px;
+  color: red;
+  font-weight: bold;
+`;

@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useRef } from "react";
+import { useAuthSeletor } from "../../context";
 import { useRegister } from "../../hooks";
 import * as S from "./styles";
 const RegisterForm = () => {
   const inputs = useRef({});
   const register = useRegister();
-  console.log(inputs);
+  const {
+    isError,
+    error: { msg },
+  } = useAuthSeletor();
   const [
     { email: emailState, name: nameState, pw: pwState, pwConfirm: pwConfirmState },
     setControlState,
@@ -84,6 +88,7 @@ const RegisterForm = () => {
         pattern={pwValue}
         errorMsg={"비밀번호가 일치하지 않습니다"}
       />
+      <S.ResultMsg>{isError && msg}</S.ResultMsg>
       <S.Button type="submit" disabled={!allValid}>
         가입
       </S.Button>

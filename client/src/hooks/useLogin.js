@@ -14,10 +14,8 @@ const useLogin = () => {
       dispatch({ type: AT.LOGIN_FULFILLED, payload: res.data.userName });
       navigate("/topics");
     } catch (err) {
-      const { errName } = err.response.data;
-      dispatch({ type: AT.LOGIN_REJECTED, payload: errName });
-      //TODO: alert 대신 모달활용
-      alert(err.response.data.msg);
+      const { errName, msg } = err.response.data;
+      dispatch({ type: AT.LOGIN_REJECTED, payload: { errName, msg } });
     }
   };
   return login;

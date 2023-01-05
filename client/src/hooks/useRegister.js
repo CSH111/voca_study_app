@@ -14,8 +14,8 @@ const useRegister = () => {
       dispatch({ type: AT.REGISTER_FULFILLED, payload: res.data.userName });
       navigate("/");
     } catch (err) {
-      dispatch({ type: AT.REGISTER_REJECTED });
-      alert(err.response.data.msg);
+      const msg = err.response.data.msg ?? "서버 오류";
+      dispatch({ type: AT.REGISTER_REJECTED, payload: { msg } });
     }
   };
 

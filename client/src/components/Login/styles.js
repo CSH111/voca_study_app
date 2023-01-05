@@ -17,3 +17,9 @@ export const Label = styled.label`
 export const Button = styled(RectangularButton)`
   margin-top: 10px;
 `;
+
+export const Msg = styled.p`
+  min-height: 25px;
+  color: red;
+  font-weight: bold;
+`;

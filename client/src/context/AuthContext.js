@@ -14,7 +14,7 @@ const initialState = {
   user: "",
   isLoading: true,
   isError: false,
-  errName: null,
+  error: {},
 };
 
 const authReducer = (state, { type, payload }) => {
@@ -22,21 +22,28 @@ const authReducer = (state, { type, payload }) => {
     case [AT.GET_USER_PENDING, AT.LOGIN_PENDING, AT.LOGOUT_PENDING, AT.REGISTER_PENDING].includes(
       type
     ):
-      return { ...state, isLoading: true, isError: false, errName: null };
+      return { ...state, isLoading: true, isError: false, error: {} };
     case [
       AT.GET_USER_FULFILLED,
       AT.LOGIN_FULFILLED,
       AT.LOGOUT_FULFILLED,
       AT.REGISTER_FULFILLED,
     ].includes(type):
-      return { ...state, isLoading: false, isError: false, user: payload };
+      return { ...state, isLoading: false, isError: false, user: payload, error: {} };
     case [
       AT.GET_USER_REJECTED,
       AT.LOGIN_REJECTED,
       AT.LOGOUT_REJECTED,
       AT.REGISTER_REJECTED,
     ].includes(type):
-      return { ...state, isLoading: false, isError: true, errName: payload ?? null };
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: payload ? { errName: payload.errName, msg: payload.msg } : {},
+      };
+    case AT.CLEAR_AUTH_ERROR === type:
+      return { ...state, isError: false, error: {} };
     default:
       return { ...state };
   }
