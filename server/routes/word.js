@@ -4,9 +4,8 @@ const { User } = require("../Model/User");
 //word 불러오기
 router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email }) //
-    .then((user) => {
-      const words = user.words;
-      res.status(200).json({ success: true, words });
+    .then((resultData) => {
+      res.status(200).json({ success: true, words: resultData.words });
     })
     .catch(console.log);
 });
@@ -15,12 +14,11 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $push: { words: req.body } },
+    { $push: { words: { ...req.body, isMemorized: false, isBookmarked: false } } },
     { new: true }
   ) //
-    .then((newUser) => {
-      const newWords = newUser.words;
-      res.status(200).json({ success: true, newWords });
+    .then((resultData) => {
+      res.status(200).json({ success: true, words: resultData.words });
     })
     .catch(console.log);
 });
@@ -39,12 +37,12 @@ router.patch("/:_id", (req, res) => {
       $set: {
         "words.$": req.body,
       },
-    }
-    // { new: true }
+    },
+    { new: true }
   ) //
-    .then((data) => {
-      if (data === null) return res.status(400).json({ success: false });
-      res.status(200).json({ success: true });
+    .then((resultData) => {
+      if (resultData === null) return res.status(400).json({ success: false });
+      res.status(200).json({ success: true, words: resultData.words });
     })
     .catch(console.log);
 }); //
@@ -53,11 +51,11 @@ router.patch("/:_id", (req, res) => {
 router.delete("/:_id", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $pull: { words: { _id: req.params._id } } }
+    { $pull: { words: { _id: req.params._id } } },
+    { new: true }
   ) //
-    .then(() => {
-      console.log("word 삭제 완료");
-      res.status(200).json({ success: true });
+    .then((resultData) => {
+      res.status(200).json({ success: true, words: resultData.words });
     })
     .catch(console.log);
 });
