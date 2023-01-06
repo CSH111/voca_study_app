@@ -5,9 +5,7 @@ import { Spinner } from "../common/icons";
 import WordListItem from "../Words/WordListItem";
 
 const BookmarkList = () => {
-  const {
-    wordsData: { words, loading },
-  } = useWordbookSelector();
+  const { words, isLoading } = useWordbookSelector();
   const bookmarkedWords = words.filter((word) => word.isBookmarked === true);
 
   const listItem = words.length ? (
@@ -21,7 +19,7 @@ const BookmarkList = () => {
     <div>단어를 추가하세요</div>
   );
 
-  return loading ? <Spinner /> : listItem;
+  return isLoading ? <Spinner /> : listItem;
 };
 
 export default BookmarkList;

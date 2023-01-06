@@ -1,15 +1,13 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useWordbookSelector } from "../../context/WordbookContext";
-import { wordbookService } from "../../services";
+import { usePatchWord } from "../../hooks";
 import { BookmarkButton, Button } from "../common";
 import { StarIcon } from "../common/icons";
 
 const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsData }) => {
   const { word, meaning, isBookmarked, _id: id } = staticWordData;
   const [isMeaningShown, setIsMeaningShown] = useState(false);
-  const { setWordsData } = useWordbookSelector();
+  const { patchWord } = usePatchWord();
 
   useEffect(() => {
     setIsMeaningShown(false);
@@ -20,52 +18,15 @@ const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsDa
   };
 
   const handleEvaluation = ({ target: { value } }) => {
-    patchWord({ isMemorized: value });
-
-    setWordsData(({ words, loading }) => {
-      return {
-        words: words.map((word) => {
-          if (word._id === id) {
-            return { ...word, isMemorized: JSON.parse(value) };
-          }
-          return word;
-        }),
-        loading,
-      };
-    });
+    patchWord(id, { ...staticWordData, isMemorized: JSON.parse(value) });
     goNext();
   };
 
-  const patchWord = async (changedDataObj) => {
-    const body = {
-      ...staticWordData,
-      ...changedDataObj,
-    };
-    await wordbookService.patchWord(id, body);
-    //
-  };
-
   const handleBookmark = async () => {
-    await patchWord({ isBookmarked: !staticWordData.isBookmarked });
-
-    setWordsData(({ words, loading }) => {
-      return {
-        words: words.map((word) => {
-          if (word._id === id) {
-            return { ...word, isBookmarked: !word.isBookmarked };
-          }
-          return word;
-        }),
-        loading,
-      };
-    });
-
+    patchWord(id, { ...staticWordData, isBookmarked: !staticWordData.isBookmarked });
     setStaticWordsData((words) => {
       return words.map((word) => {
-        if (word._id === id) {
-          return { ...word, isBookmarked: !word.isBookmarked };
-        }
-        return word;
+        return word._id === id ? { ...word, isBookmarked: !word.isBookmarked } : word;
       });
     });
   };

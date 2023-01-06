@@ -4,3 +4,7 @@ export { default as useRegister } from "./useRegister";
 export { default as useDeleteTopic } from "./useDeleteTopic";
 export { default as usePostTopic } from "./usePostTopic";
 export { default as usePatchTopic } from "./usePatchTopic";
+export { default as usePostWord } from "./usePostWord";
+export { default as useDeleteWord } from "./useDeleteWord";
+export { default as usePatchWord } from "./usePatchWord";
+export { default as useInitialLoadEffect } from "./useInitialLoadEffect";

@@ -1,10 +1,11 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, PageContainer, Paper, PaperTitle } from "../components/common";
+import { Button, LoadingCover, PageContainer, Paper, PaperTitle } from "../components/common";
 import { GoBackIcon, LeftIcon, RightIcon } from "../components/common/icons";
 import { ConceptBox, NavBtnBox, WordItemBox } from "../components/Study";
 import { useWordbookSelector } from "../context";
+import { useInitialLoadEffect } from "../hooks";
 // import { useWordbookSelector } from "../context";
 
 const Study = () => {
@@ -12,28 +13,26 @@ const Study = () => {
   const { topic } = useParams();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [studyConcept, setStudyConcept] = useState("");
-  const {
-    wordsData: { words: allWords },
-    isDataInitiated,
-  } = useWordbookSelector();
-  const [count, setCount] = useState(0);
+  const { words: allWords, initialLoad, isLoading } = useWordbookSelector();
 
-  useEffect(() => {
-    const wordsInTopic =
-      topic === "bookmark"
-        ? allWords.filter((word) => word.isBookmarked)
-        : allWords.filter((word) => word.topic === topic);
-    if (count > 0) return;
-    if (!isDataInitiated) {
-      setStaticWordsData(wordsInTopic);
-      return;
-    }
-    setCount((c) => c + 1);
-    setStaticWordsData(wordsInTopic);
-  }, [allWords]);
+  useInitialLoadEffect(
+    () => {
+      const currentTopicWords =
+        topic === "bookmark"
+          ? allWords.filter((word) => word.isBookmarked)
+          : allWords.filter((word) => word.topic === topic);
+
+      setStaticWordsData(currentTopicWords);
+    },
+    initialLoad,
+    [allWords]
+  );
 
   const [staticWordsData, setStaticWordsData] = useState([]);
-  const incompleteWords = staticWordsData.filter((word) => word.isMemorized === false);
+  const incompleteWords = useMemo(() => {
+    return staticWordsData.filter((word) => word.isMemorized === false);
+  }, [staticWordsData]);
+
   const wordsToStudy = (() => {
     switch (studyConcept) {
       case "all":
@@ -67,11 +66,8 @@ const Study = () => {
     });
   };
 
-  const handleAllBtnClick = () => {
-    setStudyConcept("all");
-  };
-  const handleIncompleteBtnClick = () => {
-    setStudyConcept("incomplete");
+  const handleConceptBtnsClick = ({ target: { value } }) => {
+    setStudyConcept(value);
   };
 
   return (
@@ -88,22 +84,27 @@ const Study = () => {
         }
       >
         {!studyConcept && (
-          <ConceptBox>
-            <Button
-              themeColor="gray"
-              onClick={handleAllBtnClick}
-              disabled={staticWordsData.length === 0}
-            >
-              모든 단어({staticWordsData.length})
-            </Button>
-            <Button
-              themeColor="gray"
-              onClick={handleIncompleteBtnClick}
-              disabled={incompleteWords.length === 0}
-            >
-              미학습 단어({incompleteWords.length})
-            </Button>
-          </ConceptBox>
+          <>
+            {isLoading && <LoadingCover />}
+            <ConceptBox>
+              <Button
+                value="all"
+                themeColor="gray"
+                onClick={handleConceptBtnsClick}
+                disabled={staticWordsData.length === 0}
+              >
+                모든 단어 ({staticWordsData.length})
+              </Button>
+              <Button
+                value="incomplete"
+                themeColor="gray"
+                onClick={handleConceptBtnsClick}
+                disabled={incompleteWords.length === 0}
+              >
+                미학습 단어({incompleteWords.length})
+              </Button>
+            </ConceptBox>
+          </>
         )}
         {studyConcept && (
           <>

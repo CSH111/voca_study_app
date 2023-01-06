@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
-import { useWordbookSelector } from "../../context/WordbookContext";
 import { Button, InputBox } from "../common";
 import { AddIcon } from "../common/icons";
 import * as S from "./styles";
-import { wordbookService } from "../../services";
+import { usePostWord } from "../../hooks";
+import { useEffect } from "react";
 
-const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
-  const { setWordsData } = useWordbookSelector();
+const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();
@@ -14,36 +13,30 @@ const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
   const isEmptyWordValue = !wordInputValue.trim();
   const isEmptyMeaningValue = !meaningInputValue.trim();
 
-  const updateWord = () => {
-    const body = {
-      topic,
-      topicID,
-      word: wordInputValue,
-      meaning: meaningInputValue,
-      isMemorized: false,
-      isBookmarked: false,
-    };
-    // 바디줄이기
-    wordbookService
-      .postWord(body)
-      .then((res) => {
-        setwordItemLoading(false);
-        setWordsData((data) => ({ ...data, words: res.data.newWords }));
-      })
-      .catch(console.log);
-  };
+  const { postWord, isLoading, isError } = usePostWord();
+
+  useEffect(() => {
+    setNewItemLoading(isLoading);
+  }, [isLoading]);
 
   const handleAddBtnClick = (e) => {
     e.preventDefault();
     if (isEmptyWordValue) return wordInput.current.focus();
     if (isEmptyMeaningValue) return meaningInput.current.focus();
-
-    setwordItemLoading(true);
+    // 로딩처리 개선
+    //에러처리
     setMeaningInputValue("");
     setWordInputValue("");
     wordInput.current.focus();
 
-    updateWord();
+    const body = {
+      topic: topicName,
+      topicID,
+      word: wordInputValue,
+      meaning: meaningInputValue,
+    };
+    //TODO catch 위치 확인
+    postWord(body);
   };
 
   return (

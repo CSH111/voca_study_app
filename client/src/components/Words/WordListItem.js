@@ -1,91 +1,49 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { useWordbookSelector } from "../../context";
 import * as S from "./styles";
 
 import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
 import { InputBox, Ellipsis, Button, DeleteModal, BookmarkButton } from "../../components/common";
 import { Spinner } from "../common/icons";
-import { wordbookService } from "../../services";
+import { useDeleteWord, usePatchWord } from "../../hooks";
 
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
-  const { setWordsData, words: allWords } = useWordbookSelector();
+  const { deleteWord, isLoading: isDeleteLoading, isError: isDeleteError } = useDeleteWord();
+  const { patchWord, isLoading: isPatchLoading, isError: isPatchError } = usePatchWord();
 
   const [isModifying, setIsModifying] = useState(false);
-  const [isItemLoading, setIsItemLoading] = useState(false);
   const wordInputElem = useRef();
   const meaningInputElem = useRef();
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
 
+  const isItemLoading = isDeleteLoading || isPatchLoading;
   const handleDeleteModal = () => {
     setIsDeleteModalOpened(true);
   };
+
   const handleDelete = () => {
-    setIsItemLoading(true);
     setIsDeleteModalOpened(false);
-    wordbookService
-      .deleteWord(id)
-      .then((res) => {
-        setWordsData((data) => {
-          return {
-            ...data,
-            words: data.words.filter((_word) => _word._id !== id),
-          };
-        });
-      })
-      .finally(() => {
-        setIsItemLoading(false);
-      });
+    deleteWord(id);
   };
 
   const handleIsMemorized = async () => {
-    setIsItemLoading(true);
-    await updateWord({ isMemorized: !isMemorized }) //
-      .catch(console.log);
-    setIsItemLoading(false);
+    patchWord(id, { ...wordData, isMemorized: !isMemorized });
   };
 
   const handleBookmark = async () => {
-    setIsItemLoading(true);
-    await updateWord({ isBookmarked: !isBookmarked }) //
-      .catch(console.log);
-    setIsItemLoading(false);
+    patchWord(id, { ...wordData, isBookmarked: !isBookmarked });
   };
-
-  const updateWord = (changedDataObj) => {
-    const body = {
-      ...wordData,
-      ...changedDataObj,
-    };
-    return wordbookService
-      .patchWord(id, body) //
-      .then(() => {
-        setWordsData((data) => ({
-          ...data,
-          words: getModifiedWords(body),
-        }));
-      });
-  };
-
-  const getModifiedWords = (newWord) =>
-    allWords.map((_word) => {
-      if (_word._id === id) {
-        return newWord;
-      }
-      return _word;
-    });
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    setIsItemLoading(true);
     setIsModifying(false);
-    await updateWord({
+    patchWord(id, {
+      ...wordData,
       word: wordInputElem.current.value,
       meaning: meaningInputElem.current.value,
-    }).catch(console.log);
-    setIsItemLoading(false);
+    });
   };
 
   const handleFixModeOpen = () => {

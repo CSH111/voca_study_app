@@ -6,18 +6,16 @@ import Button from "../components/common/Button";
 import { WordGenerator, WordList } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
 import { PageContainer, Paper, PaperTitle } from "../components/common";
+import { useMemo } from "react";
 //TODO: 리스트 화면 넘어가면 갑자기 가로스크롤생김.
 function Words() {
-  const { topic } = useParams();
+  const { topic: topicName } = useParams();
   const { topics } = useWordbookSelector();
-  const [topicID, setTopicID] = useState("");
-  const [wordItemLoading, setwordItemLoading] = useState(false);
+  const [newItemLoading, setNewItemLoading] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const currTopicID = topics.find((_topic) => _topic.topicName === topic)?._id;
-    setTopicID(currTopicID);
-  }, []);
+  const topicID = useMemo(() => {
+    return topics.find((_topic) => _topic.topicName === topicName)?._id;
+  }, [topics, topicName]);
 
   return (
     <PageContainer align="flex-start">
@@ -27,15 +25,19 @@ function Words() {
         bodyAlign="flex-start"
         paperHeader={
           <PaperTitle>
-            {topic}{" "}
+            {topicName}{" "}
             <Button onClick={() => navigate("/topics")} width="35px" height="35px">
               <GoBackIcon />
             </Button>
           </PaperTitle>
         }
       >
-        <WordGenerator topic={topic} topicID={topicID} setwordItemLoading={setwordItemLoading} />
-        <WordList topic={topic} isNewItemLoading={wordItemLoading} />
+        <WordGenerator
+          topicName={topicName}
+          topicID={topicID}
+          setNewItemLoading={setNewItemLoading}
+        />
+        <WordList topicName={topicName} isNewItemLoading={newItemLoading} />
       </Paper>
     </PageContainer>
   );

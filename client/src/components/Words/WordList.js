@@ -12,15 +12,16 @@ import { useEffect } from "react";
 import { useWordbookDispatch } from "../../context/WordbookContext";
 import { wordbookActionType as WAT } from "../../constants";
 
-const WordList = ({ topic, isNewItemLoading }) => {
+const WordList = ({ topicName, isNewItemLoading }) => {
   const { words, isLoading } = useWordbookSelector();
   // const { currentWords } = wordsData;
   const dispatch = useWordbookDispatch();
-  const currentWords = words.filter((word) => word.topic === topic);
+  const currentWords = words.filter((word) => word.topic === topicName);
+
   useEffect(() => {
     if (isLoading) return;
-    dispatch({ type: WAT.GET_CURRENT_WORDS, payload: topic });
-  }, [isLoading, topic, dispatch]);
+    dispatch({ type: WAT.GET_CURRENT_WORDS, payload: topicName });
+  }, [isLoading, topicName, dispatch]);
 
   const listItems = currentWords.length ? (
     currentWords.map((word) => (

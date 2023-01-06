@@ -12,53 +12,36 @@ const initialState = {
   words: [],
   isLoading: true,
   isError: false,
+  initialLoad: false,
 };
 
 const wordbookReducer = (state, { type, payload }) => {
-  console.log(state);
+  // console.log(state);
   switch (type) {
     case WAT.GET_WORDBOOK_PENDING:
       return { ...state, isLoading: true, isError: false };
     case WAT.GET_WORDBOOK_FULFILLED:
       return {
         ...state,
-        topics: payload.topics,
-        words: payload.words,
+        ...payload,
         isLoading: false,
         isError: false,
+        initialLoad: true,
       };
     case WAT.GET_WORDBOOK_REJECTED:
       return { ...state, isLoading: false, isError: true };
-    //
-
     case WAT.POST_TOPIC_FULFILLED:
       return { ...state, topics: payload };
-    //
-    case WAT.DELETE_TOPIC_FULFILLED: {
-      const { topics, words } = state;
-      const newTopics = topics.filter(({ _id }) => _id !== payload);
-      const newWords = words.filter(({ topicID }) => topicID !== payload);
-
-      return { ...state, topics: newTopics, words: newWords };
-    }
-    //
-    case WAT.PATCH_TOPIC_FULFILLED: {
-      const { topics, words } = state;
-      const newTopics = topics.map((topic) => {
-        if (topic._id === payload.topicID) {
-          return { ...topic, topicName: payload.topicName };
-        }
-        return topic;
-      });
-      const newWords = words.map((word) => {
-        if (word.topicID === payload.topicID) {
-          return { ...word, topic: payload.topicName };
-        }
-        return word;
-      });
-      console.log("new", newTopics);
-      return { ...state, topics: newTopics, words: newWords };
-    }
+    case WAT.DELETE_TOPIC_FULFILLED:
+      return { ...state, ...payload };
+    case WAT.PATCH_TOPIC_FULFILLED:
+      return { ...state, ...payload };
+    case WAT.POST_WORD_FULFILLED:
+      return { ...state, words: payload };
+    case WAT.DELETE_WORD_FULFILLED:
+      return { ...state, ...payload };
+    case WAT.PATCH_WORD_FULFILLED:
+      return { ...state, ...payload };
 
     default:
       return state;
