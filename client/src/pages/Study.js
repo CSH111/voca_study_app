@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button, PageContainer, Paper, PaperTitle } from "../components/common";
 import { GoBackIcon, LeftIcon, RightIcon } from "../components/common/icons";
 import { ConceptBox, NavBtnBox, WordItemBox } from "../components/Study";
-import { useWordbookContext } from "../context";
-// import { useWordbookContext } from "../context";
+import { useWordbookSelector } from "../context";
+// import { useWordbookSelector } from "../context";
 
 const Study = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Study = () => {
   const {
     wordsData: { words: allWords },
     isDataInitiated,
-  } = useWordbookContext();
+  } = useWordbookSelector();
   const [count, setCount] = useState(0);
 
   useEffect(() => {

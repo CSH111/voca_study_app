@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useWordbookContext } from "../../context/WordbookContext";
+import { useWordbookSelector } from "../../context/WordbookContext";
 import { Devider } from "../common";
 import { Spinner } from "../common/icons";
 import WordListItem from "../Words/WordListItem";
@@ -7,7 +7,7 @@ import WordListItem from "../Words/WordListItem";
 const BookmarkList = () => {
   const {
     wordsData: { words, loading },
-  } = useWordbookContext();
+  } = useWordbookSelector();
   const bookmarkedWords = words.filter((word) => word.isBookmarked === true);
 
   const listItem = words.length ? (

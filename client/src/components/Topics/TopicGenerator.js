@@ -1,21 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { useWordbookContext } from "../../context/WordbookContext";
+import { useWordbookSelector } from "../../context/WordbookContext";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AddIcon } from "../common/icons";
-import Button from "../../components/common/Button";
-import InputBox from "../../components/common/InputBox";
-import { wordbookService } from "../../services";
+import { InputBox, Button } from "../../components/common";
+import { usePostTopic } from "../../hooks";
 
 const TopicGenerator = () => {
   const [topicValue, setTopicValue] = useState("");
-  const {
-    topicsData: { topics },
-    setTopicsData,
-  } = useWordbookContext();
+  const { topics } = useWordbookSelector();
+  const { postTopic, isLoading, isError } = usePostTopic();
   const topicInput = useRef();
   const navigate = useNavigate();
-  const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(false);
   const [msg, setMsg] = useState("");
 
   const isEmpty = (_topicValue) => {
@@ -37,7 +33,7 @@ const TopicGenerator = () => {
     return false;
   };
 
-  const handleTopicCreate = (e) => {
+  const handleTopicCreate = async (e) => {
     e.preventDefault();
     if (isEmpty(topicValue)) {
       setMsg("공백을 입력할 수 없습니다.");
@@ -52,18 +48,11 @@ const TopicGenerator = () => {
       return;
     }
 
-    setIsSubmitBtnDisabled(true);
-    const body = { topicName: topicValue.trim() };
-    setTopicsData((data) => ({ ...data, loading: true }));
-    wordbookService
-      .postTopic(body)
-      .then((res) => {
-        setTopicValue("");
-        setTopicsData((data) => ({ ...data, topics: res.data.topics, loading: false }));
-
-        navigate(`/topics/${topicValue}`);
-      })
-      .catch(console.log);
+    const trimedTopicName = topicValue.trim();
+    //TODO catch 위치 테스트
+    postTopic(trimedTopicName).then(() => {
+      navigate(`/topics/${trimedTopicName}`);
+    });
   };
 
   return (
@@ -77,12 +66,7 @@ const TopicGenerator = () => {
           placeholder="토픽폴더를 추가하세요"
         />
 
-        <Button
-          onClick={handleTopicCreate}
-          disabled={isSubmitBtnDisabled}
-          height="35px"
-          width="35px"
-        >
+        <Button onClick={handleTopicCreate} disabled={isLoading} height="35px" width="35px">
           <AddIcon />
         </Button>
       </div>

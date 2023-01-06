@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
-import { useWordbookContext } from "../../context/WordbookContext";
+import { useWordbookSelector } from "../../context/WordbookContext";
 import { Button, InputBox } from "../common";
 import { AddIcon } from "../common/icons";
 import * as S from "./styles";
 import { wordbookService } from "../../services";
 
 const WordGenerator = ({ topic, topicID, setwordItemLoading }) => {
-  const { setWordsData } = useWordbookContext();
+  const { setWordsData } = useWordbookSelector();
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();

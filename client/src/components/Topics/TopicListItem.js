@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useWordbookContext } from "../../context/WordbookContext";
+import { useWordbookDispatch, useWordbookSelector } from "../../context/WordbookContext";
 import * as S from "./styles";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
 import styled from "styled-components";
@@ -10,43 +10,28 @@ import { Spinner } from "../../components/common/icons";
 import ProgressBar from "./ProgressBar";
 
 import LinkModal from "./LinkModal";
-import { wordbookService } from "../../services";
-
+import { useDeleteTopic, usePatchTopic } from "../../hooks";
 const TopicListItem = ({ topic }) => {
-  const {
-    topicsData: { topics },
-    setTopicsData,
-    wordsData: { words: allWords },
-    setWordsData,
-  } = useWordbookContext();
-
+  const { words: allWords } = useWordbookSelector();
+  const { deleteTopic, isLoading: isDeleteLoading, isDeleteError } = useDeleteTopic();
+  const { patchTopic, isLoading: isPatchLoading, isError: isPatchError } = usePatchTopic();
   const [isModifying, setIsModifying] = useState(false);
-  const [isItemLoading, setIsItemLoading] = useState(false);
   const fixInput = useRef();
-  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
   const [isLinkModalOpened, setIsLinkModalOpened] = useState(false);
   const wordsForThisTopic = allWords.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
+  const isListItemLoading = isDeleteLoading || isPatchLoading;
+  const isItemLoading = false;
 
   const handleDeleteModal = (e) => {
     setIsDeleteModalOpened(true);
   };
 
   const handleDelete = () => {
-    const newTopics = topics.filter(({ topicName }) => topicName !== topic.topicName);
-    const newWords = allWords.filter(({ topic: _topic }) => _topic !== topic.topicName);
-    setIsDeleteLoading(true);
     setIsDeleteModalOpened(false);
-    wordbookService
-      .deleteTopic(topic._id)
-      .then((res) => {
-        setIsDeleteLoading(false);
-        setTopicsData((data) => ({ ...data, topics: [...newTopics] }));
-        setWordsData((data) => ({ ...data, words: newWords }));
-      })
-      .catch(console.log);
+    deleteTopic(topic._id);
   };
 
   const handleFixModeOpen = (e) => {
@@ -61,41 +46,12 @@ const TopicListItem = ({ topic }) => {
     setIsModifying(false);
   };
 
-  const getUpdatedTopics = (newTopicObject) => {
-    return topics.map((_topic) => {
-      if (_topic._id === topic._id) {
-        return { ...topic, ...newTopicObject };
-      }
-      return _topic;
-    });
-  };
-
-  const updateTopic = async (value) => {
-    const body = { topicName: value };
-    //TODO: 에러핸들링
-    await wordbookService.patchTopic(topic._id, body);
-    setWordsData((data) => {
-      return {
-        ...data,
-        words: data.words.map((word) => {
-          if (word.topic === topic.topicName) {
-            return { ...word, topic: body.topicName };
-          }
-          return word;
-        }),
-      };
-    });
-    setTopicsData((data) => ({ ...data, topics: getUpdatedTopics(body) }));
-  };
-
   const handleSubmission = async (e) => {
     e.preventDefault();
-    const inputValue = fixInput.current.value;
-    if (inputValue === "") return;
+    const topicName = fixInput.current.value.trim();
+    if (topicName === "") return;
     setIsModifying(false);
-    setIsItemLoading(true);
-    await updateTopic(fixInput.current.value); //
-    setIsItemLoading(false);
+    patchTopic(topic._id, { topicName });
   };
 
   const handleListClick = () => {
@@ -103,8 +59,8 @@ const TopicListItem = ({ topic }) => {
   };
 
   return (
-    <ListItem isBlur={isItemLoading} onClick={handleListClick}>
-      {(isItemLoading || isDeleteLoading) && (
+    <ListItem isBlur={isListItemLoading} onClick={handleListClick}>
+      {isListItemLoading && (
         <>
           <div className="blur-filter"></div>
           <div className="spinner">
@@ -168,7 +124,6 @@ const TopicListItem = ({ topic }) => {
         handleDelete={handleDelete}
         isOpen={isDeleteModalOpened}
         setIsOpen={setIsDeleteModalOpened}
-        isLoading={isDeleteLoading}
       />
       <LinkModal
         isOpen={isLinkModalOpened}

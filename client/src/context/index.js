@@ -1,2 +1,2 @@
 export { AuthContextProvider, useAuthSeletor, useAuthDispatch } from "./AuthContext";
-export { WordbookProvider, useWordbookContext } from "./WordbookContext";
+export { WordbookProvider, useWordbookSelector } from "./WordbookContext";

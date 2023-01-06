@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { useWordbookContext } from "../../context/WordbookContext";
+import { useWordbookSelector } from "../../context/WordbookContext";
 import { wordbookService } from "../../services";
 import { BookmarkButton, Button } from "../common";
 import { StarIcon } from "../common/icons";
@@ -9,7 +9,7 @@ import { StarIcon } from "../common/icons";
 const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsData }) => {
   const { word, meaning, isBookmarked, _id: id } = staticWordData;
   const [isMeaningShown, setIsMeaningShown] = useState(false);
-  const { setWordsData } = useWordbookContext();
+  const { setWordsData } = useWordbookSelector();
 
   useEffect(() => {
     setIsMeaningShown(false);

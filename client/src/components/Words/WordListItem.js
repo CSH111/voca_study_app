@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { useWordbookContext } from "../../context";
+import { useWordbookSelector } from "../../context";
 import * as S from "./styles";
 
 import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
@@ -11,23 +11,19 @@ import { wordbookService } from "../../services";
 
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
-  const {
-    setWordsData,
-    wordsData: { words: allWords },
-  } = useWordbookContext();
+  const { setWordsData, words: allWords } = useWordbookSelector();
 
   const [isModifying, setIsModifying] = useState(false);
   const [isItemLoading, setIsItemLoading] = useState(false);
   const wordInputElem = useRef();
   const meaningInputElem = useRef();
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
-  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const handleDeleteModal = () => {
     setIsDeleteModalOpened(true);
   };
   const handleDelete = () => {
-    setIsDeleteLoading(true);
+    setIsItemLoading(true);
     setIsDeleteModalOpened(false);
     wordbookService
       .deleteWord(id)
@@ -40,7 +36,7 @@ const WordListItem = ({ wordData }) => {
         });
       })
       .finally(() => {
-        setIsDeleteLoading(false);
+        setIsItemLoading(false);
       });
   };
 
@@ -134,7 +130,7 @@ const WordListItem = ({ wordData }) => {
 
   return (
     <ListItem cursor="pointer">
-      {(isItemLoading || isDeleteLoading) && (
+      {isItemLoading && (
         <>
           <div className="blur-filter"></div>
           <div className="spinner">
@@ -163,7 +159,6 @@ const WordListItem = ({ wordData }) => {
         setIsOpen={setIsDeleteModalOpened}
         isOpen={isDeleteModalOpened}
         msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
-        isLoading={isDeleteLoading}
       />
     </ListItem>
   );

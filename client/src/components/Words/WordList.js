@@ -1,21 +1,29 @@
 import { Fragment } from "react";
 import WordListItem from "./WordListItem";
-import { useWordbookContext } from "../../context";
-// import { useWordbookContext } from "../../context";
+import { useWordbookSelector } from "../../context";
+// import { useWordbookSelector } from "../../context";
 
 import { Spinner } from "../../components/common/icons";
 import styled from "styled-components";
 import List from "../../components/common/Lists/List";
 import { Devider } from "../common";
 import WordItemSkeleton from "./WordItemSkeleton";
+import { useEffect } from "react";
+import { useWordbookDispatch } from "../../context/WordbookContext";
+import { wordbookActionType as WAT } from "../../constants";
 
 const WordList = ({ topic, isNewItemLoading }) => {
-  const {
-    wordsData: { words: allWords, loading },
-  } = useWordbookContext();
-  const words = allWords.filter((word) => word.topic === topic);
-  const listItems = words.length ? (
-    words.map((word) => (
+  const { words, isLoading } = useWordbookSelector();
+  // const { currentWords } = wordsData;
+  const dispatch = useWordbookDispatch();
+  const currentWords = words.filter((word) => word.topic === topic);
+  useEffect(() => {
+    if (isLoading) return;
+    dispatch({ type: WAT.GET_CURRENT_WORDS, payload: topic });
+  }, [isLoading, topic, dispatch]);
+
+  const listItems = currentWords.length ? (
+    currentWords.map((word) => (
       <Fragment key={word._id}>
         <WordListItem wordID={word._id} wordData={word} />
         <Devider margin="10px 0" width="2px" color="#c4c4c4" />
@@ -27,12 +35,12 @@ const WordList = ({ topic, isNewItemLoading }) => {
 
   return (
     <StyledList>
-      {loading && (
+      {isLoading && (
         <div className="list-spinner">
           <Spinner />
         </div>
       )}
-      {!loading && listItems}
+      {!isLoading && listItems}
       {isNewItemLoading && (
         <>
           <WordItemSkeleton />

@@ -5,13 +5,10 @@ import { useAuthSeletor } from "../context";
 const PrivateRoutes = () => {
   const { user, isLoading } = useAuthSeletor();
 
-  return user ? (
-    <>
-      <Outlet />
-      {isLoading && <LoadingCover />}
-    </>
-  ) : (
-    <Navigate to="/" />
-  );
+  if (isLoading) {
+    return <LoadingCover />;
+  }
+
+  return user ? <Outlet /> : <Navigate to="/" />;
 };
 export default PrivateRoutes;
