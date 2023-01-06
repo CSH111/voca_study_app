@@ -13,8 +13,9 @@ const usePatchTopic = () => {
     setIsLoading(true);
     try {
       //TODO: 에러핸들링, 바디하나로(서버까지손보기)
-      await wordbookService.patchTopic(id, { topicName });
-      dispatch({ type: WAT.PATCH_TOPIC_FULFILLED, payload: { topicID: id, topicName } });
+      const res = await wordbookService.patchTopic(id, { topicName });
+      const { topics, words } = res.data;
+      dispatch({ type: WAT.PATCH_TOPIC_FULFILLED, payload: { topics, words } });
     } catch {
       setIsError(true);
     } finally {

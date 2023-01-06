@@ -10,13 +10,12 @@ const useDeleteTopic = () => {
 
   const deleteTopic = async (id) => {
     setIsLoading(true);
-    dispatch({ type: WAT.DELETE_TOPIC_PENDING });
     try {
-      await wordbookService.deleteTopic(id);
-      dispatch({ type: WAT.DELETE_TOPIC_FULFILLED, payload: id });
+      const res = await wordbookService.deleteTopic(id);
+      const { topics, words } = res.data;
+      dispatch({ type: WAT.DELETE_TOPIC_FULFILLED, payload: { topics, words } });
     } catch (err) {
       setIsError(true);
-      dispatch({ type: WAT.DELETE_TOPIC_REJECTED });
     } finally {
       setIsLoading(false);
     }

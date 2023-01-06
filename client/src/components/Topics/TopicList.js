@@ -17,14 +17,13 @@ const StyledList = styled(List)`
 `;
 
 const TopicList = () => {
-  const { topics } = useWordbookSelector();
+  const { topics, isLoading } = useWordbookSelector();
 
   const listItems = topics.length ? (
     topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)
   ) : (
     <div>토픽을 추가하세요</div>
   );
-  const isLoading = false;
 
   return (
     <StyledList>
