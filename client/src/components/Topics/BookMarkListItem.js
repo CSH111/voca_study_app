@@ -1,18 +1,19 @@
 import * as S from "./styles";
 import { BookMarkIcon } from "../common/icons";
 import ListItem from "../common/Lists/ListItem";
-import styled from "styled-components";
 import LinkModal from "./LinkModal";
-import { useState } from "react";
-import { useWordbookSelector } from "../../context";
+import { useModal, useWordbookSelector } from "../../context";
 
 const BookMarkListItem = () => {
-  const [isLinkModalOpened, setIsLinkModalOpened] = useState(false);
   const { words } = useWordbookSelector();
+  const { openModal } = useModal();
   const bookmarkedWordsAmount = words.filter((word) => word.isBookmarked).length;
   const handleListClick = () => {
-    setIsLinkModalOpened(true);
+    openModal(
+      <LinkModal leftLink={`/test/bookmark`} rightLink={`/bookmark`} title="My Bookmark" />
+    );
   };
+
   return (
     <ListItem onClick={handleListClick}>
       <S.ListContainer>
@@ -22,19 +23,8 @@ const BookMarkListItem = () => {
           <h3>북마크 단어 모음</h3>
         </div>
       </S.ListContainer>
-
-      <LinkModal
-        isOpen={isLinkModalOpened}
-        setIsOpen={setIsLinkModalOpened}
-        leftLink={`/test/bookmark`}
-        rightLink={`/bookmark`}
-      />
     </ListItem>
   );
 };
 
 export default BookMarkListItem;
-
-// const StyledTitle = styled.h4`
-//   margin-left: 10px;
-// `;

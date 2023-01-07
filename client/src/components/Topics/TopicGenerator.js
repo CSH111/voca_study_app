@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { AddIcon } from "../common/icons";
 import { InputBox, Button } from "../../components/common";
 import { usePostTopic } from "../../hooks";
+import { useModal } from "../../context";
 
 const TopicGenerator = () => {
   const [topicValue, setTopicValue] = useState("");
@@ -13,6 +14,7 @@ const TopicGenerator = () => {
   const topicInput = useRef();
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
+  const { closeModal } = useModal();
 
   const isEmpty = (_topicValue) => {
     if (!_topicValue.trim()) {
@@ -51,6 +53,7 @@ const TopicGenerator = () => {
     const trimedTopicName = topicValue.trim();
     //TODO catch 위치 테스트
     postTopic(trimedTopicName).then(() => {
+      closeModal();
       navigate(`/topics/${trimedTopicName}`);
     });
   };

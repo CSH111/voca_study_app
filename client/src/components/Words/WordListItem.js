@@ -7,24 +7,30 @@ import ListItem from "../../components/common/Lists/ListItem";
 import { InputBox, Ellipsis, Button, DeleteModal, BookmarkButton } from "../../components/common";
 import { Spinner } from "../common/icons";
 import { useDeleteWord, usePatchWord } from "../../hooks";
+import { useModal } from "../../context";
 
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
   const { deleteWord, isLoading: isDeleteLoading, isError: isDeleteError } = useDeleteWord();
   const { patchWord, isLoading: isPatchLoading, isError: isPatchError } = usePatchWord();
-
+  const { openModal, closeModal } = useModal();
   const [isModifying, setIsModifying] = useState(false);
   const wordInputElem = useRef();
   const meaningInputElem = useRef();
-  const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
 
   const isItemLoading = isDeleteLoading || isPatchLoading;
   const handleDeleteModal = () => {
-    setIsDeleteModalOpened(true);
+    // setIsDeleteModalOpened(true);
+    openModal(
+      <DeleteModal
+        handleDelete={handleDelete}
+        msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
+      />
+    );
   };
 
   const handleDelete = () => {
-    setIsDeleteModalOpened(false);
+    closeModal();
     deleteWord(id);
   };
 
@@ -111,12 +117,6 @@ const WordListItem = ({ wordData }) => {
             </BookmarkButton>
           </>
         }
-      />
-      <DeleteModal
-        handleDelete={handleDelete}
-        setIsOpen={setIsDeleteModalOpened}
-        isOpen={isDeleteModalOpened}
-        msg="삭제한 단어는 복구할 수 없습니다. 정말로 삭제하시겠습니까?"
       />
     </ListItem>
   );

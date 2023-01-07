@@ -1,66 +1,63 @@
 import styled, { css } from "styled-components";
 import Paper from "../Paper";
-import { useEffect, useState } from "react";
 import { CancelIcon, Spinner } from "../icons";
 import Button from "../Button";
-import RootPortal from "../RootPortal";
+import { useModal } from "../../../context";
+import { MODAL_FADE_TIME } from "../../../constants";
 
-const Modal = ({ children, isOpen, setIsOpen, footer, isLoading }) => {
+const Modal = ({ children, footer, isLoading, title }) => {
+  const { closeModal, isOpen } = useModal();
+
   const handleBgClick = (e) => {
     e.stopPropagation();
-    setIsOpen(false);
+    closeModal();
   };
   const handlePaperClick = (e) => {
     e.stopPropagation();
   };
   const handleCloseBtnClick = () => {
-    setIsOpen(false);
+    closeModal();
   };
-
-  useEffect(() => {
-    if (isOpen === true) {
-      setRenderTreeState(true);
-      return;
-    }
-    setTimeout(() => {
-      setRenderTreeState(false);
-    }, 150);
-  }, [isOpen]);
-
-  const [renderTreeState, setRenderTreeState] = useState(false);
+  const fadeSec = MODAL_FADE_TIME * 0.001;
   return (
-    <RootPortal>
-      {renderTreeState && (
-        <StyledBg onClick={handleBgClick} state={isOpen}>
-          <StyledPaper
-            shadowColor="#161616ff"
-            minHeight="200px"
-            onClick={handlePaperClick}
-            paperHeader={
-              <StyledButton onClick={handleCloseBtnClick}>
-                <CancelIcon fontSize="25px" />
-              </StyledButton>
-            }
-            paperFooter={footer}
-            isModal
-          >
-            {children}
-            {isLoading && (
-              <StyledLoadingCover>
-                <Spinner fontSize="35px" color="#000000" />
-              </StyledLoadingCover>
-            )}
-          </StyledPaper>
-        </StyledBg>
-      )}
-    </RootPortal>
+    <StyledBg onClick={handleBgClick} isOpen={isOpen} fadeSec={fadeSec}>
+      <StyledPaper
+        shadowColor="#161616ff"
+        minHeight="200px"
+        onClick={handlePaperClick}
+        paperHeader={
+          <ModalHeader>
+            <HeaderMsg>{title}</HeaderMsg>
+            <Button onClick={handleCloseBtnClick}>
+              <CancelIcon fontSize="25px" />
+            </Button>
+          </ModalHeader>
+        }
+        paperFooter={footer}
+        isModal
+      >
+        {children}
+        {isLoading && (
+          <StyledLoadingCover fadeSec={fadeSec}>
+            <Spinner fontSize="35px" color="#000000" />
+          </StyledLoadingCover>
+        )}
+      </StyledPaper>
+    </StyledBg>
   );
 };
 
 export default Modal;
 
-const StyledButton = styled(Button)`
-  float: right;
+const ModalHeader = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const HeaderMsg = styled.h4`
+  font-size: 20px;
+  font-weight: bold;
 `;
 
 const StyledPaper = styled(Paper)`
@@ -78,11 +75,11 @@ const StyledBg = styled.div`
   height: 100vh;
   z-index: 100;
   background-color: #000000b6;
-  animation: fade-in 0.15s linear forwards;
+  animation: fade-in ${(p) => p.fadeSec}s linear forwards;
   ${(p) =>
-    !p.state &&
+    !p.isOpen &&
     css`
-      animation: fade-out 0.15s linear forwards;
+      animation: fade-out ${(p) => p.fadeSec}s linear forwards;
     `}
 
   @keyframes fade-in {
@@ -116,7 +113,7 @@ const StyledLoadingCover = styled.div`
   > svg {
     filter: drop-shadow(0px 0px 5px #e3e3e3);
   }
-  animation: fade-in 0.15s linear forwards;
+  animation: fade-in ${(p) => p.fadeSec}s linear forwards;
 
   @keyframes fade-in {
     0% {

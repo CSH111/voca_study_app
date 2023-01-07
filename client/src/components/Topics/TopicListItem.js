@@ -1,36 +1,38 @@
-import { useState } from "react";
-import { useWordbookSelector } from "../../context/WordbookContext";
-import * as S from "./styles";
-import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
+import { useState, useRef } from "react";
 import styled from "styled-components";
-import { useRef } from "react";
+import * as S from "./styles";
+import { useWordbookSelector } from "../../context/WordbookContext";
+import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon, Spinner } from "../common/icons";
 import ListItem from "../../components/common/Lists/ListItem";
 import { Button, DeleteModal, Ellipsis, InputBox } from "../../components/common";
-import { Spinner } from "../../components/common/icons";
-import ProgressBar from "./ProgressBar";
-
-import LinkModal from "./LinkModal";
+import { ProgressBar, LinkModal } from "./";
 import { useDeleteTopic, usePatchTopic } from "../../hooks";
+import { useModal } from "../../context";
+
 const TopicListItem = ({ topic }) => {
   const { words: allWords } = useWordbookSelector();
   const { deleteTopic, isLoading: isDeleteLoading, isDeleteError } = useDeleteTopic();
   const { patchTopic, isLoading: isPatchLoading, isError: isPatchError } = usePatchTopic();
   const [isModifying, setIsModifying] = useState(false);
   const fixInput = useRef();
-  const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false);
-  const [isLinkModalOpened, setIsLinkModalOpened] = useState(false);
   const wordsForThisTopic = allWords.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
   const isListItemLoading = isDeleteLoading || isPatchLoading;
   const isItemLoading = false;
-
+  const { openModal, closeModal } = useModal();
   const handleDeleteModal = (e) => {
-    setIsDeleteModalOpened(true);
+    openModal(
+      <DeleteModal
+        title={topic.topicName}
+        msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
+        handleDelete={handleDelete}
+      />
+    );
   };
 
   const handleDelete = () => {
-    setIsDeleteModalOpened(false);
+    closeModal();
     deleteTopic(topic._id);
   };
 
@@ -48,14 +50,20 @@ const TopicListItem = ({ topic }) => {
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    const topicName = fixInput.current.value.trim();
-    if (topicName === "") return;
+    const newTopicName = fixInput.current.value.trim();
+    if (newTopicName === "") return;
     setIsModifying(false);
-    patchTopic(topic._id, { topicName });
+    patchTopic(topic._id, { topicName: newTopicName });
   };
 
   const handleListClick = () => {
-    setIsLinkModalOpened(true);
+    openModal(
+      <LinkModal
+        leftLink={`/test/${topic.topicName}`}
+        rightLink={`/topics/${topic.topicName}`}
+        title={topic.topicName}
+      />
+    );
   };
 
   return (
@@ -120,18 +128,6 @@ const TopicListItem = ({ topic }) => {
             </Button>
           </>
         }
-      />
-      <DeleteModal
-        msg="폴더 내부의 모든 단어가 삭제됩니다. 정말 삭제 하시겠습니까?"
-        handleDelete={handleDelete}
-        isOpen={isDeleteModalOpened}
-        setIsOpen={setIsDeleteModalOpened}
-      />
-      <LinkModal
-        isOpen={isLinkModalOpened}
-        setIsOpen={setIsLinkModalOpened}
-        leftLink={`/test/${topic.topicName}`}
-        rightLink={`/topics/${topic.topicName}`}
       />
     </ListItem>
   );

@@ -1,6 +1,6 @@
 import "./App.css";
 import AppRouter from "./router";
-import { AuthContextProvider, WordbookProvider } from "./context";
+import { AuthContextProvider, ModalProvider, WordbookProvider } from "./context";
 
 //TODO: 모든 페이지컴포넌트에서 페이지컨테이너 반복사용중.. 해결하기
 //TODO: 모달 컴포넌트 전역상태 및 글로벌컴포넌트로 개선하기
@@ -10,7 +10,9 @@ function App() {
   return (
     <AuthContextProvider>
       <WordbookProvider>
+        {/* <ModalProvider> */}
         <AppRouter />
+        {/* </ModalProvider> */}
       </WordbookProvider>
     </AuthContextProvider>
   );

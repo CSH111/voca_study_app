@@ -1,17 +1,24 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useModal } from "../../context";
 import { EditIcon, StudyIcon } from "../common/icons";
 import Modal from "../common/Modal";
 
-const LinkModal = ({ isOpen, setIsOpen, leftLink, rightLink }) => {
+const LinkModal = ({ leftLink, rightLink, title }) => {
+  const { closeModal } = useModal();
+
+  const handleLinkClick = () => {
+    closeModal();
+  };
+
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal title={title}>
       <StyledModalContents>
-        <StyledLinkBtn to={leftLink}>
+        <StyledLinkBtn to={leftLink} onClick={handleLinkClick}>
           <StudyIcon fontSize="45px" />
           <div>학습하기</div>
         </StyledLinkBtn>
-        <StyledLinkBtn to={rightLink}>
+        <StyledLinkBtn to={rightLink} onClick={handleLinkClick}>
           <EditIcon fontSize="40px" />
           <div>편집하기</div>
         </StyledLinkBtn>
