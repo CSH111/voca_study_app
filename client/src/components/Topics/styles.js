@@ -13,5 +13,7 @@ export const ListContainer = styled.div`
   flex: 1;
   align-items: center;
   padding: 10px;
-  /* background-color: coral; */
+  > *:first-child {
+    flex: 0 0 25px;
+  }
 `;

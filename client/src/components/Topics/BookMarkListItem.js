@@ -4,10 +4,12 @@ import ListItem from "../common/Lists/ListItem";
 import styled from "styled-components";
 import LinkModal from "./LinkModal";
 import { useState } from "react";
+import { useWordbookSelector } from "../../context";
 
 const BookMarkListItem = () => {
   const [isLinkModalOpened, setIsLinkModalOpened] = useState(false);
-
+  const { words } = useWordbookSelector();
+  const bookmarkedWordsAmount = words.filter((word) => word.isBookmarked).length;
   const handleListClick = () => {
     setIsLinkModalOpened(true);
   };
@@ -15,7 +17,7 @@ const BookMarkListItem = () => {
     <ListItem onClick={handleListClick}>
       <S.ListContainer>
         <BookMarkIcon fontSize="25px" />
-        <StyledTitle>북마크 단어 모음</StyledTitle>
+        <StyledTitle>({bookmarkedWordsAmount}) 북마크 단어 모음</StyledTitle>
       </S.ListContainer>
 
       <LinkModal

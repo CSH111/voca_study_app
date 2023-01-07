@@ -69,7 +69,8 @@ const Study = () => {
   const handleConceptBtnsClick = ({ target: { value } }) => {
     setStudyConcept(value);
   };
-
+  //TODO: nav 버튼 이름변경 및 스타일링(그림자)
+  //TODO: 마지막 단어 학습시 메세지 표시
   return (
     <PageContainer>
       <Paper
