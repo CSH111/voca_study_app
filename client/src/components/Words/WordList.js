@@ -1,13 +1,12 @@
 import { Fragment } from "react";
 import WordListItem from "./WordListItem";
-import { useWordbookSelector } from "../../context";
+import { useWordbookSelector, useWordbookDispatch } from "../../context";
 // import { useWordbookSelector } from "../../context";
 import { Spinner } from "../../components/common/icons";
 import List from "../../components/common/Lists/List";
 import { Devider, EmptyMsgBox } from "../common";
 import WordItemSkeleton from "./WordItemSkeleton";
 import { useEffect } from "react";
-import { useWordbookDispatch } from "../../context/WordbookContext";
 import { wordbookActionType as WAT } from "../../constants";
 
 const WordList = ({ topicName, isNewItemLoading }) => {
