@@ -5,7 +5,6 @@ export { default as Paper } from "./Paper";
 export { default as InputBox } from "./InputBox";
 export { default as RectangularButton } from "./RectangularButton";
 export { default as PaperTitle } from "./PaperTitle";
-export { default as PageContainer } from "./PageContainer";
 export { default as AuthLink } from "./AuthLink";
 export { default as Devider } from "./Devider";
 export { default as DeleteModal } from "./DeleteModal";

@@ -1,5 +1,5 @@
 import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topics";
-import { Button, PageContainer, Paper, PaperTitle } from "../components/common";
+import { Button, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
 import Modal from "../components/common/Modal";
 import { useModal } from "../context";
@@ -14,25 +14,24 @@ function Topics() {
     );
   };
   const { openModal } = useModal();
+
   return (
-    <PageContainer align="flex-start">
-      <Paper
-        width={"100%"}
-        flex="1"
-        paperHeader={
-          <PaperTitle>
-            My Topics{" "}
-            <Button onClick={handleAddModalOpen}>
-              <AddIcon />
-            </Button>
-          </PaperTitle>
-        }
-        bodyAlign="flex-start"
-      >
-        <BookMarkListItem />
-        <TopicList />
-      </Paper>
-    </PageContainer>
+    <Paper
+      width={"100%"}
+      flex="1"
+      paperHeader={
+        <PaperTitle>
+          My Topics{" "}
+          <Button onClick={handleAddModalOpen}>
+            <AddIcon />
+          </Button>
+        </PaperTitle>
+      }
+      bodyAlign="flex-start"
+    >
+      <BookMarkListItem />
+      <TopicList />
+    </Paper>
   );
 }
 
