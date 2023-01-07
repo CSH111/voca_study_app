@@ -1,14 +1,18 @@
-import React, { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { useWordbookSelector } from "../../context/WordbookContext";
-import { Devider } from "../common";
+import { Devider, EmptyMsgBox } from "../common";
 import { Spinner } from "../common/icons";
+import List from "../common/Lists/List";
 import WordListItem from "../Words/WordListItem";
 
 const BookmarkList = () => {
   const { words, isLoading } = useWordbookSelector();
-  const bookmarkedWords = words.filter((word) => word.isBookmarked === true);
+  const bookmarkedWords = useMemo(
+    () => words.filter((word) => word.isBookmarked === true),
+    [words]
+  );
 
-  const listItem = words.length ? (
+  const listItem = bookmarkedWords.length ? (
     bookmarkedWords.map((word) => (
       <Fragment key={word._id}>
         <WordListItem wordID={word._id} wordData={word} />
@@ -16,10 +20,20 @@ const BookmarkList = () => {
       </Fragment>
     ))
   ) : (
-    <div>단어를 추가하세요</div>
+    <EmptyMsgBox>북마크한 단어가 없습니다.</EmptyMsgBox>
   );
 
-  return isLoading ? <Spinner /> : listItem;
+  return (
+    <List>
+      {isLoading ? (
+        <div className="list-spinner">
+          <Spinner />
+        </div>
+      ) : (
+        listItem
+      )}
+    </List>
+  );
 };
 
 export default BookmarkList;

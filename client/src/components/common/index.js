@@ -11,3 +11,4 @@ export { default as Devider } from "./Devider";
 export { default as DeleteModal } from "./DeleteModal";
 export { default as BookmarkButton } from "./BookmarkButton";
 export { default as LoadingCover } from "./LoadingCover";
+export { default as EmptyMsgBox } from "./EmptyMsgBox";

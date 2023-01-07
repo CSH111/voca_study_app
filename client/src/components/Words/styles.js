@@ -26,6 +26,9 @@ export const Controls = styled.div`
 `;
 
 export const Form = styled.form`
+  &.generator {
+    margin-bottom: 25px;
+  }
   display: flex;
   align-items: center;
   /* justify-content: flex-start; */

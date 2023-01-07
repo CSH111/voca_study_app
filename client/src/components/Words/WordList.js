@@ -2,11 +2,9 @@ import { Fragment } from "react";
 import WordListItem from "./WordListItem";
 import { useWordbookSelector } from "../../context";
 // import { useWordbookSelector } from "../../context";
-
 import { Spinner } from "../../components/common/icons";
-import styled from "styled-components";
 import List from "../../components/common/Lists/List";
-import { Devider } from "../common";
+import { Devider, EmptyMsgBox } from "../common";
 import WordItemSkeleton from "./WordItemSkeleton";
 import { useEffect } from "react";
 import { useWordbookDispatch } from "../../context/WordbookContext";
@@ -31,11 +29,11 @@ const WordList = ({ topicName, isNewItemLoading }) => {
       </Fragment>
     ))
   ) : (
-    <div>단어를 추가하세요</div>
+    <EmptyMsgBox>학습할 단어를 추가하세요.</EmptyMsgBox>
   );
 
   return (
-    <StyledList>
+    <List>
       {isLoading && (
         <div className="list-spinner">
           <Spinner />
@@ -48,19 +46,8 @@ const WordList = ({ topicName, isNewItemLoading }) => {
           <Devider margin="10px 0" width="2px" color="#c4c4c4" />
         </>
       )}
-    </StyledList>
+    </List>
   );
 };
 
 export default WordList;
-
-const StyledList = styled(List)`
-  position: relative;
-  margin-top: 25px;
-  > .list-spinner {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    font-size: 2.5rem;
-  }
-`;

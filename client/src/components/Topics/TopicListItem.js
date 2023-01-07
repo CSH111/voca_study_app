@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useWordbookDispatch, useWordbookSelector } from "../../context/WordbookContext";
+import { useWordbookSelector } from "../../context/WordbookContext";
 import * as S from "./styles";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon } from "../common/icons";
 import styled from "styled-components";
@@ -70,40 +70,42 @@ const TopicListItem = ({ topic }) => {
       )}
       <S.ListContainer>
         <FolderIcon fontSize="25px" />
-        <StyledCenter>
+        <div className="topic-data">
+          <div>({wordsAmount})</div>
           {isModifying ? (
-            <StyledForm>
-              <InputBox type="text" ref={fixInput} />
-              <StyledButtonsBox className="btnBox">
-                <Button
-                  type="submit"
-                  onClick={handleSubmission}
-                  height="35px"
-                  width="35px"
-                  margin="0 0 0 5px"
-                  color="green"
-                >
-                  <CheckIcon />
-                </Button>
-                <Button
-                  type="button"
-                  onClick={handleFixModeClose}
-                  height="35px"
-                  width="35px"
-                  margin="0 0 0 5px"
-                >
-                  <CancelIcon />
-                </Button>
-              </StyledButtonsBox>
-            </StyledForm>
+            <>
+              <StyledForm>
+                <InputBox type="text" ref={fixInput} />
+                <StyledButtonsBox className="btnBox">
+                  <Button
+                    type="submit"
+                    onClick={handleSubmission}
+                    height="35px"
+                    width="35px"
+                    margin="0 0 0 5px"
+                    color="green"
+                  >
+                    <CheckIcon />
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleFixModeClose}
+                    height="35px"
+                    width="35px"
+                    margin="0 0 0 5px"
+                  >
+                    <CancelIcon />
+                  </Button>
+                </StyledButtonsBox>
+              </StyledForm>
+            </>
           ) : (
-            <StyledDiv>
-              <div>({wordsAmount})</div>
+            <>
               <h3>{topic.topicName}</h3>
               <ProgressBar show={wordsAmount > 0} progress={wordsDoneAmount / wordsAmount} />
-            </StyledDiv>
+            </>
           )}
-        </StyledCenter>
+        </div>
       </S.ListContainer>
 
       <Ellipsis
@@ -136,26 +138,9 @@ const TopicListItem = ({ topic }) => {
 };
 export default TopicListItem;
 
-const StyledCenter = styled.div`
-  margin: 0 10px;
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  align-items: center;
-
-  > *:not(:last-child) {
-    margin-right: 10px;
-  }
-
-  h3 {
-    display: inline;
-    word-break: break-all;
-  }
-`;
-
 const StyledForm = styled.form`
   display: flex;
+  align-items: center;
   @media (max-width: 500px) {
     flex-direction: column;
     .btnBox {

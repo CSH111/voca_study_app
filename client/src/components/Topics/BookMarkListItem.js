@@ -17,7 +17,10 @@ const BookMarkListItem = () => {
     <ListItem onClick={handleListClick}>
       <S.ListContainer>
         <BookMarkIcon fontSize="25px" />
-        <StyledTitle>({bookmarkedWordsAmount}) 북마크 단어 모음</StyledTitle>
+        <div className="topic-data">
+          <span>({bookmarkedWordsAmount})</span>
+          <h3>북마크 단어 모음</h3>
+        </div>
       </S.ListContainer>
 
       <LinkModal
@@ -32,6 +35,6 @@ const BookMarkListItem = () => {
 
 export default BookMarkListItem;
 
-const StyledTitle = styled.h4`
-  margin-left: 10px;
-`;
+// const StyledTitle = styled.h4`
+//   margin-left: 10px;
+// `;

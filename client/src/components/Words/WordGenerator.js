@@ -40,7 +40,7 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
   };
 
   return (
-    <S.Form>
+    <S.Form className="generator">
       <S.Controls>
         <S.InputContainer>
           <label htmlFor="wordInput">단어</label>

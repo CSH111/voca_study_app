@@ -16,4 +16,15 @@ export const ListContainer = styled.div`
   > *:first-child {
     flex: 0 0 25px;
   }
+  & .topic-data {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    > *:not(:last-child) {
+      margin-right: 5px;
+    }
+    h3:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
 `;
