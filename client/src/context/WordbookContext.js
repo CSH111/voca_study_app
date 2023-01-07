@@ -49,26 +49,7 @@ const wordbookReducer = (state, { type, payload }) => {
 };
 
 export const WordbookProvider = ({ children }) => {
-  const { user } = useAuthSeletor();
   const [state, dispatch] = useReducer(wordbookReducer, initialState);
-
-  // TODO: 전역에서 전역으로 접근하는게 매우 별로다. 실수유발 쉬움
-  useEffect(() => {
-    const getData = async () => {
-      if (!user) return;
-      dispatch({ type: WAT.GET_WORDBOOK_PENDING });
-      const { getTopics, getWords } = wordbookService;
-
-      try {
-        const [topicsRes, wordsRes] = await Promise.all([getTopics(), getWords()]);
-        const [topics, words] = [topicsRes.data.topics, wordsRes.data.words];
-        dispatch({ type: WAT.GET_WORDBOOK_FULFILLED, payload: { topics, words } });
-      } catch (err) {
-        dispatch({ type: WAT.GET_WORDBOOK_REJECTED });
-      }
-    };
-    getData();
-  }, [user]);
 
   return (
     <WordbookCtx.Provider value={state}>

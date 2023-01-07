@@ -8,5 +8,7 @@ export { default as usePostWord } from "./usePostWord";
 export { default as useDeleteWord } from "./useDeleteWord";
 export { default as usePatchWord } from "./usePatchWord";
 export { default as useInitialLoadEffect } from "./useInitialLoadEffect";
+export { default as useGetUser } from "./useGetUser";
+export { default as useGetWordbook } from "./useGetWordbook";
 
 //TODO useAync 훅 이용 error,loading 상태로직 재사용성 확보하기
