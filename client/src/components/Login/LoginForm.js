@@ -1,17 +1,9 @@
-import { useEffect } from "react";
-import { useRef } from "react";
-import { authErrName as EN } from "../../constants";
+import { useEffect, useRef } from "react";
+import { authErrName as AEN } from "../../constants";
 import { useAuthSeletor } from "../../context";
 import { useLogin } from "../../hooks";
+import { focusIfEmptyRefValue } from "../../utils";
 import * as S from "./styles";
-
-const focusIfEmpty = (elemRef) => {
-  if (!elemRef.current.value) {
-    elemRef.current.focus();
-    return true;
-  }
-  return false;
-};
 
 const LoginForm = () => {
   const emailInput = useRef();
@@ -23,30 +15,35 @@ const LoginForm = () => {
   } = useAuthSeletor();
 
   const handleSubmit = (values) => {
-    if (focusIfEmpty(emailInput)) return;
-    if (focusIfEmpty(pwInput)) return;
+    if (focusIfEmptyRefValue(emailInput)) return;
+    if (focusIfEmptyRefValue(pwInput)) return;
 
     const {
       email: { value: email },
       pw: { value: pw },
     } = values;
+    console.log(emailInput);
 
     login({ email, pw });
   };
 
   useEffect(() => {
+    emailInput.current.focus();
+  }, []);
+
+  useEffect(() => {
     if (!isError) return;
     switch (errName) {
-      case EN.LOGIN_NO_EMAIL:
+      case AEN.LOGIN_NO_EMAIL:
         emailInput.current.focus();
         return;
-      case EN.LOGIN_WRONG_PW:
+      case AEN.LOGIN_WRONG_PW:
         pwInput.current.focus();
         return;
       default:
     }
   }, [errName, isError]);
-  //TODO: 메세지 출력?
+
   return (
     <S.Form onSubmit={handleSubmit}>
       <S.Label htmlFor="email">이메일</S.Label>

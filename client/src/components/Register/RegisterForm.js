@@ -15,14 +15,11 @@ const RegisterForm = () => {
     setControlState,
   ] = useState({});
   const [allValid, setAllValid] = useState(false);
-  const [pwValue, setPwValue] = useState("");
-  const handlePwChange = (value) => setPwValue(value);
 
   const handleChange = (inputStates, isAllValid) => {
     setAllValid(isAllValid);
     setControlState(inputStates);
   };
-
   const handleSubmit = (values) => {
     const {
       email: { value: email },
@@ -32,7 +29,7 @@ const RegisterForm = () => {
 
     register({ email, name, pw });
   };
-
+  //pw가 바뀔 때 confirm 리로드하도록
   return (
     <S.Form onSubmit={handleSubmit} onChange={handleChange}>
       <S.LabelAndMsgBox>
@@ -68,7 +65,7 @@ const RegisterForm = () => {
         name="pw"
         type="password"
         ref={(elem) => (inputs.current.pw = elem)}
-        onChange={handlePwChange}
+        // onChange={handlePwChange}
         required
         pattern="(?=.*[A-Za-z])(?=.*[0-9])(?=.{8,}).*$"
         errorMsg={"8-20자의 영문 숫자 조합을 입력하세요"}
@@ -85,7 +82,7 @@ const RegisterForm = () => {
         type="password"
         ref={(elem) => (inputs.current.confirmPw = elem)}
         required
-        pattern={pwValue}
+        pattern={pwState?.value}
         errorMsg={"비밀번호가 일치하지 않습니다"}
       />
       <S.ResultMsg>{isError && msg}</S.ResultMsg>

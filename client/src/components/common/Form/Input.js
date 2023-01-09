@@ -1,60 +1,50 @@
-import { useState } from "react";
-import { forwardRef, useEffect } from "react";
-import { useFormContext } from "./FormContext";
+import { useImperativeHandle, useState, forwardRef, useEffect, useRef } from "react";
+import { useSetForm } from "./FormContext";
 
 const Input = forwardRef((props, ref) => {
-  const formCtx = useFormContext();
-  const valueInContext = formCtx.values[props.name]?.value ?? "";
-  const { className, onChange, errorMsg, id, name, type, required, autoFocus, pattern } = props;
+  const { errorMsg, onChange, ...restProps } = props;
+  const { name, required, pattern } = props;
 
-  //value 초기값 생성
+  const setForm = useSetForm();
+  const [inputValue, setInputValue] = useState("");
+  const inputElem = useRef();
+
+  useImperativeHandle(ref, () => {
+    return {
+      focus: () => inputElem.current.focus(),
+      value: inputElem.current.value,
+    };
+  });
   useEffect(() => {
-    formCtx.setValues((values) => ({
+    setForm((values) => ({
       ...values,
-      [props.name]: {
+      [name]: {
         value: "",
-        validity: !props.required,
+        validity: !required,
         validityMsg: errorMsg,
       },
     }));
 
-    return () => formCtx.setValues({});
+    return () => setForm({});
   }, []);
 
-  const handleChange = (e) => {
-    formCtx.setValues((values) => ({
+  useEffect(() => {
+    setForm((values) => ({
       ...values,
-      [props.name]: {
-        value: e.target.value,
-        validity: e.target.validity.valid,
+      [name]: {
+        value: inputValue,
+        validity: inputElem.current?.validity.valid,
         validityMsg: errorMsg,
       },
     }));
+  }, [inputValue, pattern]);
 
-    formCtx.setValidityObj((obj) => ({
-      ...obj,
-      [props.name]: e.target.validity.valid,
-    }));
-
-    if (onChange) onChange(e.target.value);
-
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
     // 필요하다면 디바운스 적용 input prop 으로 적용여부 선택 할 수 있도록 ㄱㄱ
   };
 
-  return (
-    <input
-      id={id}
-      name={name}
-      type={type}
-      className={className}
-      required={required}
-      autoFocus={autoFocus}
-      onChange={handleChange}
-      value={valueInContext}
-      pattern={pattern}
-      ref={ref}
-    />
-  );
+  return <input {...restProps} value={inputValue} onChange={handleChange} ref={inputElem} />;
 });
 
 export default Input;

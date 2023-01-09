@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { createContext } from "react";
 
-const FormContext = createContext(null);
+const SetFormCtx = createContext(null);
 
-const useFormContext = () => useContext(FormContext);
+const useSetForm = () => useContext(SetFormCtx);
 
 const FormCtxProvider = ({ children, value }) => {
-  return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
+  return <SetFormCtx.Provider value={value}>{children}</SetFormCtx.Provider>;
 };
 
-export { useFormContext, FormCtxProvider };
+export { FormCtxProvider, useSetForm };

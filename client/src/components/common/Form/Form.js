@@ -1,41 +1,27 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { FormCtxProvider, useFormContext } from "./FormContext";
+import { useState, useEffect } from "react";
+import { FormCtxProvider } from "./FormContext";
 
 const Form = ({ children, onSubmit, onChange, className }) => {
-  const [values, setValues] = useState({});
-  const [validityObj, setValidityObj] = useState({});
-  return (
-    <FormCtxProvider value={{ values, setValues, validityObj, setValidityObj }}>
-      <ValueSender onSubmit={onSubmit} onChange={onChange} className={className}>
-        {children}
-      </ValueSender>
-    </FormCtxProvider>
-  );
-};
-//TODO: 합치기. 나눠놓을 필요 x
-const ValueSender = ({ onSubmit, onChange, children, className }) => {
-  const formCtx = useFormContext();
+  const [inputStates, setInputStates] = useState({});
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formCtx.values); //onSubmit 처리 인자로 ctx.values 넘겨줌
+    onSubmit(inputStates);
   };
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     if (!onChange) return;
-    const keys = Object.keys(formCtx.values);
-    const isAllValid = keys.reduce((acc, cur) => acc && formCtx.values[cur]?.validity, true);
-    onChange(formCtx.values, isAllValid); //inputchange에서 여기에 메세지담으면 되려나?
-  }, [formCtx]);
-
-  //디바운싱 옵션
+    const keys = Object.keys(inputStates);
+    const isAllValid = keys.reduce((acc, cur) => acc && inputStates[cur]?.validity, true);
+    onChange(inputStates, isAllValid);
+  }, [inputStates, setInputStates]);
 
   return (
-    <form className={className} onSubmit={handleSubmit}>
-      {children}
-    </form>
+    <FormCtxProvider value={setInputStates}>
+      <form className={className} onSubmit={handleSubmit}>
+        {children}
+      </form>
+    </FormCtxProvider>
   );
 };
 
