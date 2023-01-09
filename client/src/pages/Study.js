@@ -4,6 +4,7 @@ import { Button, LoadingCover, Paper, PaperTitle } from "../components/common";
 import { GoBackIcon } from "../components/common/icons";
 import { ConceptBox, StudyItemBox } from "../components/Study";
 import { useWordbookSelector } from "../context";
+import { makeSuffledArr } from "../utils";
 
 const Study = () => {
   const navigate = useNavigate();
@@ -27,7 +28,8 @@ const Study = () => {
   useEffect(() => {
     if (concept) return;
     setCurrentIdx(0);
-    setStaticWordsData(extractCurrentTopicWords());
+    const suffledTopicWords = makeSuffledArr(extractCurrentTopicWords());
+    setStaticWordsData(suffledTopicWords);
   }, [concept, extractCurrentTopicWords]);
 
   const wordsToStudy = (() => {
