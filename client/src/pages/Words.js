@@ -6,7 +6,7 @@ import { WordGenerator, WordList } from "../components/Words";
 import { GoBackIcon } from "../components/common/icons";
 import { Paper, PaperTitle } from "../components/common";
 import { useMemo } from "react";
-//TODO: 리스트 화면 넘어가면 갑자기 가로스크롤생김.
+
 function Words() {
   const { topic: topicName } = useParams();
   const { topics } = useWordbookSelector();

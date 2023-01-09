@@ -1,34 +1,54 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useModal } from "../../context";
 import { usePatchWord } from "../../hooks";
 import { BookmarkButton, Button } from "../common";
 import { StarIcon } from "../common/icons";
-
-const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsData }) => {
-  const { word, meaning, isBookmarked, _id: id } = staticWordData;
+import Modal from "../common/Modal";
+//TODO: 순서 섞기, 넘김 이펙트, 결과 페이지
+const StudyItemBox = ({ staticWord = {}, idx, total, goNext, setStaticWordsData }) => {
+  const navigate = useNavigate();
+  const { topic } = useParams();
+  const { word, meaning, isBookmarked, _id: id } = staticWord;
   const [isMeaningShown, setIsMeaningShown] = useState(false);
+  const { openModal } = useModal();
   const { patchWord } = usePatchWord();
+  const isLastWord = idx + 1 === total;
 
   useEffect(() => {
     setIsMeaningShown(false);
-  }, [staticWordData]);
+  }, [staticWord]);
 
   const handleMeaningBtn = () => {
     setIsMeaningShown((state) => !state);
   };
 
-  const handleEvaluation = ({ target: { value } }) => {
-    patchWord(id, { ...staticWordData, isMemorized: JSON.parse(value) });
+  const handleEvaluation = async ({ target: { value } }) => {
+    await patchWord(id, { ...staticWord, isMemorized: JSON.parse(value) });
+
+    if (isLastWord) {
+      showEndModal();
+      return;
+    }
     goNext();
   };
 
   const handleBookmark = async () => {
-    patchWord(id, { ...staticWordData, isBookmarked: !staticWordData.isBookmarked });
+    patchWord(id, { ...staticWord, isBookmarked: !staticWord.isBookmarked });
     setStaticWordsData((words) => {
       return words.map((word) => {
         return word._id === id ? { ...word, isBookmarked: !word.isBookmarked } : word;
       });
     });
+  };
+
+  const handleEndModalClose = () => {
+    navigate(`/test/${topic}`);
+  };
+
+  const showEndModal = () => {
+    openModal(<Modal onClose={handleEndModalClose}>학습이 끝났습니다.</Modal>);
   };
 
   return (
@@ -52,7 +72,7 @@ const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsDa
       )}
       <StyledWord>{isMeaningShown ? meaning : word}</StyledWord>
       <StyledToggleBtn onClick={handleMeaningBtn} themeColor="gray">
-        {isMeaningShown ? "단어 보기" : "뜻 보기"}
+        {isMeaningShown ? "단어 보기" : "정답 확인"}
       </StyledToggleBtn>
       <StyledIdxBox>
         {idx + 1} / {total}
@@ -61,7 +81,7 @@ const WordItemBox = ({ staticWordData = {}, idx, total, goNext, setStaticWordsDa
   );
 };
 
-export default WordItemBox;
+export default StudyItemBox;
 
 const StyledBox = styled.div`
   border-radius: 15px;
@@ -86,6 +106,7 @@ const StyledToggleBtn = styled(Button)`
 const StyledWord = styled.div`
   font-size: 30px;
 `;
+
 const StyledIdxBox = styled.div`
   position: absolute;
   right: 0;

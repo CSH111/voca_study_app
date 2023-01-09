@@ -1,39 +1,37 @@
-import { useMemo } from "react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Button, LoadingCover, Paper, PaperTitle } from "../components/common";
-import { GoBackIcon, LeftIcon, RightIcon } from "../components/common/icons";
-import { ConceptBox, NavBtnBox, WordItemBox } from "../components/Study";
+import { GoBackIcon } from "../components/common/icons";
+import { ConceptBox, StudyItemBox } from "../components/Study";
 import { useWordbookSelector } from "../context";
-import { useInitialLoadEffect } from "../hooks";
 
 const Study = () => {
   const navigate = useNavigate();
   const { topic } = useParams();
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [studyConcept, setStudyConcept] = useState("");
-  const { words: allWords, initialLoad, isLoading } = useWordbookSelector();
-
-  useInitialLoadEffect(
-    () => {
-      const currentTopicWords =
-        topic === "bookmark"
-          ? allWords.filter((word) => word.isBookmarked)
-          : allWords.filter((word) => word.topic === topic);
-
-      setStaticWordsData(currentTopicWords);
-    },
-    initialLoad,
-    [allWords]
-  );
-
+  const { words: allWords, isLoading } = useWordbookSelector();
   const [staticWordsData, setStaticWordsData] = useState([]);
   const incompleteWords = useMemo(() => {
     return staticWordsData.filter((word) => word.isMemorized === false);
   }, [staticWordsData]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const concept = searchParams.get("concept");
+
+  const extractCurrentTopicWords = useCallback(() => {
+    return topic === "bookmark"
+      ? allWords.filter((word) => word.isBookmarked)
+      : allWords.filter((word) => word.topic === topic);
+  }, [allWords, topic]);
+
+  useEffect(() => {
+    if (concept) return;
+    setCurrentIdx(0);
+    setStaticWordsData(extractCurrentTopicWords());
+  }, [concept, extractCurrentTopicWords]);
+
   const wordsToStudy = (() => {
-    switch (studyConcept) {
+    switch (concept) {
       case "all":
         return staticWordsData;
       case "incomplete":
@@ -44,32 +42,17 @@ const Study = () => {
   })();
 
   const handleBackBtnClick = () => {
-    navigate("/topics");
+    navigate(concept ? `/test/${topic}` : "/topics");
   };
 
-  const handleLeftBtnClick = () => {
-    setCurrentIdx((idx) => {
-      if (idx < 1) {
-        return idx;
-      }
-      return idx - 1;
-    });
-  };
-
-  const handleRightBtnClick = () => {
-    setCurrentIdx((idx) => {
-      if (idx > wordsToStudy.length - 2) {
-        return idx;
-      }
-      return idx + 1;
-    });
+  const goNext = () => {
+    setCurrentIdx((idx) => (idx > wordsToStudy.length - 2 ? idx : idx + 1));
   };
 
   const handleConceptBtnsClick = ({ target: { value } }) => {
-    setStudyConcept(value);
+    setSearchParams({ concept: value });
   };
-  //TODO: nav 버튼 이름변경 및 스타일링(그림자)
-  //TODO: 마지막 단어 학습시 메세지 표시
+
   return (
     <Paper
       width="500px"
@@ -82,10 +65,10 @@ const Study = () => {
         </>
       }
     >
-      {!studyConcept && (
+      {!concept && (
         <>
           {isLoading && <LoadingCover />}
-          <ConceptBox>
+          <ConceptBox onLoad={() => console.log("loaded")}>
             <Button
               value="all"
               themeColor="gray"
@@ -100,28 +83,21 @@ const Study = () => {
               onClick={handleConceptBtnsClick}
               disabled={incompleteWords.length === 0}
             >
-              미학습 단어({incompleteWords.length})
+              암기가 필요한 단어({incompleteWords.length})
             </Button>
           </ConceptBox>
         </>
       )}
-      {studyConcept && (
+      {concept && (
         <>
-          <WordItemBox
-            staticWordData={wordsToStudy[currentIdx]}
+          <StudyItemBox
+            staticWord={wordsToStudy[currentIdx]}
             setStaticWordsData={setStaticWordsData}
             idx={currentIdx}
+            setCurrentIdx={setCurrentIdx}
             total={wordsToStudy.length}
-            goNext={handleRightBtnClick}
+            goNext={goNext}
           />
-          <NavBtnBox>
-            <Button onClick={handleLeftBtnClick} disabled={currentIdx === 0}>
-              <LeftIcon fontSize="35px" />
-            </Button>
-            <Button onClick={handleRightBtnClick} disabled={currentIdx === wordsToStudy.length - 1}>
-              <RightIcon fontSize="35px" />
-            </Button>
-          </NavBtnBox>
         </>
       )}
     </Paper>

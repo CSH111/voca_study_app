@@ -4,9 +4,15 @@ import { CancelIcon, Spinner } from "../icons";
 import Button from "../Button";
 import { useModal } from "../../../context";
 import { MODAL_FADE_TIME } from "../../../constants";
+import { useEffect } from "react";
 
-const Modal = ({ children, footer, isLoading, title }) => {
-  const { closeModal, isOpen } = useModal();
+const Modal = ({ children, footer, isLoading, title, onClose }) => {
+  const { closeModal, isOpen, setOnClose } = useModal();
+
+  useEffect(() => {
+    if (!onClose) return;
+    setOnClose(() => onClose);
+  }, [onClose]);
 
   const handleBgClick = (e) => {
     e.stopPropagation();

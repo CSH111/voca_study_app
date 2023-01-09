@@ -12,7 +12,6 @@ const initialState = {
   words: [],
   isLoading: true,
   isError: false,
-  initialLoad: false,
 };
 
 const wordbookReducer = (state, { type, payload }) => {
@@ -26,7 +25,6 @@ const wordbookReducer = (state, { type, payload }) => {
         ...payload,
         isLoading: false,
         isError: false,
-        initialLoad: true,
       };
     case WAT.GET_WORDBOOK_REJECTED:
       return { ...state, isLoading: false, isError: true };
@@ -50,7 +48,7 @@ const wordbookReducer = (state, { type, payload }) => {
 
 export const WordbookProvider = ({ children }) => {
   const [state, dispatch] = useReducer(wordbookReducer, initialState);
-
+  console.log("wordbook");
   return (
     <WordbookCtx.Provider value={state}>
       <WordbookDispatchCtx.Provider value={dispatch}>{children}</WordbookDispatchCtx.Provider>

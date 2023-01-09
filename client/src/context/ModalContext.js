@@ -10,12 +10,14 @@ export const useModal = () => useContext(ModalContext);
 export const ModalProvider = ({ children }) => {
   const [modal, setModal] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [onClose, setOnClose] = useState(null);
   const openModal = (ModalComponent) => {
     setIsOpen(true);
     setModal(ModalComponent);
   };
 
   const closeModal = () => {
+    if (onClose) onClose();
     setIsOpen(false);
     setTimeout(() => {
       setModal(null);
@@ -23,7 +25,7 @@ export const ModalProvider = ({ children }) => {
   };
 
   return (
-    <ModalContext.Provider value={{ openModal, closeModal, isOpen, setIsOpen }}>
+    <ModalContext.Provider value={{ openModal, closeModal, isOpen, setIsOpen, setOnClose }}>
       {children}
       {modal}
     </ModalContext.Provider>
