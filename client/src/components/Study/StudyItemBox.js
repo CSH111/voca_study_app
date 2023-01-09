@@ -17,6 +17,10 @@ const StudyItemBox = ({ staticWord = {}, idx, total, goNext, setStaticWordsData 
   const isLastWord = idx + 1 === total;
 
   useEffect(() => {
+    if (!Object.keys(staticWord).length) navigate(`/test/${topic}`);
+  }, []);
+
+  useEffect(() => {
     setIsMeaningShown(false);
   }, [staticWord]);
 
