@@ -47,7 +47,6 @@ const wordbookReducer = (state, { type, payload }) => {
 
 export const WordbookProvider = ({ children }) => {
   const [state, dispatch] = useReducer(wordbookReducer, initialState);
-  console.log("wordbook");
   return (
     <WordbookCtx.Provider value={state}>
       <WordbookDispatchCtx.Provider value={dispatch}>{children}</WordbookDispatchCtx.Provider>

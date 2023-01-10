@@ -8,7 +8,7 @@ import { BookmarkButton, Button, Devider } from "../common";
 import { Spinner, StarIcon } from "../common/icons";
 import Modal from "../common/Modal";
 import StudyRestult from "./StudyResult";
-//TODO: 넘김 이펙트, 결과 페이지
+//TODO: 넘김 이펙트
 const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept }) => {
   const navigate = useNavigate();
   const { topic } = useParams();
@@ -81,12 +81,12 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
       </StyledBookmarkBtn>
       {isAnswerShown && (
         <StyledEvaluateBtnsBox>
-          <Button themeColor="green" onClick={handleEvaluation} value="true">
+          <Button themeColor="green" onClick={handleEvaluation} value="true" shadow={true}>
             쉬움
             <br />
             (학습완료)
           </Button>
-          <Button themeColor="red" onClick={handleEvaluation} value="false">
+          <Button themeColor="red" onClick={handleEvaluation} value="false" shadow={true}>
             어려움
             <br />
             (추가학습)
@@ -94,7 +94,7 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
         </StyledEvaluateBtnsBox>
       )}
       <StyledWord>{isAnswerShown ? meaning : word}</StyledWord>
-      <StyledToggleBtn onClick={handleAnswerBtn} themeColor="gray">
+      <StyledToggleBtn onClick={handleAnswerBtn} themeColor="gray" shadow={true}>
         {isAnswerShown ? "단어 보기" : "정답 확인"}
       </StyledToggleBtn>
       <StyledIdxBox>
@@ -131,7 +131,7 @@ const StyledToggleBtn = styled(Button)`
   font-size: 16px;
   bottom: 0;
   margin: 20px;
-  box-shadow: 2px 2px 2px 2px gray;
+  /* box-shadow: 2px 2px 2px 2px gray; */
 `;
 
 const StyledWord = styled.div`

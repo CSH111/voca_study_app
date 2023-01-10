@@ -17,7 +17,7 @@ const StyledEmptyBar = styled.div`
   opacity: ${(p) => (p.show ? "1" : "0")};
 
   .gage {
-    background-color: #239576;
+    background-color: #000000;
     font-size: 0.7rem;
     display: flex;
     align-items: center;

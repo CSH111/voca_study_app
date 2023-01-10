@@ -74,17 +74,19 @@ const Study = () => {
           <ConceptBox onLoad={() => console.log("loaded")}>
             <Button
               value="all"
-              themeColor="gray"
               onClick={handleConceptBtnsClick}
               disabled={staticWords.length === 0}
+              themeColor="gray"
+              shadow={true}
             >
               모든 단어 ({staticWords.length})
             </Button>
             <Button
               value="incomplete"
-              themeColor="gray"
               onClick={handleConceptBtnsClick}
               disabled={incompleteStaticWords.length === 0}
+              themeColor="gray"
+              shadow={true}
             >
               암기가 필요한 단어({incompleteStaticWords.length})
             </Button>

@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useAuthSeletor } from "./context";
 import { useGetUser, useGetWordbook } from "./hooks";
 import AppRouter from "./router";
-//TODO: simple import sort 설치 및 적용
 
 function App() {
   const { user } = useAuthSeletor();
@@ -26,7 +25,7 @@ function App() {
 export default App;
 
 // TODO
-//컨텍스트 로그아웃 시 데이터 삭제
+// 컨텍스트 로그아웃 시 데이터 삭제
 
 // 리팩토링
 

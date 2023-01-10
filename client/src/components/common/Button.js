@@ -1,5 +1,40 @@
 import styled, { css } from "styled-components";
 
+const Button = ({
+  children,
+  onClick,
+  fontSize,
+  width,
+  height,
+  margin,
+  color,
+  themeColor,
+  shadow,
+  ...rest
+}) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onClick && onClick(e);
+  };
+  return (
+    <StyledButton
+      fontSize={fontSize}
+      width={width}
+      height={height}
+      margin={margin}
+      themeColor={themeColor}
+      color={color}
+      onClick={handleClick}
+      shadow={shadow}
+      {...rest}
+    >
+      {children}
+    </StyledButton>
+  );
+};
+
+export default Button;
+
 const StyledButton = styled.button`
   font-size: ${({ fontSize }) => fontSize ?? "20px"};
   width: ${({ width }) => width ?? "auto"};
@@ -11,6 +46,7 @@ const StyledButton = styled.button`
   border: none;
   transition: all 0.15s;
   background-color: transparent;
+  box-shadow: ${(p) => (p.shadow ? "1px 1px 3px 1px #7a7a7a" : "none")};
   /* cursor: pointer; */
   &:hover:enabled {
     background-color: #b2b2b2;
@@ -30,7 +66,7 @@ const StyledButton = styled.button`
         background-color: #b01515;
       }
     `}
-    ${(p) =>
+  ${(p) =>
     p.themeColor === "green" &&
     css`
       background-color: #4caf50;
@@ -44,17 +80,3 @@ const StyledButton = styled.button`
   }
 `;
 //
-
-const Button = ({ children, onClick, ...rest }) => {
-  const handleClick = (e) => {
-    e.stopPropagation();
-    onClick && onClick(e);
-  };
-  return (
-    <StyledButton {...rest} onClick={handleClick}>
-      {children}
-    </StyledButton>
-  );
-};
-
-export default Button;
