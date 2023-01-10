@@ -11,6 +11,7 @@ export const ModalProvider = ({ children }) => {
   const [modal, setModal] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [onClose, setOnClose] = useState(null);
+
   const openModal = (ModalComponent) => {
     setIsOpen(true);
     setModal(ModalComponent);
@@ -18,6 +19,7 @@ export const ModalProvider = ({ children }) => {
 
   const closeModal = () => {
     if (onClose) onClose();
+    setOnClose(null);
     setIsOpen(false);
     setTimeout(() => {
       setModal(null);

@@ -70,7 +70,6 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: ${({ bodyAlign }) => bodyAlign ?? "center"};
-  /* align-items: stretch; */
 `;
 
 export default Paper;

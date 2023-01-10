@@ -3,44 +3,52 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useModal } from "../../context";
 import { usePatchWord } from "../../hooks";
-import { BookmarkButton, Button } from "../common";
-import { StarIcon } from "../common/icons";
+import { BookmarkButton, Button, Devider } from "../common";
+import { Spinner, StarIcon } from "../common/icons";
 import Modal from "../common/Modal";
-//TODO: 순서 섞기, 넘김 이펙트, 결과 페이지
-const StudyItemBox = ({ staticWord = {}, idx, total, goNext, setStaticWordsData }) => {
+import StudyRestult from "./StudyResult";
+//TODO: 넘김 이펙트, 결과 페이지
+const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept }) => {
   const navigate = useNavigate();
   const { topic } = useParams();
-  const { word, meaning, isBookmarked, _id: id } = staticWord;
-  const [isMeaningShown, setIsMeaningShown] = useState(false);
   const { openModal } = useModal();
-  const { patchWord } = usePatchWord();
-  const isLastWord = idx + 1 === total;
-
+  const { patchWord, isLoading } = usePatchWord();
+  const currentWord = staticWordsInConcept[currentIdx];
+  const wordsAmount = staticWordsInConcept.length;
+  const { word, meaning, isBookmarked, _id: id } = currentWord ?? {};
+  const [isAnswerShown, setIsAnswerShown] = useState(false);
+  const [studyResult, setStudyResult] = useState({ complete: 0, incomplete: 0 });
   useEffect(() => {
-    if (!Object.keys(staticWord).length) navigate(`/test/${topic}`);
+    if (!wordsAmount) navigate(`/test/${topic}`);
   }, []);
 
   useEffect(() => {
-    setIsMeaningShown(false);
-  }, [staticWord]);
+    setIsAnswerShown(false);
+  }, [currentIdx]);
 
-  const handleMeaningBtn = () => {
-    setIsMeaningShown((state) => !state);
+  useEffect(() => {
+    if (!wordsAmount) return;
+    const studyEnd = currentIdx === wordsAmount;
+    if (studyEnd) showEndModal();
+  }, [currentIdx, wordsAmount]);
+
+  const handleAnswerBtn = () => {
+    setIsAnswerShown((state) => !state);
   };
 
   const handleEvaluation = async ({ target: { value } }) => {
-    await patchWord(id, { ...staticWord, isMemorized: JSON.parse(value) });
-
-    if (isLastWord) {
-      showEndModal();
-      return;
-    }
+    setStudyResult((resultObj) => ({
+      ...resultObj,
+      [JSON.parse(value) ? "complete" : "incomplete"]:
+        resultObj[JSON.parse(value) ? "complete" : "incomplete"] + 1,
+    }));
+    await patchWord(id, { ...currentWord, isMemorized: JSON.parse(value) });
     goNext();
   };
 
   const handleBookmark = async () => {
-    patchWord(id, { ...staticWord, isBookmarked: !staticWord.isBookmarked });
-    setStaticWordsData((words) => {
+    patchWord(id, { ...currentWord, isBookmarked: !currentWord.isBookmarked });
+    setStaticWords((words) => {
       return words.map((word) => {
         return word._id === id ? { ...word, isBookmarked: !word.isBookmarked } : word;
       });
@@ -52,34 +60,44 @@ const StudyItemBox = ({ staticWord = {}, idx, total, goNext, setStaticWordsData 
   };
 
   const showEndModal = () => {
-    openModal(<Modal onClose={handleEndModalClose}>학습이 끝났습니다.</Modal>);
+    openModal(
+      <Modal onClose={handleEndModalClose} title={"학습종료"}>
+        <StudyRestult>
+          <div className="total">학습한 단어: {staticWordsInConcept.length}</div>
+          <Devider margin={"5px 0"} />
+          <div className="complete">외운 단어: {studyResult.complete}</div>
+          <div className="incomplete">못 외운 단어: {studyResult.incomplete}</div>
+        </StudyRestult>
+      </Modal>
+    );
   };
 
   return (
     <StyledBox>
+      {isLoading && <StyledSpinner />}
       <StyledBookmarkBtn onClick={handleBookmark} isBookmarked={isBookmarked}>
         <StarIcon />
       </StyledBookmarkBtn>
-      {isMeaningShown && (
+      {isAnswerShown && (
         <StyledEvaluateBtnsBox>
-          <EasyBtn themeColor="green" onClick={handleEvaluation} value="true">
+          <Button themeColor="green" onClick={handleEvaluation} value="true">
             쉬움
             <br />
             (학습완료)
-          </EasyBtn>
-          <HardBtn themeColor="red" onClick={handleEvaluation} value="false">
+          </Button>
+          <Button themeColor="red" onClick={handleEvaluation} value="false">
             어려움
             <br />
             (추가학습)
-          </HardBtn>
+          </Button>
         </StyledEvaluateBtnsBox>
       )}
-      <StyledWord>{isMeaningShown ? meaning : word}</StyledWord>
-      <StyledToggleBtn onClick={handleMeaningBtn} themeColor="gray">
-        {isMeaningShown ? "단어 보기" : "정답 확인"}
+      <StyledWord>{isAnswerShown ? meaning : word}</StyledWord>
+      <StyledToggleBtn onClick={handleAnswerBtn} themeColor="gray">
+        {isAnswerShown ? "단어 보기" : "정답 확인"}
       </StyledToggleBtn>
       <StyledIdxBox>
-        {idx + 1} / {total}
+        {currentIdx + 1 > wordsAmount ? wordsAmount : currentIdx + 1} / {wordsAmount}
       </StyledIdxBox>
     </StyledBox>
   );
@@ -97,6 +115,14 @@ const StyledBox = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledSpinner = styled(Spinner)`
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 20px;
+  font-size: 20px;
 `;
 
 const StyledToggleBtn = styled(Button)`
@@ -129,8 +155,6 @@ const StyledEvaluateBtnsBox = styled.div`
     }
   }
 `;
-const EasyBtn = styled(Button)``;
-const HardBtn = styled(Button)``;
 
 const StyledBookmarkBtn = styled(BookmarkButton)`
   position: absolute;

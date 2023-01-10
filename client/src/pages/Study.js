@@ -11,10 +11,10 @@ const Study = () => {
   const { topic } = useParams();
   const [currentIdx, setCurrentIdx] = useState(0);
   const { words: allWords, isLoading } = useWordbookSelector();
-  const [staticWordsData, setStaticWordsData] = useState([]);
-  const incompleteWords = useMemo(() => {
-    return staticWordsData.filter((word) => word.isMemorized === false);
-  }, [staticWordsData]);
+  const [staticWords, setStaticWords] = useState([]);
+  const incompleteStaticWords = useMemo(() => {
+    return staticWords.filter((word) => word.isMemorized === false);
+  }, [staticWords]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const concept = searchParams.get("concept");
@@ -29,15 +29,15 @@ const Study = () => {
     if (concept) return;
     setCurrentIdx(0);
     const suffledTopicWords = makeSuffledArr(extractCurrentTopicWords());
-    setStaticWordsData(suffledTopicWords);
+    setStaticWords(suffledTopicWords);
   }, [concept, extractCurrentTopicWords]);
 
-  const wordsToStudy = (() => {
+  const staticWordsInConcept = (() => {
     switch (concept) {
       case "all":
-        return staticWordsData;
+        return staticWords;
       case "incomplete":
-        return incompleteWords;
+        return incompleteStaticWords;
       default:
         return [];
     }
@@ -48,7 +48,7 @@ const Study = () => {
   };
 
   const goNext = () => {
-    setCurrentIdx((idx) => (idx > wordsToStudy.length - 2 ? idx : idx + 1));
+    setCurrentIdx((idx) => idx + 1);
   };
 
   const handleConceptBtnsClick = ({ target: { value } }) => {
@@ -75,17 +75,17 @@ const Study = () => {
               value="all"
               themeColor="gray"
               onClick={handleConceptBtnsClick}
-              disabled={staticWordsData.length === 0}
+              disabled={staticWords.length === 0}
             >
-              모든 단어 ({staticWordsData.length})
+              모든 단어 ({staticWords.length})
             </Button>
             <Button
               value="incomplete"
               themeColor="gray"
               onClick={handleConceptBtnsClick}
-              disabled={incompleteWords.length === 0}
+              disabled={incompleteStaticWords.length === 0}
             >
-              암기가 필요한 단어({incompleteWords.length})
+              암기가 필요한 단어({incompleteStaticWords.length})
             </Button>
           </ConceptBox>
         </>
@@ -93,11 +93,9 @@ const Study = () => {
       {concept && (
         <>
           <StudyItemBox
-            staticWord={wordsToStudy[currentIdx]}
-            setStaticWordsData={setStaticWordsData}
-            idx={currentIdx}
-            setCurrentIdx={setCurrentIdx}
-            total={wordsToStudy.length}
+            staticWordsInConcept={staticWordsInConcept}
+            setStaticWords={setStaticWords}
+            currentIdx={currentIdx}
             goNext={goNext}
           />
         </>

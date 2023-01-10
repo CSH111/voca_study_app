@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-const Devider = styled.div`
+const Devider = ({ width, color, margin, children, className }) => (
+  <StyledDevider width={width} color={color} margin={margin} className={className}>
+    {children}
+  </StyledDevider>
+);
+
+const StyledDevider = styled.div`
   width: 100%;
   height: ${({ width }) => width ?? "1px"};
   background-color: ${({ color }) => color ?? "gray"};
