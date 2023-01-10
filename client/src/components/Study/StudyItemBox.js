@@ -131,7 +131,6 @@ const StyledToggleBtn = styled(Button)`
   font-size: 16px;
   bottom: 0;
   margin: 20px;
-  /* box-shadow: 2px 2px 2px 2px gray; */
 `;
 
 const StyledWord = styled.div`

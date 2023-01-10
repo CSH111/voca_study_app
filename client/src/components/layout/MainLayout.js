@@ -15,7 +15,6 @@ const MainLayout = () => {
 };
 
 const Wrapper = styled.div`
-  /* height: 800px; */
   min-height: 100vh;
   flex: 1;
   display: flex;
@@ -25,11 +24,11 @@ const Wrapper = styled.div`
 
 const Body = styled.div`
   align-self: center;
+  height: 0;
   flex: 1;
   width: 80%;
   max-width: 800px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   @media (max-width: 800px) {

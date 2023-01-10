@@ -6,7 +6,7 @@ const StyledInput = styled.input`
   border-bottom: solid 1px black;
   height: 30px;
   display: inline;
-  width: 100%;
+  /* width: 100%; */
   line-height: 30px;
   font-size: 16px;
   background: none;

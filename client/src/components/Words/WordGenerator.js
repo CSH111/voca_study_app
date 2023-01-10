@@ -46,7 +46,7 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
           <label htmlFor="wordInput">단어</label>
           <InputBox
             type="text"
-            id="wordInput"
+            // id="wordInput"
             ref={wordInput}
             value={wordInputValue}
             onChange={(e) => setWordInputValue(e.target.value)}
@@ -56,7 +56,7 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
           <label htmlFor="meaningInput">뜻</label>
           <InputBox
             type="text"
-            id="meaningInput"
+            // id="meaningInput"
             ref={meaningInput}
             value={meaningInputValue}
             onChange={(e) => setMeaningInputValue(e.target.value)}

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Button, Paper, PaperTitle } from "../components/common";
+import { Button, Devider, Paper, PaperTitle } from "../components/common";
 import { GoBackIcon } from "../components/common/icons";
 import { WordGenerator, WordList } from "../components/Words";
 import { useWordbookSelector } from "../context";
@@ -18,22 +18,29 @@ function Words() {
   return (
     <Paper
       width="100%"
-      flex="1"
+      height="95%"
+      forPage
       bodyAlign="flex-start"
       paperHeader={
-        <PaperTitle>
-          {topicName}{" "}
+        <>
+          <PaperTitle>{topicName}</PaperTitle>
           <Button onClick={() => navigate("/topics")} width="35px" height="35px">
             <GoBackIcon />
           </Button>
-        </PaperTitle>
+        </>
+      }
+      paperFooter={
+        <>
+          <Devider margin="0 0 15px 0" color="black" width="2px" />
+          <WordGenerator
+            topicName={topicName}
+            topicID={topicID}
+            setNewItemLoading={setNewItemLoading}
+          />
+        </>
       }
     >
-      <WordGenerator
-        topicName={topicName}
-        topicID={topicID}
-        setNewItemLoading={setNewItemLoading}
-      />
+      <Devider margin="0 0 15px 0" color="black" width="2px" />
       <WordList topicName={topicName} isNewItemLoading={newItemLoading} />
     </Paper>
   );

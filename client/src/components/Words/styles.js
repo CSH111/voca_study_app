@@ -27,7 +27,11 @@ export const Controls = styled.div`
 
 export const Form = styled.form`
   &.generator {
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
+    /* min-height: 60px; */
+    align-self: flex-end;
+    margin: 10px 0;
+    /* background-color: #ababab; */
   }
   display: flex;
   align-items: center;

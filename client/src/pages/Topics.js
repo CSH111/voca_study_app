@@ -1,4 +1,4 @@
-import { Button, Paper, PaperTitle } from "../components/common";
+import { Button, Devider, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
 import Modal from "../components/common/Modal";
 import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topics";
@@ -17,18 +17,20 @@ function Topics() {
 
   return (
     <Paper
-      width={"100%"}
-      flex="1"
+      width="100%"
+      height="95%"
+      forPage
       paperHeader={
-        <PaperTitle>
-          My Topics{" "}
+        <>
+          <PaperTitle>My Topics </PaperTitle>
           <Button onClick={handleAddModalOpen}>
             <AddIcon />
           </Button>
-        </PaperTitle>
+        </>
       }
       bodyAlign="flex-start"
     >
+      <Devider margin="0 0 5px 0" color="black" width="2px" />
       <BookMarkListItem />
       <TopicList />
     </Paper>

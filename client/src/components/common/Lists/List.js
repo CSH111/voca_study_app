@@ -7,7 +7,10 @@ const List = styled.ul`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  position: relative;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   > .list-spinner {
     position: absolute;
     top: 50%;

@@ -1,58 +1,68 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Paper = ({
   children,
-  width,
   className,
+  width,
   paperHeader,
   headerMb,
   paperFooter,
   bodyAlign,
   flex,
   shadowColor,
-  onClick,
   minHeight,
+  onClick,
   isModal,
+  height,
+  forPage,
 }) => {
   return (
-    <StyledDiv
+    <Box
       onClick={onClick}
       width={width}
-      className={className}
+      className={className + " paper-component"}
       flex={flex}
       shadowColor={shadowColor}
       minHeight={minHeight}
       headerMb={headerMb}
       isModal={isModal}
+      height={height}
+      forPage={forPage}
     >
       {paperHeader && <div className="paper-header">{paperHeader}</div>}
       <Body bodyAlign={bodyAlign}>{children}</Body>
       {paperFooter && <div className="paper-footer">{paperFooter}</div>}
-    </StyledDiv>
+    </Box>
   );
 };
 
-const StyledDiv = styled.div`
+const Box = styled.div`
   background-color: white;
-  margin-bottom: 10%;
-  margin-top: 10%;
   min-height: ${(p) => p.minHeight ?? "400px"};
+  height: ${(p) => p.height ?? "0"};
   width: ${(p) => p.width ?? "400px"};
   flex: ${(p) => p.flex ?? "none"};
-
   box-shadow: 3px 3px 6px 2px ${({ shadowColor }) => shadowColor ?? "gray"};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
+
   .paper-header {
     display: flex;
     margin-bottom: ${(p) => p.headerMb ?? "20px"};
+    > *:not(:last-child) {
+      margin-right: 5px;
+    }
   }
   .paper-footer {
     align-self: center;
-    min-height: 50px;
+    width: 100%;
+
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 50px;
     align-items: center;
   }
 
@@ -60,11 +70,17 @@ const StyledDiv = styled.div`
     box-shadow: ${(p) => !p.isModal && "none"};
     width: ${(p) => (p.isModal ? "90%" : "100%")};
     margin: 0;
+    ${(p) =>
+      p.forPage &&
+      css`
+        align-self: flex-start;
+      `}
   }
 `;
 const Body = styled.div`
-  flex: 1;
+  height: 10%;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: ${({ bodyAlign }) => bodyAlign ?? "center"};
 `;

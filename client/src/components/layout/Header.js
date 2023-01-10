@@ -33,8 +33,7 @@ const StyledHeader = styled.header`
   align-items: center;
   min-height: 80px;
   box-shadow: 0px 2px 5px 0px #525252;
-  /* border-bottom: 2px solid black; */
-  /* background-color: #ffffff; */
+  margin-bottom: 10px;
   h1 {
   }
   .user-container {

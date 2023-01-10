@@ -8,7 +8,7 @@ const Devider = ({ width, color, margin, children, className }) => (
 
 const StyledDevider = styled.div`
   width: 100%;
-  height: ${({ width }) => width ?? "1px"};
+  min-height: ${({ width }) => width ?? "1px"};
   background-color: ${({ color }) => color ?? "gray"};
   margin: ${({ margin }) => margin ?? "0 0 0 0"};
 `;
