@@ -17,6 +17,7 @@ const List = styled.ul`
     transform: translate(0, -50%);
     font-size: 2.5rem;
   }
+  scroll-behavior: smooth;
 `;
 
 export default List;

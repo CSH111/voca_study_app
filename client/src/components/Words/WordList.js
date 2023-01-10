@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useRef } from "react";
 
 import { Spinner } from "../../components/common/icons";
 import List from "../../components/common/Lists/List";
@@ -10,7 +10,13 @@ import { WordItemSkeleton, WordListItem } from ".";
 const WordList = ({ topicName, isNewItemLoading }) => {
   const { words, isLoading } = useWordbookSelector();
   const dispatch = useWordbookDispatch();
+  const listRef = useRef();
+
   const currentWords = words.filter((word) => word.topic === topicName);
+
+  useEffect(() => {
+    listRef.current.scrollTop = listRef.current.scrollHeight;
+  }, [isNewItemLoading]);
 
   useEffect(() => {
     if (isLoading) return;
@@ -29,7 +35,7 @@ const WordList = ({ topicName, isNewItemLoading }) => {
   );
 
   return (
-    <List>
+    <List ref={listRef}>
       {isLoading && (
         <div className="list-spinner">
           <Spinner />
