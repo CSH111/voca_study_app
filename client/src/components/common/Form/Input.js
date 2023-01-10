@@ -1,4 +1,5 @@
-import { useImperativeHandle, useState, forwardRef, useEffect, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+
 import { useSetForm } from "./FormContext";
 
 const Input = forwardRef((props, ref) => {
@@ -46,5 +47,7 @@ const Input = forwardRef((props, ref) => {
 
   return <input {...restProps} value={inputValue} onChange={handleChange} ref={inputElem} />;
 });
+
+Input.displayName = "Input";
 
 export default Input;

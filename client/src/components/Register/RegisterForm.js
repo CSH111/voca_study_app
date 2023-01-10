@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+
 import { useAuthSeletor } from "../../context";
 import { useRegister } from "../../hooks";
 import * as S from "./styles";

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Paper = ({
   children,
@@ -40,9 +40,6 @@ const StyledDiv = styled.div`
   width: ${(p) => p.width ?? "400px"};
   flex: ${(p) => p.flex ?? "none"};
 
-  /* min-width: ${(p) => p.minWidth ?? "400px"}; */
-  /* width: 400px; */
-  /* max-width: ${(p) => p.maxWidth ?? "400px"}; */
   box-shadow: 3px 3px 6px 2px ${({ shadowColor }) => shadowColor ?? "gray"};
   display: flex;
   flex-direction: column;

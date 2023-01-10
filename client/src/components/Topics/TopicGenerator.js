@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useWordbookSelector } from "../../context/WordbookContext";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { AddIcon } from "../common/icons";
-import { InputBox, Button } from "../../components/common";
+
+import { Button, InputBox } from "../../components/common";
+import { useModal, useWordbookSelector } from "../../context";
 import { usePostTopic } from "../../hooks";
-import { useModal } from "../../context";
+import { AddIcon } from "../common/icons";
 
 const TopicGenerator = () => {
   const [topicValue, setTopicValue] = useState("");

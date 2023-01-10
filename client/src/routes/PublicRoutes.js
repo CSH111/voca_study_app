@@ -1,8 +1,9 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuthDispatch, useAuthSeletor } from "../context";
-import { LoadingCover } from "../components/common";
 import { useEffect } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+
+import { LoadingCover } from "../components/common";
 import { authActionType as AT } from "../constants";
+import { useAuthDispatch, useAuthSeletor } from "../context";
 
 const PublicRoutes = () => {
   const { user, isLoading } = useAuthSeletor();

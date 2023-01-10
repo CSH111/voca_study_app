@@ -1,9 +1,10 @@
-import { Routes, BrowserRouter as Router, Route, Navigate } from "react-router-dom";
-import { Bookmark, Home, Login, Register, Study, Topics, Words } from "./pages";
-import MainLayout from "./components/layout/MainLayout";
-import { PrivateRoutes, PublicRoutes } from "./routes";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import { Reset } from "styled-reset";
+
+import MainLayout from "./components/layout/MainLayout";
 import { ModalProvider } from "./context";
+import { Bookmark, Home, Login, Register, Study, Topics, Words } from "./pages";
+import { PrivateRoutes, PublicRoutes } from "./routes";
 
 const AppRouter = () => {
   return (

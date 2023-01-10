@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { authService } from "../services";
-import { useAuthDispatch } from "../context";
+
 import { authActionType as AT } from "../constants";
+import { useAuthDispatch } from "../context";
+import { authService } from "../services";
 
 const useLogout = () => {
   const navigate = useNavigate();

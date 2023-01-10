@@ -1,8 +1,10 @@
 import "./App.css";
-import AppRouter from "./router";
+
 import { useEffect } from "react";
-import { useGetUser, useGetWordbook } from "./hooks";
+
 import { useAuthSeletor } from "./context";
+import { useGetUser, useGetWordbook } from "./hooks";
+import AppRouter from "./router";
 //TODO: simple import sort 설치 및 적용
 
 function App() {

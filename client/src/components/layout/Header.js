@@ -1,8 +1,7 @@
-import { useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useLogout } from "../../hooks";
+
 import { useAuthSeletor } from "../../context";
+import { useLogout } from "../../hooks";
 
 const Header = () => {
   const logout = useLogout();

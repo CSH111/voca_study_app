@@ -1,17 +1,14 @@
-import { Fragment } from "react";
-import WordListItem from "./WordListItem";
-import { useWordbookSelector, useWordbookDispatch } from "../../context";
-// import { useWordbookSelector } from "../../context";
+import { Fragment, useEffect } from "react";
+
 import { Spinner } from "../../components/common/icons";
 import List from "../../components/common/Lists/List";
-import { Devider, EmptyMsgBox } from "../common";
-import WordItemSkeleton from "./WordItemSkeleton";
-import { useEffect } from "react";
 import { wordbookActionType as WAT } from "../../constants";
+import { useWordbookDispatch, useWordbookSelector } from "../../context";
+import { Devider, EmptyMsgBox } from "../common";
+import { WordItemSkeleton, WordListItem } from ".";
 
 const WordList = ({ topicName, isNewItemLoading }) => {
   const { words, isLoading } = useWordbookSelector();
-  // const { currentWords } = wordsData;
   const dispatch = useWordbookDispatch();
   const currentWords = words.filter((word) => word.topic === topicName);
 

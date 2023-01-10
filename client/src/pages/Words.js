@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useWordbookSelector } from "../context";
-import Button from "../components/common/Button";
-import { WordGenerator, WordList } from "../components/Words";
+
+import { Button, Paper, PaperTitle } from "../components/common";
 import { GoBackIcon } from "../components/common/icons";
-import { Paper, PaperTitle } from "../components/common";
-import { useMemo } from "react";
+import { WordGenerator, WordList } from "../components/Words";
+import { useWordbookSelector } from "../context";
 
 function Words() {
   const { topic: topicName } = useParams();

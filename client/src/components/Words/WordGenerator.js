@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { usePostWord } from "../../hooks";
 import { Button, InputBox } from "../common";
 import { AddIcon } from "../common/icons";
 import * as S from "./styles";
-import { usePostWord } from "../../hooks";
-import { useEffect } from "react";
 
 const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
   const [wordInputValue, setWordInputValue] = useState("");

@@ -1,13 +1,13 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
-import * as S from "./styles";
-import { useWordbookSelector } from "../../context/WordbookContext";
-import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon, Spinner } from "../common/icons";
-import ListItem from "../../components/common/Lists/ListItem";
+
 import { Button, DeleteModal, Ellipsis, InputBox } from "../../components/common";
-import { ProgressBar, LinkModal } from "./";
+import ListItem from "../../components/common/Lists/ListItem";
+import { useModal, useWordbookSelector } from "../../context";
 import { useDeleteTopic, usePatchTopic } from "../../hooks";
-import { useModal } from "../../context";
+import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon, Spinner } from "../common/icons";
+import { LinkModal, ProgressBar } from "./";
+import * as S from "./styles";
 
 const TopicListItem = ({ topic }) => {
   const { words: allWords } = useWordbookSelector();

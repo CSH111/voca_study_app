@@ -1,10 +1,11 @@
-import styled, { css } from "styled-components";
-import Paper from "../Paper";
-import { CancelIcon, Spinner } from "../icons";
-import Button from "../Button";
-import { useModal } from "../../../context";
-import { MODAL_FADE_TIME } from "../../../constants";
 import { useEffect } from "react";
+import styled, { css } from "styled-components";
+
+import { MODAL_FADE_TIME } from "../../../constants";
+import { useModal } from "../../../context";
+import Button from "../Button";
+import { CancelIcon, Spinner } from "../icons";
+import Paper from "../Paper";
 
 const Modal = ({ children, footer, isLoading, title, onClose }) => {
   const { closeModal, isOpen, setOnClose } = useModal();

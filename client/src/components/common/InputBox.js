@@ -23,4 +23,6 @@ const InputBox = forwardRef(({ onClick, ...rest }, ref) => {
   return <StyledInput {...rest} onClick={handleClick} ref={ref} />;
 });
 
+InputBox.displayName = "InputBox";
+
 export default InputBox;

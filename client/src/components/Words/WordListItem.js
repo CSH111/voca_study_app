@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import * as S from "./styles";
 
-import { StarIcon, EditIcon, DeleteIcon, CheckIcon, CancelIcon } from "../common/icons";
+import { BookmarkButton, Button, DeleteModal, Ellipsis, InputBox } from "../../components/common";
 import ListItem from "../../components/common/Lists/ListItem";
-import { InputBox, Ellipsis, Button, DeleteModal, BookmarkButton } from "../../components/common";
-import { Spinner } from "../common/icons";
-import { useDeleteWord, usePatchWord } from "../../hooks";
 import { useModal } from "../../context";
+import { useDeleteWord, usePatchWord } from "../../hooks";
+import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, StarIcon } from "../common/icons";
+import { Spinner } from "../common/icons";
+import * as S from "./styles";
 
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;

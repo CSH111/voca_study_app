@@ -1,6 +1,5 @@
-import { useContext } from "react";
-import { useState } from "react";
-import { createContext } from "react";
+import { createContext, useContext, useState } from "react";
+
 import { MODAL_FADE_TIME } from "../constants";
 
 const ModalContext = createContext(null);

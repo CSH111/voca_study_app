@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
-import { useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
+
 import { authActionType as AAT } from "../constants";
 
 const AuthContext = createContext(null);

@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { BookmarkList } from "../components/Bookmark";
-import { Paper, PaperTitle } from "../components/common";
-import Button from "../components/common/Button";
+import { Button, Paper, PaperTitle } from "../components/common";
 import { GoBackIcon } from "../components/common/icons";
 
 function Bookmark() {

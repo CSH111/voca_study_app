@@ -1,5 +1,5 @@
-import { RegisterForm } from "../components/Register";
 import { AuthLink, Paper, PaperTitle } from "../components/common";
+import { RegisterForm } from "../components/Register";
 
 const Register = () => {
   return (

@@ -1,7 +1,7 @@
-import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topics";
 import { Button, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
 import Modal from "../components/common/Modal";
+import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topics";
 import { useModal } from "../context";
 
 function Topics() {
