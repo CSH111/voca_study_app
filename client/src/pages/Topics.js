@@ -1,6 +1,5 @@
-import { Button, Devider, Paper, PaperTitle } from "../components/common";
+import { Button, Devider, Modal, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
-import Modal from "../components/common/Modal";
 import { TopicGenerator, TopicList } from "../components/Topics";
 import { useModal } from "../context";
 

@@ -1,7 +1,7 @@
 import { useModal, useWordbookSelector } from "../../context";
+import { ListItem } from "../common";
 import { BookMarkIcon } from "../common/icons";
-import ListItem from "../common/Lists/ListItem";
-import LinkModal from "./LinkModal";
+import { LinkModal } from "./";
 import * as S from "./styles";
 
 const BookMarkListItem = () => {

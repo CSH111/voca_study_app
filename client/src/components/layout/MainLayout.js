@@ -1,18 +1,22 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
-import Header from "./Header";
+import { Header } from "../Header";
 
 const MainLayout = () => {
   return (
     <Wrapper>
-      <Header />
+      <HeaderArea>
+        <Header />
+      </HeaderArea>
       <Body>
         <StyledOutlet />
       </Body>
     </Wrapper>
   );
 };
+
+const HeaderArea = styled.div``;
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -37,4 +41,5 @@ const Body = styled.div`
 `;
 
 const StyledOutlet = styled(Outlet)``;
+
 export default MainLayout;

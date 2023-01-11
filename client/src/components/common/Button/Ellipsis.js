@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { EllipsisIcon } from "../common/icons";
-import Button from "./Button";
+import { EllipsisIcon } from "../icons";
+import { Button } from "./";
 
 const Ellipsis = ({ items, disabled }) => {
   const [menuOn, setMenuOn] = useState(false);

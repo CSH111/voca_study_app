@@ -36,6 +36,8 @@ const Paper = ({
   );
 };
 
+export default Paper;
+
 const Box = styled.div`
   background-color: white;
   min-height: ${(p) => p.minHeight ?? "400px"};
@@ -85,5 +87,3 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: ${({ bodyAlign }) => bodyAlign ?? "center"};
 `;
-
-export default Paper;

@@ -1,10 +1,9 @@
 import { Fragment, useEffect, useRef } from "react";
 
 import { Spinner } from "../../components/common/icons";
-import List from "../../components/common/Lists/List";
 import { wordbookActionType as WAT } from "../../constants";
 import { useWordbookDispatch, useWordbookSelector } from "../../context";
-import { Devider, EmptyMsgBox } from "../common";
+import { Devider, EmptyMsgBox, List } from "../common";
 import { WordItemSkeleton, WordListItem } from ".";
 
 const WordList = ({ topicName, isNewItemLoading }) => {

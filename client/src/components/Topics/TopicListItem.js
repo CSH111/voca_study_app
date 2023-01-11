@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-import { Button, DeleteModal, Ellipsis, InputBox } from "../../components/common";
-import ListItem from "../../components/common/Lists/ListItem";
+import { Button, DeleteModal, Ellipsis, InputBox, ListItem } from "../../components/common";
 import { useModal, useWordbookSelector } from "../../context";
 import { useDeleteTopic, usePatchTopic } from "../../hooks";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon, Spinner } from "../common/icons";

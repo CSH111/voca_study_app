@@ -16,12 +16,10 @@ function Bookmark() {
       bodyAlign="flex-start"
       paperHeader={
         <>
-          <PaperTitle>
-            Bookmark{" "}
-            <Button onClick={() => navigate("/")} width="35px" height="35px">
-              <GoBackIcon />
-            </Button>
-          </PaperTitle>
+          <PaperTitle>Bookmark </PaperTitle>
+          <Button onClick={() => navigate("/")} width="35px" height="35px">
+            <GoBackIcon />
+          </Button>
         </>
       }
     >

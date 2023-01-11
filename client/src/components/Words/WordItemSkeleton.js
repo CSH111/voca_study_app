@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
+import { ListItem } from "../common";
 import { Spinner } from "../common/icons";
-import ListItem from "../common/Lists/ListItem";
 
 const WordItemSkeleton = () => {
   return (

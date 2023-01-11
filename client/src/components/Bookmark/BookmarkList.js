@@ -2,8 +2,8 @@ import { Fragment, useMemo } from "react";
 
 import { useWordbookSelector } from "../../context/WordbookContext";
 import { Devider, EmptyMsgBox } from "../common";
+import { List } from "../common";
 import { Spinner } from "../common/icons";
-import List from "../common/Lists/List";
 import WordListItem from "../Words/WordListItem";
 
 const BookmarkList = () => {

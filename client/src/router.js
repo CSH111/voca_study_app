@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import { Reset } from "styled-reset";
 
-import MainLayout from "./components/layout/MainLayout";
+import { MainLayout } from "./components/layout";
 import { ModalProvider } from "./context";
 import { Bookmark, Home, Login, Register, Study, Topics, Words } from "./pages";
 import { PrivateRoutes, PublicRoutes } from "./routes";

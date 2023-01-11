@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-import { useModal } from "../../context";
-import { Button } from ".";
-import Modal from "./Modal";
+import { useModal } from "../../../context";
+import { Button, Modal } from "../";
 
 const DeleteModal = ({ msg, handleDelete, isLoading, title }) => {
   const { closeModal } = useModal();

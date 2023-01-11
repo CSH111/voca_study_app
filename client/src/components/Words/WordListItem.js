@@ -1,12 +1,17 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-import { BookmarkButton, Button, DeleteModal, Ellipsis, InputBox } from "../../components/common";
-import ListItem from "../../components/common/Lists/ListItem";
+import {
+  BookmarkButton,
+  Button,
+  DeleteModal,
+  Ellipsis,
+  InputBox,
+  ListItem,
+} from "../../components/common";
 import { useModal } from "../../context";
 import { useDeleteWord, usePatchWord } from "../../hooks";
-import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, StarIcon } from "../common/icons";
-import { Spinner } from "../common/icons";
+import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, Spinner, StarIcon } from "../common/icons";
 import * as S from "./styles";
 
 const WordListItem = ({ wordData }) => {

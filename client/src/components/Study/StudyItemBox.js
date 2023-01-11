@@ -4,9 +4,8 @@ import styled from "styled-components";
 
 import { useModal } from "../../context";
 import { usePatchWord } from "../../hooks";
-import { BookmarkButton, Button, Devider } from "../common";
+import { BookmarkButton, Button, Devider, Modal } from "../common";
 import { Spinner, StarIcon } from "../common/icons";
-import Modal from "../common/Modal";
 import StudyRestult from "./StudyResult";
 //TODO: 넘김 이펙트
 const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept }) => {
