@@ -1,13 +1,18 @@
 import styled from "styled-components";
 
-import { useAuthSeletor } from "../../context";
+import { useAuthSeletor, useModal } from "../../context";
 import { useLogout } from "../../hooks";
+import ConfirmModal from "./ConfirmModal";
+import LogoutBtn from "./LogoutBtn";
 
 const Header = () => {
   const logout = useLogout();
   const { user } = useAuthSeletor();
+  const { openModal } = useModal();
 
-  const handleLogout = () => logout();
+  const handleLogoutBtnClick = () => {
+    openModal(<ConfirmModal onConfirm={logout} msg="로그아웃 하시겠습니까?" />);
+  };
 
   return (
     <StyledHeader>
@@ -17,7 +22,7 @@ const Header = () => {
           <div className="user-name-container">
             <span className="user-name">{user}</span>님
           </div>
-          {user ? <button onClick={handleLogout}>로그아웃</button> : null}
+          {user ? <LogoutBtn onClick={handleLogoutBtnClick}>Logout</LogoutBtn> : null}
         </div>
       )}
     </StyledHeader>

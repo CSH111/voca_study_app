@@ -75,6 +75,15 @@ const StyledButton = styled.button`
         background-color: #348136;
       }
     `}
+  ${(p) =>
+    p.themeColor === "blue" &&
+    css`
+      background-color: #3b72bd;
+      color: white;
+      &:hover:enabled {
+        background-color: #28528d;
+      }
+    `}
   &:active:enabled {
     transform: scale(0.95);
   }
