@@ -64,6 +64,7 @@ const TopicGenerator = () => {
         <InputBox
           type="text"
           value={topicValue}
+          width="200px"
           onChange={(e) => setTopicValue(e.target.value)}
           ref={topicInput}
           placeholder="토픽폴더를 추가하세요"
