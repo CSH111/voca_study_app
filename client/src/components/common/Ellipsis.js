@@ -1,8 +1,41 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { EllipsisIcon } from "../common/icons";
 import Button from "./Button";
+
+const Ellipsis = ({ items, disabled }) => {
+  const [menuOn, setMenuOn] = useState(false);
+  const btnsBoxRef = useRef();
+
+  const handleEllipsisClick = () => {
+    setMenuOn(!menuOn);
+  };
+
+  const handleBtnItemClick = () => {
+    setMenuOn(false);
+  };
+
+  useEffect(() => {
+    btnsBoxRef.current?.childNodes.forEach((btn) => {
+      btn.addEventListener("click", handleBtnItemClick);
+    });
+  }, [btnsBoxRef]);
+
+  return (
+    <StyledDiv menuOn={menuOn} className="ellipsis">
+      <Button className="ellipsisBtn" disabled={disabled} onClick={handleEllipsisClick}>
+        <EllipsisIcon />
+      </Button>
+
+      <div className="items" ref={btnsBoxRef}>
+        {items}
+      </div>
+    </StyledDiv>
+  );
+};
+
+export default Ellipsis;
 
 const StyledDiv = styled.div`
   position: relative;
@@ -43,22 +76,3 @@ const StyledDiv = styled.div`
         `}
   }
 `;
-const Ellipsis = ({ items, disabled }) => {
-  const [menuOn, setMenuOn] = useState(false);
-  const handleClick = (e) => {
-    // e.stopPropagation();
-    setMenuOn(!menuOn);
-  };
-
-  return (
-    <StyledDiv menuOn={menuOn} className="ellipsis">
-      <Button className="ellipsisBtn" disabled={disabled} onClick={handleClick}>
-        <EllipsisIcon />
-      </Button>
-
-      <div className="items">{items}</div>
-    </StyledDiv>
-  );
-};
-
-export default Ellipsis;
