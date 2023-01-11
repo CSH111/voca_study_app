@@ -14,38 +14,35 @@ export const Controls = styled.div`
   > *:not(:last-child) {
     margin-right: 10px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 650px) {
     flex-direction: column;
     > *:not(:last-child) {
       margin-bottom: 5px;
     }
   }
-  @media (max-width: 500px) {
+  @media (max-width: 400px) {
     flex-direction: column;
   }
 `;
 
 export const Form = styled.form`
   &.generator {
-    /* margin-bottom: 25px; */
-    /* min-height: 60px; */
     align-self: flex-end;
     margin: 10px 0;
-    /* background-color: #ababab; */
   }
+
   display: flex;
   align-items: center;
-  /* justify-content: flex-start; */
   > *:not(:last-child) {
     margin-right: 5px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 650px) {
     > *:last-child {
       align-self: flex-end;
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 400px) {
     ${({ columnOnSmallDevice }) =>
       columnOnSmallDevice &&
       css`

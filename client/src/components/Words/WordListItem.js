@@ -8,7 +8,7 @@ import { useDeleteWord, usePatchWord } from "../../hooks";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, StarIcon } from "../common/icons";
 import { Spinner } from "../common/icons";
 import * as S from "./styles";
-//TODO 모바일 단어수정 폼 레이아웃 깨짐
+
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
   const { deleteWord, isLoading: isDeleteLoading, isError: isDeleteError } = useDeleteWord();
@@ -69,7 +69,7 @@ const WordListItem = ({ wordData }) => {
     <S.Form onSubmit={handleSubmission} action="" columnOnSmallDevice={true}>
       <S.Controls>
         <S.InputContainer>
-          <InputBox className="input" type="text" ref={wordInputElem} />
+          <InputBox type="text" ref={wordInputElem} />
         </S.InputContainer>
         <S.InputContainer>
           <InputBox type="text" ref={meaningInputElem} />
@@ -85,11 +85,10 @@ const WordListItem = ({ wordData }) => {
       </StyledButtonsBox>
     </S.Form>
   ) : (
-    <StyledDiv className="data" isMemorized={isMemorized} onClick={handleIsMemorized}>
+    <StyledDataBox className="data" isMemorized={isMemorized} onClick={handleIsMemorized}>
       <div className="word"> {word}</div>
-
       <div className="meaning">{meaning}</div>
-    </StyledDiv>
+    </StyledDataBox>
   );
 
   return (
@@ -124,13 +123,12 @@ const WordListItem = ({ wordData }) => {
 
 export default WordListItem;
 
-const StyledDiv = styled.div`
+const StyledDataBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-self: stretch;
   align-items: flex-start;
-
   width: 100%;
   transition: all 0.2s;
 

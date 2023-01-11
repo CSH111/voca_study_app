@@ -50,6 +50,7 @@ const Box = styled.div`
 
   .paper-header {
     display: flex;
+    align-items: center;
     margin-bottom: ${(p) => p.headerMb ?? "20px"};
     > *:not(:last-child) {
       margin-right: 5px;
@@ -78,7 +79,7 @@ const Box = styled.div`
   }
 `;
 const Body = styled.div`
-  height: 10%;
+  height: 80%;
   display: flex;
   flex: 1;
   flex-direction: column;
