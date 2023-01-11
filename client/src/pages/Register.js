@@ -4,6 +4,7 @@ import { RegisterForm } from "../components/Register";
 const Register = () => {
   return (
     <Paper
+      height="auto"
       paperHeader={<PaperTitle>회원가입</PaperTitle>}
       paperFooter={<AuthLink to="/login">로그인하러 가기</AuthLink>}
     >

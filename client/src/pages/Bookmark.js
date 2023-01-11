@@ -10,7 +10,9 @@ function Bookmark() {
   return (
     <Paper
       width="100%"
-      flex="1"
+      // width="100%"
+      height="95%"
+      // flex="1"
       bodyAlign="flex-start"
       paperHeader={
         <>

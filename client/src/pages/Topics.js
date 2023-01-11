@@ -1,7 +1,7 @@
 import { Button, Devider, Paper, PaperTitle } from "../components/common";
 import { AddIcon } from "../components/common/icons";
 import Modal from "../components/common/Modal";
-import { BookMarkListItem, TopicGenerator, TopicList } from "../components/Topics";
+import { TopicGenerator, TopicList } from "../components/Topics";
 import { useModal } from "../context";
 
 function Topics() {
@@ -28,10 +28,10 @@ function Topics() {
           </Button>
         </>
       }
+      paperFooter={<Devider color="black" width="2px" />}
       bodyAlign="flex-start"
     >
-      <Devider margin="0 0 5px 0" color="black" width="2px" />
-      <BookMarkListItem />
+      <Devider margin="0 0 15px 0" color="black" width="2px" />
       <TopicList />
     </Paper>
   );

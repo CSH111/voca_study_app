@@ -9,7 +9,13 @@ const List = styled.ul`
   align-items: center;
   overflow-y: auto;
   &::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #727272;
+    border-radius: 50px;
+  }
+  &::-webkit-scrollbar-track {
   }
   > .list-spinner {
     position: absolute;
@@ -18,6 +24,7 @@ const List = styled.ul`
     font-size: 2.5rem;
   }
   scroll-behavior: smooth;
+  padding: 0 8px;
 `;
 
 export default List;

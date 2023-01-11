@@ -8,7 +8,7 @@ import { useDeleteWord, usePatchWord } from "../../hooks";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, StarIcon } from "../common/icons";
 import { Spinner } from "../common/icons";
 import * as S from "./styles";
-
+//TODO 모바일 단어수정 폼 레이아웃 깨짐
 const WordListItem = ({ wordData }) => {
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
   const { deleteWord, isLoading: isDeleteLoading, isError: isDeleteError } = useDeleteWord();

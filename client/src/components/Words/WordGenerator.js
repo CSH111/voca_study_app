@@ -13,7 +13,7 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
   const isEmptyWordValue = !wordInputValue.trim();
   const isEmptyMeaningValue = !meaningInputValue.trim();
 
-  const { postWord, isLoading, isError } = usePostWord();
+  const { postWord, isLoading } = usePostWord();
 
   useEffect(() => {
     setNewItemLoading(isLoading);
@@ -46,7 +46,6 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
           <label htmlFor="wordInput">단어</label>
           <InputBox
             type="text"
-            // id="wordInput"
             ref={wordInput}
             value={wordInputValue}
             onChange={(e) => setWordInputValue(e.target.value)}
@@ -56,7 +55,6 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
           <label htmlFor="meaningInput">뜻</label>
           <InputBox
             type="text"
-            // id="meaningInput"
             ref={meaningInput}
             value={meaningInputValue}
             onChange={(e) => setMeaningInputValue(e.target.value)}

@@ -2,6 +2,7 @@ import { Spinner } from "../../components/common/icons";
 import List from "../../components/common/Lists/List";
 import { useWordbookSelector } from "../../context/WordbookContext";
 import { EmptyMsgBox } from "../common";
+import BookMarkListItem from "./BookMarkListItem";
 import TopicListItem from "./TopicListItem";
 //TODO 로딩끝나고 렌더링되는데 일부 계산된 데이터들 한박자 늦게 생성되는 이유 찾기
 
@@ -21,7 +22,12 @@ const TopicList = () => {
           <Spinner />
         </div>
       )}
-      {!isLoading && listItems}
+      {!isLoading && (
+        <>
+          <BookMarkListItem />
+          {listItems}
+        </>
+      )}
     </List>
   );
 };
