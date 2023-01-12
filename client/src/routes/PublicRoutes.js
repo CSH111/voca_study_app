@@ -9,6 +9,7 @@ const PublicRoutes = () => {
   const { user, isLoading } = useAuthSeletor();
   const dispatch = useAuthDispatch();
   const { pathname } = useLocation();
+  const isAuthPage = pathname === "/register" || pathname === "/login";
 
   useEffect(() => {
     dispatch({ type: AT.CLEAR_AUTH_ERROR });
@@ -17,7 +18,7 @@ const PublicRoutes = () => {
   return !user ? (
     <>
       <Outlet />
-      {isLoading && <LoadingCover />}
+      {isLoading && <LoadingCover transparent={isAuthPage} />}
     </>
   ) : (
     <Navigate to="/topics" />

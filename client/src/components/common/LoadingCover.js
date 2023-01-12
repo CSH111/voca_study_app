@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { Spinner } from "./icons";
 import RootPortal from "./RootPortal";
 
-const LoadingCover = () => {
+const LoadingCover = ({ transparent }) => {
   return (
     <RootPortal>
-      <Container>
+      <Container transparent={transparent}>
         <Spinner />
       </Container>
     </RootPortal>
@@ -19,9 +19,9 @@ const Container = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  background-color: #9f9f9f62;
-  width: 100vw;
-  height: 100vh;
+  background-color: ${(p) => (p.transparent ? "#9f9f9f62" : "#d3d3d3ff")};
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
