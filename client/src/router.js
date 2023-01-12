@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
-import { Reset } from "styled-reset";
 
 import { MainLayout } from "./components/layout";
 import { ModalProvider } from "./context";
@@ -10,7 +9,6 @@ const AppRouter = () => {
   return (
     <Router>
       <ModalProvider>
-        <Reset />
         <Routes>
           <Route element={<MainLayout />}>
             <Route element={<PublicRoutes />}>

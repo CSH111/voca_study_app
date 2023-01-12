@@ -1,7 +1,6 @@
-import "./App.css";
-
 import { useEffect } from "react";
 
+import { GlobalStyles } from "./components/styles";
 import { useAuthSeletor } from "./context";
 import { useGetUser, useGetWordbook } from "./hooks";
 import AppRouter from "./router";
@@ -19,7 +18,12 @@ function App() {
     getWordbook();
   }, [user]);
 
-  return <AppRouter />;
+  return (
+    <>
+      <GlobalStyles />
+      <AppRouter />
+    </>
+  );
 }
 
 export default App;

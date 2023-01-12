@@ -7,7 +7,7 @@ import { usePatchWord } from "../../hooks";
 import { BookmarkButton, Button, Devider, Modal } from "../common";
 import { Spinner, StarIcon } from "../common/icons";
 import StudyRestult from "./StudyResult";
-//TODO: 넘김 이펙트
+
 const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept }) => {
   const navigate = useNavigate();
   const { topic } = useParams();
