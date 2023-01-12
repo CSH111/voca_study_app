@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { useAuthSeletor, useModal } from "../../context";
@@ -16,7 +17,9 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <h1>초간단 단어장</h1>
+      <Link to="/">
+        <h1>VOCA STUDY</h1>
+      </Link>
       {user && (
         <div className="user-container">
           <div className="user-name-container">
@@ -36,10 +39,29 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   padding: 5px 10px;
   align-items: center;
-  min-height: 80px;
+  height: 0;
+  min-height: 70px;
   box-shadow: 0px 2px 5px 0px #525252;
   margin-bottom: 10px;
+  @media (max-width: 700px) {
+    min-height: 50px;
+  }
+
   h1 {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    a {
+      display: block;
+      /* height: 100%; */
+    }
+    @media (max-width: 700px) {
+      height: 30px;
+    }
   }
   .user-container {
     display: flex;

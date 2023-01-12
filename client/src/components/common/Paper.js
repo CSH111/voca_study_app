@@ -69,7 +69,7 @@ const Box = styled.div`
     align-items: center;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 700px) {
     box-shadow: ${(p) => !p.isModal && "none"};
     width: ${(p) => (p.isModal ? "90%" : "100%")};
     margin: 0;
