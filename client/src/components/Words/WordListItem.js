@@ -107,16 +107,17 @@ const WordListItem = ({ wordData }) => {
         </>
       )}
       {listItemContents}
+      {/* <Button width="55px">zz</Button> */}
       <Ellipsis
         items={
           <>
-            <Button onClick={handleDeleteModal} themeColor="error">
+            <Button onClick={handleDeleteModal} themeColor="error" angleBorder>
               <DeleteIcon />
             </Button>
-            <Button onClick={handleFixModeOpen}>
+            <Button onClick={handleFixModeOpen} angleBorder>
               <EditIcon />
             </Button>
-            <BookmarkButton onClick={handleBookmark} isBookmarked={isBookmarked}>
+            <BookmarkButton onClick={handleBookmark} isBookmarked={isBookmarked} angleBorder>
               <StarIcon />
             </BookmarkButton>
           </>

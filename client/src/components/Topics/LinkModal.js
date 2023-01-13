@@ -47,7 +47,6 @@ const LinkModal = ({ leftLink, rightLink, title }) => {
 export default LinkModal;
 
 const StyledModalContents = styled.div`
-  margin: 0 auto;
   flex: 1;
   display: flex;
   align-items: stretch;
@@ -57,6 +56,7 @@ const StyledModalContents = styled.div`
 `;
 
 const StyledButton = styled(Button)`
+  flex: 1;
   border-radius: 20px;
   display: flex;
   flex-direction: column;

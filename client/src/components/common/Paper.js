@@ -41,7 +41,7 @@ export default Paper;
 const Box = styled.div`
   background-color: ${(p) => p.theme.color.secondary.main};
   min-height: ${(p) => p.minHeight ?? "400px"};
-  height: ${(p) => p.height ?? "auto"};
+  height: ${(p) => p.height ?? "0"};
   width: ${(p) => p.width ?? "400px"};
   flex: ${(p) => p.flex ?? "none"};
   box-shadow: 3px 3px 6px 2px ${(p) => p.theme.color.shadow.main ?? "gray"};
@@ -76,6 +76,8 @@ const Box = styled.div`
   }
 
   @media (max-width: 700px) {
+    padding: 15px;
+
     box-shadow: ${(p) => !p.isModal && "none"};
     width: ${(p) => (p.isModal ? "90%" : "100%")};
     margin: 0;

@@ -1,7 +1,14 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
-import { Button, DeleteModal, Ellipsis, InputBox, ListItem } from "../../components/common";
+import {
+  Button,
+  DeleteModal,
+  Ellipsis,
+  EllipsisItem,
+  InputBox,
+  ListItem,
+} from "../../components/common";
 import { useModal, useWordbookSelector } from "../../context";
 import { useDeleteTopic, usePatchTopic } from "../../hooks";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon, Spinner } from "../common/icons";
@@ -119,10 +126,15 @@ const TopicListItem = ({ topic }) => {
         disabled={isItemLoading}
         items={
           <>
-            <Button onClick={handleDeleteModal} disabled={isItemLoading} themeColor="error">
+            <Button
+              onClick={handleDeleteModal}
+              disabled={isItemLoading}
+              themeColor="error"
+              angleBorder
+            >
               <DeleteIcon />
             </Button>
-            <Button onClick={handleFixModeOpen} disabled={isItemLoading}>
+            <Button onClick={handleFixModeOpen} disabled={isItemLoading} angleBorder>
               <EditIcon />
             </Button>
           </>

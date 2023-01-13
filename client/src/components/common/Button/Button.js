@@ -51,14 +51,14 @@ const StyledButton = styled.button`
   height: ${({ height }) => height ?? "auto"};
   margin: ${({ margin }) => margin ?? "0"};
   padding: ${(p) => p.padding ?? "5px 10px"};
-  border-radius: ${(p) => (p.angleBorder ? "none" : "0.3rem")};
+  border-radius: ${(p) => (p.angleBorder ? "none" : "5px")};
   border: none;
   transition: all 0.15s;
   background-color: transparent;
   color: ${({ theme, themeColor }) =>
     theme.color[themeColor]?.main ?? theme.fontColor.primary.main};
 
-  &:hover:enabled {
+  &:hover {
     background-color: ${(p) => p.theme.color.gray.main};
     cursor: pointer;
   }
@@ -71,13 +71,13 @@ const StyledButton = styled.button`
         theme.color[themeColor]?.fontColor ?? theme.fontColor.primary.main};
       box-shadow: ${(p) => (p.shadow ? `2px 2px 4px 0px ${p.theme.color.shadow.dark}` : "none")};
 
-      &:hover:enabled {
+      &:hover {
         background-color: ${({ theme, themeColor }) =>
           theme.color[themeColor]?.dark ?? theme.color[themeColor]?.light ?? theme.color.gray.main};
       }
     `}
 
-  &:active:enabled {
+  &:active {
     transform: scale(0.95);
   }
   &:disabled {

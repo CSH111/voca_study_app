@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { EllipsisIcon } from "../icons";
 import { Button } from "./";
@@ -15,7 +15,7 @@ const Ellipsis = ({ items, disabled }) => {
   const handleBtnItemClick = () => {
     setMenuOn(false);
   };
-
+  //TODO check 리스너
   useEffect(() => {
     btnsBoxRef.current?.childNodes.forEach((btn) => {
       btn.addEventListener("click", handleBtnItemClick);
@@ -24,7 +24,7 @@ const Ellipsis = ({ items, disabled }) => {
 
   return (
     <StyledDiv menuOn={menuOn} className="ellipsis">
-      <Button className="ellipsisBtn" disabled={disabled} onClick={handleEllipsisClick}>
+      <Button className="ellipsisBtn" disabled={disabled} onClick={handleEllipsisClick} angleBorder>
         <EllipsisIcon />
       </Button>
 
@@ -39,18 +39,26 @@ export default Ellipsis;
 
 const StyledDiv = styled.div`
   position: relative;
-  margin: 0.35rem 0.2rem;
   width: auto;
   height: auto;
-
+  align-self: flex-start;
   .ellipsisBtn {
     position: relative;
     z-index: 2;
   }
   button {
-    min-width: 35px;
+    flex-shrink: 0;
+    width: 40px;
     height: 35px;
   }
+  ${(p) =>
+    p.menuOn &&
+    css`
+      button {
+        background-color: ${(p) => p.theme.color.gray.light};
+      }
+    `}
+
   .items {
     z-index: 1;
     position: absolute;
@@ -61,18 +69,16 @@ const StyledDiv = styled.div`
     overflow: hidden;
     transition: all 0.2s;
     transition-timing-function: ease-in;
-
     ${({ menuOn }) =>
       menuOn //
-        ? `
-        pointer-events:auto;
-        right:2.5rem;
-        opacity:1;
-        
-        `
-        : `
-        pointer-events:none;
-        opacity:0;
-        `}
+        ? css`
+            pointer-events: auto;
+            right: 40px;
+            opacity: 1;
+          `
+        : css`
+            pointer-events: none;
+            opacity: 0;
+          `}
   }
 `;

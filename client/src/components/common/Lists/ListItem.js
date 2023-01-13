@@ -12,12 +12,6 @@ const ListItem = styled.li`
   &:hover {
     background-color: ${(p) => p.theme.color.gray.light};
   }
-  > *:nth-child(1),
-  > *:nth-child(2) {
-    min-width: 30px;
-    display: flex;
-    justify-content: center;
-  }
   .blur-filter {
     position: absolute;
     width: 100%;
@@ -37,6 +31,10 @@ const ListItem = styled.li`
   .progress-area {
     flex: 1;
     margin-left: 5px;
+  }
+
+  > svg:first-child {
+    margin: 0 10px;
   }
 
   h3 {

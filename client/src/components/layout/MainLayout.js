@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
 const Body = styled.div`
   align-self: center;
-  /* height: 0; */
+  height: 0;
   flex: 1;
   width: 80%;
   max-width: 800px;
