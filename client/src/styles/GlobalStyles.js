@@ -22,12 +22,6 @@ const GlobalStyles = createGlobalStyle`
     color: inherit;
   }
 
-h3 {
-  /* color:blue; */
-  /* word-wrap:normal; */
-  /* text-overflow:ellipsis; */
-  /* word-break:break-all; */
-}
 `;
 
 export default GlobalStyles;

@@ -1,14 +1,22 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const ListItem = styled.li`
   position: relative;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   transition: all 0.15s;
+  min-height: 60px;
   cursor: pointer;
   &:hover {
     background-color: #e6e6e6;
+  }
+  > *:nth-child(1),
+  > *:nth-child(2) {
+    min-width: 30px;
+    display: flex;
+    justify-content: center;
   }
   .blur-filter {
     position: absolute;
@@ -23,9 +31,25 @@ const ListItem = styled.li`
     transform: translate(-50%, -50%);
     font-size: 1.75rem;
   }
-  > div {
-    min-height: 60px;
+  > *:not(:last-child) {
+    margin-right: 5px;
   }
+  .progress-area {
+    flex: 1;
+    margin-left: 5px;
+  }
+  h3 {
+    /* min-width: 0; */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  ${(p) =>
+    p.forBookmark &&
+    css`
+      justify-content: flex-start;
+    `}
 `;
 
 export default ListItem;

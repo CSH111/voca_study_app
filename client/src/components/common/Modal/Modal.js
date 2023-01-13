@@ -41,6 +41,12 @@ const Modal = ({ children, footer, isLoading, title, onClose }) => {
         paperFooter={footer}
         isModal
       >
+        {/* <ModalHeader>
+          <HeaderMsg>{title}</HeaderMsg>
+          <Button onClick={handleCloseBtnClick}>
+            <CancelIcon fontSize="25px" />
+          </Button>
+        </ModalHeader> */}
         {children}
         {isLoading && (
           <StyledLoadingCover fadeSec={fadeSec}>
@@ -59,6 +65,12 @@ const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-width: 0;
+  h4 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `;
 const HeaderMsg = styled.h4`
   font-size: 20px;

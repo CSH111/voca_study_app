@@ -75,45 +75,45 @@ const TopicListItem = ({ topic }) => {
           </div>
         </>
       )}
-      <S.ListContainer>
-        <FolderIcon fontSize="25px" />
-        <div className="topic-data">
-          <div>({wordsAmount})</div>
-          {isModifying ? (
-            <>
-              <StyledForm>
-                <InputBox type="text" ref={fixInput} />
-                <StyledButtonsBox className="btnBox">
-                  <Button
-                    type="submit"
-                    onClick={handleSubmission}
-                    height="35px"
-                    width="35px"
-                    margin="0 0 0 5px"
-                    themeColor="success"
-                  >
-                    <CheckIcon />
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={handleFixModeClose}
-                    height="35px"
-                    width="35px"
-                    margin="0 0 0 5px"
-                  >
-                    <CancelIcon />
-                  </Button>
-                </StyledButtonsBox>
-              </StyledForm>
-            </>
-          ) : (
-            <>
-              <h3>{topic.topicName}</h3>
+      <FolderIcon fontSize="25px" />
+      <div>({wordsAmount})</div>
+      {isModifying ? (
+        <>
+          <StyledForm>
+            <InputBox type="text" ref={fixInput} />
+            <StyledButtonsBox className="btnBox">
+              <Button
+                type="submit"
+                onClick={handleSubmission}
+                height="35px"
+                width="35px"
+                margin="0 0 0 5px"
+                themeColor="success"
+              >
+                <CheckIcon />
+              </Button>
+              <Button
+                type="button"
+                onClick={handleFixModeClose}
+                height="35px"
+                width="35px"
+                margin="0 0 0 5px"
+              >
+                <CancelIcon />
+              </Button>
+            </StyledButtonsBox>
+          </StyledForm>
+        </>
+      ) : (
+        <>
+          <h3>{topic.topicName}</h3>
+          <div className="progress-area">
+            {wordsAmount > 0 && (
               <ProgressBar show={wordsAmount > 0} progress={wordsDoneAmount / wordsAmount} />
-            </>
-          )}
-        </div>
-      </S.ListContainer>
+            )}
+          </div>
+        </>
+      )}
 
       <Ellipsis
         disabled={isItemLoading}

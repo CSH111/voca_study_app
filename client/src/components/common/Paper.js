@@ -51,9 +51,15 @@ const Box = styled.div`
   padding: 20px;
 
   .paper-header {
+    align-self: stretch;
     display: flex;
     align-items: center;
     margin-bottom: ${(p) => p.headerMb ?? "20px"};
+    > h3 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     > *:not(:last-child) {
       margin-right: 5px;
     }
