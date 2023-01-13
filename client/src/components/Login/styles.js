@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import { RectangularButton } from "../common";
 import { Form as OriginalForm, Input as OriginalInput } from "../common/Form";
 
 export const Form = styled(OriginalForm)`
@@ -15,12 +14,8 @@ export const Label = styled.label`
   margin-bottom: 10px;
 `;
 
-export const Button = styled(RectangularButton)`
-  margin-top: 10px;
-`;
-
 export const Msg = styled.p`
-  min-height: 25px;
+  min-height: 35px;
   color: ${(p) => p.theme.color.error.main};
   font-weight: bold;
 `;

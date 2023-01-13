@@ -93,3 +93,5 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: ${({ bodyAlign }) => bodyAlign ?? "center"};
 `;
+
+//TODO 모바일화면 작은 페이퍼 경계표시

@@ -1,5 +1,5 @@
 export { default as AuthLink } from "./AuthLink";
-export { BookmarkButton, Button, Ellipsis, RectangularButton } from "./Button";
+export { AuthButton, BookmarkButton, Button, Ellipsis } from "./Button";
 export { default as Devider } from "./Devider";
 export { default as EmptyMsgBox } from "./EmptyMsgBox";
 export { default as InputBox } from "./InputBox";

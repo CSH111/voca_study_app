@@ -11,6 +11,7 @@ const Button = ({
   themeColor,
   shadow,
   variant,
+  angleBorder,
   ...rest
 }) => {
   const handleClick = (e) => {
@@ -26,6 +27,7 @@ const Button = ({
       themeColor={themeColor}
       color={color}
       onClick={handleClick}
+      angleBorder={angleBorder}
       shadow={shadow}
       variant={variant}
       {...rest}
@@ -46,7 +48,7 @@ const StyledButton = styled.button`
   height: ${({ height }) => height ?? "auto"};
   margin: ${({ margin }) => margin ?? "0"};
   padding: ${(p) => p.padding ?? "5px 10px"};
-  border-radius: 0.3rem;
+  border-radius: ${(p) => (p.angleBorder ? "none" : "0.3rem")};
   border: none;
   transition: all 0.15s;
   background-color: transparent;

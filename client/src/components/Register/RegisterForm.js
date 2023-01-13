@@ -2,7 +2,9 @@ import { useRef, useState } from "react";
 
 import { useAuthSeletor } from "../../context";
 import { useRegister } from "../../hooks";
+import { AuthButton } from "../common";
 import * as S from "./styles";
+
 const RegisterForm = () => {
   const inputs = useRef({});
   const register = useRegister();
@@ -86,9 +88,15 @@ const RegisterForm = () => {
         errorMsg={"비밀번호가 일치하지 않습니다"}
       />
       <S.ResultMsg>{isError && msg}</S.ResultMsg>
-      <S.Button type="submit" disabled={!allValid}>
+      <AuthButton
+        type="submit"
+        disabled={!allValid}
+        variant="contained"
+        themeColor="primary"
+        angleBorder
+      >
         가입
-      </S.Button>
+      </AuthButton>
     </S.Form>
   );
 };

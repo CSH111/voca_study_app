@@ -4,6 +4,7 @@ import { authErrName as AEN } from "../../constants";
 import { useAuthSeletor } from "../../context";
 import { useLogin } from "../../hooks";
 import { focusIfEmptyRefValue } from "../../utils";
+import { AuthButton } from "../common";
 import * as S from "./styles";
 
 const LoginForm = () => {
@@ -52,7 +53,10 @@ const LoginForm = () => {
       <S.Label htmlFor="pw">비밀번호</S.Label>
       <S.Input name="pw" type="password" ref={pwInput} />
       <S.Msg>{isError && msg}</S.Msg>
-      <S.Button type="submit">로그인</S.Button>
+
+      <AuthButton type="submit" variant="contained" themeColor="primary" angleBorder>
+        로그인
+      </AuthButton>
     </S.Form>
   );
 };
