@@ -93,6 +93,6 @@ const StyledForm = styled.form`
 const MsgBox = styled.div`
   min-height: 50px;
   margin-top: 10px;
-  color: red;
+  color: ${(p) => p.theme.color.error.main};
   font-size: 14px;
 `;

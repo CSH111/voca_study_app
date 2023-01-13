@@ -19,10 +19,10 @@ const ConfirmModal = ({ msg, onConfirm }) => {
       <Contents>
         <p>{msg}</p>
         <div className="buttons-box">
-          <Button themeColor="blue" fontSize="16px" onClick={handleConfirm}>
+          <Button themeColor="info" fontSize="16px" onClick={handleConfirm} variant="contained">
             확인
           </Button>
-          <Button themeColor="gray" fontSize="16px" onClick={handleCancel}>
+          <Button themeColor="primary" fontSize="16px" onClick={handleCancel} variant="contained">
             취소
           </Button>
         </div>
@@ -34,7 +34,6 @@ const ConfirmModal = ({ msg, onConfirm }) => {
 export default ConfirmModal;
 
 const Contents = styled.div`
-  /* flex: 1; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -44,6 +43,7 @@ const Contents = styled.div`
     font-size: 18px;
   }
   .buttons-box {
+    display: flex;
     align-self: flex-end;
     & :not(:last-child) {
       margin-right: 5px;

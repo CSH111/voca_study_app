@@ -14,10 +14,10 @@ const DeleteModal = ({ msg, handleDelete, isLoading, title }) => {
       <StyledModalContents>
         <p>{msg}</p>
         <div className="del-modal-btns-box">
-          <Button themeColor="red" onClick={handleDelete}>
+          <Button themeColor="error" onClick={handleDelete} variant="contained">
             삭제
           </Button>
-          <Button themeColor="gray" onClick={handleModalClose}>
+          <Button themeColor="primary" onClick={handleModalClose} variant="contained">
             취소
           </Button>
         </div>
@@ -41,6 +41,7 @@ const StyledModalContents = styled.div`
   .del-modal-btns-box {
     margin-top: 10px;
     align-self: flex-end;
+    display: flex;
     button {
       font-size: 16px;
       &:not(:last-child) {

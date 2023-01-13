@@ -81,7 +81,7 @@ const WordListItem = ({ wordData }) => {
         </S.InputContainer>
       </S.Controls>
       <StyledButtonsBox>
-        <Button type="submit" color="green" width="35px" height="35px">
+        <Button type="submit" themeColor="success" width="35px" height="35px">
           <CheckIcon />
         </Button>
         <Button type="button" width="35px" height="35px" onClick={handleFixModeClose}>
@@ -110,7 +110,8 @@ const WordListItem = ({ wordData }) => {
       <Ellipsis
         items={
           <>
-            <Button onClick={handleDeleteModal} color="red">
+            <Button onClick={handleDeleteModal} themeColor="error">
+              {/* 삭제 */}
               <DeleteIcon />
             </Button>
             <Button onClick={handleFixModeOpen}>

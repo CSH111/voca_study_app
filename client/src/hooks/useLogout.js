@@ -1,21 +1,23 @@
 import { useNavigate } from "react-router-dom";
 
-import { authActionType as AT } from "../constants";
-import { useAuthDispatch } from "../context";
+import { authActionType as AAT, wordbookActionType as WAT } from "../constants";
+import { useAuthDispatch, useWordbookDispatch } from "../context";
 import { authService } from "../services";
 
 const useLogout = () => {
   const navigate = useNavigate();
-  const dispatch = useAuthDispatch();
+  const dispatchAuth = useAuthDispatch();
+  const dispatchWordbook = useWordbookDispatch();
 
   const logout = async () => {
-    dispatch({ type: AT.LOGOUT_PENDING });
+    dispatchAuth({ type: AAT.LOGOUT_PENDING });
     try {
       await authService.logout();
-      dispatch({ type: AT.LOGOUT_FULFILLED, payload: "" });
+      dispatchAuth({ type: AAT.LOGOUT_FULFILLED, payload: "" });
+      dispatchWordbook({ type: WAT.CLEAR_WORDBOOK });
       navigate("/");
     } catch (err) {
-      dispatch({ type: AT.LOGOUT_REJECTED });
+      dispatchAuth({ type: AAT.LOGOUT_REJECTED });
       alert("로그아웃 실패");
     }
   };

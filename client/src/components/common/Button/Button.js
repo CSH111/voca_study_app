@@ -10,6 +10,7 @@ const Button = ({
   color,
   themeColor,
   shadow,
+  variant,
   ...rest
 }) => {
   const handleClick = (e) => {
@@ -26,6 +27,7 @@ const Button = ({
       color={color}
       onClick={handleClick}
       shadow={shadow}
+      variant={variant}
       {...rest}
     >
       {children}
@@ -36,56 +38,45 @@ const Button = ({
 export default Button;
 
 const StyledButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: ${({ fontSize }) => fontSize ?? "20px"};
   width: ${({ width }) => width ?? "auto"};
   height: ${({ height }) => height ?? "auto"};
   margin: ${({ margin }) => margin ?? "0"};
-  color: ${({ color }) => color ?? "auto"};
   padding: ${(p) => p.padding ?? "5px 10px"};
   border-radius: 0.3rem;
   border: none;
   transition: all 0.15s;
   background-color: transparent;
-  box-shadow: ${(p) => (p.shadow ? "1px 1px 3px 1px #7a7a7a" : "none")};
-  /* cursor: pointer; */
+  color: ${({ theme, themeColor }) =>
+    theme.color[themeColor]?.main ?? theme.fontColor.primary.main};
+
   &:hover:enabled {
-    background-color: #b2b2b2;
+    background-color: ${(p) => p.theme.color.gray.main};
     cursor: pointer;
   }
-  ${(p) =>
-    p.themeColor === "gray" &&
+  ${({ variant }) =>
+    variant === "contained" &&
     css`
-      background-color: #d1d1d1;
-    `}
-  ${(p) =>
-    p.themeColor === "red" &&
-    css`
-      background-color: #f04040;
-      color: white;
+      background-color: ${({ theme, themeColor }) =>
+        theme.color[themeColor]?.main ?? "transparent"};
+      color: ${({ theme, themeColor }) =>
+        theme.color[themeColor]?.fontColor ?? theme.fontColor.primary.main};
+      box-shadow: ${(p) => (p.shadow ? `2px 2px 4px 0px ${p.theme.color.shadow.dark}` : "none")};
+
       &:hover:enabled {
-        background-color: #b01515;
+        background-color: ${({ theme, themeColor }) =>
+          theme.color[themeColor]?.dark ?? theme.color[themeColor]?.light ?? theme.color.gray.main};
       }
     `}
-  ${(p) =>
-    p.themeColor === "green" &&
-    css`
-      background-color: #4caf50;
-      color: white;
-      &:hover:enabled {
-        background-color: #348136;
-      }
-    `}
-  ${(p) =>
-    p.themeColor === "blue" &&
-    css`
-      background-color: #3b72bd;
-      color: white;
-      &:hover:enabled {
-        background-color: #28528d;
-      }
-    `}
+
   &:active:enabled {
     transform: scale(0.95);
   }
+  &:disabled {
+    color: ${(p) => p.theme.color.gray.dark};
+    box-shadow: none;
+  }
 `;
-//

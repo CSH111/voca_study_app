@@ -76,8 +76,9 @@ const Study = () => {
               value="all"
               onClick={handleConceptBtnsClick}
               disabled={staticWords.length === 0}
-              themeColor="gray"
+              themeColor="primary"
               shadow={true}
+              variant="contained"
             >
               모든 단어 ({staticWords.length})
             </Button>
@@ -85,8 +86,9 @@ const Study = () => {
               value="incomplete"
               onClick={handleConceptBtnsClick}
               disabled={incompleteStaticWords.length === 0}
-              themeColor="gray"
+              themeColor="primary"
               shadow={true}
+              variant="contained"
             >
               암기가 필요한 단어({incompleteStaticWords.length})
             </Button>

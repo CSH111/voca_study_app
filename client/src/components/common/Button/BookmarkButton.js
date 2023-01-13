@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Button from "./Button";
 
 const BookmarkButton = styled(Button)`
-  color: ${({ isBookmarked }) => (isBookmarked ? "#ffcc11ff" : "#d7d7d7ff")};
+  color: ${({ theme, isBookmarked }) =>
+    isBookmarked ? theme.color.warning.main : theme.color.gray.main};
 `;
 
 export default BookmarkButton;

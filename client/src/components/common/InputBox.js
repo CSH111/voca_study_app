@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledInput = styled.input`
   border: none;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px ${(p) => p.theme.color.primary.main};
   height: 30px;
   display: inline;
   width: ${(p) => p.width ?? "150px"};

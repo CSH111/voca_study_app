@@ -31,7 +31,7 @@ function Words() {
       }
       paperFooter={
         <>
-          <Devider margin="15px 0" color="black" width="2px" />
+          <Devider margin="15px 0" width="2px" />
           <WordGenerator
             topicName={topicName}
             topicID={topicID}
@@ -40,7 +40,7 @@ function Words() {
         </>
       }
     >
-      <Devider margin="0 0 15px 0" color="black" width="2px" />
+      <Devider margin="0 0 15px 0" width="2px" />
       <WordList topicName={topicName} isNewItemLoading={newItemLoading} />
     </Paper>
   );

@@ -1,9 +1,10 @@
 import { useEffect } from "react";
+import { ThemeProvider } from "styled-components";
 
-import { GlobalStyles } from "./components/styles";
 import { useAuthSeletor } from "./context";
 import { useGetUser, useGetWordbook } from "./hooks";
 import AppRouter from "./router";
+import { GlobalStyles, theme } from "./styles";
 
 function App() {
   const { user } = useAuthSeletor();
@@ -19,21 +20,21 @@ function App() {
   }, [user]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyles />
       <AppRouter />
-    </>
+    </ThemeProvider>
   );
 }
 
 export default App;
 
 // TODO
-// 컨텍스트 로그아웃 시 데이터 삭제
-
-// 리팩토링
-
-// 할거
+//모바일 화면 페이퍼 패딩 줄이기
+// eventListener clear 필요한지 점검
+// 단어 사이즈 클 시 줄바꿈(words 페이지)
+// word 스켈레톤 버그
+// 리드미 연결 버튼
 
 //기능 - 클라이언트
 // 읽어주기 API

@@ -21,6 +21,6 @@ export const Button = styled(RectangularButton)`
 
 export const Msg = styled.p`
   min-height: 25px;
-  color: red;
+  color: ${(p) => p.theme.color.error.main};
   font-weight: bold;
 `;

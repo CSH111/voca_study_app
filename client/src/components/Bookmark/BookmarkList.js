@@ -17,7 +17,7 @@ const BookmarkList = () => {
     bookmarkedWords.map((word) => (
       <Fragment key={word._id}>
         <WordListItem wordID={word._id} wordData={word} />
-        <Devider margin="10px 0" width="2px" color="#c4c4c4" />
+        <Devider margin="10px 0" width="1px" themeColor={{ color: "gray", level: "main" }} />
       </Fragment>
     ))
   ) : (

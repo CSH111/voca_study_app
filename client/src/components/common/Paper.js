@@ -39,12 +39,12 @@ const Paper = ({
 export default Paper;
 
 const Box = styled.div`
-  background-color: white;
+  background-color: ${(p) => p.theme.color.secondary.main};
   min-height: ${(p) => p.minHeight ?? "400px"};
   height: ${(p) => p.height ?? "0"};
   width: ${(p) => p.width ?? "400px"};
   flex: ${(p) => p.flex ?? "none"};
-  box-shadow: 3px 3px 6px 2px ${({ shadowColor }) => shadowColor ?? "gray"};
+  box-shadow: 3px 3px 6px 2px ${(p) => p.theme.color.shadow.main ?? "gray"};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

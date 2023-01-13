@@ -52,8 +52,8 @@ const StyledHeader = styled.header`
     align-items: center;
     padding: 10px;
     height: 40px;
-    background-color: black;
-    color: white;
+    background-color: ${(p) => p.theme.color.primary.main};
+    color: ${(p) => p.theme.color.secondary.main};
     font-weight: bold;
     a {
       display: block;

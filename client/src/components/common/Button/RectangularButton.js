@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-const RectangularButton = styled.button`
-  height: 45px;
+import Button from "./Button";
+
+const RectangularButton = styled(Button)`
+  border-radius: 0;
+
+  /* height: 45px;
   min-width: 100px;
   border: none;
   transition: all, 0.15s;
@@ -10,7 +14,7 @@ const RectangularButton = styled.button`
   &:hover {
     background-color: ${(p) => (p.disabled ? "auto" : "coral")};
   }
-  font-size: 16px;
+  font-size: 16px; */
 `;
 
 export default RectangularButton;

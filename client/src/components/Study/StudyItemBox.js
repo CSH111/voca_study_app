@@ -80,12 +80,24 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
       </StyledBookmarkBtn>
       {isAnswerShown && (
         <StyledEvaluateBtnsBox>
-          <Button themeColor="green" onClick={handleEvaluation} value="true" shadow={true}>
+          <Button
+            themeColor="success"
+            onClick={handleEvaluation}
+            value="true"
+            shadow={true}
+            variant="contained"
+          >
             쉬움
             <br />
             (학습완료)
           </Button>
-          <Button themeColor="red" onClick={handleEvaluation} value="false" shadow={true}>
+          <Button
+            themeColor="error"
+            onClick={handleEvaluation}
+            value="false"
+            shadow={true}
+            variant="contained"
+          >
             어려움
             <br />
             (추가학습)
@@ -93,7 +105,12 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
         </StyledEvaluateBtnsBox>
       )}
       <StyledWord>{isAnswerShown ? meaning : word}</StyledWord>
-      <StyledToggleBtn onClick={handleAnswerBtn} themeColor="gray" shadow={true}>
+      <StyledToggleBtn
+        onClick={handleAnswerBtn}
+        themeColor="primary"
+        variant="contained"
+        shadow={true}
+      >
         {isAnswerShown ? "단어 보기" : "정답 확인"}
       </StyledToggleBtn>
       <StyledIdxBox>
@@ -107,7 +124,7 @@ export default StudyItemBox;
 
 const StyledBox = styled.div`
   border-radius: 15px;
-  box-shadow: inset 0 0 5px black;
+  box-shadow: inset 0 0 5px ${(p) => p.theme.color.primary.main};
 
   position: relative;
   flex: 1;
@@ -144,6 +161,7 @@ const StyledIdxBox = styled.div`
 `;
 
 const StyledEvaluateBtnsBox = styled.div`
+  display: flex;
   position: absolute;
   top: 0;
   margin: 15px;

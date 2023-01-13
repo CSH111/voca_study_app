@@ -39,6 +39,8 @@ const wordbookReducer = (state, { type, payload }) => {
       return { ...state, ...payload };
     case WAT.PATCH_WORD_FULFILLED:
       return { ...state, ...payload };
+    case WAT.CLEAR_WORDBOOK:
+      return { ...initialState };
 
     default:
       return state;

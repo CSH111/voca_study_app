@@ -90,7 +90,7 @@ const TopicListItem = ({ topic }) => {
                     height="35px"
                     width="35px"
                     margin="0 0 0 5px"
-                    color="green"
+                    themeColor="success"
                   >
                     <CheckIcon />
                   </Button>
@@ -119,7 +119,7 @@ const TopicListItem = ({ topic }) => {
         disabled={isItemLoading}
         items={
           <>
-            <Button onClick={handleDeleteModal} disabled={isItemLoading} color="red">
+            <Button onClick={handleDeleteModal} disabled={isItemLoading} themeColor="error">
               <DeleteIcon />
             </Button>
             <Button onClick={handleFixModeOpen} disabled={isItemLoading}>
@@ -139,6 +139,7 @@ const StyledForm = styled.form`
   @media (max-width: 500px) {
     flex-direction: column;
     .btnBox {
+      /* width: 200px; */
       align-self: flex-end;
     }
   }

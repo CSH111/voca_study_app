@@ -17,6 +17,8 @@ export const ListContainer = styled.div`
     flex: 0 0 25px;
   }
   & .topic-data {
+    /* flex: 1; */
+    /* width: 200px; */
     margin-left: 10px;
     display: flex;
     align-items: center;
@@ -25,6 +27,14 @@ export const ListContainer = styled.div`
     }
     h3:not(:last-child) {
       margin-right: 10px;
+    }
+    h3 {
+      flex: 1;
+      width: 50%;
+      /* display: inline; */
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 `;

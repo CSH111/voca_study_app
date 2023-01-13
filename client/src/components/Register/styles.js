@@ -27,11 +27,11 @@ export const LabelAndMsgBox = styled.div`
 `;
 export const ValidityMsg = styled.div`
   font-size: 13px;
-  color: red;
+  color: ${(p) => p.theme.color.error.main};
 `;
 
 export const ResultMsg = styled.p`
   min-height: 25px;
-  color: red;
+  color: ${(p) => p.theme.color.error.main};
   font-weight: bold;
 `;

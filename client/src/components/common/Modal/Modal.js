@@ -28,7 +28,6 @@ const Modal = ({ children, footer, isLoading, title, onClose }) => {
   return (
     <StyledBg onClick={handleBgClick} isOpen={isOpen} fadeSec={fadeSec}>
       <StyledPaper
-        shadowColor="#161616ff"
         minHeight="200px"
         onClick={handlePaperClick}
         paperHeader={
