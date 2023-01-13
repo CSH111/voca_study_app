@@ -16,5 +16,5 @@ const WordItemSkeleton = () => {
 export default WordItemSkeleton;
 
 const StyledListItem = styled(ListItem)`
-  background-color: #e6e6e6;
+  background-color: ${(p) => p.theme.color.gray.light};
 `;

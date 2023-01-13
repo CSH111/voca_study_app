@@ -2,27 +2,43 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { useModal } from "../../context";
-import { Modal } from "../common";
+import { Button, Modal } from "../common";
 import { EditIcon, StudyIcon } from "../common/icons";
 
 const LinkModal = ({ leftLink, rightLink, title }) => {
   const { closeModal } = useModal();
 
-  const handleLinkClick = () => {
+  const handleBtnClick = () => {
     closeModal();
   };
 
   return (
     <Modal title={title}>
       <StyledModalContents>
-        <StyledLinkBtn to={leftLink} onClick={handleLinkClick}>
-          <StudyIcon fontSize="45px" />
-          <div>학습하기</div>
-        </StyledLinkBtn>
-        <StyledLinkBtn to={rightLink} onClick={handleLinkClick}>
-          <EditIcon fontSize="40px" />
-          <div>편집하기</div>
-        </StyledLinkBtn>
+        <StyledButton
+          propagation
+          onClick={handleBtnClick}
+          variant="contained"
+          themeColor="primary"
+          shadow
+        >
+          <Link to={leftLink}>
+            <StudyIcon fontSize="45px" />
+            <div className="link-name">학습하기</div>
+          </Link>
+        </StyledButton>
+        <StyledButton
+          propagation
+          onClick={handleBtnClick}
+          variant="contained"
+          themeColor="primary"
+          shadow
+        >
+          <Link to={rightLink}>
+            <EditIcon fontSize="45px" />
+            <div className="link-name">편집하기</div>
+          </Link>
+        </StyledButton>
       </StyledModalContents>
     </Modal>
   );
@@ -31,26 +47,29 @@ const LinkModal = ({ leftLink, rightLink, title }) => {
 export default LinkModal;
 
 const StyledModalContents = styled.div`
+  margin: 0 auto;
   flex: 1;
   display: flex;
-  gap: 10px;
   align-items: stretch;
+  > *:not(:last-child) {
+    margin-right: 10px;
+  }
 `;
 
-const StyledLinkBtn = styled(Link)`
-  flex: 1;
+const StyledButton = styled(Button)`
   border-radius: 20px;
-  box-shadow: 2px 2px 5px 0px gray;
-  background-color: #d1d1d1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
   font-weight: bold;
+  padding: 15px;
   font-size: 18px;
   transition: all 0.15s;
-  &:hover {
-    background-color: #979797;
+  > a > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .link-name {
+    color: inherit;
   }
 `;

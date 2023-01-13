@@ -10,7 +10,7 @@ const ListItem = styled.li`
   min-height: 60px;
   cursor: pointer;
   &:hover {
-    background-color: #e6e6e6;
+    background-color: ${(p) => p.theme.color.gray.light};
   }
   > *:nth-child(1),
   > *:nth-child(2) {
@@ -22,7 +22,7 @@ const ListItem = styled.li`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #cacaca79;
+    background-color: ${(p) => p.theme.color.gray.trans};
   }
   .spinner {
     position: absolute;
@@ -38,8 +38,8 @@ const ListItem = styled.li`
     flex: 1;
     margin-left: 5px;
   }
+
   h3 {
-    /* min-width: 0; */
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

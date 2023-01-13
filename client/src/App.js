@@ -32,8 +32,9 @@ export default App;
 // TODO
 //모바일 화면 페이퍼 패딩 줄이기
 // eventListener clear 필요한지 점검
-// 단어 사이즈 클 시 줄바꿈(words 페이지)
 // word 스켈레톤 버그
+// 단어 사이즈 클 시 줄바꿈(words 페이지)
+// 남은 컬러들 backgroud, color 로 검색해서 수정
 // 리드미 연결 버튼
 
 //기능 - 클라이언트

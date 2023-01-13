@@ -12,7 +12,7 @@ const List = styled.ul`
     width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #727272;
+    background-color: ${(p) => p.theme.color.gray.main};
     border-radius: 50px;
   }
   &::-webkit-scrollbar-track {

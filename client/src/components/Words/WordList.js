@@ -22,16 +22,14 @@ const WordList = ({ topicName, isNewItemLoading }) => {
     dispatch({ type: WAT.GET_CURRENT_WORDS, payload: topicName });
   }, [isLoading, topicName, dispatch]);
 
-  const listItems = currentWords.length ? (
-    currentWords.map((word) => (
-      <Fragment key={word._id}>
-        <WordListItem wordID={word._id} wordData={word} />
-        <Devider margin="10px 0" width="1px" themeColor={{ color: "gray", level: "main" }} />
-      </Fragment>
-    ))
-  ) : (
-    <EmptyMsgBox>학습할 단어를 추가하세요.</EmptyMsgBox>
-  );
+  const listItems = currentWords.length
+    ? currentWords.map((word) => (
+        <Fragment key={word._id}>
+          <WordListItem wordID={word._id} wordData={word} />
+          <Devider margin="10px 0" width="1px" themeColor={{ color: "gray", level: "main" }} />
+        </Fragment>
+      ))
+    : !isNewItemLoading && <EmptyMsgBox>학습할 단어를 추가하세요.</EmptyMsgBox>;
 
   return (
     <List ref={listRef}>

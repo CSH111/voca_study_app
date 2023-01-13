@@ -41,12 +41,6 @@ const Modal = ({ children, footer, isLoading, title, onClose }) => {
         paperFooter={footer}
         isModal
       >
-        {/* <ModalHeader>
-          <HeaderMsg>{title}</HeaderMsg>
-          <Button onClick={handleCloseBtnClick}>
-            <CancelIcon fontSize="25px" />
-          </Button>
-        </ModalHeader> */}
         {children}
         {isLoading && (
           <StyledLoadingCover fadeSec={fadeSec}>
@@ -91,7 +85,7 @@ const StyledBg = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: 100;
-  background-color: #000000b6;
+  background-color: ${(p) => p.theme.color.cover.main};
   animation: fade-in ${(p) => p.fadeSec}s linear forwards;
   ${(p) =>
     !p.isOpen &&
@@ -123,7 +117,7 @@ const StyledLoadingCover = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #000000b6;
+  background-color: ${(p) => p.theme.color.cover.main};
   display: flex;
   justify-content: center;
   align-items: center;

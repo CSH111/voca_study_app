@@ -34,7 +34,11 @@ export const theme = {
       light: "#dbdbdb",
       main: "#bebebe",
       dark: "#545454",
+      trans: "#bebebeaf",
       fontColor: "#080808",
+    },
+    cover: {
+      main: "#000000b6",
     },
   },
   fontColor: {

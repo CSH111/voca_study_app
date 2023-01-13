@@ -111,7 +111,6 @@ const WordListItem = ({ wordData }) => {
         items={
           <>
             <Button onClick={handleDeleteModal} themeColor="error">
-              {/* 삭제 */}
               <DeleteIcon />
             </Button>
             <Button onClick={handleFixModeOpen}>

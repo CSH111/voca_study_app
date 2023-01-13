@@ -41,7 +41,7 @@ const StyledHeader = styled.header`
   align-items: center;
   height: 0;
   min-height: 70px;
-  box-shadow: 0px 2px 5px 0px #525252;
+  box-shadow: 0px 2px 5px 0px ${(p) => p.theme.color.shadow.main};
   margin-bottom: 10px;
   @media (max-width: 700px) {
     min-height: 50px;

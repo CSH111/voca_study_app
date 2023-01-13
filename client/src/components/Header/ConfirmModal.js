@@ -36,6 +36,7 @@ export default ConfirmModal;
 const Contents = styled.div`
   height: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   p {

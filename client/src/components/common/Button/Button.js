@@ -12,10 +12,13 @@ const Button = ({
   shadow,
   variant,
   angleBorder,
+  propagation,
   ...rest
 }) => {
   const handleClick = (e) => {
-    e.stopPropagation();
+    if (!propagation) {
+      e.stopPropagation();
+    }
     onClick && onClick(e);
   };
   return (
@@ -80,5 +83,6 @@ const StyledButton = styled.button`
   &:disabled {
     color: ${(p) => p.theme.color.gray.dark};
     box-shadow: none;
+    pointer-events: none;
   }
 `;
