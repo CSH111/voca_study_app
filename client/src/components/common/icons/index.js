@@ -59,3 +59,7 @@ export const LeftIcon = (props) => {
 export const RightIcon = (props) => {
   return <FontAwesomeIcon icon="fa-solid fa-angle-right" {...props} />;
 };
+
+export const SoundIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-volume-high" {...props} />;
+};

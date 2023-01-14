@@ -4,8 +4,9 @@ import styled from "styled-components";
 
 import { useModal } from "../../context";
 import { usePatchWord } from "../../hooks";
+import { speak } from "../../utils";
 import { BookmarkButton, Button, Devider, Modal } from "../common";
-import { Spinner, StarIcon } from "../common/icons";
+import { SoundIcon, Spinner, StarIcon } from "../common/icons";
 import StudyRestult from "./StudyResult";
 
 const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept }) => {
@@ -46,6 +47,10 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
     goNext();
   };
 
+  const handleSoundBtnClick = () => {
+    speak(word);
+  };
+
   const handleBookmark = async () => {
     patchWord(id, { ...currentWord, isBookmarked: !currentWord.isBookmarked });
     setStaticWords((words) => {
@@ -78,6 +83,9 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
       <StyledBookmarkBtn onClick={handleBookmark} isBookmarked={isBookmarked}>
         <StarIcon />
       </StyledBookmarkBtn>
+      <StyledSoundBtn onClick={handleSoundBtnClick}>
+        <SoundIcon />
+      </StyledSoundBtn>
       {isAnswerShown && (
         <StyledEvaluateBtnsBox>
           <Button
@@ -143,6 +151,20 @@ const StyledSpinner = styled(Spinner)`
   font-size: 20px;
 `;
 
+const StyledBookmarkBtn = styled(BookmarkButton)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 15px;
+`;
+
+const StyledSoundBtn = styled(Button)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 15px;
+`;
+
 const StyledToggleBtn = styled(Button)`
   position: absolute;
   font-size: 16px;
@@ -172,11 +194,4 @@ const StyledEvaluateBtnsBox = styled.div`
       margin-right: 5px;
     }
   }
-`;
-
-const StyledBookmarkBtn = styled(BookmarkButton)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 15px;
 `;

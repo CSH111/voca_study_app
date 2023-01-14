@@ -11,7 +11,12 @@ const BookmarkTopicListItem = () => {
   const bookmarkedWordsAmount = words.filter((word) => word.isBookmarked).length;
   const handleListClick = () => {
     openModal(
-      <LinkModal leftLink={`/test/bookmark`} rightLink={`/bookmark`} title="My Bookmark" />
+      <LinkModal
+        leftLink={`/test/bookmark`}
+        rightLink={`/bookmark`}
+        title="My Bookmark"
+        wordsAmount={bookmarkedWordsAmount}
+      />
     );
   };
 

@@ -18,7 +18,9 @@ const Header = () => {
   return (
     <StyledHeader>
       <Link to="/">
-        <h1>VOCA STUDY</h1>
+        {/* <h1>hello, wordy</h1> */}
+        {/* <h1>HELLO, WORDY</h1> */}
+        <h1>Hello Wordy</h1>
       </Link>
       {user && (
         <div className="user-container">
