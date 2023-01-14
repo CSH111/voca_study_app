@@ -1,8 +1,7 @@
 import { Spinner } from "../../components/common/icons";
 import { useWordbookSelector } from "../../context/WordbookContext";
 import { EmptyMsgBox, List } from "../common";
-import { BookMarkListItem, TopicListItem } from "./";
-//TODO 로딩끝나고 렌더링되는데 일부 계산된 데이터들 한박자 늦게 생성되는 이유 찾기
+import { BookmarkTopicListItem, TopicListItem } from "./";
 
 const TopicList = () => {
   const { topics, isLoading } = useWordbookSelector();
@@ -22,7 +21,7 @@ const TopicList = () => {
       )}
       {!isLoading && (
         <>
-          <BookMarkListItem />
+          <BookmarkTopicListItem />
           {listItems}
         </>
       )}

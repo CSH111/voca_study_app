@@ -15,7 +15,7 @@ const Ellipsis = ({ items, disabled }) => {
   const handleBtnItemClick = () => {
     setMenuOn(false);
   };
-  //TODO check 리스너
+
   useEffect(() => {
     btnsBoxRef.current?.childNodes.forEach((btn) => {
       btn.addEventListener("click", handleBtnItemClick);

@@ -90,14 +90,14 @@ const WordListItem = ({ wordData }) => {
       </StyledButtonsBox>
     </S.Form>
   ) : (
-    <StyledDataBox className="data" isMemorized={isMemorized} onClick={handleIsMemorized}>
+    <StyledDataBox className="data-box" isMemorized={isMemorized} onClick={handleIsMemorized}>
       <div className="word"> {word}</div>
       <div className="meaning">{meaning}</div>
     </StyledDataBox>
   );
 
   return (
-    <ListItem cursor="pointer">
+    <StyledListItem cursor="pointer">
       {isItemLoading && (
         <>
           <div className="blur-filter"></div>
@@ -123,11 +123,18 @@ const WordListItem = ({ wordData }) => {
           </>
         }
       />
-    </ListItem>
+    </StyledListItem>
   );
 };
 
 export default WordListItem;
+
+const StyledListItem = styled(ListItem)`
+  min-height: auto;
+  > div {
+    min-height: 70px;
+  }
+`;
 
 const StyledDataBox = styled.div`
   display: flex;
@@ -140,6 +147,8 @@ const StyledDataBox = styled.div`
 
   font-style: ${({ isMemorized }) => (isMemorized ? "italic" : "")};
   text-decoration: ${({ isMemorized }) => (isMemorized ? "line-through" : "none")};
+
+  overflow: hidden;
   > div {
     text-align: center;
     padding-bottom: 0.1rem;

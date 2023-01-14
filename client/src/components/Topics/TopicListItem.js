@@ -1,19 +1,11 @@
 import { useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import {
-  Button,
-  DeleteModal,
-  Ellipsis,
-  EllipsisItem,
-  InputBox,
-  ListItem,
-} from "../../components/common";
+import { Button, DeleteModal, Ellipsis, InputBox, ListItem } from "../../components/common";
 import { useModal, useWordbookSelector } from "../../context";
 import { useDeleteTopic, usePatchTopic } from "../../hooks";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon, Spinner } from "../common/icons";
 import { LinkModal, ProgressBar } from "./";
-import * as S from "./styles";
 
 const TopicListItem = ({ topic }) => {
   const { words: allWords } = useWordbookSelector();
@@ -27,7 +19,8 @@ const TopicListItem = ({ topic }) => {
   const isListItemLoading = isDeleteLoading || isPatchLoading;
   const isItemLoading = false;
   const { openModal, closeModal } = useModal();
-  const handleDeleteModal = (e) => {
+
+  const handleDeleteModal = () => {
     openModal(
       <DeleteModal
         title={topic.topicName}
@@ -42,7 +35,7 @@ const TopicListItem = ({ topic }) => {
     deleteTopic(topic._id);
   };
 
-  const handleFixModeOpen = (e) => {
+  const handleFixModeOpen = () => {
     setIsModifying(true);
     setTimeout(() => {
       fixInput.current.focus();
@@ -68,12 +61,13 @@ const TopicListItem = ({ topic }) => {
         leftLink={`/test/${topic.topicName}`}
         rightLink={`/topics/${topic.topicName}`}
         title={topic.topicName}
+        wordsAmount={wordsAmount}
       />
     );
   };
 
   return (
-    <ListItem isBlur={isListItemLoading} onClick={handleListClick}>
+    <StyledListItem isBlur={isListItemLoading} onClick={handleListClick}>
       {isListItemLoading && (
         <>
           <div className="blur-filter"></div>
@@ -82,13 +76,13 @@ const TopicListItem = ({ topic }) => {
           </div>
         </>
       )}
-      <FolderIcon fontSize="25px" />
+      <FolderIcon fontSize="25px" className="folder-icon" />
       <div>({wordsAmount})</div>
       {isModifying ? (
         <>
           <StyledForm>
             <InputBox type="text" ref={fixInput} />
-            <StyledButtonsBox className="btnBox">
+            <StyledButtonsBox>
               <Button
                 type="submit"
                 onClick={handleSubmission}
@@ -140,20 +134,41 @@ const TopicListItem = ({ topic }) => {
           </>
         }
       />
-    </ListItem>
+    </StyledListItem>
   );
 };
 export default TopicListItem;
 
+const StyledListItem = styled(ListItem)`
+  .progress-area {
+    flex: 1;
+    margin-left: 5px;
+  }
+
+  .folder-icon {
+    margin: 0 10px;
+  }
+
+  h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  ${(p) =>
+    p.forBookmark &&
+    css`
+      justify-content: flex-start;
+    `}
+`;
+
 const StyledForm = styled.form`
+  flex: 1;
   display: flex;
   align-items: center;
   @media (max-width: 500px) {
     flex-direction: column;
-    .btnBox {
-      /* width: 200px; */
-      align-self: flex-end;
-    }
+    align-items: flex-start;
   }
 `;
 

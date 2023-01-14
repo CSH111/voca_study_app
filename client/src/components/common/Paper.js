@@ -71,7 +71,8 @@ const Box = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 50px;
+    /* min-height: 50px; */
+    /* height: 10%; */
     align-items: center;
   }
 
@@ -89,7 +90,7 @@ const Box = styled.div`
   }
 `;
 const Body = styled.div`
-  height: 80%;
+  height: 0;
   display: flex;
   flex: 1;
   flex-direction: column;

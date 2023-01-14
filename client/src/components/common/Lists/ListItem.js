@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const ListItem = styled.li`
   position: relative;
@@ -7,7 +7,8 @@ const ListItem = styled.li`
   justify-content: space-between;
   align-items: center;
   transition: all 0.15s;
-  min-height: 60px;
+  min-height: 65px;
+
   cursor: pointer;
   &:hover {
     background-color: ${(p) => p.theme.color.gray.light};
@@ -28,26 +29,6 @@ const ListItem = styled.li`
   > *:not(:last-child) {
     margin-right: 5px;
   }
-  .progress-area {
-    flex: 1;
-    margin-left: 5px;
-  }
-
-  > svg:first-child {
-    margin: 0 10px;
-  }
-
-  h3 {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  ${(p) =>
-    p.forBookmark &&
-    css`
-      justify-content: flex-start;
-    `}
 `;
 
 export default ListItem;

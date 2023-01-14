@@ -125,13 +125,14 @@ export default StudyItemBox;
 const StyledBox = styled.div`
   border-radius: 15px;
   box-shadow: inset 0 0 5px ${(p) => p.theme.color.shadow.main};
-
   position: relative;
   flex: 1;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 15px;
+  overflow: hidden;
 `;
 
 const StyledSpinner = styled(Spinner)`

@@ -14,7 +14,7 @@ export const Controls = styled.div`
   > *:not(:last-child) {
     margin-right: 10px;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 500px) {
     flex-direction: column;
     > *:not(:last-child) {
       margin-bottom: 5px;
@@ -36,7 +36,7 @@ export const Form = styled.form`
   > *:not(:last-child) {
     margin-right: 5px;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 500px) {
     > *:last-child {
       align-self: flex-end;
     }

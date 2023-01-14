@@ -7,7 +7,6 @@ const Link = ({ to, children }) => {
 
 export default Link;
 
-//TODO hover시 글자 바꾸기
 const StyledLink = styled(RouterLink)`
   font-size: 14px;
   transition: all 0.15s;

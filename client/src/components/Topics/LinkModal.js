@@ -1,43 +1,44 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useModal } from "../../context";
 import { Button, Modal } from "../common";
 import { EditIcon, StudyIcon } from "../common/icons";
 
-const LinkModal = ({ leftLink, rightLink, title }) => {
+const LinkModal = ({ leftLink, rightLink, title, wordsAmount }) => {
   const { closeModal } = useModal();
-
-  const handleBtnClick = () => {
+  const navigate = useNavigate();
+  const handleLeftBtnClick = () => {
+    navigate(leftLink);
     closeModal();
   };
-
+  const handleRightBtnClick = () => {
+    navigate(rightLink);
+    closeModal();
+  };
   return (
     <Modal title={title}>
       <StyledModalContents>
         <StyledButton
           propagation
-          onClick={handleBtnClick}
+          onClick={handleLeftBtnClick}
           variant="contained"
           themeColor="primary"
           shadow
+          disabled={!wordsAmount}
         >
-          <Link to={leftLink}>
-            <StudyIcon fontSize="45px" />
-            <div className="link-name">학습하기</div>
-          </Link>
+          <StudyIcon fontSize="45px" />
+          <div className="link-name">학습하기</div>
         </StyledButton>
         <StyledButton
           propagation
-          onClick={handleBtnClick}
+          onClick={handleRightBtnClick}
           variant="contained"
           themeColor="primary"
           shadow
         >
-          <Link to={rightLink}>
-            <EditIcon fontSize="45px" />
-            <div className="link-name">편집하기</div>
-          </Link>
+          <EditIcon fontSize="45px" />
+          <div className="link-name">편집하기</div>
         </StyledButton>
       </StyledModalContents>
     </Modal>
@@ -63,10 +64,10 @@ const StyledButton = styled(Button)`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  padding: 15px;
   font-size: 18px;
   transition: all 0.15s;
-  > a > *:not(:last-child) {
+  position: relative;
+  > *:not(:last-child) {
     margin-bottom: 10px;
   }
   .link-name {
