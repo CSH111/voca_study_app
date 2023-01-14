@@ -14,7 +14,6 @@ const initialState = {
 };
 
 const wordbookReducer = (state, { type, payload }) => {
-  // console.log(state);
   switch (type) {
     case WAT.GET_WORDBOOK_PENDING:
       return { ...state, isLoading: true, isError: false };

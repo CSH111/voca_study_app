@@ -5,6 +5,6 @@ export { default as EmptyMsgBox } from "./EmptyMsgBox";
 export { default as InputBox } from "./InputBox";
 export { List, ListItem } from "./Lists";
 export { default as LoadingCover } from "./LoadingCover";
-export { DeleteModal, Modal } from "./Modal";
+export { DeleteModal, ErrorModal, Modal } from "./Modal";
 export { default as Paper } from "./Paper";
 export { default as PaperTitle } from "./PaperTitle";

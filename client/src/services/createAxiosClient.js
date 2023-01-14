@@ -1,8 +1,10 @@
 import axios from "axios";
 
 export const createAxiosClient = (baseURL) => {
-  return axios.create({
+  const instance = axios.create({
     baseURL: baseURL,
-    timeout: 1000,
+    timeout: 2000,
   });
+
+  return instance;
 };

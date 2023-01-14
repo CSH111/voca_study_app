@@ -17,7 +17,6 @@ const TopicListItem = ({ topic }) => {
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
   const isListItemLoading = isDeleteLoading || isPatchLoading;
-  const isItemLoading = false;
   const { openModal, closeModal } = useModal();
 
   const handleDeleteModal = () => {
@@ -117,18 +116,18 @@ const TopicListItem = ({ topic }) => {
       )}
 
       <Ellipsis
-        disabled={isItemLoading}
+        disabled={isListItemLoading}
         items={
           <>
             <Button
               onClick={handleDeleteModal}
-              disabled={isItemLoading}
+              disabled={isListItemLoading}
               themeColor="error"
               angleBorder
             >
               <DeleteIcon />
             </Button>
-            <Button onClick={handleFixModeOpen} disabled={isItemLoading} angleBorder>
+            <Button onClick={handleFixModeOpen} disabled={isListItemLoading} angleBorder>
               <EditIcon />
             </Button>
           </>

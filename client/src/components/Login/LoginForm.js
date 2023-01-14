@@ -24,7 +24,6 @@ const LoginForm = () => {
       email: { value: email },
       pw: { value: pw },
     } = values;
-    console.log(emailInput);
 
     login({ email, pw });
   };

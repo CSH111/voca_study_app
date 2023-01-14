@@ -41,6 +41,8 @@ router.patch("/:_id", (req, res) => {
     { new: true }
   ) //
     .then((resultData) => {
+      // res.status(400).json({ success: true, words: resultData.words });
+
       if (resultData === null) return res.status(400).json({ success: false });
       res.status(200).json({ success: true, words: resultData.words });
     })

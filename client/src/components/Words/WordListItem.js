@@ -39,15 +39,15 @@ const WordListItem = ({ wordData }) => {
     deleteWord(id);
   };
 
-  const handleIsMemorized = async () => {
+  const handleIsMemorized = () => {
     patchWord(id, { ...wordData, isMemorized: !isMemorized });
   };
 
-  const handleBookmark = async () => {
+  const handleBookmark = () => {
     patchWord(id, { ...wordData, isBookmarked: !isBookmarked });
   };
 
-  const handleSubmission = async (e) => {
+  const handleSubmission = (e) => {
     e.preventDefault();
     setIsModifying(false);
     patchWord(id, {
@@ -107,7 +107,6 @@ const WordListItem = ({ wordData }) => {
         </>
       )}
       {listItemContents}
-      {/* <Button width="55px">zz</Button> */}
       <Ellipsis
         items={
           <>

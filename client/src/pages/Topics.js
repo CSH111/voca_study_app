@@ -13,7 +13,6 @@ function Topics() {
     );
   };
   const { openModal } = useModal();
-
   return (
     <Paper
       width="100%"
