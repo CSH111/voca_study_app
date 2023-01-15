@@ -16,7 +16,7 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
   const { patchWord, isLoading } = usePatchWord();
   const currentWord = staticWordsInConcept[currentIdx];
   const wordsAmount = staticWordsInConcept.length;
-  const { word, meaning, isBookmarked, _id: id } = currentWord ?? {};
+  const { word, meaning, isBookmarked, _id: id, lang } = currentWord ?? {};
   const [isAnswerShown, setIsAnswerShown] = useState(false);
   const [studyResult, setStudyResult] = useState({ complete: 0, incomplete: 0 });
   useEffect(() => {
@@ -48,7 +48,7 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
   };
 
   const handleSoundBtnClick = () => {
-    speak(word);
+    speak(word, lang);
   };
 
   const handleBookmark = async () => {

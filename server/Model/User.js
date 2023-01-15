@@ -6,6 +6,10 @@ const topicSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lang: {
+    type: String,
+    required: true,
+  },
 });
 
 const wordSchema = new mongoose.Schema({
@@ -14,6 +18,10 @@ const wordSchema = new mongoose.Schema({
     required: true,
   },
   topicID: {
+    type: String,
+    required: true,
+  },
+  lang: {
     type: String,
     required: true,
   },
@@ -48,7 +56,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // topics: {},
   topics: [topicSchema],
   words: [wordSchema],
 });

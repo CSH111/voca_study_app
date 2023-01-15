@@ -5,7 +5,7 @@ import { Button, InputBox } from "../common";
 import { AddIcon } from "../common/icons";
 import * as S from "./styles";
 
-const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
+const WordGenerator = ({ topicName, topicID, setNewItemLoading, lang }) => {
   const [wordInputValue, setWordInputValue] = useState("");
   const [meaningInputValue, setMeaningInputValue] = useState("");
   const wordInput = useRef();
@@ -32,6 +32,7 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading }) => {
     const body = {
       topic: topicName,
       topicID,
+      lang,
       word: wordInputValue,
       meaning: meaningInputValue,
     };

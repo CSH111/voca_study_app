@@ -12,9 +12,10 @@ router.get("/", (req, res) => {
 
 //토픽추가
 router.post("/", authorize, (req, res) => {
+  const { topicName, lang } = req.body;
   User.findOneAndUpdate(
     { email: req.session.user.email },
-    { $push: { topics: { topicName: req.body.topicName } } },
+    { $push: { topics: { topicName, lang } } },
     { new: true }
   ).then((resultData) => {
     res.status(200).json({ success: true, topics: resultData.topics });

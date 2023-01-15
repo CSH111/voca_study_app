@@ -9,12 +9,12 @@ const usePostTopic = () => {
   const [isError, setIsError] = useState(false);
   const dispatch = useWordbookDispatch();
 
-  const postTopic = async (topicName) => {
+  const postTopic = async (topicName, lang) => {
     setIsLoading(true);
     const trimedValue = topicName.trim();
 
     try {
-      const res = await wordbookService.postTopic({ topicName: trimedValue });
+      const res = await wordbookService.postTopic({ topicName: trimedValue, lang });
       dispatch({ type: WAT.POST_TOPIC_FULFILLED, payload: res.data.topics });
     } catch (err) {
       setIsError(true);

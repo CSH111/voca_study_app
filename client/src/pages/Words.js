@@ -11,10 +11,9 @@ function Words() {
   const { topics } = useWordbookSelector();
   const [newItemLoading, setNewItemLoading] = useState(false);
   const navigate = useNavigate();
-  const topicID = useMemo(() => {
-    return topics.find((_topic) => _topic.topicName === topicName)?._id;
+  const { _id: topicID, lang } = useMemo(() => {
+    return topics.find((_topic) => _topic.topicName === topicName);
   }, [topics, topicName]);
-
   return (
     <Paper
       width="100%"
@@ -35,6 +34,7 @@ function Words() {
           <WordGenerator
             topicName={topicName}
             topicID={topicID}
+            lang={lang}
             setNewItemLoading={setNewItemLoading}
           />
         </>
