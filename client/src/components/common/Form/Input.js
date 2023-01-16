@@ -3,8 +3,8 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "re
 import { useSetForm } from "./FormContext";
 
 const Input = forwardRef((props, ref) => {
-  const { errorMsg, onChange, ...restProps } = props;
-  const { name, required, pattern } = props;
+  const { errorMsg, ...restProps } = props;
+  const { name, pattern } = props;
 
   const setForm = useSetForm();
   const [inputValue, setInputValue] = useState("");
@@ -16,19 +16,7 @@ const Input = forwardRef((props, ref) => {
       value: inputElem.current.value,
     };
   });
-  useEffect(() => {
-    setForm((values) => ({
-      ...values,
-      [name]: {
-        value: "",
-        validity: !required,
-        validityMsg: errorMsg,
-      },
-    }));
 
-    return () => setForm({});
-  }, []);
-  // TODO합치기 , select컴포넌트만들기
   useEffect(() => {
     setForm((values) => ({
       ...values,

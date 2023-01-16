@@ -2,31 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { Button, InputBox } from "../../components/common";
+import { Button } from "../../components/common";
+import { langCode as LC } from "../../constants";
 import { useModal, useWordbookSelector } from "../../context";
 import { usePostTopic } from "../../hooks";
+import { Form, Input, Select } from "../common/Form";
 import { AddIcon, Spinner } from "../common/icons";
+import UnderLinedInput from "../common/UnderLinedInput";
 
 const TopicGenerator = () => {
-  const [topicValue, setTopicValue] = useState("");
   const { topics } = useWordbookSelector();
   const { postTopic, isLoading, isError } = usePostTopic();
-  const topicInput = useRef();
+  const topicInputRef = useRef();
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const { closeModal } = useModal();
 
-  const [langValue, setLangValue] = useState("en");
-
-  const isEmpty = (_topicValue) => {
-    if (!_topicValue.trim()) {
-      return true;
-    }
-    return false;
-  };
-
   useEffect(() => {
-    topicInput.current.focus();
+    topicInputRef.current.focus();
   }, []);
 
   const isDuplicated = (_topicValue) => {
@@ -37,71 +30,48 @@ const TopicGenerator = () => {
     return false;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (isEmpty(topicValue)) {
-      setMsg("공백을 입력할 수 없습니다.");
-      return;
-    }
-    if (isDuplicated(topicValue.trim())) {
+  const handleSubmit = ({ topicName, lang }) => {
+    const trimedTopicName = topicName.value.trim();
+    if (isDuplicated(trimedTopicName)) {
       setMsg("중복된 이름입니다.");
       return;
     }
-    if (topicValue === "bookmark") {
+    if (trimedTopicName === "bookmark") {
       setMsg("사용할 수 없는 이름입니다.");
       return;
     }
 
-    const trimedTopicName = topicValue.trim();
-    //TODO catch 위치 테스트,
-    //TODO 로딩표시
-    postTopic(trimedTopicName, langValue).then(() => {
+    postTopic(trimedTopicName, lang.value).then(() => {
       closeModal();
       navigate(`/topics/${trimedTopicName}`);
     });
-
-    console.log(langValue);
   };
-
-  const handleSelectChange = (e) => {
-    setLangValue(e.target.value);
-  };
-
-  //TODO form 컴포넌트 이용하기
 
   return (
-    <>
-      <StyledForm onSubmit={handleSubmit}>
-        <select name="" id="" value={langValue} onChange={handleSelectChange}>
-          <option value="en">영어</option>
-          <option value="ja">일본어</option>
-          <option value="zh">중국어</option>
-        </select>
-        <div>
-          <InputBox
-            type="text"
-            value={topicValue}
-            width="200px"
-            onChange={(e) => setTopicValue(e.target.value)}
-            ref={topicInput}
-            placeholder="토픽폴더를 추가하세요"
-          />
-
-          <Button disabled={isLoading} height="35px" width="35px">
-            <AddIcon />
-          </Button>
-          {isLoading && <Spinner />}
-        </div>
-        <MsgBox>{msg}</MsgBox>
-      </StyledForm>
-    </>
+    <StyledForm onSubmit={handleSubmit}>
+      <Select name="lang" defaultValue={LC.USA}>
+        <option value={LC.USA}>영어</option>
+        <option value={LC.JAPAN}>일본어</option>
+        <option value={LC.CHINA}>중국어</option>
+      </Select>
+      <div>
+        <StyledInput name="topicName" required ref={topicInputRef} />
+        <Button disabled={isLoading} height="35px" width="35px">
+          <AddIcon />
+        </Button>
+      </div>
+      <MsgBox>{msg}</MsgBox>
+    </StyledForm>
   );
 };
 
 export default TopicGenerator;
 
-const StyledForm = styled.form`
+const StyledInput = styled(Input)`
+  ${UnderLinedInput.componentStyle.rules}
+`;
+
+const StyledForm = styled(Form)`
   margin: 0 auto;
   > div {
     display: flex;
