@@ -17,9 +17,11 @@ router.post("/", authorize, (req, res) => {
     { email: req.session.user.email },
     { $push: { topics: { topicName, lang } } },
     { new: true }
-  ).then((resultData) => {
-    res.status(200).json({ success: true, topics: resultData.topics });
-  });
+  )
+    .then((resultData) => {
+      res.status(200).json({ success: true, topics: resultData.topics });
+    })
+    .catch(console.log);
 });
 
 //토픽삭제
