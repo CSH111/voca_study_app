@@ -9,24 +9,21 @@ import {
   InputBox,
   ListItem,
 } from "../../components/common";
-import { useModal, useWordbookSelector } from "../../context";
+import { useModal } from "../../context";
 import { useDeleteWord, usePatchWord } from "../../hooks";
 import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, Spinner, StarIcon } from "../common/icons";
 import * as S from "./styles";
 
 const WordListItem = ({ wordData }) => {
-  const { topics } = useWordbookSelector();
   const { isBookmarked, isMemorized, word, meaning, _id: id } = wordData;
-  const { deleteWord, isLoading: isDeleteLoading, isError: isDeleteError } = useDeleteWord();
-  const { patchWord, isLoading: isPatchLoading, isError: isPatchError } = usePatchWord();
+  const { deleteWord, isLoading: isDeleteLoading } = useDeleteWord();
+  const { patchWord, isLoading: isPatchLoading } = usePatchWord();
   const { openModal, closeModal } = useModal();
   const [isModifying, setIsModifying] = useState(false);
   const wordInputElem = useRef();
   const meaningInputElem = useRef();
-  // topics.find(({id}))
   const isItemLoading = isDeleteLoading || isPatchLoading;
   const handleDeleteModal = () => {
-    // setIsDeleteModalOpened(true);
     openModal(
       <DeleteModal
         handleDelete={handleDelete}

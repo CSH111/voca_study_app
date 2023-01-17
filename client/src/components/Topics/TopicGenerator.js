@@ -7,12 +7,12 @@ import { langCode as LC } from "../../constants";
 import { useModal, useWordbookSelector } from "../../context";
 import { usePostTopic } from "../../hooks";
 import { Form, Input, Select } from "../common/Form";
-import { AddIcon, Spinner } from "../common/icons";
+import { AddIcon } from "../common/icons";
 import UnderLinedInput from "../common/UnderLinedInput";
 
 const TopicGenerator = () => {
   const { topics } = useWordbookSelector();
-  const { postTopic, isLoading, isError } = usePostTopic();
+  const { postTopic, isLoading } = usePostTopic();
   const topicInputRef = useRef();
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");

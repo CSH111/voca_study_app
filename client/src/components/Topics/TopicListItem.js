@@ -9,8 +9,8 @@ import { LinkModal, ProgressBar } from "./";
 
 const TopicListItem = ({ topic }) => {
   const { words: allWords } = useWordbookSelector();
-  const { deleteTopic, isLoading: isDeleteLoading, isDeleteError } = useDeleteTopic();
-  const { patchTopic, isLoading: isPatchLoading, isError: isPatchError } = usePatchTopic();
+  const { deleteTopic, isLoading: isDeleteLoading } = useDeleteTopic();
+  const { patchTopic, isLoading: isPatchLoading } = usePatchTopic();
   const [isModifying, setIsModifying] = useState(false);
   const fixInput = useRef();
   const wordsForThisTopic = allWords.filter((word) => word.topic === topic.topicName);
