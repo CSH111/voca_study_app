@@ -1,40 +1,118 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useAuthSeletor, useModal } from "../../context";
 import { useLogout } from "../../hooks";
-import ConfirmModal from "./ConfirmModal";
-import LogoutBtn from "./LogoutBtn";
+import { Button } from "../common";
+import { BurgerIcon } from "../common/icons";
+import { ConfirmModal, LogoutBtn } from "./";
 
 const Header = () => {
   const logout = useLogout();
   const { user } = useAuthSeletor();
   const { openModal } = useModal();
+  const [menuOn, setMenuOn] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogoutBtnClick = () => {
     openModal(<ConfirmModal onConfirm={logout} msg="로그아웃 하시겠습니까?" />);
   };
 
+  const handleBurgerClick = () => {
+    setMenuOn(true);
+  };
+
+  const handleMenuClick = () => {
+    setMenuOn(false);
+  };
+
+  const handleLoginBtnClick = () => {
+    navigate("/login");
+  };
+
+  const handleRegisterBtnClick = () => {
+    navigate("/register");
+  };
+
+  const handleInfoClick = () => {
+    window.open("https://github.com/CSH111/voca_study_app");
+  };
+
   return (
     <StyledHeader>
       <Link to="/">
-        {/* <h1>hello, wordy</h1> */}
-        {/* <h1>HELLO, WORDY</h1> */}
         <h1>Hello Wordy</h1>
       </Link>
+      <Nav>
+        <Link to="/">Information</Link>
+      </Nav>
       {user && (
         <div className="user-container">
           <div className="user-name-container">
             <span className="user-name">{user}</span>님
           </div>
-          {user ? <LogoutBtn onClick={handleLogoutBtnClick}>Logout</LogoutBtn> : null}
+          <LogoutBtn onClick={handleLogoutBtnClick} className="logout-btn">
+            Logout
+          </LogoutBtn>
         </div>
       )}
+      <Button className="burger" onClick={handleBurgerClick}>
+        <BurgerIcon />
+      </Button>
+      <SideMenu menuOn={menuOn} onClick={handleMenuClick}>
+        <div className="cover"></div>
+        <div className="item-box">
+          <ul>
+            {user ? (
+              <li>
+                <Button onClick={handleLogoutBtnClick} propagation={true}>
+                  로그아웃
+                </Button>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Button onClick={handleLoginBtnClick} propagation={true}>
+                    로그인
+                  </Button>
+                </li>
+                <li>
+                  <Button onClick={handleRegisterBtnClick} propagation={true}>
+                    회원가입
+                  </Button>
+                </li>
+              </>
+            )}
+
+            <li>
+              <Button onClick={handleInfoClick} propagation={true}>
+                Infomation
+              </Button>
+            </li>
+          </ul>
+        </div>
+      </SideMenu>
     </StyledHeader>
   );
 };
 export default Header;
 
+const Nav = styled.nav`
+  font-weight: bold;
+  display: flex;
+  flex: 1;
+  margin: 0 10px;
+  > * {
+    margin: 0 15px;
+    padding: 10px;
+    transition: all 0.15s;
+    &:hover {
+      background-color: ${(p) => p.theme.color.primary.main};
+      color: ${(p) => p.theme.color.secondary.main};
+    }
+  }
+`;
 const StyledHeader = styled.header`
   width: 100%;
   display: flex;
@@ -59,7 +137,6 @@ const StyledHeader = styled.header`
     font-weight: bold;
     a {
       display: block;
-      /* height: 100%; */
     }
     @media (max-width: 700px) {
       height: 30px;
@@ -71,9 +148,71 @@ const StyledHeader = styled.header`
     & :not(:last-child) {
       margin-right: 10px;
     }
+    @media (max-width: 700px) {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
     .user-name-container {
       .user-name {
         font-size: 20px;
+      }
+    }
+  }
+  .burger {
+    display: none;
+  }
+  @media (max-width: 700px) {
+    ${Nav}, .logout-btn {
+      display: none;
+    }
+    .burger {
+      display: flex;
+    }
+  }
+`;
+
+const SideMenu = styled.menu`
+  top: 0;
+  right: 0;
+  right: ${(p) => (p.menuOn ? "0" : "-100vw")};
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100vw;
+  transition: all 0.5s;
+  z-index: 100;
+  opacity: ${(p) => (p.menuOn ? "1" : "0")};
+
+  .cover {
+    flex: 1;
+    background-color: transparent;
+  }
+  .item-box {
+    right: 0;
+    min-width: 250px;
+    background-color: #000000da;
+    padding: 10px;
+    li {
+      transition: all 0.15s;
+      padding-bottom: 10px;
+      border-bottom: 2px solid ${(p) => p.theme.color.gray.light};
+      font-size: 25px;
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      button {
+        font-size: 20px;
+        color: ${(p) => p.theme.color.secondary.main};
+        width: 100%;
+        padding: 15px;
+
+        &:hover {
+          color: ${(p) => p.theme.color.primary.main};
+          background-color: ${(p) => p.theme.color.secondary.main};
+        }
       }
     }
   }

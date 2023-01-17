@@ -1,8 +1,8 @@
 import { Button } from "../common";
 
-const LogoutBtn = ({ children, onClick }) => {
+const LogoutBtn = ({ children, onClick, ...rest }) => {
   return (
-    <Button fontSize="16px" themeColor="primary" onClick={onClick} variant="contained">
+    <Button {...rest} fontSize="16px" themeColor="primary" onClick={onClick} variant="contained">
       {children}
     </Button>
   );

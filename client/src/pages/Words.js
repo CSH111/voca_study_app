@@ -11,9 +11,10 @@ function Words() {
   const { topics } = useWordbookSelector();
   const [newItemLoading, setNewItemLoading] = useState(false);
   const navigate = useNavigate();
-  const { _id: topicID, lang } = useMemo(() => {
-    return topics.find((_topic) => _topic.topicName === topicName);
-  }, [topics, topicName]);
+  const { _id: topicID, lang } =
+    useMemo(() => {
+      return topics.find((_topic) => _topic.topicName === topicName);
+    }, [topics, topicName]) || {};
   return (
     <Paper
       width="100%"

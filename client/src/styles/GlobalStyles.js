@@ -3,10 +3,12 @@ import { reset } from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
+
   #root {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color:${(p) => p.theme.color.secondary.main}
   }
   
   * {

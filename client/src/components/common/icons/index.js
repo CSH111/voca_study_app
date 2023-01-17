@@ -63,3 +63,10 @@ export const RightIcon = (props) => {
 export const SoundIcon = (props) => {
   return <FontAwesomeIcon icon="fa-solid fa-volume-high" {...props} />;
 };
+
+export const ShareIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-share-nodes" {...props} />;
+};
+export const BurgerIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-bars" {...props} />;
+};
