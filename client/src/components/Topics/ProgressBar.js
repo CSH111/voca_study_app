@@ -14,8 +14,8 @@ const StyledEmptyBar = styled.div`
   width: ${(p) => (p.show ? "60px" : "0")};
   height: 10px;
   outline: solid 1px ${(p) => p.theme.color.primary.main};
+  border: solid 1px ${(p) => p.theme.color.secondary.main};
   opacity: ${(p) => (p.show ? "1" : "0")};
-  padding: 1px;
   .gage {
     background-color: ${(p) => p.theme.color.primary.main};
     font-size: 0.7rem;
