@@ -16,7 +16,7 @@ const TopicGenerator = () => {
   const topicInputRef = useRef();
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
-  const { closeModal } = useModal();
+  const { closeModal, activateModalLoading } = useModal();
 
   useEffect(() => {
     topicInputRef.current.focus();
@@ -40,7 +40,7 @@ const TopicGenerator = () => {
       setMsg("사용할 수 없는 이름입니다.");
       return;
     }
-
+    activateModalLoading();
     postTopic(trimedTopicName, lang.value).then(() => {
       closeModal();
       navigate(`/topics/${trimedTopicName}`);

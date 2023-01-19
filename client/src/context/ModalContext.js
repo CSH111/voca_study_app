@@ -3,17 +3,20 @@ import { createContext, useContext, useState } from "react";
 import { MODAL_FADE_TIME } from "../constants";
 
 const ModalContext = createContext(null);
+const ModalStateContext = createContext(null);
 
 export const useModal = () => useContext(ModalContext);
+export const useModalState = () => useContext(ModalStateContext);
 
 export const ModalProvider = ({ children }) => {
-  const [modal, setModal] = useState(null);
+  const [modalComponent, setModalComponent] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [onClose, setOnClose] = useState(null);
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
   const openModal = (ModalComponent) => {
     setIsOpen(true);
-    setModal(ModalComponent);
+    setModalComponent(ModalComponent);
   };
 
   const closeModal = () => {
@@ -21,14 +24,37 @@ export const ModalProvider = ({ children }) => {
     setOnClose(null);
     setIsOpen(false);
     setTimeout(() => {
-      setModal(null);
+      setModalComponent(null);
+      setIsModalLoading(false);
     }, MODAL_FADE_TIME);
   };
 
+  const runOnModalClose = (fn) => {
+    setOnClose(() => fn);
+  };
+
+  const activateModalLoading = () => {
+    setIsModalLoading(true);
+  };
+
+  const deactivateModalLoading = () => {
+    setIsModalLoading(false);
+  };
+
   return (
-    <ModalContext.Provider value={{ openModal, closeModal, isOpen, setIsOpen, setOnClose }}>
-      {children}
-      {modal}
+    <ModalContext.Provider
+      value={{
+        openModal,
+        closeModal,
+        activateModalLoading,
+        runOnModalClose,
+        deactivateModalLoading,
+      }}
+    >
+      <ModalStateContext.Provider value={{ isOpen, isModalLoading }}>
+        {children}
+        {modalComponent}
+      </ModalStateContext.Provider>
     </ModalContext.Provider>
   );
 };

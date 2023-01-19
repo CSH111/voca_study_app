@@ -2,16 +2,18 @@ import { useEffect } from "react";
 import styled, { css } from "styled-components";
 
 import { MODAL_FADE_TIME } from "../../../constants";
-import { useModal } from "../../../context";
+import { useModal, useModalState } from "../../../context";
 import { Button } from "../";
 import { CancelIcon, Spinner } from "../icons";
 import Paper from "../Paper";
 
-const Modal = ({ children, footer, isLoading, title, onClose }) => {
-  const { closeModal, isOpen, setOnClose } = useModal();
+const Modal = ({ children, footer, title, onClose }) => {
+  const { closeModal, runOnModalClose } = useModal();
+  const { isOpen, isModalLoading } = useModalState();
+
   useEffect(() => {
     if (!onClose) return;
-    setOnClose(() => onClose);
+    runOnModalClose(onClose);
   }, [onClose]);
 
   const handleBgClick = (e) => {
@@ -42,7 +44,7 @@ const Modal = ({ children, footer, isLoading, title, onClose }) => {
         isModal
       >
         {children}
-        {isLoading && (
+        {isModalLoading && (
           <StyledLoadingCover fadeSec={fadeSec}>
             <Spinner fontSize="35px" color="#000000" />
           </StyledLoadingCover>
