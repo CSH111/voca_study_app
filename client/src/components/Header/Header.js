@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { INFO_URL } from "../../constants";
 import { useAuthSeletor, useModal } from "../../context";
 import { useLogout } from "../../hooks";
 import { Button } from "../common";
@@ -35,17 +36,15 @@ const Header = () => {
     navigate("/register");
   };
 
-  const handleInfoClick = () => {
-    window.open("https://github.com/CSH111/voca_study_app");
-  };
-
   return (
     <StyledHeader>
       <Link to="/">
         <h1>Hello Wordy</h1>
       </Link>
       <Nav>
-        <Link to="/">Information</Link>
+        <a href={INFO_URL} target="_blank" rel="noreferrer">
+          Information
+        </a>
       </Nav>
       {user && (
         <div className="user-container">
@@ -86,9 +85,9 @@ const Header = () => {
             )}
 
             <li>
-              <Button onClick={handleInfoClick} propagation={true}>
-                Infomation
-              </Button>
+              <a href={INFO_URL} target="_blank" rel="noreferrer">
+                <Button propagation={true}>Infomation</Button>
+              </a>
             </li>
           </ul>
         </div>
