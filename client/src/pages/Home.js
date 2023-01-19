@@ -9,7 +9,7 @@ const Home = () => {
   const handleRegister = () => navigate("/register");
 
   return (
-    <Paper paperHeader={<PaperTitle>Welcome!</PaperTitle>}>
+    <Paper paperHeader={<PaperTitle>Welcome!</PaperTitle>} small>
       <ButtonBox>
         <AuthButton onClick={handleLogin} variant="contained" themeColor="primary" angleBorder>
           로그인

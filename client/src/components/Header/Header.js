@@ -122,7 +122,7 @@ const StyledHeader = styled.header`
   min-height: 70px;
   box-shadow: 0px 2px 5px 0px ${(p) => p.theme.color.shadow.main};
   margin-bottom: 10px;
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     min-height: 50px;
   }
 
@@ -137,7 +137,7 @@ const StyledHeader = styled.header`
     a {
       display: block;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
       height: 30px;
     }
   }
@@ -147,7 +147,7 @@ const StyledHeader = styled.header`
     & :not(:last-child) {
       margin-right: 10px;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
       flex: 1;
       display: flex;
       justify-content: flex-end;
@@ -161,7 +161,7 @@ const StyledHeader = styled.header`
   .burger {
     display: none;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     ${Nav}, .logout-btn {
       display: none;
     }

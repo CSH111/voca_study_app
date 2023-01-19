@@ -59,6 +59,7 @@ const Study = () => {
   return (
     <Paper
       width="500px"
+      small
       paperHeader={
         <>
           <PaperTitle>{topic}</PaperTitle>

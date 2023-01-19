@@ -19,8 +19,8 @@ function Words() {
     <Paper
       width="100%"
       height="95%"
-      forPage
       bodyAlign="flex-start"
+      bigPage
       paperHeader={
         <>
           <PaperTitle>{topicName}</PaperTitle>

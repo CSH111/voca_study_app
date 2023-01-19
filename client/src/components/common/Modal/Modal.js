@@ -41,7 +41,7 @@ const Modal = ({ children, footer, title, onClose }) => {
           </ModalHeader>
         }
         paperFooter={footer}
-        isModal
+        small
       >
         {children}
         {isModalLoading && (

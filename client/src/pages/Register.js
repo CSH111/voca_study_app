@@ -5,6 +5,7 @@ const Register = () => {
   return (
     <Paper
       height="auto"
+      small
       paperHeader={<PaperTitle>회원가입</PaperTitle>}
       paperFooter={
         <AuthLink to="/login" margin="10px 0 0 0">

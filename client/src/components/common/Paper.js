@@ -12,9 +12,9 @@ const Paper = ({
   shadowColor,
   minHeight,
   onClick,
-  isModal,
+  small,
   height,
-  forPage,
+  bigPage,
 }) => {
   return (
     <Box
@@ -25,9 +25,9 @@ const Paper = ({
       shadowColor={shadowColor}
       minHeight={minHeight}
       headerMb={headerMb}
-      isModal={isModal}
+      small={small}
       height={height}
-      forPage={forPage}
+      bigPage={bigPage}
     >
       {paperHeader && <div className="paper-header">{paperHeader}</div>}
       <Body bodyAlign={bodyAlign}>{children}</Body>
@@ -64,26 +64,24 @@ const Box = styled.div`
       margin-right: 5px;
     }
   }
+
   .paper-footer {
     align-self: center;
     width: 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* min-height: 50px; */
-    /* height: 10%; */
     align-items: center;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     padding: 15px;
-
-    box-shadow: ${(p) => !p.isModal && "none"};
-    width: ${(p) => (p.isModal ? "90%" : "100%")};
+    box-shadow: ${(p) => !p.small && "none"};
+    width: ${(p) => (p.small ? "95%" : "100%")};
     margin: 0;
+
     ${(p) =>
-      p.forPage &&
+      p.bigPage &&
       css`
         align-self: flex-start;
       `}
@@ -96,5 +94,3 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: ${({ bodyAlign }) => bodyAlign ?? "center"};
 `;
-
-//TODO 모바일화면 작은 페이퍼 경계표시

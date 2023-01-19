@@ -18,7 +18,7 @@ function Topics() {
     <Paper
       width="100%"
       height="95%"
-      forPage
+      bigPage
       paperHeader={
         <>
           <PaperTitle>My Topics </PaperTitle>
