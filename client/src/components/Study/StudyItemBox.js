@@ -79,13 +79,15 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
 
   return (
     <StyledBox>
-      {isLoading && <StyledSpinner />}
+      <StyledSoundAndSpinner>
+        <Button onClick={handleSoundBtnClick}>
+          <SoundIcon />
+        </Button>
+        {isLoading && <StyledSpinner />}
+      </StyledSoundAndSpinner>
       <StyledBookmarkBtn onClick={handleBookmark} isBookmarked={isBookmarked}>
         <StarIcon />
       </StyledBookmarkBtn>
-      <StyledSoundBtn onClick={handleSoundBtnClick}>
-        <SoundIcon />
-      </StyledSoundBtn>
       {isAnswerShown && (
         <StyledEvaluateBtnsBox>
           <Button
@@ -143,25 +145,24 @@ const StyledBox = styled.div`
   overflow: hidden;
 `;
 
-const StyledSpinner = styled(Spinner)`
+const StyledSoundAndSpinner = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  margin: 20px;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+const StyledSpinner = styled(Spinner)`
   font-size: 20px;
+  margin: 5px;
 `;
 
 const StyledBookmarkBtn = styled(BookmarkButton)`
   position: absolute;
   top: 0;
   right: 0;
-  margin: 15px;
-`;
-
-const StyledSoundBtn = styled(Button)`
-  position: absolute;
-  top: 0;
-  left: 0;
   margin: 15px;
 `;
 
