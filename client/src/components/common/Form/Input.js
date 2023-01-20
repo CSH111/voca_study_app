@@ -30,7 +30,6 @@ const Input = forwardRef((props, ref) => {
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
-    //TODO 필요하다면 디바운스 적용 input prop 으로 적용여부 선택 할 수 있도록 ㄱㄱ
   };
 
   return <input {...restProps} value={inputValue} onChange={handleChange} ref={inputElem} />;

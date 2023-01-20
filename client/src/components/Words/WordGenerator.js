@@ -23,8 +23,6 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading, lang }) => {
     e.preventDefault();
     if (isEmptyWordValue) return wordInput.current.focus();
     if (isEmptyMeaningValue) return meaningInput.current.focus();
-    // 로딩처리 개선
-    //에러처리
     setMeaningInputValue("");
     setWordInputValue("");
     wordInput.current.focus();
@@ -36,7 +34,6 @@ const WordGenerator = ({ topicName, topicID, setNewItemLoading, lang }) => {
       word: wordInputValue,
       meaning: meaningInputValue,
     };
-    //TODO catch 위치 확인
     postWord(body);
   };
 
