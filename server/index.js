@@ -1,9 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const port = 5000;
-
-const { mongoURI } = require("./config/key");
 const { User } = require("./Model/User");
 const authenticate = require("./middleware/authenticate");
 const authorize = require("./middleware/authorize");
@@ -12,8 +11,8 @@ const topicRouter = require("./routes/topic");
 const wordRouter = require("./routes/word");
 //세션
 const session = require("express-session");
+const mongoURI = process.env.MONGO_URI;
 const MongoDBStore = require("connect-mongodb-session")(session);
-
 const mongoDBstore = new MongoDBStore({
   uri: mongoURI,
   collection: "mySessions",
@@ -51,10 +50,6 @@ app.listen(port, () => {
       console.log("mongoDB connected!");
     })
     .catch(console.log);
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello World!!!!!!"); //빌드해서 넣어주기
 });
 
 //회원가입
@@ -117,9 +112,3 @@ app.get("/api/user", authorize, (req, res) => {
   //user는 로그인시 생성한 객체
   res.status(200).json({ success: true, userName: req.session.user.name });
 });
-
-//회원가입 후 자동로그인 안되고있었음
-
-//할거., 세션유지 선택 안내, 회원탈퇴
-
-//토픽이름 중복처리 필요(일단 프론트에서만 ㄱ)
