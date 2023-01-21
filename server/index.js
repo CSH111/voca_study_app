@@ -1,8 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
 const { User } = require("./Model/User");
 const authenticate = require("./middleware/authenticate");
 const authorize = require("./middleware/authorize");
@@ -17,8 +18,18 @@ const mongoDBstore = new MongoDBStore({
   uri: mongoURI,
   collection: "mySessions",
 });
-
 const MAX_AGE = 1000 * 60 * 60 * 24 * 365; // 1year
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    if (origin === process.env.CLIENT_URL) {
+      callback(null, true);
+      return;
+    }
+    callback(new Error("Not allowed by CORS"));
+  },
+};
+
 app.use(
   session({
     secret: "secret",
@@ -33,10 +44,9 @@ app.use(
     saveUninitialized: false,
   })
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ exrended: true }));
-
+app.use(cors(corsOptions));
 app.use("/api/topic", topicRouter);
 app.use("/api/word", wordRouter);
 
@@ -45,7 +55,6 @@ app.listen(port, () => {
     .connect(mongoURI)
     .then(() => {
       console.log(`Example app listening on port ${port}
-      http://localhost:${port}/
       `);
       console.log("mongoDB connected!");
     })
@@ -85,11 +94,9 @@ app.post("/api/session", authenticate, (req, res) => {
   req.session.user = userSession;
 
   // express-session에 의해 브라우저에 세션이 생성
-
   // req.session 에 하위 객체(user)를 만들었을 때 DB에 세션 생성
   // session의 하위객체(user) 존재여부에 따라 authorize 가능
   //(authenticate 통과한 세션만 user를 가지고 있기 때문)
-  //  + auth후 클라이언트에서 리다이렉트 처리ㄱㄱ(별수없는듯)
   // session의 하위 객체내용에 따라 필요 데이터 전송가능
 
   res.status(200).json({ msg: "로그인성공", userName: userSession.name });
