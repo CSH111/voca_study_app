@@ -1,15 +1,14 @@
 import { useEffect } from "react";
 
 import { ErrorModal } from "../components/common";
+import { SERVER_URL } from "../constants";
 import { useModal } from "../context";
 import createAuthService from "./createAuthService";
 import { createAxiosClient } from "./createAxiosClient";
 import createWordbookService from "./createWordbookService";
 
-const BASE_URL = "http://localhost:3000";
-
-const httpForAuth = createAxiosClient(BASE_URL);
-const httpForWordbook = createAxiosClient(BASE_URL);
+const httpForAuth = createAxiosClient(SERVER_URL);
+const httpForWordbook = createAxiosClient(SERVER_URL);
 
 export const authService = createAuthService(httpForAuth);
 export const wordbookService = createWordbookService(httpForWordbook);
