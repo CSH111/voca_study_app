@@ -67,7 +67,7 @@ const RegisterForm = () => {
         name="pw"
         type="password"
         ref={(elem) => (inputs.current.pw = elem)}
-        // onChange={handlePwChange}
+        autoComplete="off"
         required
         pattern="(?=.*[A-Za-z])(?=.*[0-9])(?=.{8,}).*$"
         errorMsg={"8-20자의 영문 숫자 조합을 입력하세요"}
@@ -84,6 +84,7 @@ const RegisterForm = () => {
         type="password"
         ref={(elem) => (inputs.current.confirmPw = elem)}
         required
+        autoComplete="off"
         pattern={pwState?.value}
         errorMsg={"비밀번호가 일치하지 않습니다"}
       />

@@ -50,7 +50,7 @@ const LoginForm = () => {
       <S.Label htmlFor="email">이메일</S.Label>
       <S.Input name="email" type="text" ref={emailInput} />
       <S.Label htmlFor="pw">비밀번호</S.Label>
-      <S.Input name="pw" type="password" ref={pwInput} />
+      <S.Input name="pw" type="password" ref={pwInput} autoComplete="off" />
       <S.Msg>{isError && msg}</S.Msg>
 
       <AuthButton type="submit" variant="contained" themeColor="primary" angleBorder>
