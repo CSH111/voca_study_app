@@ -35,7 +35,9 @@ const RegisterForm = () => {
   return (
     <S.Form onSubmit={handleSubmit} onChange={handleChange}>
       <S.LabelAndMsgBox>
-        <S.Label htmlFor="email">이메일 *</S.Label>
+        <S.Label htmlFor="email" required>
+          이메일
+        </S.Label>
         <S.ValidityMsg>
           {emailState?.value && !emailState?.validity && emailState?.validityMsg}
         </S.ValidityMsg>
@@ -49,15 +51,12 @@ const RegisterForm = () => {
         required
         autoFocus
       />
-      <S.LabelAndMsgBox>
-        <S.Label htmlFor="name">이름</S.Label>
-        <S.ValidityMsg>
-          {nameState?.value && !nameState?.validity && nameState?.validityMsg}
-        </S.ValidityMsg>
-      </S.LabelAndMsgBox>
+      <S.Label htmlFor="name">이름</S.Label>
       <S.Input id="name" name="name" type="text" ref={(elem) => (inputs.current.name = elem)} />
       <S.LabelAndMsgBox>
-        <S.Label htmlFor="pw">비밀번호 *</S.Label>
+        <S.Label htmlFor="pw" required>
+          비밀번호
+        </S.Label>
         <S.ValidityMsg>
           {pwState?.value && !pwState?.validity && pwState?.validityMsg}
         </S.ValidityMsg>
@@ -73,7 +72,9 @@ const RegisterForm = () => {
         errorMsg={"8-20자의 영문 숫자 조합을 입력하세요"}
       />
       <S.LabelAndMsgBox>
-        <S.Label htmlFor="pwConfirm">비밀번호 확인 *</S.Label>
+        <S.Label htmlFor="pwConfirm" required>
+          비밀번호 확인
+        </S.Label>
         <S.ValidityMsg>
           {pwConfirmState?.value && !pwConfirmState?.validity && pwConfirmState?.validityMsg}
         </S.ValidityMsg>
