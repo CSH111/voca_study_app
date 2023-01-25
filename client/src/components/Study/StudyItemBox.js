@@ -20,7 +20,7 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
   const [isAnswerShown, setIsAnswerShown] = useState(false);
   const [studyResult, setStudyResult] = useState({ complete: 0, incomplete: 0 });
   useEffect(() => {
-    if (!wordsAmount) navigate(`/test/${topic}`);
+    if (!wordsAmount) navigate(`/study/${topic}`);
   }, []);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
   };
 
   const handleEndModalClose = () => {
-    navigate(`/test/${topic}`);
+    navigate(`/study/${topic}`);
   };
 
   const showEndModal = () => {

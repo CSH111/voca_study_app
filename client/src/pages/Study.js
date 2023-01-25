@@ -45,7 +45,7 @@ const Study = () => {
   })();
 
   const handleBackBtnClick = () => {
-    navigate(concept ? `/test/${topic}` : "/topics");
+    navigate(concept ? `/study/${topic}` : "/topics");
   };
 
   const goNext = () => {

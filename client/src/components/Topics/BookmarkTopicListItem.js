@@ -12,7 +12,7 @@ const BookmarkTopicListItem = () => {
   const handleListClick = () => {
     openModal(
       <LinkModal
-        leftLink={`/test/bookmark`}
+        leftLink={`/study/bookmark`}
         rightLink={`/bookmark`}
         title="My Bookmark"
         wordsAmount={bookmarkedWordsAmount}

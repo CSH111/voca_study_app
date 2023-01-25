@@ -57,7 +57,7 @@ const TopicListItem = ({ topic }) => {
   const handleListClick = () => {
     openModal(
       <LinkModal
-        leftLink={`/test/${topic.topicName}`}
+        leftLink={`/study/${topic.topicName}`}
         rightLink={`/topics/${topic.topicName}`}
         title={topic.topicName}
         wordsAmount={wordsAmount}

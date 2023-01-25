@@ -18,7 +18,7 @@ const AppRoutes = () => {
           <Route path="/topics" element={<Topics />} />
           <Route path="/topics/:topic" element={<Words />} />
           <Route path="/bookmark" element={<Bookmark />} />
-          <Route path="/test/:topic" element={<Study />} />
+          <Route path="/study/:topic" element={<Study />} />
         </Route>
       </Route>
     </Routes>
