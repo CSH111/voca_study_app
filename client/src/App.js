@@ -25,3 +25,6 @@ function App() {
 }
 
 export default App;
+
+//TODO 토픽 경로 유효성검사 - context 이용하기
+// TODO 언어 변경 기능

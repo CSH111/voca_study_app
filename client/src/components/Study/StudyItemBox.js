@@ -78,54 +78,58 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
   };
 
   return (
-    <StyledBox>
-      <StyledSoundAndSpinner>
-        <Button onClick={handleSoundBtnClick}>
+    <StyledBox className="box----">
+      <StyledBoxTop>
+        <Button className="sound-btn" onClick={handleSoundBtnClick}>
           <SoundIcon />
         </Button>
-        {isLoading && <StyledSpinner />}
-      </StyledSoundAndSpinner>
-      <StyledBookmarkBtn onClick={handleBookmark} isBookmarked={isBookmarked}>
-        <StarIcon />
-      </StyledBookmarkBtn>
-      {isAnswerShown && (
-        <StyledEvaluateBtnsBox>
-          <Button
-            themeColor="success"
-            onClick={handleEvaluation}
-            value="true"
-            shadow={true}
-            variant="contained"
-          >
-            쉬움
-            <br />
-            (학습완료)
-          </Button>
-          <Button
-            themeColor="error"
-            onClick={handleEvaluation}
-            value="false"
-            shadow={true}
-            variant="contained"
-          >
-            어려움
-            <br />
-            (추가학습)
-          </Button>
-        </StyledEvaluateBtnsBox>
-      )}
+        {isAnswerShown && (
+          <StyledEvaluateBtnsBox>
+            <Button
+              themeColor="success"
+              onClick={handleEvaluation}
+              value="true"
+              shadow={true}
+              variant="contained"
+            >
+              쉬움
+              <br />
+              (학습완료)
+            </Button>
+            <Button
+              themeColor="error"
+              onClick={handleEvaluation}
+              value="false"
+              shadow={true}
+              variant="contained"
+            >
+              어려움
+              <br />
+              (추가학습)
+            </Button>
+          </StyledEvaluateBtnsBox>
+        )}
+        <BookmarkButton onClick={handleBookmark} isBookmarked={isBookmarked}>
+          <StarIcon />
+        </BookmarkButton>
+      </StyledBoxTop>
+
       <StyledWord>{isAnswerShown ? meaning : word}</StyledWord>
-      <StyledToggleBtn
-        onClick={handleAnswerBtn}
-        themeColor="primary"
-        variant="contained"
-        shadow={true}
-      >
-        {isAnswerShown ? "단어 보기" : "정답 확인"}
-      </StyledToggleBtn>
-      <StyledIdxBox>
-        {currentIdx + 1 > wordsAmount ? wordsAmount : currentIdx + 1} / {wordsAmount}
-      </StyledIdxBox>
+      <StyledBottomBox>
+        <StyledSpinnerBox>{isLoading && <StyledSpinner />}</StyledSpinnerBox>
+        <StyledToggleBtn
+          onClick={handleAnswerBtn}
+          themeColor="primary"
+          variant="contained"
+          shadow={true}
+        >
+          {isAnswerShown ? "단어 보기" : "정답 확인"}
+        </StyledToggleBtn>
+
+        <StyledIdxBox>
+          {currentIdx + 1 > wordsAmount ? wordsAmount : currentIdx + 1} / {wordsAmount}
+        </StyledIdxBox>
+      </StyledBottomBox>
     </StyledBox>
   );
 };
@@ -138,20 +142,43 @@ const StyledBox = styled.div`
   position: relative;
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
   padding: 15px;
   overflow: hidden;
 `;
 
-const StyledSoundAndSpinner = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 15px;
+const StyledBoxTop = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: start;
+  .sound-btn {
+  }
+  ${BookmarkButton} {
+  }
+`;
+const StyledEvaluateBtnsBox = styled.div`
+  display: flex;
+  button {
+    font-size: 14px;
+    &:first-child {
+      margin-right: 5px;
+    }
+  }
+`;
+
+const StyledWord = styled.div`
+  font-size: 30px;
+  text-align: center;
+`;
+
+const StyledBottomBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledSpinnerBox = styled.div`
+  flex: 1;
 `;
 
 const StyledSpinner = styled(Spinner)`
@@ -159,40 +186,13 @@ const StyledSpinner = styled(Spinner)`
   margin: 5px;
 `;
 
-const StyledBookmarkBtn = styled(BookmarkButton)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 15px;
-`;
-
 const StyledToggleBtn = styled(Button)`
-  position: absolute;
   font-size: 16px;
-  bottom: 0;
-  margin: 20px;
-`;
-
-const StyledWord = styled.div`
-  font-size: 30px;
 `;
 
 const StyledIdxBox = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 20px;
-`;
-
-const StyledEvaluateBtnsBox = styled.div`
+  flex: 1;
   display: flex;
-  position: absolute;
-  top: 0;
-  margin: 15px;
-  button {
-    font-size: 16px;
-    &:first-child {
-      margin-right: 5px;
-    }
-  }
+  justify-content: flex-end;
+  align-items: flex-end;
 `;
