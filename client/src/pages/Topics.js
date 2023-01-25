@@ -27,7 +27,7 @@ function Topics() {
           </Button>
         </>
       }
-      paperFooter={<Devider width="2px" />}
+      paperFooter={<Devider margin="15px 0 0 0 " width="2px" />}
       bodyAlign="flex-start"
     >
       <Devider margin="0 0 15px 0" color="black" width="2px" />

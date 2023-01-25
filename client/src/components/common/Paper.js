@@ -7,6 +7,7 @@ const Paper = ({
   paperHeader,
   headerMb,
   paperFooter,
+  alignSelf,
   bodyAlign,
   flex,
   shadowColor,
@@ -28,6 +29,7 @@ const Paper = ({
       small={small}
       height={height}
       bigPage={bigPage}
+      alignSelf={alignSelf}
     >
       {paperHeader && <div className="paper-header">{paperHeader}</div>}
       <Body bodyAlign={bodyAlign}>{children}</Body>
@@ -41,7 +43,7 @@ export default Paper;
 const Box = styled.div`
   background-color: ${(p) => p.theme.color.secondary.main};
   min-height: ${(p) => p.minHeight ?? "400px"};
-  height: ${(p) => p.height ?? "0"};
+  height: ${(p) => p.height ?? "auto"};
   width: ${(p) => p.width ?? "400px"};
   flex: ${(p) => p.flex ?? "none"};
   box-shadow: 3px 3px 6px 2px ${(p) => p.theme.color.shadow.main ?? "gray"};
@@ -49,7 +51,7 @@ const Box = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-
+  align-self: ${(p) => p.alignSelf ?? "auto"};
   .paper-header {
     align-self: stretch;
     display: flex;
@@ -76,10 +78,16 @@ const Box = styled.div`
 
   @media (max-width: 600px) {
     padding: 15px;
+    ${(p) =>
+      p.small &&
+      css`
+        @media (max-height: 600px) {
+          align-self: flex-start;
+        }
+      `}
     box-shadow: ${(p) => !p.small && "none"};
     width: ${(p) => (p.small ? "95%" : "100%")};
     margin: 0;
-
     ${(p) =>
       p.bigPage &&
       css`

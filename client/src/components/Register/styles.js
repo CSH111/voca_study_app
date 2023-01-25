@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { Form as OriginalForm, Input as OriginalInput } from "../common/Form";
 
@@ -11,17 +11,27 @@ export const Input = styled(OriginalInput)`
   height: 40px;
 `;
 export const Label = styled.label`
-  /* margin-bottom: 10px; */
+  margin-bottom: 10px;
+  /* line-break: strict; */
+  word-break: keep-all;
+  white-space: nowrap;
+  ${(p) =>
+    p.required &&
+    css`
+      &::after {
+        content: " *";
+      }
+    `}
 `;
 
 export const LabelAndMsgBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 `;
 export const ValidityMsg = styled.div`
   font-size: 13px;
+  margin: 5px;
   color: ${(p) => p.theme.color.error.main};
 `;
 
