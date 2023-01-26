@@ -67,6 +67,11 @@ export const SoundIcon = (props) => {
 export const ShareIcon = (props) => {
   return <FontAwesomeIcon icon="fa-solid fa-share-nodes" {...props} />;
 };
+
 export const BurgerIcon = (props) => {
   return <FontAwesomeIcon icon="fa-solid fa-bars" {...props} />;
+};
+
+export const LangIcon = (props) => {
+  return <FontAwesomeIcon icon="fa-solid fa-language" {...props} />;
 };

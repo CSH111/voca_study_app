@@ -1,10 +1,10 @@
+import { forwardRef } from "react";
 import { useEffect, useState } from "react";
 
 import { FormCtxProvider } from "./FormContext";
 
-const Form = ({ children, onSubmit, onChange, className }) => {
+const Form = forwardRef(({ children, onSubmit, onChange, className }, ref) => {
   const [inputStates, setInputStates] = useState({});
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(inputStates);
@@ -19,11 +19,13 @@ const Form = ({ children, onSubmit, onChange, className }) => {
 
   return (
     <FormCtxProvider value={setInputStates}>
-      <form className={className} onSubmit={handleSubmit}>
+      <form className={className} onSubmit={handleSubmit} ref={ref}>
         {children}
       </form>
     </FormCtxProvider>
   );
-};
+});
+
+Form.displayName = Form;
 
 export default Form;

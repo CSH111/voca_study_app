@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useModal } from "../../context";
 import { Button, Modal } from "../common";
 
-const ConfirmModal = ({ msg, onConfirm }) => {
+const ConfirmModal = ({ title, msg, onConfirm, body }) => {
   const { closeModal } = useModal();
   const handleConfirm = async () => {
     onConfirm();
@@ -15,9 +15,10 @@ const ConfirmModal = ({ msg, onConfirm }) => {
   };
 
   return (
-    <Modal>
+    <Modal title={title}>
       <Contents>
         <p>{msg}</p>
+        {body}
         <div className="buttons-box">
           <Button themeColor="info" fontSize="16px" onClick={handleConfirm} variant="contained">
             확인

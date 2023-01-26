@@ -4,20 +4,29 @@ import styled, { css } from "styled-components";
 import { Button, DeleteModal, Ellipsis, InputBox, ListItem } from "../../components/common";
 import { useModal, useWordbookSelector } from "../../context";
 import { useDeleteTopic, usePatchTopic } from "../../hooks";
-import { CancelIcon, CheckIcon, DeleteIcon, EditIcon, FolderIcon, Spinner } from "../common/icons";
+import {
+  CancelIcon,
+  CheckIcon,
+  DeleteIcon,
+  EditIcon,
+  FolderIcon,
+  LangIcon,
+  Spinner,
+} from "../common/icons";
 import { LinkModal, ProgressBar } from "./";
+import LangChangeModal from "./LangChangeModal";
 
 const TopicListItem = ({ topic }) => {
   const { words: allWords } = useWordbookSelector();
   const { deleteTopic, isLoading: isDeleteLoading } = useDeleteTopic();
   const { patchTopic, isLoading: isPatchLoading } = usePatchTopic();
+  const { openModal, closeModal } = useModal();
   const [isModifying, setIsModifying] = useState(false);
   const fixInput = useRef();
   const wordsForThisTopic = allWords.filter((word) => word.topic === topic.topicName);
   const wordsAmount = wordsForThisTopic.length;
   const wordsDoneAmount = wordsForThisTopic.filter((word) => word.isMemorized === true).length;
   const isListItemLoading = isDeleteLoading || isPatchLoading;
-  const { openModal, closeModal } = useModal();
 
   const handleDeleteModal = () => {
     openModal(
@@ -61,6 +70,16 @@ const TopicListItem = ({ topic }) => {
         rightLink={`/topics/${topic.topicName}`}
         title={topic.topicName}
         wordsAmount={wordsAmount}
+      />
+    );
+  };
+
+  const handleLangBtnClick = () => {
+    openModal(
+      <LangChangeModal
+        title={`읽기언어 변경 - ${topic.topicName}`}
+        topicData={topic}
+        patchTopic={patchTopic}
       />
     );
   };
@@ -129,6 +148,9 @@ const TopicListItem = ({ topic }) => {
             </Button>
             <Button onClick={handleFixModeOpen} disabled={isListItemLoading} angleBorder>
               <EditIcon />
+            </Button>
+            <Button onClick={handleLangBtnClick} disabled={isListItemLoading} angleBorder>
+              <LangIcon />
             </Button>
           </>
         }

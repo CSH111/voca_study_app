@@ -9,6 +9,7 @@ import { usePostTopic } from "../../hooks";
 import { Form, Input, Select } from "../common/Form";
 import { AddIcon } from "../common/icons";
 import UnderLinedInput from "../common/UnderLinedInput";
+import * as S from "./styles";
 
 const TopicGenerator = () => {
   const { topics } = useWordbookSelector();
@@ -49,11 +50,11 @@ const TopicGenerator = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <Select name="lang" defaultValue={LC.USA}>
+      <S.Select name="lang" defaultValue={LC.USA}>
         <option value={LC.USA}>영어</option>
         <option value={LC.JAPAN}>일본어</option>
         <option value={LC.CHINA}>중국어</option>
-      </Select>
+      </S.Select>
       <div>
         <StyledInput name="topicName" required ref={topicInputRef} />
         <Button disabled={isLoading} height="35px" width="35px">

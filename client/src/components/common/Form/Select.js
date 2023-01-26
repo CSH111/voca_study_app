@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { useSetForm } from "./FormContext";
 
-const Select = ({ children, name, defaultValue }) => {
+const Select = ({ children, name, defaultValue, className }) => {
   const setForm = useSetForm();
   const [selectedValue, setSelectedValue] = useState(defaultValue);
   const selectRef = useRef();
@@ -23,7 +23,7 @@ const Select = ({ children, name, defaultValue }) => {
   };
 
   return (
-    <select onChange={handleChange} value={selectedValue} ref={selectRef}>
+    <select onChange={handleChange} value={selectedValue} ref={selectRef} className={className}>
       {children}
     </select>
   );
