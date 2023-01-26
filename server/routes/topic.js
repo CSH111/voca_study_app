@@ -7,10 +7,9 @@ router.get("/", (req, res) => {
     .then((resultData) => {
       res.status(200).json({ success: true, topics: resultData.topics });
     })
-    .catch(console.log); //세션없을 때 불필요한 에러 출력->해결요망
+    .catch(console.log);
 });
 
-//토픽추가
 router.post("/", authorize, (req, res) => {
   const { topicName, lang } = req.body;
   User.findOneAndUpdate(
@@ -24,7 +23,6 @@ router.post("/", authorize, (req, res) => {
     .catch(console.log);
 });
 
-//토픽삭제
 router.delete("/:_id", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
@@ -43,21 +41,23 @@ router.delete("/:_id", (req, res) => {
     .catch(console.log);
 });
 
-//토픽수정
 router.patch("/:_id", (req, res) => {
+  const updateObj = {};
+  Object.keys(req.body).forEach((key) => {
+    updateObj[`topics.$[topicsFilter].${key}`] = req.body[key];
+    updateObj[`words.$[wordsFilter].${key === "topicName" ? "topic" : key}`] = req.body[key];
+  });
   User.findOneAndUpdate(
+    { email: req.session.user.email },
+    { $set: updateObj },
     {
-      email: req.session.user.email,
-      "topics._id": req.params._id,
-      "words?.topicID": req.params._id,
-    },
-    {
-      $set: {
-        "topics.$.topicName": req.body.topicName,
-        "words.$[elem].topic": req.body.topicName,
-      },
-    },
-    { arrayFilters: [{ "elem.topicID": req.params._id }], multi: true, new: true }
+      arrayFilters: [
+        { "wordsFilter.topicID": req.params._id },
+        { "topicsFilter._id": req.params._id },
+      ],
+      multi: true,
+      new: true,
+    }
   )
     .then((resultData) => {
       const { topics, words } = resultData;

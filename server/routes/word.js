@@ -29,7 +29,7 @@ router.patch("/:_id", (req, res) => {
   User.findOneAndUpdate(
     { email: req.session.user.email },
     { $set: updateObj },
-    { arrayFilters: [{ "wordsFilter._id": req.params._id }], new: true, multi: true }
+    { arrayFilters: [{ "wordsFilter._id": req.params._id }], new: true }
   )
     .then((resultData) => {
       if (resultData === null) return res.status(400).json({ success: false });
