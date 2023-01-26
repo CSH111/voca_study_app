@@ -43,7 +43,7 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
       [JSON.parse(value) ? "complete" : "incomplete"]:
         resultObj[JSON.parse(value) ? "complete" : "incomplete"] + 1,
     }));
-    await patchWord(id, { ...currentWord, isMemorized: JSON.parse(value) });
+    await patchWord(id, { isMemorized: JSON.parse(value) });
     goNext();
   };
 
@@ -52,7 +52,7 @@ const StudyItemBox = ({ currentIdx, goNext, setStaticWords, staticWordsInConcept
   };
 
   const handleBookmark = async () => {
-    patchWord(id, { ...currentWord, isBookmarked: !currentWord.isBookmarked });
+    patchWord(id, { isBookmarked: !currentWord.isBookmarked });
     setStaticWords((words) => {
       return words.map((word) => {
         return word._id === id ? { ...word, isBookmarked: !word.isBookmarked } : word;

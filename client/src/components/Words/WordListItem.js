@@ -23,6 +23,7 @@ const WordListItem = ({ wordData }) => {
   const wordInputElem = useRef();
   const meaningInputElem = useRef();
   const isItemLoading = isDeleteLoading || isPatchLoading;
+
   const handleDeleteModal = () => {
     openModal(
       <DeleteModal
@@ -38,18 +39,17 @@ const WordListItem = ({ wordData }) => {
   };
 
   const handleIsMemorized = () => {
-    patchWord(id, { ...wordData, isMemorized: !isMemorized });
+    patchWord(id, { isMemorized: !isMemorized });
   };
 
   const handleBookmark = () => {
-    patchWord(id, { ...wordData, isBookmarked: !isBookmarked });
+    patchWord(id, { isBookmarked: !isBookmarked });
   };
 
   const handleSubmission = (e) => {
     e.preventDefault();
     setIsModifying(false);
     patchWord(id, {
-      ...wordData,
       word: wordInputElem.current.value,
       meaning: meaningInputElem.current.value,
     });
