@@ -29,7 +29,7 @@ const WordList = ({ topicName, isNewItemLoading }) => {
           <Devider margin="10px 0" width="1px" themeColor={{ color: "gray", level: "main" }} />
         </Fragment>
       ))
-    : !isNewItemLoading && <EmptyMsgBox>학습할 단어를 추가하세요.</EmptyMsgBox>;
+    : !isNewItemLoading && <EmptyMsgBox>생성된 단어가 없습니다.</EmptyMsgBox>;
 
   return (
     <List ref={listRef}>

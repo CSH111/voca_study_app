@@ -9,7 +9,7 @@ const TopicList = () => {
   const listItems = topics.length ? (
     topics.map((topic) => <TopicListItem topic={topic} key={topic._id} />)
   ) : (
-    <EmptyMsgBox>토픽을 추가하세요</EmptyMsgBox>
+    <EmptyMsgBox>생성된 토픽이 없습니다.</EmptyMsgBox>
   );
 
   return (
