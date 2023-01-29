@@ -6,7 +6,6 @@ const UnderLinedInput = styled.input`
   height: 30px;
   display: inline;
   width: ${(p) => p.width ?? "150px"};
-  line-height: 30px;
   font-size: 16px;
   background: none;
   &:focus {

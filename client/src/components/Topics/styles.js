@@ -11,8 +11,7 @@ export const Link = styled(RRDLink)`
 
 export const Select = styled(SelectOrigin)`
   cursor: pointer;
-  font-size: 16px;
-  width: 120px;
-  height: 30px;
+  font-size: 14px;
+  width: 100px;
   padding: 5px;
 `;

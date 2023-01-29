@@ -24,6 +24,7 @@ function Bookmark() {
       <Devider margin="0 0 15px 0" color="black" width="2px" />
 
       <BookmarkList />
+      <Devider margin="5px 0 0 0" color="black" width="2px" />
     </Paper>
   );
 }

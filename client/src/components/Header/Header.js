@@ -47,14 +47,12 @@ const Header = () => {
         </a>
       </Nav>
       {user && (
-        <div className="user-container">
-          <div className="user-name-container">
-            <span className="user-name">{user}</span>님
-          </div>
+        <>
+          <div className="user-name">{user}</div>
           <LogoutBtn onClick={handleLogoutBtnClick} className="logout-btn">
             Logout
           </LogoutBtn>
-        </div>
+        </>
       )}
       <Button className="burger" onClick={handleBurgerClick}>
         <BurgerIcon />
@@ -131,6 +129,7 @@ const StyledHeader = styled.header`
     align-items: center;
     padding: 10px;
     height: 40px;
+    white-space: nowrap;
     background-color: ${(p) => p.theme.color.primary.main};
     color: ${(p) => p.theme.color.secondary.main};
     font-weight: bold;
@@ -139,23 +138,18 @@ const StyledHeader = styled.header`
     }
     @media (max-width: 600px) {
       height: 30px;
-    }
-  }
-  .user-container {
-    display: flex;
-    align-items: center;
-    & :not(:last-child) {
       margin-right: 10px;
     }
+  }
+
+  .user-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    margin-right: 10px;
     @media (max-width: 600px) {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .user-name-container {
-      .user-name {
-        font-size: 20px;
-      }
+      margin-left: auto;
     }
   }
   .burger {
