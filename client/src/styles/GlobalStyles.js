@@ -1,8 +1,15 @@
+import "./fonts.css";
+
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
+
+
+  body {
+    font-family: "open-sans", "noto-sans-kr", "sans-serif";
+  }
 
   #root {
     height: 100vh;
@@ -14,7 +21,9 @@ const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-
+  h1,h2,h3,h4,div{
+    line-height: normal;
+  }
   *:not(path, svg) {
     box-sizing: border-box;
     color: ${(p) => p.theme.fontColor.primary.main}
