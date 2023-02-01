@@ -42,23 +42,28 @@ const wordSchema = new mongoose.Schema({
     required: true,
   },
 });
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+      index: true,
+      required: true,
+    },
+    pw: {
+      type: String,
+      required: true,
+    },
+    topics: [topicSchema],
+    words: [wordSchema],
   },
-  email: {
-    type: String,
-    unique: 1,
-    required: true,
-  },
-  pw: {
-    type: String,
-    required: true,
-  },
-  topics: [topicSchema],
-  words: [wordSchema],
-});
+  { autoIndex: true }
+);
 
 const saltRounds = 10;
 

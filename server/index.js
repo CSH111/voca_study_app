@@ -22,8 +22,6 @@ const MAX_AGE = 1000 * 60 * 60 * 24 * 365; // 1year
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
-    console.log("origin: ", origin);
-    console.log("env-url: ", process.env.CLIENT_URL);
     if (origin === process.env.CLIENT_URL) {
       callback(null, true);
       return;
@@ -47,7 +45,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(express.urlencoded({ exrended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 app.use("/api/topic", topicRouter);
 app.use("/api/word", wordRouter);
