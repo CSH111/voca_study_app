@@ -87,7 +87,7 @@ https://web-voca-study-app-sop272gld5psn0m.gksl2.cloudtype.app/
 
 ## Auth - 로그아웃
 
-<img src="https://user-images.githubusercontent.com/105113833/216240485-dcc0b52a-f9ba-45fc-a929-b5e5820617e4.gif" width="250px" />
+<img src="https://user-images.githubusercontent.com/105113833/216324428-9bd59b4d-a7da-46ce-a286-cf0cd94bc6f5.gif" width="250px" />
 
 - client 유저 상태를 업데이트하고 DB의 세션을 삭제합니다.
 
@@ -141,6 +141,7 @@ https://web-voca-study-app-sop272gld5psn0m.gksl2.cloudtype.app/
 
 <div align="left">
   <img src="https://user-images.githubusercontent.com/105113833/216240810-e4ee53f8-c6e3-4762-99a3-eb4c51cc08cb.gif" width="250px" />
+  <img src="https://user-images.githubusercontent.com/105113833/216324686-640db3d9-2d5b-4e76-b213-7609c01699bb.gif" width="250px" />
 </div>
 
 - 북마크 되어있는 단어를 한 곳에서 편집하거나 학습할 수 있습니다.
