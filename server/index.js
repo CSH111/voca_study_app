@@ -13,12 +13,8 @@ const wordRouter = require("./routes/word");
 const sessionRouter = require("./routes/session");
 //세션
 const session = require("express-session");
-const mongoURI = process.env.MONGO_URI;
+const mongoUrl = process.env.MONGO_URI;
 const MongoDBStore = require("connect-mongo");
-const mongoDBstore = MongoDBStore.create({
-  mongoUrl: mongoURI,
-  collectionName: "mySessions",
-});
 const MAX_AGE = 1000 * 60 * 60 * 24 * 30; // 1month
 const corsOptions = {
   credentials: true,
@@ -35,7 +31,7 @@ app.use(
   session({
     secret: "secret",
     name: "session-id",
-    store: mongoDBstore,
+    store: MongoDBStore.create({ mongoUrl }),
     rolling: true,
     //
     cookie: {
@@ -61,7 +57,7 @@ app.use("/api/session", sessionRouter);
 
 app.listen(port, () => {
   mongoose
-    .connect(mongoURI)
+    .connect(mongoUrl)
     .then(() => {
       console.log(`Example app listening on port ${port}
       `);
