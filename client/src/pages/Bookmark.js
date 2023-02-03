@@ -12,6 +12,7 @@ function Bookmark() {
       width="100%"
       height="95%"
       bodyAlign="flex-start"
+      bigPage
       paperHeader={
         <>
           <PaperTitle>Bookmark </PaperTitle>

@@ -75,6 +75,11 @@ const HeaderMsg = styled.h4`
 
 const StyledPaper = styled(Paper)`
   position: relative;
+  @media (max-width: 600px) {
+    @media (max-height: 600px) {
+      align-self: center;
+    }
+  }
 `;
 
 const StyledBg = styled.div`
