@@ -10,15 +10,16 @@ const authorize = require("./middleware/authorize");
 
 const topicRouter = require("./routes/topic");
 const wordRouter = require("./routes/word");
+const sessionRouter = require("./routes/session");
 //세션
 const session = require("express-session");
 const mongoURI = process.env.MONGO_URI;
-const MongoDBStore = require("connect-mongodb-session")(session);
-const mongoDBstore = new MongoDBStore({
-  uri: mongoURI,
-  collection: "mySessions",
+const MongoDBStore = require("connect-mongo");
+const mongoDBstore = MongoDBStore.create({
+  mongoUrl: mongoURI,
+  collectionName: "mySessions",
 });
-const MAX_AGE = 1000 * 60 * 60 * 24 * 365; // 1year
+const MAX_AGE = 1000 * 60 * 60 * 24 * 30; // 1month
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
@@ -35,13 +36,20 @@ app.use(
     secret: "secret",
     name: "session-id",
     store: mongoDBstore,
+    rolling: true,
+    //
     cookie: {
       maxAge: MAX_AGE,
       sameSite: false,
       secure: false,
     },
-    resave: true,
+    // resave: true,
+    resave: false,
+    //resave DB에 이미존재하는 세션에 대해 재저장 할지 여부
     saveUninitialized: false,
+    //saveUninitialized:true => session이 initialized되지 않더라도 저장소에 저장및 쿠키에 담아전송
+    //saveUninitialized:false => session이 initialized되지 않으면 아무작업도 수행하지 않음
+    // req.session.myProperty = 123, 이런식으로 수정할 때 이니셜라이즈드상태가됨
   })
 );
 app.use(express.json());
@@ -49,6 +57,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 app.use("/api/topic", topicRouter);
 app.use("/api/word", wordRouter);
+app.use("/api/session", sessionRouter);
 
 app.listen(port, () => {
   mongoose
@@ -61,7 +70,6 @@ app.listen(port, () => {
     .catch(console.log);
 });
 
-//회원가입
 app.post("/api/user", (req, res) => {
   const temp = {
     name: req.body.name === "" ? req.body.email.split("@")[0] : req.body.name,
@@ -72,9 +80,8 @@ app.post("/api/user", (req, res) => {
   user
     .save()
     .then(() => {
-      //세션 활성화(for 자동로그인)
       const userSession = { email: temp.email, name: temp.name };
-      req.session.user = userSession; // session에 user객체 생성
+      req.session.user = userSession;
       res.status(200).json({ success: true, msg: "등록성공", userName: temp.name });
     })
     .catch((err) => {
@@ -86,36 +93,8 @@ app.post("/api/user", (req, res) => {
     });
 });
 
-//로그인
-app.post("/api/session", authenticate, (req, res) => {
-  //세션활성화
-
-  const userSession = { email: req.body.email, name: req.body.name };
-  req.session.user = userSession;
-
-  // express-session에 의해 브라우저에 세션이 생성
-  // req.session 에 하위 객체(user)를 만들었을 때 DB에 세션 생성
-  // session의 하위객체(user) 존재여부에 따라 authorize 가능
-  //(authenticate 통과한 세션만 user를 가지고 있기 때문)
-  // session의 하위 객체내용에 따라 필요 데이터 전송가능
-
-  res.status(200).json({ msg: "로그인성공", userName: userSession.name });
-});
-
-//로그아웃
-app.delete("/api/session", (req, res) => {
-  req.session.destroy((err) => {
-    //DB의 세션 데이터를 삭제
-    if (err) {
-      res.status(400).json({ success: false, msg: "로그아웃 실패" });
-      return;
-    }
-    res.status(200).json({ success: true, msg: "로그아웃 성공" });
-  });
-});
-
-//home 유저데이터 전송
 app.get("/api/user", authorize, (req, res) => {
-  //user는 로그인시 생성한 객체
+  req.session.touch();
+
   res.status(200).json({ success: true, userName: req.session.user.name });
 });
