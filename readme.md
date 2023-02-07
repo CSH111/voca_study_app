@@ -16,7 +16,7 @@ https://web-voca-study-app-sop272gld5psn0m.gksl2.cloudtype.app/
 
 ## 프로젝트 기간
 
-- 2022/07/22 ~ 지속적 업데이트 중
+- 2022/07/22 ~
 
 <br>
 
