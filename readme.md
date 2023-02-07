@@ -40,6 +40,20 @@ https://web-voca-study-app-sop272gld5psn0m.gksl2.cloudtype.app/
 
 <br>
 
+## 학습, 구현 및 개선사항
+
+- REST api 의 설계, 구현, 및 통신
+- 클라이언트 및 서버 측면의 Session 기반 Authentication/Authorization 구현
+- 반복적으로 처리하던 권한 별 페이지 접근 제어 로직을 Route Nesting을 활용해 하나의 Route에서 처리하도록 개선
+- Custom hook을 이용한 관심사 분리
+- ContextAPI를 이용한 전역상태 관리(Auth상태 및 서버상태(데이터))
+- ContextAPI와 useReducer hook을 이용한 FLUX 패턴 구현
+- 클라이언트의 http 생성 및 service 호출 로직에 의존성 주입(DI) 패턴을 적용해 프로그램 유연성 향상
+- 반복적으로 사용하는 컴포넌트의 재사용성을 높여 생산성 향상
+- ToggleButton, SideBar, Modal, 로딩처리, 반응형 웹 등 styled-components를 이용한 다양한 UI구현
+
+<br>
+
 ## 기능소개
 
 - [Session Auth](session-auth)
