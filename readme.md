@@ -170,13 +170,15 @@ https://web-voca-study-app-sop272gld5psn0m.gksl2.cloudtype.app/
 
 - 미디어쿼리를 이용해 반응형 레이아웃을 구현했습니다.
 
+<br>
+
 ## API 명세
 
 ### 회원가입
 
-- Request
+#### Request
 
-```json
+```js
 POST /api/user
 Host: 서버지정 CLIENT_URL
 
@@ -187,48 +189,31 @@ Host: 서버지정 CLIENT_URL
 }
 ```
 
-- Response(성공)
+#### Response(성공)
 
-```json
-HTTP/1.1 200 OK
-set-cookie: session-id:exampleid1q2w3e4r
+```js
+HTTP/1.1 201 Created
+set-cookie: session-id=exampleid1q2w3e4r
 
-{
-  success: true, msg: "등록성공", userName: "exampleName"
-}
+{ msg: "등록성공", userName: "exampleName" }
 ```
 
-- Response(실패)
+#### Response(실패)
 
-```json
+```js
 HTTP/1.1 409 Conflict
 Content-Type: application/json
 
-{
-  "success": false,
-  "msg": "이미 등록된 이메일입니다.",
-  "err": Error
-}
-```
-
-```json
-HTTP/1.1 400
-Content-Type: application/json
-
-{
-  "success": false,
-  "msg": "회원가입 실패",
-  "err": Error
-}
+{ msg: "이미 등록된 이메일입니다.", err: Error }
 ```
 
 <br>
 
 ### 로그인
 
-- Request
+#### Request
 
-```json
+```js
 POST /api/session
 Host: 서버지정 CLIENT_URL
 
@@ -238,18 +223,18 @@ Host: 서버지정 CLIENT_URL
 }
 ```
 
-- Response(성공)
+#### Response(성공)
 
-```json
+```js
 HTTP/1.1 200 OK
-set-cookie: session-id:exampleid1q2w3e4r
+set-cookie: session-id=exampleid1q2w3e4r
 
 { msg: "로그인성공", userName: "name" }
 ```
 
-- Response(실패)
+#### Response(실패)
 
-```json
+```js
 HTTP/1.1 401 Unauthorized
 
 {
@@ -259,7 +244,7 @@ HTTP/1.1 401 Unauthorized
 
 ```
 
-```json
+```js
 HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 
@@ -267,47 +252,323 @@ Content-Type: application/json
 
 ```
 
+<br>
+
 ### 로그아웃
 
-- Request
+#### Request
 
-```json
+```js
 DELETE /api/session
 Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
 ```
 
-- Response(성공)
+#### Response(성공)
 
-```json
-HTTP/1.1 400
-
-{ success: false, msg: "로그아웃 실패" }
-```
-
-### Check Auth
-
-- Request
-
-```json
-get /api/user
-Host: 서버지정 CLIENT_URL
-```
-
-- Response(성공)
-
-```json
+```js
 HTTP/1.1 200 OK
 
-{ success: true, userName: "user-name" }
+{  msg: "로그아웃 성공" }
 ```
 
-- Response(실패)
+<br>
 
-```json
+### 로그인 상태 확인
+
+#### Request
+
+```js
+GET /api/user
+Host: 서버지정 CLIENT_URL
+Cookie?: session-id=abcdef1234567890
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 200 OK
+
+{ userName: "user-name" }
+```
+
+#### Response(실패)
+
+```js
 HTTP/1.1 401 Unauthorized
+```
+
+<br>
+
+## Topics Data
+
+### 토픽 생성
+
+```js
+POST /api/topic
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+
+{ topicName: "my topic", lang: "kr" }
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 201 Created
 
 {
-  "success": false
+  topics:[
+    {
+      topicName:"myTopic",
+      lang:"kr",
+      _id:"63f4f5cb5f836047a0a"
+    }
+  ]
 }
+```
 
+<br>
+
+### 토픽 조회
+
+```js
+GET /api/topic
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 200 OK
+
+{
+  topics:[
+    {
+      topicName:"myTopic",
+      lang:"kr",
+      _id:"63f4f5cb5f836047a0a"
+    }
+  ]
+}
+```
+
+<br>
+
+### 토픽 제거
+
+```js
+DELETE /api/topic/{topicID}
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 200 OK
+
+{
+  topics:[
+    {
+      topicName:"otherTopic",
+      lang:"kr",
+      _id:"33f4f5cb336047a0a"
+    }
+  ]
+  words:[
+    {
+      topic:"wefwe",
+      topicID:"63f504d2e63350d71b4bf92c",
+      lang:"en",
+      word:"wef",
+      meaning:"wef",
+      isMemorized:false,
+      isBookmarked:false,_id:"63f504d4e63350d71b4bf92f"
+    }
+  ]
+}
+```
+
+<br>
+
+### 토픽 수정
+
+```js
+PATCH /api/topic/{topicID}
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+
+{
+  topicName: "newName",
+  lang: "en"
+}
+// 수정이 필요한 키만 입력
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 200 OK
+
+{
+  topics:[
+    {
+      topicName:"newTopic",
+      lang:"en",
+      _id:"33f4f5cb336047a0a"
+    }
+  ]
+  words:[
+    {
+      topic:"wefwe",
+      topicID:"63f504d2e63350d71b4bf92c",
+      lang:"en",
+      word:"wef",
+      meaning:"wef",
+      isMemorized:false,
+      isBookmarked:false,_id:"63f504d4e63350d71b4bf92f"
+    }
+  ]
+}
+```
+
+<br>
+
+## Words Data
+
+### 단어 생성
+
+```js
+POST /api/word
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+
+{
+  topic: "myTopic"
+  topicID: "22wef4d2e63350d71b4bf92c"
+  lang: "en"
+  word: "give"
+  meaning: "주다"
+}
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 201 Created
+
+{
+  words:[
+    {
+      topic:"wefwe",
+      topicID:"63f504d2e63350d71b4bf92c",
+      lang:"en",
+      word:"wef",
+      meaning:"wef",
+      isMemorized:false,
+      isBookmarked:false,_id:"63f504d4e63350d71b4bf92f"
+    }
+  ]
+}
+```
+
+<br>
+
+### 단어 조회
+
+```js
+GET /api/word
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 200 OK
+
+{
+  words:[
+    {
+      topic:"wefwe",
+      topicID:"63f504d2e63350d71b4bf92c",
+      lang:"en",
+      word:"wef",
+      meaning:"wef",
+      isMemorized:false,
+      isBookmarked:false,_id:"63f504d4e63350d71b4bf92f"
+    }
+  ]
+}
+```
+
+<br>
+
+### 단어 삭제
+
+```js
+DELETE /api/word/{wordID}
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 200 OK
+
+{
+  words:[
+    {
+      topic:"wefwe",
+      topicID:"63f504d2e63350d71b4bf92c",
+      lang:"en",
+      word:"wef",
+      meaning:"wef",
+      isMemorized:false,
+      isBookmarked:false,_id:"63f504d4e63350d71b4bf92f"
+    }
+  ]
+}
+```
+
+<br>
+
+### 단어 수정
+
+```js
+PATCH /api/word/{ID}
+Host: 서버지정 CLIENT_URL
+Cookie: session-id=abcdef1234567890
+
+{
+  word: "give"
+  meaning: "주다"
+  isBookmarked: false
+  isMemorized: false
+}
+// 수정이 필요한 키만 입력
+```
+
+#### Response(성공)
+
+```js
+HTTP/1.1 200 OK
+{
+  words:[
+    {
+      topic:"wefwe",
+      topicID:"63f504d2e63350d71b4bf92c",
+      lang:"en",
+      word:"wef",
+      meaning:"wef",
+      isMemorized:false,
+      isBookmarked:false,_id:"63f504d4e63350d71b4bf92f"
+    }
+  ]
+}
 ```
