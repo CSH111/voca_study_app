@@ -169,3 +169,145 @@ https://web-voca-study-app-sop272gld5psn0m.gksl2.cloudtype.app/
 </div>
 
 - 미디어쿼리를 이용해 반응형 레이아웃을 구현했습니다.
+
+## API 명세
+
+### 회원가입
+
+- Request
+
+```json
+POST /api/user
+Host: 서버지정 CLIENT_URL
+
+{
+    email: "johndoe@example.com",
+    password: "password123",
+    name: "exampleName" // not required
+}
+```
+
+- Response(성공)
+
+```json
+HTTP/1.1 200 OK
+set-cookie: session-id:exampleid1q2w3e4r
+
+{
+  success: true, msg: "등록성공", userName: "exampleName"
+}
+```
+
+- Response(실패)
+
+```json
+HTTP/1.1 409 Conflict
+Content-Type: application/json
+
+{
+  "success": false,
+  "msg": "이미 등록된 이메일입니다.",
+  "err": Error
+}
+```
+
+```json
+HTTP/1.1 400
+Content-Type: application/json
+
+{
+  "success": false,
+  "msg": "회원가입 실패",
+  "err": Error
+}
+```
+
+<br>
+
+### 로그인
+
+- Request
+
+```json
+POST /api/session
+Host: 서버지정 CLIENT_URL
+
+{
+    "email": "johndoe@example.com",
+    "password": "password123"
+}
+```
+
+- Response(성공)
+
+```json
+HTTP/1.1 200 OK
+set-cookie: session-id:exampleid1q2w3e4r
+
+{ msg: "로그인성공", userName: "name" }
+```
+
+- Response(실패)
+
+```json
+HTTP/1.1 401 Unauthorized
+
+{
+  msg: "존재하지 않는 아이디입니다.",
+  errName: "noEmail"
+}
+
+```
+
+```json
+HTTP/1.1 401 Unauthorized
+Content-Type: application/json
+
+{ msg: "비밀번호가 다릅니다.", errName: "wrongPw" }
+
+```
+
+### 로그아웃
+
+- Request
+
+```json
+DELETE /api/session
+Host: 서버지정 CLIENT_URL
+```
+
+- Response(성공)
+
+```json
+HTTP/1.1 400
+
+{ success: false, msg: "로그아웃 실패" }
+```
+
+### Check Auth
+
+- Request
+
+```json
+get /api/user
+Host: 서버지정 CLIENT_URL
+```
+
+- Response(성공)
+
+```json
+HTTP/1.1 200 OK
+
+{ success: true, userName: "user-name" }
+```
+
+- Response(실패)
+
+```json
+HTTP/1.1 401 Unauthorized
+
+{
+  "success": false
+}
+
+```
