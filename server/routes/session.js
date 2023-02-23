@@ -1,8 +1,5 @@
 const router = require("express").Router();
-const authorize = require("../middleware/authorize");
 const authenticate = require("../middleware/authenticate");
-
-const { User } = require("../Model/User");
 
 //로그인
 router.post("/", authenticate, (req, res) => {
@@ -29,10 +26,10 @@ router.delete("/", (req, res) => {
   req.session.destroy((err) => {
     //DB의 세션 데이터를 삭제
     if (err) {
-      res.status(400).json({ success: false, msg: "로그아웃 실패" });
+      res.status(500).json({ msg: "로그아웃 실패" });
       return;
     }
-    res.status(200).json({ success: true, msg: "로그아웃 성공" });
+    res.status(200).json({ msg: "로그아웃 성공" });
   });
 });
 

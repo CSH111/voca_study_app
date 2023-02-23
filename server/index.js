@@ -78,19 +78,20 @@ app.post("/api/user", (req, res) => {
     .then(() => {
       const userSession = { email: temp.email, name: temp.name };
       req.session.user = userSession;
-      res.status(200).json({ success: true, msg: "등록성공", userName: temp.name });
+      res.status(201).json({ msg: "등록성공", userName: temp.name });
     })
     .catch((err) => {
       let msg = "회원가입 실패";
       if (err.code === 11000) {
         msg = "이미 등록된 이메일입니다.";
+        res.status(409).json({ msg, error: err });
+        return;
       }
-      res.status(400).json({ success: false, msg, error: err });
+      res.status(500).json({ msg, error: err });
     });
 });
 
 app.get("/api/user", authorize, (req, res) => {
   req.session.touch();
-
-  res.status(200).json({ success: true, userName: req.session.user.name });
+  res.status(200).json({ userName: req.session.user.name });
 });

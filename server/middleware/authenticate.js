@@ -11,12 +11,12 @@ function authenticate(req, res, next) {
     .exec()
     .then((doc) => {
       if (!doc) {
-        res.status(400).json({ msg: "존재하지 않는 아이디입니다.", errName: "noEmail" });
+        res.status(401).json({ msg: "존재하지 않는 아이디입니다.", errName: "noEmail" });
         return;
       }
       bcrypt.compare(temp.pw, doc.pw, (err, result) => {
         if (!result) {
-          res.status(400).json({ msg: "비밀번호가 다릅니다.", errName: "wrongPw" });
+          res.status(401).json({ msg: "비밀번호가 다릅니다.", errName: "wrongPw" });
           return;
         }
         // 미들웨어에서 값을 next로 전달하고 싶을때 req.객체생성
@@ -24,9 +24,8 @@ function authenticate(req, res, next) {
         next();
       });
     }) //
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json({ success: false, msg: "로그인실패" });
+    .catch(() => {
+      res.status(500).json({ msg: "로그인실패" });
     });
 }
 

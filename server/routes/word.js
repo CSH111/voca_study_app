@@ -1,12 +1,14 @@
 const router = require("express").Router();
 const { User } = require("../Model/User");
-
+//TODO: 라우터별 authorization
 router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email })
     .then((resultData) => {
-      res.status(200).json({ success: true, words: resultData.words });
+      res.status(200).json({ words: resultData.words });
     })
-    .catch(console.log);
+    .catch((err) => {
+      res.status(500).json({ msg: "단어조회 실패", err });
+    });
 });
 
 router.post("/", (req, res) => {
@@ -16,9 +18,11 @@ router.post("/", (req, res) => {
     { new: true }
   )
     .then((resultData) => {
-      res.status(200).json({ success: true, words: resultData.words });
+      res.status(201).json({ words: resultData.words });
     })
-    .catch(console.log);
+    .catch((err) => {
+      res.status(500).json({ msg: "단어등록 실패", err });
+    });
 });
 
 router.patch("/:_id", (req, res) => {
@@ -32,10 +36,12 @@ router.patch("/:_id", (req, res) => {
     { arrayFilters: [{ "wordsFilter._id": req.params._id }], new: true }
   )
     .then((resultData) => {
-      if (resultData === null) return res.status(400).json({ success: false });
-      res.status(200).json({ success: true, words: resultData.words });
+      if (resultData === null) return res.status(400).json({});
+      res.status(200).json({ words: resultData.words });
     })
-    .catch(console.log);
+    .catch((err) => {
+      res.status(500).json({ msg: "단어수정 실패", err });
+    });
 });
 
 router.delete("/:_id", (req, res) => {
@@ -45,9 +51,11 @@ router.delete("/:_id", (req, res) => {
     { new: true }
   )
     .then((resultData) => {
-      res.status(200).json({ success: true, words: resultData.words });
+      res.status(200).json({ words: resultData.words });
     })
-    .catch(console.log);
+    .catch((err) => {
+      res.status(500).json({ msg: "단어삭제 실패", err });
+    });
 });
 
 module.exports = router;

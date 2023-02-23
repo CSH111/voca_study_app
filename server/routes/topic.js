@@ -5,9 +5,11 @@ const { User } = require("../Model/User");
 router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email })
     .then((resultData) => {
-      res.status(200).json({ success: true, topics: resultData.topics });
+      res.status(200).json({ topics: resultData.topics });
     })
-    .catch(console.log);
+    .catch((err) => {
+      res.status(500).json({ err });
+    });
 });
 
 router.post("/", authorize, (req, res) => {
@@ -18,9 +20,11 @@ router.post("/", authorize, (req, res) => {
     { new: true }
   )
     .then((resultData) => {
-      res.status(200).json({ success: true, topics: resultData.topics });
+      res.status(201).json({ topics: resultData.topics });
     })
-    .catch(console.log);
+    .catch((err) => {
+      res.status(500).json({ err });
+    });
 });
 
 router.delete("/:_id", (req, res) => {
@@ -36,7 +40,7 @@ router.delete("/:_id", (req, res) => {
   )
     .then((resultData) => {
       const { topics, words } = resultData;
-      res.status(200).json({ success: true, topics, words });
+      res.status(200).json({ topics, words });
     })
     .catch(console.log);
 });
@@ -61,7 +65,7 @@ router.patch("/:_id", (req, res) => {
   )
     .then((resultData) => {
       const { topics, words } = resultData;
-      res.status(200).json({ success: true, topics, words });
+      res.status(200).json({ topics, words });
     })
     .catch(console.log);
 });
