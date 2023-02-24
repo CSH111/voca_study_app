@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const { User } = require("../Model/User");
-//TODO: 라우터별 authorization
+const authorize = require("../middleware/authorize");
+
+router.use(authorize);
+
 router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email })
     .then((resultData) => {

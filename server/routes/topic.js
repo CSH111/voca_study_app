@@ -2,6 +2,8 @@ const router = require("express").Router();
 const authorize = require("../middleware/authorize");
 const { User } = require("../Model/User");
 
+router.use(authorize);
+
 router.get("/", (req, res) => {
   User.findOne({ email: req.session.user.email })
     .then((resultData) => {
@@ -12,7 +14,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", authorize, (req, res) => {
+router.post("/", (req, res) => {
   const { topicName, lang } = req.body;
   User.findOneAndUpdate(
     { email: req.session.user.email },
