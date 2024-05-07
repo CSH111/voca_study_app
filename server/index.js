@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const rootApp = express();
 const app = express();
 const port = process.env.PORT;
 const { User } = require("./Model/User");
@@ -15,6 +16,7 @@ const sessionRouter = require("./routes/session");
 const session = require("express-session");
 const mongoUrl = process.env.MONGO_URI;
 const MongoDBStore = require("connect-mongo");
+const vhost = require("vhost");
 const MAX_AGE = 1000 * 60 * 60 * 24 * 30; // 1month
 const corsOptions = {
   credentials: true,
@@ -26,6 +28,7 @@ const corsOptions = {
     callback(new Error("Not allowed by CORS"));
   },
 };
+rootApp.use(vhost("words.sungho.site", app));
 
 app.use(
   session({
