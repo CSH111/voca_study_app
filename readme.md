@@ -2,7 +2,7 @@
 
 ## 배포주소
 
-https://web-voca-study-app-sop272gld5psn0m.gksl2.cloudtype.app/
+https://words.sungho.site
 
 <br>
 
