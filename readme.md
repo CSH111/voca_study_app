@@ -2,7 +2,7 @@
 
 ## 배포주소
 
-https://words.sungho.site
+https://words.sungho.my
 
 <br>
 
