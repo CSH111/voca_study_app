@@ -20,6 +20,8 @@
     "express-session": "^1.17.3",
     "mongoose": "^6.5.3",
     "nodemon": "^2.0.19",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "vhost": "^3.0.2"
   }
 }

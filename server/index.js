@@ -8,6 +8,7 @@ const port = process.env.PORT;
 const { User } = require("./Model/User");
 const authenticate = require("./middleware/authenticate");
 const authorize = require("./middleware/authorize");
+const { specs, swaggerUi } = require("./swagger");
 
 const topicRouter = require("./routes/topic");
 const wordRouter = require("./routes/word");
@@ -54,6 +55,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/topic", topicRouter);
 app.use("/api/word", wordRouter);
 app.use("/api/session", sessionRouter);
@@ -69,6 +71,74 @@ app.listen(port, () => {
     .catch(console.log);
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - email
+ *         - pw
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: 사용자 이름 (선택사항, 기본값은 이메일 앞부분)
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: 사용자 이메일 주소
+ *         pw:
+ *           type: string
+ *           description: 사용자 비밀번호
+ *     UserResponse:
+ *       type: object
+ *       properties:
+ *         msg:
+ *           type: string
+ *         userName:
+ *           type: string
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         msg:
+ *           type: string
+ *         error:
+ *           type: object
+ */
+
+/**
+ * @swagger
+ * /api/user:
+ *   post:
+ *     summary: 새 사용자 등록
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       201:
+ *         description: 사용자 등록 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserResponse'
+ *       409:
+ *         description: 이미 존재하는 이메일
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       500:
+ *         description: 등록 실패
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
 app.post("/api/user", (req, res) => {
   const temp = {
     name: req.body.name === "" ? req.body.email.split("@")[0] : req.body.name,
@@ -94,6 +164,27 @@ app.post("/api/user", (req, res) => {
     });
 });
 
+/**
+ * @swagger
+ * /api/user:
+ *   get:
+ *     summary: 현재 사용자 정보 조회
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: 사용자 정보 조회 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 userName:
+ *                   type: string
+ *       401:
+ *         description: 인증되지 않음 - 유효한 세션 없음
+ */
 app.get("/api/user", authorize, (req, res) => {
   req.session.touch();
   res.status(200).json({ userName: req.session.user.name });

@@ -1,7 +1,54 @@
 const router = require("express").Router();
 const authenticate = require("../middleware/authenticate");
 
-//로그인
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     LoginRequest:
+ *       type: object
+ *       required:
+ *         - email
+ *         - pw
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *         pw:
+ *           type: string
+ *         name:
+ *           type: string
+ *     LoginResponse:
+ *       type: object
+ *       properties:
+ *         msg:
+ *           type: string
+ *         userName:
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * /api/session:
+ *   post:
+ *     summary: 사용자 로그인
+ *     tags: [Session]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginRequest'
+ *     responses:
+ *       200:
+ *         description: 로그인 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
+ *       401:
+ *         description: 잘못된 인증 정보
+ */
 router.post("/", authenticate, (req, res) => {
   //세션활성화
 
@@ -21,7 +68,25 @@ router.post("/", authenticate, (req, res) => {
   res.status(200).json({ msg: "로그인성공", userName: userSession.name });
 });
 
-//로그아웃
+/**
+ * @swagger
+ * /api/session:
+ *   delete:
+ *     summary: 사용자 로그아웃
+ *     tags: [Session]
+ *     responses:
+ *       200:
+ *         description: 로그아웃 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *       500:
+ *         description: 로그아웃 실패
+ */
 router.delete("/", (req, res) => {
   req.session.destroy((err) => {
     //DB의 세션 데이터를 삭제
