@@ -55,7 +55,20 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
-app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(specs));
+// Swagger UI용 CORS 설정 (직접 접속 허용)
+const swaggerCorsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    // 직접 브라우저 접속 허용 또는 허용된 도메인
+    if (!origin || origin === process.env.CLIENT_URL || origin === process.env.SERVER_URL) {
+      callback(null, true);
+      return;
+    }
+    callback(new Error("Not allowed by CORS"));
+  },
+};
+
+app.use("/api-docs", cors(swaggerCorsOptions), swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/topic", topicRouter);
 app.use("/api/word", wordRouter);
 app.use("/api/session", sessionRouter);
