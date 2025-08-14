@@ -54,8 +54,8 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
-// Swagger UI용 CORS 설정 (직접 접속 허용)
+
+// Swagger UI용 CORS 설정 (직접 접속 허용) - 전역 CORS 전에 먼저 적용
 const swaggerCorsOptions = {
   credentials: true,
   origin: function (origin, callback) {
@@ -69,6 +69,9 @@ const swaggerCorsOptions = {
 };
 
 app.use("/api-docs", cors(swaggerCorsOptions), swaggerUi.serve, swaggerUi.setup(specs));
+
+// 일반 API용 CORS (엄격한 설정)
+app.use(cors(corsOptions));
 app.use("/api/topic", topicRouter);
 app.use("/api/word", wordRouter);
 app.use("/api/session", sessionRouter);
