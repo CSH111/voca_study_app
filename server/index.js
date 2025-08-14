@@ -55,7 +55,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/topic", topicRouter);
 app.use("/api/word", wordRouter);
 app.use("/api/session", sessionRouter);
