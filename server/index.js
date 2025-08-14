@@ -22,14 +22,14 @@ const MAX_AGE = 1000 * 60 * 60 * 24 * 30; // 1month
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
-    if (origin === process.env.CLIENT_URL) {
+    if (origin === process.env.CLIENT_URL || origin === process.env.SERVER_URL) {
       callback(null, true);
       return;
     }
     callback(new Error("Not allowed by CORS"));
   },
 };
-rootApp.use(vhost("words.sungho.site", app));
+rootApp.use(vhost(process.env.SERVER_URL, app));
 
 app.use(
   session({
