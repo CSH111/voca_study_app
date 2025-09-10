@@ -22,7 +22,7 @@ const MAX_AGE = 1000 * 60 * 60 * 24 * 30; // 1month
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
-    if (origin === process.env.CLIENT_URL || origin === process.env.SERVER_URL) {
+    if (!origin || origin === process.env.CLIENT_URL || origin === process.env.SERVER_URL) {
       callback(null, true);
       return;
     }
@@ -41,7 +41,9 @@ app.use(
     cookie: {
       maxAge: MAX_AGE,
       sameSite: false,
-      secure: false,
+      secure: true,
+      httpOnly: true,
+      sameSite: "strict",
     },
     // resave: true,
     resave: false,
